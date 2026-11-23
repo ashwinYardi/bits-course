@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-28.0 -28.0 927.4 399.0" width="100%" height="auto" class="excalidraw-svg">
+<defs>
+<style>
+.excalidraw-text { font-family: "Virgil", "Comic Neue", "Caveat", "Segoe Print", "Bradley Hand", ui-rounded, sans-serif; }
+</style>
+</defs>
+<text x="0.0" y="22.1" font-size="24" font-weight="700" fill="#1e1e1e" class="excalidraw-text">The next-token loop</text>
+<rect x="3.0" y="64.0" width="240.0" height="118.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="0.0" y="60.0" width="240.0" height="118.0" rx="12" fill="#fff3bf" stroke="#d97706" stroke-width="2" />
+<rect x="0.8" y="60.4" width="240.0" height="118.0" rx="13" fill="none" stroke="#d97706" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="44.6" y="110.9" font-size="20" font-weight="700" fill="#1e1e1e" class="excalidraw-text">Prompt tokens</text>
+<text x="79.4" y="139.4" font-size="14" font-weight="500" fill="#64748b" class="excalidraw-text">the server</text>
+<rect x="353.0" y="64.0" width="240.0" height="118.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="350.0" y="60.0" width="240.0" height="118.0" rx="12" fill="#e5dbff" stroke="#6d28d9" stroke-width="2" />
+<rect x="349.2" y="59.6" width="240.0" height="118.0" rx="13" fill="none" stroke="#6d28d9" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="406.2" y="110.9" font-size="20" font-weight="700" fill="#1e1e1e" class="excalidraw-text">LLM weights</text>
+<text x="392.9" y="139.4" font-size="14" font-weight="500" fill="#64748b" class="excalidraw-text">billions of numbers</text>
+<rect x="353.0" y="229.0" width="240.0" height="118.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="350.0" y="225.0" width="240.0" height="118.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
+<rect x="350.8" y="225.5" width="240.0" height="118.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="435.2" y="275.9" font-size="20" font-weight="700" fill="#1e1e1e" class="excalidraw-text">Logits</text>
+<text x="396.9" y="304.4" font-size="14" font-weight="500" fill="#64748b" class="excalidraw-text">raw score per word</text>
+<rect x="3.0" y="229.0" width="240.0" height="118.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="0.0" y="225.0" width="240.0" height="118.0" rx="12" fill="#d3f9d8" stroke="#15803d" stroke-width="2" />
+<rect x="-0.9" y="224.5" width="240.0" height="118.0" rx="13" fill="none" stroke="#15803d" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="79.4" y="275.9" font-size="20" font-weight="700" fill="#1e1e1e" class="excalidraw-text">Sampler</text>
+<text x="46.9" y="304.4" font-size="14" font-weight="500" fill="#64748b" class="excalidraw-text">softmax + pick one</text>
+<path d="M 248.0 119.0 Q 296.1 117.5 342.0 119.0" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M 332.7 124.9 L 342.0 119.0 L 332.7 113.1" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<text x="268.6" y="105.0" font-size="13" font-weight="500" fill="#64748b" class="excalidraw-text">feed in</text>
+<path d="M 470.0 186.0 Q 468.9 203.0 470.0 217.0" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M 464.1 207.7 L 470.0 217.0 L 475.9 207.7" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<text x="484.0" y="205.5" font-size="13" font-weight="500" fill="#64748b" class="excalidraw-text">compute</text>
+<path d="M 342.0 284.0 Q 296.2 282.6 248.0 284.0" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M 257.3 278.1 L 248.0 284.0 L 257.3 289.9" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<text x="276.1" y="270.0" font-size="13" font-weight="500" fill="#64748b" class="excalidraw-text">scale</text>
+<path d="M 120.0 217.0 Q 118.7 202.8 120.0 186.0" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 5" />
+<path d="M 125.9 195.3 L 120.0 186.0 L 114.1 195.3" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<text x="134.0" y="205.5" font-size="13" font-weight="500" fill="#64748b" class="excalidraw-text">append</text>
+<text x="680.0" y="275.8" font-size="15" font-weight="600" fill="#c2255c" class="excalidraw-text">temperature shapes how</text>
+<text x="680.0" y="297.8" font-size="15" font-weight="600" fill="#c2255c" class="excalidraw-text">bold this pick is</text>
+<path d="M 664.0 284.0 Q 458.5 286.0 250.0 284.0" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 5" />
+<path d="M 259.3 278.1 L 250.0 284.0 L 259.3 289.9" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

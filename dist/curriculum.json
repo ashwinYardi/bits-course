@@ -1,0 +1,1962 @@
+{
+  "course": {
+    "title": "BitsByBlocks \u00b7 AI Engineering Notebook",
+    "subtitle": "From zero to building and training real models \u2014 one hands-on lab, one honest Turn, and one shareable story at a time.",
+    "author": "Ashwin Yardi",
+    "brand": "BitsByBlocks",
+    "url": "https://bitsbyblocks.com"
+  },
+  "levels": [
+    {
+      "level": 0,
+      "name": "Ground floor",
+      "after": "You can call an LLM on purpose instead of by vibes."
+    },
+    {
+      "level": 1,
+      "name": "Inside the box",
+      "after": "You can explain what happens to one token, end to end."
+    },
+    {
+      "level": 2,
+      "name": "AI engineer",
+      "after": "You can ship a feature on top of a model and prove it works."
+    },
+    {
+      "level": 3,
+      "name": "Adapter",
+      "after": "You can change a model's behaviour with data, not just prompts."
+    },
+    {
+      "level": 4,
+      "name": "Operator",
+      "after": "You can run it in production, fast, cheap, and observable."
+    },
+    {
+      "level": 5,
+      "name": "Builder",
+      "after": "You can reason about training and systems the way a lab does."
+    }
+  ],
+  "modules": [
+    {
+      "id": "l0-what-is-an-llm",
+      "level": 0,
+      "title": "What an LLM actually is",
+      "question": "What is the model really doing when it answers you?",
+      "can": "Describe an LLM as a next-token predictor, and say what that rules out.",
+      "jargon": [
+        "large language model",
+        "next-token prediction",
+        "parameters",
+        "weights",
+        "inference",
+        "training"
+      ],
+      "sources": [
+        {
+          "name": "Karpathy, Deep Dive into LLMs like ChatGPT",
+          "url": "https://www.youtube.com/watch?v=7xTGNNLPyMI"
+        },
+        {
+          "name": "Hugging Face LLM Course, chapter 1",
+          "url": "https://huggingface.co/learn/llm-course/chapter1/1"
+        },
+        {
+          "name": "Raschka, Build an LLM from Scratch, ch.1",
+          "url": "https://sebastianraschka.com/llms-from-scratch/"
+        }
+      ],
+      "proof": [
+        "HF course ch.1",
+        "Raschka ch.1",
+        "Huyen ch.1",
+        "Labonne fundamentals"
+      ],
+      "exercise": "Call any chat API with the same prompt five times at temperature 1 and diff the answers.",
+      "figures": [
+        "flow: prompt to probabilities to one token, looped",
+        "grid: top five candidate tokens with probabilities"
+      ],
+      "prereqs": []
+    },
+    {
+      "id": "l0-tokens",
+      "level": 0,
+      "title": "Tokens: how your text becomes numbers",
+      "question": "Why does the model see 'strawberry' as pieces and miscount its letters?",
+      "can": "Predict token counts, estimate cost, and debug tokenizer weirdness.",
+      "jargon": [
+        "token",
+        "tokenizer",
+        "byte pair encoding",
+        "vocabulary",
+        "token ID",
+        "special token"
+      ],
+      "sources": [
+        {
+          "name": "Karpathy, Let's build the GPT Tokenizer",
+          "url": "https://www.youtube.com/watch?v=zduSFxRajkE"
+        },
+        {
+          "name": "Hugging Face LLM Course, chapter 6 (tokenizers)",
+          "url": "https://huggingface.co/learn/llm-course/chapter6/1"
+        },
+        {
+          "name": "tiktoken",
+          "url": "https://github.com/openai/tiktoken"
+        }
+      ],
+      "proof": [
+        "CS336 lecture 1",
+        "Raschka ch.2",
+        "HF course ch.6"
+      ],
+      "exercise": "Tokenise ten strings with tiktoken, including an emoji, a URL, and Hindi text. Count tokens per character.",
+      "figures": [
+        "flow: text to pieces to IDs",
+        "grid: the same sentence under two tokenizers"
+      ],
+      "prereqs": [
+        "l0-what-is-an-llm"
+      ]
+    },
+    {
+      "id": "l0-embeddings",
+      "level": 0,
+      "title": "Embeddings: meaning as coordinates",
+      "question": "How can a machine tell that 'doctor' and 'nurse' are neighbours?",
+      "can": "Explain vector similarity and pick an embedding model for a task.",
+      "jargon": [
+        "embedding",
+        "vector",
+        "dimension",
+        "cosine similarity",
+        "embedding model"
+      ],
+      "sources": [
+        {
+          "name": "Jay Alammar, The Illustrated Word2vec",
+          "url": "https://jalammar.github.io/illustrated-word2vec/"
+        },
+        {
+          "name": "MTEB embedding leaderboard",
+          "url": "https://huggingface.co/spaces/mteb/leaderboard"
+        },
+        {
+          "name": "Raschka, Build an LLM from Scratch, ch.2",
+          "url": "https://sebastianraschka.com/llms-from-scratch/"
+        }
+      ],
+      "proof": [
+        "Raschka ch.2",
+        "Labonne fundamentals NLP",
+        "HF course ch.1",
+        "Huyen ch.6"
+      ],
+      "exercise": "Embed twenty sentences, compute cosine similarity, and find the pair the model thinks is closest.",
+      "figures": [
+        "grid: four words as short vectors",
+        "flow: text to embedding to nearest neighbour"
+      ],
+      "prereqs": [
+        "l0-tokens"
+      ]
+    },
+    {
+      "id": "l0-context-window",
+      "level": 0,
+      "title": "The context window is your whole memory",
+      "question": "Where does the model keep what you told it two messages ago?",
+      "can": "Budget a prompt and explain why a long document gets ignored in the middle.",
+      "jargon": [
+        "context window",
+        "prompt",
+        "completion",
+        "truncation",
+        "lost in the middle"
+      ],
+      "sources": [
+        {
+          "name": "Liu et al., Lost in the Middle",
+          "url": "https://arxiv.org/abs/2307.03172"
+        },
+        {
+          "name": "Anthropic, long context tips",
+          "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/long-context-tips"
+        }
+      ],
+      "proof": [
+        "Huyen ch.5",
+        "Labonne engineer track",
+        "CS336 lecture 10"
+      ],
+      "exercise": "Put a fact at the start, middle, and end of a 50k token document and ask for it three times.",
+      "figures": [
+        "grid: a long prompt with the middle greyed out",
+        "flow: what gets dropped when you overflow"
+      ],
+      "prereqs": [
+        "l0-tokens"
+      ]
+    },
+    {
+      "id": "l0-sampling",
+      "level": 0,
+      "title": "Temperature, top-p, and why answers vary",
+      "question": "Why does the same prompt give a different answer each time?",
+      "can": "Choose decoding settings deliberately instead of copying defaults.",
+      "jargon": [
+        "sampling",
+        "greedy decoding",
+        "temperature",
+        "top-k",
+        "top-p",
+        "beam search",
+        "seed"
+      ],
+      "sources": [
+        {
+          "name": "Labonne, Decoding Strategies in LLMs",
+          "url": "https://mlabonne.github.io/blog/posts/2022-06-07-Decoding_strategies.html"
+        },
+        {
+          "name": "Huyen, AI Engineering, ch.2 sampling",
+          "url": "https://github.com/chiphuyen/aie-book"
+        }
+      ],
+      "proof": [
+        "Huyen ch.2",
+        "Labonne scientist track",
+        "Raschka ch.5",
+        "CS336 lecture 10"
+      ],
+      "exercise": "Generate the same completion at temperature 0, 0.7, and 1.4, ten times each, and count unique outputs.",
+      "figures": [
+        "grid: the same distribution at temperature 0.2 and 1.5",
+        "flow: logits to probabilities to a pick"
+      ],
+      "prereqs": [
+        "l0-what-is-an-llm"
+      ]
+    },
+    {
+      "id": "l0-api-surface",
+      "level": 0,
+      "title": "The API surface: messages, roles, streaming",
+      "question": "What is actually sent over the wire when you call a chat model?",
+      "can": "Read any provider's API docs and map it to the same underlying request.",
+      "jargon": [
+        "system prompt",
+        "role",
+        "message",
+        "streaming",
+        "stop sequence",
+        "max tokens",
+        "tool schema"
+      ],
+      "sources": [
+        {
+          "name": "OpenAI Cookbook",
+          "url": "https://cookbook.openai.com/"
+        },
+        {
+          "name": "Anthropic Messages API",
+          "url": "https://docs.anthropic.com/en/api/messages"
+        }
+      ],
+      "proof": [
+        "Huyen ch.1 and ch.5",
+        "Labonne engineer track",
+        "HF course ch.1"
+      ],
+      "exercise": "Send one request with curl, read the raw streamed chunks, and reassemble the answer yourself.",
+      "figures": [
+        "stack: the request body, field by field",
+        "flow: request to stream of tokens"
+      ],
+      "prereqs": [
+        "l0-what-is-an-llm"
+      ]
+    },
+    {
+      "id": "l0-cost-latency",
+      "level": 0,
+      "title": "What a call costs and why it feels slow",
+      "question": "Why is the first word slow but the rest fast?",
+      "can": "Estimate cost and latency for a feature before you build it.",
+      "jargon": [
+        "prefill",
+        "decode",
+        "time to first token",
+        "tokens per second",
+        "input and output pricing"
+      ],
+      "sources": [
+        {
+          "name": "Anyscale, continuous batching for LLM inference",
+          "url": "https://www.anyscale.com/blog/continuous-batching-llm-inference"
+        },
+        {
+          "name": "Huyen, AI Engineering, ch.9",
+          "url": "https://github.com/chiphuyen/aie-book"
+        }
+      ],
+      "proof": [
+        "Huyen ch.9",
+        "CS336 lecture 10",
+        "Labonne engineer track"
+      ],
+      "exercise": "Measure time to first token and tokens per second for a short and a 20k token prompt.",
+      "figures": [
+        "flow: prefill then decode, with a clock on each",
+        "grid: cost per feature at three volumes"
+      ],
+      "prereqs": [
+        "l0-api-surface",
+        "l0-tokens"
+      ]
+    },
+    {
+      "id": "l0-hallucination",
+      "level": 0,
+      "title": "Why models make things up",
+      "question": "Why does a model invent a citation with total confidence?",
+      "can": "Tell apart the failure modes, and pick the fix that matches each one.",
+      "jargon": [
+        "hallucination",
+        "grounding",
+        "closed book",
+        "calibration",
+        "confabulation"
+      ],
+      "sources": [
+        {
+          "name": "Lilian Weng, Extrinsic Hallucinations in LLMs",
+          "url": "https://lilianweng.github.io/posts/2024-07-07-hallucination/"
+        },
+        {
+          "name": "Huyen, AI Engineering, ch.3",
+          "url": "https://github.com/chiphuyen/aie-book"
+        }
+      ],
+      "proof": [
+        "Huyen ch.3",
+        "Labonne engineer track",
+        "HF course ch.1"
+      ],
+      "exercise": "Ask for five citations on a niche topic and check every one. Log which parts were invented.",
+      "figures": [
+        "flow: a confident wrong answer, step by step",
+        "stack: three causes and the fix for each"
+      ],
+      "prereqs": [
+        "l0-sampling"
+      ]
+    },
+    {
+      "id": "l1-attention",
+      "level": 1,
+      "title": "Attention: how a token looks at other tokens",
+      "question": "How does the model know which earlier word a pronoun refers to?",
+      "can": "Explain queries, keys, and values without hand waving.",
+      "jargon": [
+        "attention",
+        "query",
+        "key",
+        "value",
+        "self-attention",
+        "attention head",
+        "causal mask"
+      ],
+      "sources": [
+        {
+          "name": "Vaswani et al., Attention Is All You Need",
+          "url": "https://arxiv.org/abs/1706.03762"
+        },
+        {
+          "name": "Jay Alammar, The Illustrated Transformer",
+          "url": "https://jalammar.github.io/illustrated-transformer/"
+        },
+        {
+          "name": "Raschka, Build an LLM from Scratch, ch.3",
+          "url": "https://sebastianraschka.com/llms-from-scratch/"
+        }
+      ],
+      "proof": [
+        "CS336 lecture 3",
+        "Raschka ch.3",
+        "Karpathy makemore GPT",
+        "HF course ch.1"
+      ],
+      "exercise": "Hand compute attention for three tokens with two dimensional vectors. No framework.",
+      "figures": [
+        "grid: attention scores for a five token sentence",
+        "flow: one token's query against every key"
+      ],
+      "prereqs": [
+        "l0-embeddings"
+      ]
+    },
+    {
+      "id": "l1-transformer-block",
+      "level": 1,
+      "title": "The transformer block, one layer at a time",
+      "question": "What is stacked 80 times inside a large model?",
+      "can": "Name every part of a block and say what breaks without it.",
+      "jargon": [
+        "residual connection",
+        "layer normalisation",
+        "feed forward network",
+        "activation",
+        "depth"
+      ],
+      "sources": [
+        {
+          "name": "Raschka, Build an LLM from Scratch, ch.4",
+          "url": "https://sebastianraschka.com/llms-from-scratch/"
+        },
+        {
+          "name": "Karpathy, Let's build GPT from scratch",
+          "url": "https://www.youtube.com/watch?v=kCc8FmEb1nY"
+        }
+      ],
+      "proof": [
+        "CS336 lecture 3",
+        "Raschka ch.4",
+        "Karpathy zero to hero",
+        "Labonne scientist track"
+      ],
+      "exercise": "Delete the residual connection in a tiny nanoGPT and watch the loss curve change.",
+      "figures": [
+        "stack: attention, add and norm, feed forward, add and norm",
+        "flow: one vector through one block"
+      ],
+      "prereqs": [
+        "l1-attention"
+      ]
+    },
+    {
+      "id": "l1-position",
+      "level": 1,
+      "title": "How the model knows word order",
+      "question": "Attention sees a bag of tokens, so where does order come from?",
+      "can": "Explain positional encoding and why RoPE shows up in every modern model.",
+      "jargon": [
+        "positional encoding",
+        "absolute position",
+        "relative position",
+        "RoPE",
+        "context extension"
+      ],
+      "sources": [
+        {
+          "name": "Su et al., RoFormer (RoPE)",
+          "url": "https://arxiv.org/abs/2104.09864"
+        },
+        {
+          "name": "Raschka, Build an LLM from Scratch, ch.2 and ch.4",
+          "url": "https://sebastianraschka.com/llms-from-scratch/"
+        }
+      ],
+      "proof": [
+        "CS336 lecture 3",
+        "Raschka ch.2",
+        "Labonne scientist track"
+      ],
+      "exercise": "Shuffle the words of a sentence and compare the model's loss on both orders.",
+      "figures": [
+        "grid: the same tokens shuffled, identical without position",
+        "flow: where position is injected"
+      ],
+      "prereqs": [
+        "l1-attention"
+      ]
+    },
+    {
+      "id": "l1-training-loop",
+      "level": 1,
+      "title": "What training actually changes",
+      "question": "What does 'the model learned' mean in terms of arithmetic?",
+      "can": "Explain loss, gradients, and one optimiser step in plain words.",
+      "jargon": [
+        "loss function",
+        "cross entropy",
+        "gradient",
+        "backpropagation",
+        "learning rate",
+        "epoch",
+        "batch"
+      ],
+      "sources": [
+        {
+          "name": "Karpathy, micrograd: intro to backpropagation",
+          "url": "https://www.youtube.com/watch?v=VMj-3S1tku0"
+        },
+        {
+          "name": "Karpathy, Neural Networks Zero to Hero",
+          "url": "https://karpathy.ai/zero-to-hero.html"
+        }
+      ],
+      "proof": [
+        "Karpathy zero to hero 1 and 2",
+        "Raschka ch.5",
+        "CS336 assignment 1",
+        "Labonne fundamentals"
+      ],
+      "exercise": "Train a bigram character model on one text file and watch loss fall. Under 50 lines.",
+      "figures": [
+        "flow: forward pass, loss, backward pass, update",
+        "grid: one weight before and after a step"
+      ],
+      "prereqs": [
+        "l0-what-is-an-llm"
+      ]
+    },
+    {
+      "id": "l1-training-stages",
+      "level": 1,
+      "title": "Pretraining, fine-tuning, alignment: three different things",
+      "question": "Which stage made the model helpful, and which one made it fluent?",
+      "can": "Place any model behaviour in the stage that produced it.",
+      "jargon": [
+        "pretraining",
+        "base model",
+        "supervised fine-tuning",
+        "post-training",
+        "instruct model",
+        "alignment"
+      ],
+      "sources": [
+        {
+          "name": "Ouyang et al., InstructGPT",
+          "url": "https://arxiv.org/abs/2203.02155"
+        },
+        {
+          "name": "Huyen, AI Engineering, ch.2 post-training",
+          "url": "https://github.com/chiphuyen/aie-book"
+        }
+      ],
+      "proof": [
+        "CS336 lectures 15 to 17",
+        "Huyen ch.2",
+        "Labonne scientist track",
+        "HF course ch.11"
+      ],
+      "exercise": "Prompt a base model and its instruct sibling with the same question and diff the behaviour.",
+      "figures": [
+        "flow: raw text to base model to SFT to preference tuning",
+        "stack: what each stage buys you"
+      ],
+      "prereqs": [
+        "l1-training-loop"
+      ]
+    },
+    {
+      "id": "l1-kv-cache",
+      "level": 1,
+      "title": "The KV cache, or why the second token is cheap",
+      "question": "Does the model reread your whole prompt for every new word?",
+      "can": "Explain the memory-for-compute trade that makes generation usable.",
+      "jargon": [
+        "KV cache",
+        "prefill",
+        "decode step",
+        "cache eviction",
+        "memory bandwidth"
+      ],
+      "sources": [
+        {
+          "name": "Kwon et al., PagedAttention and vLLM",
+          "url": "https://arxiv.org/abs/2309.06180"
+        },
+        {
+          "name": "Lilian Weng, Large Transformer Model Inference Optimization",
+          "url": "https://lilianweng.github.io/posts/2023-01-10-inference-optimization/"
+        }
+      ],
+      "proof": [
+        "CS336 lecture 10",
+        "Huyen ch.9",
+        "Labonne engineer track"
+      ],
+      "exercise": "Compute the KV cache size in gigabytes for a 7B model at 8k context. Then at 128k.",
+      "figures": [
+        "grid: the cache growing one column per token",
+        "flow: with cache against without"
+      ],
+      "prereqs": [
+        "l1-attention",
+        "l0-cost-latency"
+      ]
+    },
+    {
+      "id": "l1-logits",
+      "level": 1,
+      "title": "Logits, logprobs, and getting structure out",
+      "question": "Can you make the model return JSON that always parses?",
+      "can": "Use logprobs for confidence and constrained decoding for shape.",
+      "jargon": [
+        "logit",
+        "softmax",
+        "log probability",
+        "constrained decoding",
+        "grammar",
+        "structured output"
+      ],
+      "sources": [
+        {
+          "name": "OpenAI, structured outputs guide",
+          "url": "https://platform.openai.com/docs/guides/structured-outputs"
+        },
+        {
+          "name": "Huyen, AI Engineering, ch.2 structured outputs",
+          "url": "https://github.com/chiphuyen/aie-book"
+        }
+      ],
+      "proof": [
+        "Huyen ch.2",
+        "Labonne engineer track",
+        "HF course ch.1"
+      ],
+      "exercise": "Request the same JSON with a plain prompt and with a schema. Measure the parse failure rate over 100 calls.",
+      "figures": [
+        "flow: logits, mask, softmax, pick",
+        "grid: allowed and blocked tokens at one step"
+      ],
+      "prereqs": [
+        "l0-sampling"
+      ]
+    },
+    {
+      "id": "l1-tokenizer-traps",
+      "level": 1,
+      "title": "Tokenizer traps that break real features",
+      "question": "Why does your feature cost triple for Hindi and break on numbers?",
+      "can": "Spot tokenizer-caused bugs instead of blaming the model.",
+      "jargon": [
+        "token fertility",
+        "byte fallback",
+        "vocabulary coverage",
+        "digit splitting",
+        "glitch token"
+      ],
+      "sources": [
+        {
+          "name": "Karpathy, Let's build the GPT Tokenizer",
+          "url": "https://www.youtube.com/watch?v=zduSFxRajkE"
+        },
+        {
+          "name": "Hugging Face LLM Course, chapter 6",
+          "url": "https://huggingface.co/learn/llm-course/chapter6/1"
+        }
+      ],
+      "proof": [
+        "CS336 lecture 1",
+        "HF course ch.6",
+        "Raschka ch.2"
+      ],
+      "exercise": "Compare tokens per character for English, Hindi, and JSON. Turn the ratio into a cost multiplier.",
+      "figures": [
+        "grid: tokens per word across four languages",
+        "flow: an arithmetic prompt split badly"
+      ],
+      "prereqs": [
+        "l0-tokens"
+      ]
+    },
+    {
+      "id": "l2-prompting",
+      "level": 2,
+      "title": "Prompting that survives production",
+      "question": "Why does a prompt that worked in the playground fail on real users?",
+      "can": "Write prompts with structure, examples, and defences against drift.",
+      "jargon": [
+        "few-shot",
+        "zero-shot",
+        "chain of thought",
+        "prompt template",
+        "delimiter",
+        "prompt drift"
+      ],
+      "sources": [
+        {
+          "name": "Lilian Weng, Prompt Engineering",
+          "url": "https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/"
+        },
+        {
+          "name": "Anthropic, prompt engineering overview",
+          "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview"
+        },
+        {
+          "name": "Huyen, AI Engineering, ch.5",
+          "url": "https://github.com/chiphuyen/aie-book"
+        }
+      ],
+      "proof": [
+        "Huyen ch.5",
+        "Labonne engineer track",
+        "HF course ch.1"
+      ],
+      "exercise": "Take one prompt, add three few-shot examples, and measure the change on twenty real inputs.",
+      "figures": [
+        "stack: the anatomy of a production prompt",
+        "flow: user input entering a template"
+      ],
+      "prereqs": [
+        "l0-api-surface"
+      ]
+    },
+    {
+      "id": "l2-evals-method",
+      "level": 2,
+      "title": "How to evaluate something with no right answer",
+      "question": "The output is a paragraph, so what exactly do you measure?",
+      "can": "Pick a metric that moves when quality moves, and know its blind spots.",
+      "jargon": [
+        "benchmark",
+        "LLM as a judge",
+        "pairwise comparison",
+        "rubric",
+        "inter-annotator agreement",
+        "contamination"
+      ],
+      "sources": [
+        {
+          "name": "Huyen, AI Engineering, ch.3 evaluation methodology",
+          "url": "https://github.com/chiphuyen/aie-book"
+        },
+        {
+          "name": "Stanford HELM",
+          "url": "https://crfm.stanford.edu/helm/"
+        },
+        {
+          "name": "LMArena",
+          "url": "https://lmarena.ai/"
+        }
+      ],
+      "proof": [
+        "CS336 lecture 12",
+        "Huyen ch.3",
+        "Labonne scientist track"
+      ],
+      "exercise": "Score 30 outputs yourself, then with an LLM judge, and measure how often they disagree.",
+      "figures": [
+        "flow: output to judge to score",
+        "stack: four metric families and what each misses"
+      ],
+      "prereqs": [
+        "l2-prompting"
+      ]
+    },
+    {
+      "id": "l2-your-evals",
+      "level": 2,
+      "title": "Building the eval set for your own feature",
+      "question": "How do you know a prompt change made things better, not just different?",
+      "can": "Build a small labelled set and run it on every change.",
+      "jargon": [
+        "golden set",
+        "regression test",
+        "error analysis",
+        "failure taxonomy",
+        "annotation"
+      ],
+      "sources": [
+        {
+          "name": "Hamel Husain, Your AI product needs evals",
+          "url": "https://hamel.dev/blog/posts/evals/"
+        },
+        {
+          "name": "Applied LLMs, What we learned from a year of building",
+          "url": "https://applied-llms.org/"
+        },
+        {
+          "name": "Huyen, AI Engineering, ch.4",
+          "url": "https://github.com/chiphuyen/aie-book"
+        }
+      ],
+      "proof": [
+        "Huyen ch.4",
+        "Applied LLMs field guide",
+        "Labonne engineer track"
+      ],
+      "exercise": "Pull 50 real inputs, label the failures into categories, and count which category dominates.",
+      "figures": [
+        "flow: production logs to labelled set to CI",
+        "grid: a failure taxonomy with counts"
+      ],
+      "prereqs": [
+        "l2-evals-method"
+      ]
+    },
+    {
+      "id": "l2-rag",
+      "level": 2,
+      "title": "Retrieval augmented generation, the honest version",
+      "question": "How do you make a model answer from your documents, not its memory?",
+      "can": "Build a retrieval pipeline and explain where it usually fails.",
+      "jargon": [
+        "retrieval augmented generation",
+        "corpus",
+        "index",
+        "top-k retrieval",
+        "grounding",
+        "citation"
+      ],
+      "sources": [
+        {
+          "name": "Lewis et al., Retrieval-Augmented Generation",
+          "url": "https://arxiv.org/abs/2005.11401"
+        },
+        {
+          "name": "Huyen, AI Engineering, ch.6",
+          "url": "https://github.com/chiphuyen/aie-book"
+        }
+      ],
+      "proof": [
+        "Huyen ch.6",
+        "Labonne engineer track 3",
+        "HF course ch.1"
+      ],
+      "exercise": "Build RAG over 20 of your own markdown files and log every case where the right chunk was missed.",
+      "figures": [
+        "flow: question, retrieve, stuff, answer",
+        "grid: retrieved chunks with relevance scores"
+      ],
+      "prereqs": [
+        "l0-embeddings",
+        "l2-prompting"
+      ]
+    },
+    {
+      "id": "l2-chunking",
+      "level": 2,
+      "title": "Chunking and vector search, where RAG actually breaks",
+      "question": "Why did retrieval return the wrong paragraph of the right document?",
+      "can": "Choose chunk size and search strategy from evidence, not folklore.",
+      "jargon": [
+        "chunk",
+        "overlap",
+        "vector database",
+        "approximate nearest neighbour",
+        "recall",
+        "hybrid search"
+      ],
+      "sources": [
+        {
+          "name": "Anthropic, Contextual Retrieval",
+          "url": "https://www.anthropic.com/news/contextual-retrieval"
+        },
+        {
+          "name": "Labonne, LLM course engineer track",
+          "url": "https://github.com/mlabonne/llm-course"
+        }
+      ],
+      "proof": [
+        "Huyen ch.6",
+        "Labonne engineer track 2 and 4"
+      ],
+      "exercise": "Index the same corpus at 300, 800, and 2000 token chunks. Measure retrieval recall on 20 questions.",
+      "figures": [
+        "grid: one document cut three ways",
+        "flow: query to candidates to top-k"
+      ],
+      "prereqs": [
+        "l2-rag"
+      ]
+    },
+    {
+      "id": "l2-reranking",
+      "level": 2,
+      "title": "Reranking and hybrid retrieval",
+      "question": "Embeddings return plausible chunks, so how do you get the right one on top?",
+      "can": "Add keyword search and a reranker, and know what each fixes.",
+      "jargon": [
+        "BM25",
+        "reranker",
+        "cross encoder",
+        "bi encoder",
+        "fusion",
+        "precision at k"
+      ],
+      "sources": [
+        {
+          "name": "Anthropic, Contextual Retrieval",
+          "url": "https://www.anthropic.com/news/contextual-retrieval"
+        },
+        {
+          "name": "Huyen, AI Engineering, ch.6",
+          "url": "https://github.com/chiphuyen/aie-book"
+        }
+      ],
+      "proof": [
+        "Huyen ch.6",
+        "Labonne engineer track 4",
+        "Applied LLMs field guide"
+      ],
+      "exercise": "Add BM25 next to your vector search and measure precision at 3 on the same 20 questions.",
+      "figures": [
+        "flow: two retrievers merging into a reranker",
+        "grid: ranking before and after"
+      ],
+      "prereqs": [
+        "l2-chunking"
+      ]
+    },
+    {
+      "id": "l2-tools",
+      "level": 2,
+      "title": "Tool calling: letting the model touch your system",
+      "question": "How does a text model end up running your function?",
+      "can": "Design tool schemas and handle the model getting arguments wrong.",
+      "jargon": [
+        "tool calling",
+        "function calling",
+        "JSON schema",
+        "tool result",
+        "parallel tool calls"
+      ],
+      "sources": [
+        {
+          "name": "Anthropic, tool use",
+          "url": "https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/overview"
+        },
+        {
+          "name": "Model Context Protocol",
+          "url": "https://modelcontextprotocol.io/"
+        }
+      ],
+      "proof": [
+        "Huyen ch.6",
+        "Labonne engineer track 5",
+        "HF course ch.11"
+      ],
+      "exercise": "Give a model one calculator tool and log how often it calls it with malformed arguments.",
+      "figures": [
+        "flow: model, tool request, your code, tool result, model",
+        "stack: a tool schema field by field"
+      ],
+      "prereqs": [
+        "l1-logits",
+        "l2-prompting"
+      ]
+    },
+    {
+      "id": "l2-agents",
+      "level": 2,
+      "title": "Agents, and when a loop is the wrong answer",
+      "question": "When is an agent better than a well-written single call?",
+      "can": "Pick between a workflow and an agent, and cap the damage either way.",
+      "jargon": [
+        "agent",
+        "planning",
+        "ReAct",
+        "workflow",
+        "orchestration",
+        "guardrail",
+        "step budget"
+      ],
+      "sources": [
+        {
+          "name": "Anthropic, Building effective agents",
+          "url": "https://www.anthropic.com/engineering/building-effective-agents"
+        },
+        {
+          "name": "Lilian Weng, LLM Powered Autonomous Agents",
+          "url": "https://lilianweng.github.io/posts/2023-06-23-agent/"
+        },
+        {
+          "name": "Huyen, AI Engineering, ch.6",
+          "url": "https://github.com/chiphuyen/aie-book"
+        }
+      ],
+      "proof": [
+        "Huyen ch.6",
+        "Labonne engineer track 5",
+        "Applied LLMs field guide"
+      ],
+      "exercise": "Take one agent task, rewrite it as a fixed three step workflow, and compare cost and success rate.",
+      "figures": [
+        "flow: a five step agent loop with a budget",
+        "stack: workflow patterns against agent patterns"
+      ],
+      "prereqs": [
+        "l2-tools",
+        "l2-your-evals"
+      ]
+    },
+    {
+      "id": "l3-adapt-decision",
+      "level": 3,
+      "title": "Prompt, retrieve, or fine-tune: choosing correctly",
+      "question": "Your model is wrong on your domain. Which lever do you pull?",
+      "can": "Make the call with a cost and evidence argument, not a preference.",
+      "jargon": [
+        "adaptation",
+        "parametric knowledge",
+        "context knowledge",
+        "distribution shift"
+      ],
+      "sources": [
+        {
+          "name": "Huyen, AI Engineering, ch.7 finetuning",
+          "url": "https://github.com/chiphuyen/aie-book"
+        },
+        {
+          "name": "Applied LLMs, a year of building",
+          "url": "https://applied-llms.org/"
+        }
+      ],
+      "proof": [
+        "Huyen ch.7",
+        "Labonne scientist track",
+        "Applied LLMs field guide"
+      ],
+      "exercise": "Write the decision memo for one real failure in your product, with numbers for all three options.",
+      "figures": [
+        "tree: the decision, branch by branch",
+        "grid: cost and latency of each option"
+      ],
+      "prereqs": [
+        "l2-rag",
+        "l2-your-evals"
+      ]
+    },
+    {
+      "id": "l3-sft",
+      "level": 3,
+      "title": "Supervised fine-tuning: teaching a format",
+      "question": "What does fine-tuning actually teach, and what can it never teach?",
+      "can": "Build an instruction dataset and run SFT without fooling yourself.",
+      "jargon": [
+        "supervised fine-tuning",
+        "instruction tuning",
+        "chat template",
+        "loss masking",
+        "catastrophic forgetting"
+      ],
+      "sources": [
+        {
+          "name": "Raschka, Build an LLM from Scratch, ch.7",
+          "url": "https://sebastianraschka.com/llms-from-scratch/"
+        },
+        {
+          "name": "Hugging Face LLM Course, chapter 11",
+          "url": "https://huggingface.co/learn/llm-course/chapter11/1"
+        }
+      ],
+      "proof": [
+        "CS336 lecture 15",
+        "Raschka ch.6 and ch.7",
+        "HF course ch.11",
+        "Labonne scientist track 4"
+      ],
+      "exercise": "Fine-tune a small model on 200 examples of your own output format. Measure format compliance before and after.",
+      "figures": [
+        "flow: pairs of prompt and answer into a training loop",
+        "grid: which tokens the loss sees"
+      ],
+      "prereqs": [
+        "l3-adapt-decision",
+        "l1-training-stages"
+      ]
+    },
+    {
+      "id": "l3-lora",
+      "level": 3,
+      "title": "LoRA and QLoRA: fine-tuning on one GPU",
+      "question": "How do people fine-tune a 7B model on a laptop-class GPU?",
+      "can": "Explain low rank updates and pick rank, alpha, and target modules.",
+      "jargon": [
+        "LoRA",
+        "rank",
+        "adapter",
+        "QLoRA",
+        "frozen weights",
+        "parameter efficient fine-tuning"
+      ],
+      "sources": [
+        {
+          "name": "Hu et al., LoRA",
+          "url": "https://arxiv.org/abs/2106.09685"
+        },
+        {
+          "name": "Dettmers et al., QLoRA",
+          "url": "https://arxiv.org/abs/2305.14314"
+        },
+        {
+          "name": "Raschka, appendix E: LoRA",
+          "url": "https://sebastianraschka.com/llms-from-scratch/"
+        }
+      ],
+      "proof": [
+        "Raschka appendix E",
+        "HF course ch.11",
+        "Labonne scientist track 4"
+      ],
+      "exercise": "Fine-tune the same task at rank 8 and rank 64. Compare quality, VRAM, and wall clock.",
+      "figures": [
+        "flow: frozen weights plus a small side matrix",
+        "grid: parameters trained, full against LoRA"
+      ],
+      "prereqs": [
+        "l3-sft"
+      ]
+    },
+    {
+      "id": "l3-datasets",
+      "level": 3,
+      "title": "Dataset engineering, where the quality actually comes from",
+      "question": "Is 10,000 mediocre examples better than 500 good ones?",
+      "can": "Build, filter, and deduplicate a training set, and defend the choices.",
+      "jargon": [
+        "data curation",
+        "deduplication",
+        "synthetic data",
+        "data contamination",
+        "coverage",
+        "label noise"
+      ],
+      "sources": [
+        {
+          "name": "Huyen, AI Engineering, ch.8",
+          "url": "https://github.com/chiphuyen/aie-book"
+        },
+        {
+          "name": "Hugging Face, FineWeb technical report",
+          "url": "https://huggingface.co/spaces/HuggingFaceFW/blogpost-fineweb-v1"
+        }
+      ],
+      "proof": [
+        "CS336 lectures 13 and 14",
+        "Huyen ch.8",
+        "Labonne scientist track 3"
+      ],
+      "exercise": "Deduplicate a 1000 example set with near-duplicate matching and report how much you lost.",
+      "figures": [
+        "flow: raw data through filters to a training set",
+        "grid: examples kept and dropped at each filter"
+      ],
+      "prereqs": [
+        "l3-sft"
+      ]
+    },
+    {
+      "id": "l3-rlhf",
+      "level": 3,
+      "title": "RLHF: training on human preference",
+      "question": "How do you train a model on 'this answer is nicer' with no correct answer?",
+      "can": "Explain the reward model and the RL loop, and where each one leaks.",
+      "jargon": [
+        "reinforcement learning from human feedback",
+        "reward model",
+        "preference pair",
+        "policy",
+        "PPO",
+        "KL penalty"
+      ],
+      "sources": [
+        {
+          "name": "Ouyang et al., InstructGPT",
+          "url": "https://arxiv.org/abs/2203.02155"
+        },
+        {
+          "name": "Hugging Face, Illustrating RLHF",
+          "url": "https://huggingface.co/blog/rlhf"
+        }
+      ],
+      "proof": [
+        "CS336 lectures 15 to 17",
+        "Huyen ch.2",
+        "Labonne scientist track 5",
+        "HF course ch.12"
+      ],
+      "exercise": "Hand label 30 preference pairs from your own product and note how often you disagree with yourself.",
+      "figures": [
+        "flow: preferences to reward model to policy update",
+        "stack: the three models involved"
+      ],
+      "prereqs": [
+        "l3-sft"
+      ]
+    },
+    {
+      "id": "l3-dpo",
+      "level": 3,
+      "title": "DPO and the simpler descendants of RLHF",
+      "question": "Can you skip the reward model and train on preferences directly?",
+      "can": "Choose between DPO and full RL, and read a preference tuning config.",
+      "jargon": [
+        "direct preference optimisation",
+        "chosen and rejected",
+        "reference model",
+        "beta",
+        "ORPO"
+      ],
+      "sources": [
+        {
+          "name": "Rafailov et al., Direct Preference Optimization",
+          "url": "https://arxiv.org/abs/2305.18290"
+        },
+        {
+          "name": "Hugging Face TRL, DPO trainer",
+          "url": "https://huggingface.co/docs/trl/dpo_trainer"
+        }
+      ],
+      "proof": [
+        "CS336 assignment 5",
+        "Labonne scientist track 5",
+        "HF course ch.12"
+      ],
+      "exercise": "Run DPO on 200 preference pairs and check whether responses got better or just longer.",
+      "figures": [
+        "flow: RLHF pipeline against DPO pipeline",
+        "grid: what each stage costs you"
+      ],
+      "prereqs": [
+        "l3-rlhf"
+      ]
+    },
+    {
+      "id": "l3-reward-hacking",
+      "level": 3,
+      "title": "Reward hacking: when the metric becomes the target",
+      "question": "Why does a model with a perfect score produce useless output?",
+      "can": "Design metrics that resist gaming, and spot gaming when it starts.",
+      "jargon": [
+        "reward hacking",
+        "proxy metric",
+        "Goodhart's law",
+        "specification gaming",
+        "reward tampering"
+      ],
+      "sources": [
+        {
+          "name": "Lilian Weng, Reward Hacking in Reinforcement Learning",
+          "url": "https://lilianweng.github.io/posts/2024-11-28-reward-hacking/"
+        },
+        {
+          "name": "Amodei et al., Concrete Problems in AI Safety",
+          "url": "https://arxiv.org/abs/1606.06565"
+        }
+      ],
+      "proof": [
+        "CS336 lecture 16",
+        "Huyen ch.3",
+        "Labonne scientist track 5"
+      ],
+      "exercise": "Write a scoring function for one feature, then spend 20 minutes trying to cheat it. You will succeed.",
+      "figures": [
+        "flow: the loop with human intent missing",
+        "grid: proxy score rising while real quality falls"
+      ],
+      "prereqs": [
+        "l3-rlhf",
+        "l2-evals-method"
+      ]
+    },
+    {
+      "id": "l3-distillation",
+      "level": 3,
+      "title": "Distillation and small models that punch up",
+      "question": "Can a 3B model do your task as well as the frontier one?",
+      "can": "Distil a big model into a small one and measure what you lost.",
+      "jargon": [
+        "knowledge distillation",
+        "teacher model",
+        "student model",
+        "soft labels",
+        "task specialisation"
+      ],
+      "sources": [
+        {
+          "name": "Hinton et al., Distilling the Knowledge in a Neural Network",
+          "url": "https://arxiv.org/abs/1503.02531"
+        },
+        {
+          "name": "Huyen, AI Engineering, ch.7 and ch.8",
+          "url": "https://github.com/chiphuyen/aie-book"
+        }
+      ],
+      "proof": [
+        "Huyen ch.7",
+        "Labonne scientist track",
+        "HF course ch.11"
+      ],
+      "exercise": "Generate 500 teacher outputs for one narrow task, fine-tune a small model, and compare on your eval set.",
+      "figures": [
+        "flow: teacher generating training data for a student",
+        "grid: quality against cost for three sizes"
+      ],
+      "prereqs": [
+        "l3-sft",
+        "l3-datasets"
+      ]
+    },
+    {
+      "id": "l4-inference",
+      "level": 4,
+      "title": "What a serving stack does with your request",
+      "question": "What happens between your HTTP call and the first token?",
+      "can": "Read an inference server's metrics and say where the time went.",
+      "jargon": [
+        "prefill",
+        "decode",
+        "scheduler",
+        "queueing",
+        "throughput",
+        "tail latency"
+      ],
+      "sources": [
+        {
+          "name": "Lilian Weng, Transformer inference optimization",
+          "url": "https://lilianweng.github.io/posts/2023-01-10-inference-optimization/"
+        },
+        {
+          "name": "Huyen, AI Engineering, ch.9",
+          "url": "https://github.com/chiphuyen/aie-book"
+        }
+      ],
+      "proof": [
+        "CS336 lecture 10",
+        "Huyen ch.9",
+        "Labonne engineer track 6"
+      ],
+      "exercise": "Run vLLM locally, send 50 concurrent requests, and read the throughput and latency it reports.",
+      "figures": [
+        "flow: request through queue, prefill, decode",
+        "grid: where milliseconds go"
+      ],
+      "prereqs": [
+        "l1-kv-cache"
+      ]
+    },
+    {
+      "id": "l4-batching",
+      "level": 4,
+      "title": "Batching, PagedAttention, and the GPU's real bottleneck",
+      "question": "Why does serving 20 users at once cost almost the same as one?",
+      "can": "Explain continuous batching and why memory, not compute, is the limit.",
+      "jargon": [
+        "static batching",
+        "continuous batching",
+        "PagedAttention",
+        "memory bandwidth",
+        "GPU utilisation"
+      ],
+      "sources": [
+        {
+          "name": "Kwon et al., Efficient Memory Management (vLLM)",
+          "url": "https://arxiv.org/abs/2309.06180"
+        },
+        {
+          "name": "Anyscale, continuous batching",
+          "url": "https://www.anyscale.com/blog/continuous-batching-llm-inference"
+        }
+      ],
+      "proof": [
+        "CS336 lecture 10",
+        "Huyen ch.9",
+        "Labonne engineer track 6"
+      ],
+      "exercise": "Benchmark one request per second against 20, and plot cost per thousand tokens for each.",
+      "figures": [
+        "grid: GPU slots filling as requests arrive and finish",
+        "flow: static batch against continuous batch"
+      ],
+      "prereqs": [
+        "l4-inference"
+      ]
+    },
+    {
+      "id": "l4-quantization",
+      "level": 4,
+      "title": "Quantization: smaller numbers, same answers",
+      "question": "How does a 14GB model fit in 4GB without becoming stupid?",
+      "can": "Pick a quantization format and measure the quality you traded away.",
+      "jargon": [
+        "quantization",
+        "precision",
+        "int8",
+        "4-bit",
+        "GGUF",
+        "AWQ",
+        "GPTQ",
+        "perplexity"
+      ],
+      "sources": [
+        {
+          "name": "Frantar et al., GPTQ",
+          "url": "https://arxiv.org/abs/2210.17323"
+        },
+        {
+          "name": "Labonne, introduction to weight quantization",
+          "url": "https://mlabonne.github.io/blog/posts/Introduction_to_Weight_Quantization.html"
+        }
+      ],
+      "proof": [
+        "Huyen ch.9",
+        "Labonne scientist track 7",
+        "CS336 lecture 5"
+      ],
+      "exercise": "Run the same prompts against fp16 and a 4-bit build. Score both on your eval set.",
+      "figures": [
+        "grid: one weight at 16, 8, and 4 bits",
+        "flow: where rounding error enters"
+      ],
+      "prereqs": [
+        "l4-inference"
+      ]
+    },
+    {
+      "id": "l4-speculative",
+      "level": 4,
+      "title": "Speculative decoding: guessing ahead",
+      "question": "Can a small model write the draft and the big one just check it?",
+      "can": "Explain the accept and reject loop and when it pays off.",
+      "jargon": [
+        "speculative decoding",
+        "draft model",
+        "acceptance rate",
+        "verification",
+        "lookahead"
+      ],
+      "sources": [
+        {
+          "name": "Leviathan et al., Fast Inference via Speculative Decoding",
+          "url": "https://arxiv.org/abs/2211.17192"
+        },
+        {
+          "name": "Huyen, AI Engineering, ch.9",
+          "url": "https://github.com/chiphuyen/aie-book"
+        }
+      ],
+      "proof": [
+        "CS336 lecture 10",
+        "Huyen ch.9"
+      ],
+      "exercise": "Enable speculative decoding in your serving stack and measure tokens per second and acceptance rate.",
+      "figures": [
+        "flow: draft of four tokens, verified, two accepted",
+        "grid: acceptance rate against speedup"
+      ],
+      "prereqs": [
+        "l4-batching"
+      ]
+    },
+    {
+      "id": "l4-caching",
+      "level": 4,
+      "title": "Caching: the cheapest optimisation you are not using",
+      "question": "Why pay to process the same 4000 token system prompt every call?",
+      "can": "Use prompt caching and semantic caching, and know what each breaks.",
+      "jargon": [
+        "prompt caching",
+        "prefix cache",
+        "cache hit rate",
+        "semantic cache",
+        "invalidation"
+      ],
+      "sources": [
+        {
+          "name": "Anthropic, prompt caching",
+          "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching"
+        },
+        {
+          "name": "Huyen, AI Engineering, ch.9",
+          "url": "https://github.com/chiphuyen/aie-book"
+        }
+      ],
+      "proof": [
+        "Huyen ch.9",
+        "Labonne engineer track 6",
+        "Applied LLMs field guide"
+      ],
+      "exercise": "Restructure one prompt so the stable part comes first, enable caching, and measure the cost drop.",
+      "figures": [
+        "flow: the stable prefix and the changing tail",
+        "grid: cost per call with and without the cache"
+      ],
+      "prereqs": [
+        "l4-inference"
+      ]
+    },
+    {
+      "id": "l4-architecture",
+      "level": 4,
+      "title": "The shape of a production AI system",
+      "question": "What sits around the model call in a real product?",
+      "can": "Draw the whole system: gateway, router, cache, guardrails, logging.",
+      "jargon": [
+        "model gateway",
+        "router",
+        "fallback",
+        "guardrail",
+        "circuit breaker",
+        "canary"
+      ],
+      "sources": [
+        {
+          "name": "Huyen, AI Engineering, ch.10",
+          "url": "https://github.com/chiphuyen/aie-book"
+        },
+        {
+          "name": "Applied LLMs, a year of building",
+          "url": "https://applied-llms.org/"
+        }
+      ],
+      "proof": [
+        "Huyen ch.10",
+        "Labonne engineer track 7",
+        "Applied LLMs field guide"
+      ],
+      "exercise": "Draw your current AI feature's real architecture, then mark every place with no fallback.",
+      "figures": [
+        "flow: request through every production layer",
+        "stack: what each layer protects you from"
+      ],
+      "prereqs": [
+        "l4-caching",
+        "l2-agents"
+      ]
+    },
+    {
+      "id": "l4-observability",
+      "level": 4,
+      "title": "Observability and the feedback loop",
+      "question": "How do you find out your feature got worse before users tell you?",
+      "can": "Log the right things, trace a bad answer, and close the loop with data.",
+      "jargon": [
+        "tracing",
+        "span",
+        "drift",
+        "implicit feedback",
+        "explicit feedback",
+        "online evaluation"
+      ],
+      "sources": [
+        {
+          "name": "Huyen, AI Engineering, ch.10 user feedback",
+          "url": "https://github.com/chiphuyen/aie-book"
+        },
+        {
+          "name": "Hamel Husain, Look at your data",
+          "url": "https://hamel.dev/blog/posts/evals/"
+        }
+      ],
+      "proof": [
+        "Huyen ch.10",
+        "Applied LLMs field guide",
+        "Labonne engineer track 7"
+      ],
+      "exercise": "Add tracing to one feature, then reconstruct exactly why one bad answer happened.",
+      "figures": [
+        "flow: production logs feeding the eval set",
+        "stack: what to log per request"
+      ],
+      "prereqs": [
+        "l2-your-evals",
+        "l4-architecture"
+      ]
+    },
+    {
+      "id": "l4-security",
+      "level": 4,
+      "title": "Prompt injection and the security model you do not have",
+      "question": "What happens when the document your agent reads contains instructions?",
+      "can": "Threat model an LLM feature and stop treating prompts as a boundary.",
+      "jargon": [
+        "prompt injection",
+        "indirect injection",
+        "jailbreak",
+        "data exfiltration",
+        "lethal trifecta",
+        "sandboxing"
+      ],
+      "sources": [
+        {
+          "name": "Simon Willison, prompt injection series",
+          "url": "https://simonwillison.net/series/prompt-injection/"
+        },
+        {
+          "name": "OWASP Top 10 for LLM Applications",
+          "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+        }
+      ],
+      "proof": [
+        "Labonne engineer track 8",
+        "Huyen ch.5 and ch.10",
+        "Applied LLMs field guide"
+      ],
+      "exercise": "Hide an instruction in a document your own agent reads. Time how long it takes to obey.",
+      "figures": [
+        "flow: a poisoned document reaching a tool call",
+        "stack: trust boundaries that do not exist"
+      ],
+      "prereqs": [
+        "l2-agents"
+      ]
+    },
+    {
+      "id": "l4-calibrated-decisions",
+      "level": 4,
+      "title": "Calibrated decisions: models that say how sure they are",
+      "question": "Can a model return a decision with a confidence number you can trust?",
+      "can": "Tell apart a confidence score from a calibrated probability, and route on it.",
+      "jargon": [
+        "calibration",
+        "confidence score",
+        "typed decision",
+        "structured output",
+        "system one model",
+        "RLCD",
+        "escalation threshold"
+      ],
+      "sources": [
+        {
+          "name": "TypeSafe AI, Introducing System One Models and Jev",
+          "url": "https://typesafe.ai/blog/introducing-system-one-models-and-jev"
+        },
+        {
+          "name": "Flavio Copes, A deep dive into Jev",
+          "url": "https://flaviocopes.com/jev/"
+        },
+        {
+          "name": "Yang et al., RLCD: Reinforcement Learning from Contrastive Distillation (ICLR 2024)",
+          "url": "https://arxiv.org/abs/2307.12950"
+        }
+      ],
+      "proof": [
+        "TypeSafe Jev launch, Sep 2026",
+        "Yang et al. ICLR 2024",
+        "Huyen ch.2 structured outputs"
+      ],
+      "exercise": "Take 50 yes-or-no questions with known answers. Ask a model for an answer and a confidence, then plot how often 90% means 90%.",
+      "figures": [
+        "grid: decisions at 90% confidence, how many are actually right",
+        "flow: decision in, confidence out, automate or escalate",
+        "stack: RLHF reward against calibrated decision reward"
+      ],
+      "prereqs": [
+        "l3-rlhf",
+        "l1-logits"
+      ]
+    },
+    {
+      "id": "l5-gpu",
+      "level": 5,
+      "title": "A GPU mental model for people who write Python",
+      "question": "Why is your model waiting on memory instead of doing maths?",
+      "can": "Reason about memory hierarchy and arithmetic intensity before optimising.",
+      "jargon": [
+        "SM",
+        "HBM",
+        "SRAM",
+        "arithmetic intensity",
+        "memory bound",
+        "compute bound",
+        "roofline"
+      ],
+      "sources": [
+        {
+          "name": "CS336 lecture 5, GPUs",
+          "url": "https://stanford-cs336.github.io/spring2025/"
+        },
+        {
+          "name": "Hugging Face, Ultra-Scale Playbook",
+          "url": "https://huggingface.co/spaces/nanotron/ultrascale-playbook"
+        }
+      ],
+      "proof": [
+        "CS336 lecture 5",
+        "CS336 assignment 2",
+        "Ultra-Scale Playbook"
+      ],
+      "exercise": "Profile one matmul and one attention call. Classify each as memory bound or compute bound.",
+      "figures": [
+        "stack: registers, SRAM, HBM, with sizes and speeds",
+        "grid: bytes moved against flops done"
+      ],
+      "prereqs": [
+        "l4-batching"
+      ]
+    },
+    {
+      "id": "l5-kernels",
+      "level": 5,
+      "title": "FlashAttention and why kernels matter",
+      "question": "How did attention get faster without changing the maths?",
+      "can": "Explain tiling and recomputation, and read a kernel's intent.",
+      "jargon": [
+        "kernel",
+        "fusion",
+        "tiling",
+        "recomputation",
+        "Triton",
+        "IO awareness"
+      ],
+      "sources": [
+        {
+          "name": "Dao et al., FlashAttention",
+          "url": "https://arxiv.org/abs/2205.14135"
+        },
+        {
+          "name": "CS336 lecture 6, kernels and Triton",
+          "url": "https://stanford-cs336.github.io/spring2025/"
+        }
+      ],
+      "proof": [
+        "CS336 lecture 6",
+        "CS336 assignment 2"
+      ],
+      "exercise": "Benchmark PyTorch attention against the fused implementation at four sequence lengths.",
+      "figures": [
+        "grid: the attention matrix processed in tiles",
+        "flow: naive attention against fused attention"
+      ],
+      "prereqs": [
+        "l5-gpu",
+        "l1-attention"
+      ]
+    },
+    {
+      "id": "l5-parallelism",
+      "level": 5,
+      "title": "Training across many GPUs without losing the plot",
+      "question": "A model does not fit on one GPU, so how do you split it?",
+      "can": "Tell data, tensor, pipeline, and sharded parallelism apart, and their costs.",
+      "jargon": [
+        "data parallel",
+        "tensor parallel",
+        "pipeline parallel",
+        "FSDP",
+        "ZeRO",
+        "all-reduce",
+        "bubble"
+      ],
+      "sources": [
+        {
+          "name": "CS336 lectures 7 and 8, parallelism",
+          "url": "https://stanford-cs336.github.io/spring2025/"
+        },
+        {
+          "name": "Hugging Face, Ultra-Scale Playbook",
+          "url": "https://huggingface.co/spaces/nanotron/ultrascale-playbook"
+        }
+      ],
+      "proof": [
+        "CS336 lectures 7 and 8",
+        "Ultra-Scale Playbook",
+        "CS336 assignment 2"
+      ],
+      "exercise": "Run the same tiny training job with DDP on two processes and account for the communication time.",
+      "figures": [
+        "stack: four parallelism strategies on the same model",
+        "flow: one step with an all-reduce in it"
+      ],
+      "prereqs": [
+        "l5-gpu"
+      ]
+    },
+    {
+      "id": "l5-scaling-laws",
+      "level": 5,
+      "title": "Scaling laws: predicting a run before you pay for it",
+      "question": "Given a compute budget, how big should the model and dataset be?",
+      "can": "Read a scaling law plot and use it to argue for a training budget.",
+      "jargon": [
+        "scaling law",
+        "compute optimal",
+        "Chinchilla",
+        "FLOPs",
+        "parameter count",
+        "token budget",
+        "power law"
+      ],
+      "sources": [
+        {
+          "name": "Kaplan et al., Scaling Laws for Neural Language Models",
+          "url": "https://arxiv.org/abs/2001.08361"
+        },
+        {
+          "name": "Hoffmann et al., Chinchilla",
+          "url": "https://arxiv.org/abs/2203.15556"
+        }
+      ],
+      "proof": [
+        "CS336 lectures 9 and 11",
+        "CS336 assignment 3",
+        "Huyen ch.2"
+      ],
+      "exercise": "Use Chinchilla ratios to size a model for a 10^21 FLOP budget. Show the arithmetic.",
+      "figures": [
+        "grid: loss against compute on a log scale",
+        "flow: budget to model size and token count"
+      ],
+      "prereqs": [
+        "l1-training-loop"
+      ]
+    },
+    {
+      "id": "l5-pretraining-data",
+      "level": 5,
+      "title": "Turning the open web into pretraining data",
+      "question": "How does a Common Crawl dump become a dataset worth training on?",
+      "can": "Describe the full filtering pipeline and its known failure points.",
+      "jargon": [
+        "Common Crawl",
+        "boilerplate removal",
+        "quality filter",
+        "near-duplicate",
+        "decontamination",
+        "mixture weights"
+      ],
+      "sources": [
+        {
+          "name": "Hugging Face, FineWeb technical report",
+          "url": "https://huggingface.co/spaces/HuggingFaceFW/blogpost-fineweb-v1"
+        },
+        {
+          "name": "CS336 lectures 13 and 14, data",
+          "url": "https://stanford-cs336.github.io/spring2025/"
+        }
+      ],
+      "proof": [
+        "CS336 lectures 13 and 14",
+        "CS336 assignment 4",
+        "Huyen ch.8"
+      ],
+      "exercise": "Run boilerplate removal and dedup on 1000 crawled pages. Report what fraction survived.",
+      "figures": [
+        "flow: raw dump through each filter with survival rates",
+        "grid: what each filter removes"
+      ],
+      "prereqs": [
+        "l3-datasets"
+      ]
+    },
+    {
+      "id": "l5-moe",
+      "level": 5,
+      "title": "Mixture of experts: paying for part of the model",
+      "question": "How does a 400B model run at the cost of a 40B one?",
+      "can": "Explain routing, capacity, and the load balancing problem.",
+      "jargon": [
+        "mixture of experts",
+        "router",
+        "expert",
+        "sparse activation",
+        "load balancing",
+        "capacity factor"
+      ],
+      "sources": [
+        {
+          "name": "Fedus et al., Switch Transformer",
+          "url": "https://arxiv.org/abs/2101.03961"
+        },
+        {
+          "name": "Hugging Face, Mixture of Experts explained",
+          "url": "https://huggingface.co/blog/moe"
+        }
+      ],
+      "proof": [
+        "CS336 lecture 4",
+        "HF MoE guide",
+        "Labonne scientist track 8"
+      ],
+      "exercise": "Trace one token through an open MoE checkpoint and log which experts fired.",
+      "figures": [
+        "tree: router sending tokens to two of eight experts",
+        "grid: active parameters against total"
+      ],
+      "prereqs": [
+        "l1-transformer-block"
+      ]
+    },
+    {
+      "id": "l5-reasoning",
+      "level": 5,
+      "title": "Test time compute and reasoning models",
+      "question": "What changed when models started thinking before answering?",
+      "can": "Explain reasoning training and decide when the extra tokens are worth it.",
+      "jargon": [
+        "test time compute",
+        "chain of thought",
+        "reasoning tokens",
+        "verifier",
+        "RL with verifiable rewards",
+        "budget forcing"
+      ],
+      "sources": [
+        {
+          "name": "DeepSeek-AI, DeepSeek-R1",
+          "url": "https://arxiv.org/abs/2501.12948"
+        },
+        {
+          "name": "Muennighoff et al., s1: simple test-time scaling",
+          "url": "https://arxiv.org/abs/2501.19393"
+        }
+      ],
+      "proof": [
+        "CS336 lectures 16 and 17",
+        "CS336 assignment 5",
+        "Huyen ch.2",
+        "Labonne scientist track 8"
+      ],
+      "exercise": "Run one hard task with and without reasoning mode. Compare accuracy, latency, and cost per solve.",
+      "figures": [
+        "flow: question, hidden reasoning, answer",
+        "grid: accuracy against thinking tokens"
+      ],
+      "prereqs": [
+        "l3-rlhf",
+        "l3-reward-hacking"
+      ]
+    },
+    {
+      "id": "l5-capstone",
+      "level": 5,
+      "title": "Capstone: train a small language model end to end",
+      "question": "Can you go from raw text to a model that generates, by yourself?",
+      "can": "Own the whole path: tokenizer, model, training loop, eval, sampling.",
+      "jargon": [
+        "nanoGPT",
+        "checkpoint",
+        "validation loss",
+        "overfitting",
+        "learning rate schedule"
+      ],
+      "sources": [
+        {
+          "name": "Karpathy, nanoGPT",
+          "url": "https://github.com/karpathy/nanoGPT"
+        },
+        {
+          "name": "CS336 assignment 1, basics",
+          "url": "https://stanford-cs336.github.io/spring2025/"
+        },
+        {
+          "name": "Raschka, LLMs from scratch repo",
+          "url": "https://github.com/rasbt/LLMs-from-scratch"
+        }
+      ],
+      "proof": [
+        "CS336 assignment 1",
+        "Raschka ch.1 to ch.5",
+        "Karpathy zero to hero"
+      ],
+      "exercise": "Train a character level GPT on one book. Report validation loss and paste a sample.",
+      "figures": [
+        "flow: the whole pipeline you now own",
+        "grid: train and validation loss over steps"
+      ],
+      "prereqs": [
+        "l1-transformer-block",
+        "l1-training-loop",
+        "l5-scaling-laws"
+      ]
+    }
+  ]
+}
