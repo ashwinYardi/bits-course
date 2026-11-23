@@ -1076,7 +1076,11 @@ def build_site() -> None:
 
     # Render main index.html
     (DIST / "index.html").write_text(_render_index_page(curriculum, lessons))
-    print(f"Built static site in {DIST} with {len(lessons)} seeded lesson(s) and {len(curriculum['modules'])} curriculum modules.")
+    docs = ROOT / "docs"
+    if docs.exists():
+        shutil.rmtree(docs)
+    shutil.copytree(DIST, docs)
+    print(f"Built static site in {DIST} and {docs} with {len(lessons)} seeded lesson(s) and {len(curriculum['modules'])} curriculum modules.")
 
 
 if __name__ == "__main__":
