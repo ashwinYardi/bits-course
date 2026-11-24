@@ -18,8 +18,7 @@
   --line: #bfd2c7;
   --line-strong: #8fa99b;
   --terracotta: #9a2c13;
-  --terracotta-soft: #;
-  --terracotta-soft: #;
+  --terracotta-soft: #fee2e2;
   --amber: #92400e;
   --amber-soft: #fef3c7;
   --meadow: #14532d;
@@ -44,7 +43,7 @@ body {
   overflow-x: hidden;
 }
 
-a { color: var(--terracotta); text-decoration: none; font-weight: 600; }
+a { color: var(--terracotta); text-decoration: none; font-weight: 700; }
 a:hover { text-decoration: underline; }
 
 .top-nav {
@@ -76,8 +75,8 @@ a:hover { text-decoration: underline; }
   font-size: 0.85rem;
   padding: 0.32rem 0.75rem;
   border-radius: 8px;
-  border: 2px solid #9a3412;
-  box-shadow: 0 2px 0 #9a3412;
+  border: 2px solid #7c2d12;
+  box-shadow: 0 2px 0 #7c2d12;
   letter-spacing: 0.01em;
 }
 
@@ -91,7 +90,7 @@ a:hover { text-decoration: underline; }
 .brand-sub {
   font-size: 0.78rem;
   color: var(--muted);
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .nav-pills {
@@ -103,17 +102,16 @@ a:hover { text-decoration: underline; }
 
 .stat-chip {
   background: var(--paper-card);
-  border: 2px solid var(--line);
+  border: 2px solid var(--line-strong);
   padding: 0.28rem 0.75rem;
   border-radius: 999px;
   font-family: var(--mono);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--ink-soft);
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  box-shadow: 0 2px 0 rgba(0,0,0,0.04);
 }
 
 .btn {
@@ -122,28 +120,28 @@ a:hover { text-decoration: underline; }
   gap: 0.45rem;
   background: var(--paper-card);
   color: var(--ink);
-  border: 2px solid var(--line-strong);
-  padding: 0.45rem 0.95rem;
+  border: 2px solid var(--ink);
+  padding: 0.5rem 1rem;
   border-radius: 10px;
-  font-size: 0.83rem;
+  font-size: 0.85rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.14s ease;
   font-family: var(--sans);
-  box-shadow: 0 2px 0 var(--line-strong);
+  box-shadow: 0 2px 0 var(--ink);
 }
 
 .btn:hover {
   transform: translateY(-1px);
-  border-color: var(--ink);
+  background: var(--paper-warm);
   text-decoration: none;
 }
 
 .btn-primary {
   background: var(--terracotta);
   color: #ffffff;
-  border-color: #9a3412;
-  box-shadow: 0 3px 0 #9a3412;
+  border-color: #7c2d12;
+  box-shadow: 0 3px 0 #7c2d12;
 }
 
 .btn-primary:hover {
@@ -154,8 +152,8 @@ a:hover { text-decoration: underline; }
 .btn-meadow {
   background: var(--meadow);
   color: #ffffff;
-  border-color: #14532d;
-  box-shadow: 0 3px 0 #14532d;
+  border-color: #052e16;
+  box-shadow: 0 3px 0 #052e16;
 }
 
 .btn-meadow:hover {
@@ -170,11 +168,11 @@ a:hover { text-decoration: underline; }
   padding: 0.2rem 0.65rem;
   border-radius: 999px;
   background: var(--paper-warm);
-  border: 1.5px solid var(--line);
+  border: 1.5px solid var(--line-strong);
   color: var(--ink-soft);
 }
 
-.tag-terracotta { background: var(--terracotta-soft); color: var(--terracotta); border-color: #fDBA74; }
+.tag-terracotta { background: var(--terracotta-soft); color: var(--terracotta); border-color: #fca5a5; }
 .tag-meadow { background: var(--meadow-soft); color: var(--meadow); border-color: #86efac; }
 .tag-sky { background: var(--sky-soft); color: var(--sky); border-color: #7dd3fc; }
 .tag-amber { background: var(--amber-soft); color: #78350f; border-color: #fcd34d; }
@@ -183,7 +181,7 @@ a:hover { text-decoration: underline; }
 <body>
   <header class="top-nav">
     <div class="brand-cluster">
-      <a class="crest-badge" href="../../index.html">← 3D CAMPUS MAP</a>
+      <a class="crest-badge" href="../../index.html">← 3D CAMPUS RPG</a>
       <div>
         <div class="brand-title">What an LLM actually is</div>
         <div class="brand-sub">BitsByBlocks AI University · Rung 0: Ground floor</div>
@@ -191,11 +189,11 @@ a:hover { text-decoration: underline; }
     </div>
     <div style="display:flex;gap:0.6rem;">
       <a class="btn" href="lesson.json" target="_blank">lesson.json</a>
-      <a class="btn btn-primary" href="../../index.html">🎮 Walk 3D Campus & Take Gate Test</a>
+      <a class="btn btn-primary" href="../../index.html">🎮 Enter 3D Campus & Talk to Characters</a>
     </div>
   </header>
 
-  <main style="max-width:860px;margin:0 auto;padding:2rem 1.5rem 5rem;">
+  <main style="max-width:780px;margin:0 auto;padding:2.5rem 1.5rem 5rem;">
     <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem;">
       <span class="tag tag-terracotta">Campus Gate · Checkpoint #01</span>
       <span class="tag tag-sky">Hall 0: Ground floor</span>
@@ -207,28 +205,28 @@ a:hover { text-decoration: underline; }
       <strong>In One Line:</strong> An LLM does not look up answers or plan sentences ahead of time; it scores every possible next word in its dictionary, rolls a weighted die to pick one, glues that word onto your prompt, and starts over from scratch.
     </div>
 
-    <article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 01</span><span class="tag tag-amber">Chapter 1 · The Picture</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;line-height:1.4;">Explain it like I&#x27;m 12: The world&#x27;s fastest relay game</h2><div style="font-size:1.02rem;color:var(--ink-soft);"><p>Imagine you are playing a game with a friend who has read every book in the school library. You write two words on a slip of paper: <code>the server</code>.</p>
+    <section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 01</span><span class="tag tag-amber">Chapter 1 · The Picture</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">Explain it like I&#x27;m 12: The world&#x27;s fastest relay game</h2><div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;"><p>Imagine you are playing a game with a friend who has read every book in the school library. You write two words on a slip of paper: <code>the server</code>.</p>
 <p>Your friend is only allowed to write <strong>one single word</strong> on the slip and hand it back. They look at <code>the server</code>, quickly score every word in the English dictionary, write <code>crashed</code> at the end, and slide the paper back across the desk.</p>
 <p>Now the slip says <code>the server crashed</code>. Here is the secret: your friend immediately gets amnesia about <em>why</em> they picked <code>crashed</code>. For the next word, they pick up the slip (<code>the server crashed</code>) as if they are seeing it for the very first time, score the whole dictionary again, and write <code>because</code>.</p>
-<p>That relay loop is a <strong>large language model</strong> in plain words: a computer program trained on massive text that scores every possible next piece of text, picks one, glues it onto your message, and repeats. It never writes a whole paragraph at once. It plays the one-word relay game fifty times a second.</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-01.svg" alt="The conveyor belt that glues one word at a time" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 The conveyor belt that glues one word at a time:</strong> Every single word the AI picks gets glued back onto your prompt for the next pass.</span><a href="fig-01.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></article><article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 02</span><span class="tag tag-amber">Chapter 2 · Inside the Box</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;line-height:1.4;">Why the AI doesn&#x27;t remember you from yesterday (Training vs Inference)</h2><div style="font-size:1.02rem;color:var(--ink-soft);"><p>If you tell a chatbot your dog&#x27;s name today and open a new window tomorrow, it has no clue who your dog is. Why?</p>
+<p>That relay loop is a <strong>large language model</strong> in plain words: a computer program trained on massive text that scores every possible next piece of text, picks one, glues it onto your message, and repeats. It never writes a whole paragraph at once. It plays the one-word relay game fifty times a second.</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-01.svg" alt="The conveyor belt that glues one word at a time" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 The conveyor belt that glues one word at a time:</strong> Every single word the AI picks gets glued back onto your prompt for the next pass.</span><a href="fig-01.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></section><section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 02</span><span class="tag tag-amber">Chapter 2 · Inside the Box</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">Why the AI doesn&#x27;t remember you from yesterday (Training vs Inference)</h2><div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;"><p>If you tell a chatbot your dog&#x27;s name today and open a new window tomorrow, it has no clue who your dog is. Why?</p>
 <p>Because the life of an AI is split into two completely separate phases:</p>
-<ol><li><strong>training</strong> in plain words: the months-long factory phase where the model reads trillions of words and nudges billions of internal number dials (<strong>parameters</strong>) whenever it guesses the next word wrong.</li><li><strong>weights</strong> in plain words: the final numbers locked into those dials when training finishes. A 7-billion-parameter model is literally just a giant file on a hard drive holding 7 billion frozen decimals.</li><li><strong>inference</strong> in plain words: running your message through that frozen file to predict the next word. During inference, every single dial is glued shut. Your chat never edits the brain; it just passes through it.</li></ol></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-03.svg" alt="Studying for the exam vs taking the exam" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 Studying for the exam vs taking the exam:</strong> Training adjusts the dials once at massive cost. Your chat happens on a frozen copy.</span><a href="fig-03.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></article><article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 03</span><span class="tag tag-amber">Chapter 3 · The Exact Math in Plain Words</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;line-height:1.4;">How the scoreboard and the weighted die work (Logits, Softmax &amp; Temperature)</h2><div style="font-size:1.02rem;color:var(--ink-soft);"><p>Wait — if the dials are frozen, why doesn&#x27;t the AI give the exact same answer every time you ask the same question?</p>
+<ol><li><strong>training</strong> in plain words: the months-long factory phase where the model reads trillions of words and nudges billions of internal number dials (<strong>parameters</strong>) whenever it guesses the next word wrong.</li><li><strong>weights</strong> in plain words: the final numbers locked into those dials when training finishes. A 7-billion-parameter model is literally just a giant file on a hard drive holding 7 billion frozen decimals.</li><li><strong>inference</strong> in plain words: running your message through that frozen file to predict the next word. During inference, every single dial is glued shut. Your chat never edits the brain; it just passes through it.</li></ol></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-03.svg" alt="Studying for the exam vs taking the exam" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 Studying for the exam vs taking the exam:</strong> Training adjusts the dials once at massive cost. Your chat happens on a frozen copy.</span><a href="fig-03.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></section><section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 03</span><span class="tag tag-amber">Chapter 3 · The Exact Math in Plain Words</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">How the scoreboard and the weighted die work (Logits, Softmax &amp; Temperature)</h2><div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;"><p>Wait — if the dials are frozen, why doesn&#x27;t the AI give the exact same answer every time you ask the same question?</p>
 <p>Because the frozen brain does not output a single word. It outputs a scoreboard across its entire dictionary, and then rolls a weighted die. Let&#x27;s trace the exact numbers from our Python lab when the prompt is <code>the server</code>:</p>
-<ol><li><strong>The raw scoreboard (Logits).</strong> The model outputs one raw score for every possible next word. Engineers call these <strong>logits</strong> in plain words: the raw, un-rounded scores the model gives each candidate word. In our lab, <code>crashed</code> gets <code>3.2</code>, <code>responded</code> gets <code>2.9</code>, <code>timed</code> gets <code>2.4</code>, <code>melted</code> gets <code>0.4</code>, and <code>danced</code> gets <code>-1.5</code>.</li><li><strong>The boldness dial (Temperature).</strong> Before turning those raw scores into percentages, we divide every score by <strong>temperature</strong> in plain words: a dial that controls whether the #1 word hogs the spotlight or shares a chance with runner-up words.</li><li><strong>Turning scores into percentages (Softmax).</strong> You cannot roll a die with a negative number like <code>-1.5</code>. So the computer runs <strong>softmax</strong> in plain words: a math formula (<code>2.718</code> raised to each score, divided by the total) that turns any list of raw scores into clean percentages that add up to <code>100%</code>.</li><li><strong>Watch the table above (<code>Figure 2</code>).</strong> At Temperature <code>0.2</code>, <code>crashed</code> grabs <code>80.6%</code> of the pie. At Temperature <code>1.0</code>, <code>crashed</code> drops to <code>44.2%</code>, <code>responded</code> gets <code>32.8%</code>, and <code>timed</code> gets <code>19.9%</code>. Same frozen brain, completely different odds on the die.</li></ol></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-02.svg" alt="What happens after &#x27;the server&#x27; when you turn the temperature dial" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 What happens after &#x27;the server&#x27; when you turn the temperature dial:</strong> Real numbers from our 40-line Python lab: low temperature locks onto the #1 word, high temperature lets underdogs win.</span><a href="fig-02.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></article><article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 04</span><span class="tag tag-amber">Chapter 4 · Real Engineering Depth</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;line-height:1.4;">The Snowball Trap: How a 12-year-old intuition fixes a senior engineer&#x27;s bug</h2><div style="font-size:1.02rem;color:var(--ink-soft);"><p>Once you picture the one-word-at-a-time conveyor belt, you can immediately spot the #1 mistake developers make in production.</p>
+<ol><li><strong>The raw scoreboard (Logits).</strong> The model outputs one raw score for every possible next word. Engineers call these <strong>logits</strong> in plain words: the raw, un-rounded scores the model gives each candidate word. In our lab, <code>crashed</code> gets <code>3.2</code>, <code>responded</code> gets <code>2.9</code>, <code>timed</code> gets <code>2.4</code>, <code>melted</code> gets <code>0.4</code>, and <code>danced</code> gets <code>-1.5</code>.</li><li><strong>The boldness dial (Temperature).</strong> Before turning those raw scores into percentages, we divide every score by <strong>temperature</strong> in plain words: a dial that controls whether the #1 word hogs the spotlight or shares a chance with runner-up words.</li><li><strong>Turning scores into percentages (Softmax).</strong> You cannot roll a die with a negative number like <code>-1.5</code>. So the computer runs <strong>softmax</strong> in plain words: a math formula (<code>2.718</code> raised to each score, divided by the total) that turns any list of raw scores into clean percentages that add up to <code>100%</code>.</li><li><strong>Watch the table above (<code>Figure 2</code>).</strong> At Temperature <code>0.2</code>, <code>crashed</code> grabs <code>80.6%</code> of the pie. At Temperature <code>1.0</code>, <code>crashed</code> drops to <code>44.2%</code>, <code>responded</code> gets <code>32.8%</code>, and <code>timed</code> gets <code>19.9%</code>. Same frozen brain, completely different odds on the die.</li></ol></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-02.svg" alt="What happens after &#x27;the server&#x27; when you turn the temperature dial" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 What happens after &#x27;the server&#x27; when you turn the temperature dial:</strong> Real numbers from our 40-line Python lab: low temperature locks onto the #1 word, high temperature lets underdogs win.</span><a href="fig-02.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></section><section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 04</span><span class="tag tag-amber">Chapter 4 · Real Engineering Depth</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">The Snowball Trap: How a 12-year-old intuition fixes a senior engineer&#x27;s bug</h2><div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;"><p>Once you picture the one-word-at-a-time conveyor belt, you can immediately spot the #1 mistake developers make in production.</p>
 <p>Suppose a developer writes a prompt: <code>&#x27;Answer YES or NO on line 1, then explain your reasoning on line 2.&#x27;</code></p>
 <p>Why is that a trap? Imagine the true answer is <code>NO</code>, so the scoreboard gives <code>NO</code> a <code>75%</code> chance and <code>YES</code> a <code>25%</code> chance. At Temperature <code>1.0</code>, the weighted die rolls a <code>25%</code> underdog and picks <code>YES</code>.</p>
 <p>Now <code>YES</code> is glued onto the slip of paper! On the very next tick of the conveyor belt, the model reads <code>Answer: YES. Explanation:</code> and asks itself: <em>what words usually follow a YES answer?</em> It is now trapped into inventing an excuse for <code>YES</code>, even though its own weights knew <code>NO</code> was better.</p>
-<p><strong>The pro fix:</strong> Never ask a forward-only machine to state its verdict first. Always ask it to write the step-by-step reasoning <em>first</em> and put the <code>YES/NO</code> verdict on the very last token, so the reasoning sits on the slip of paper before the verdict die is rolled.</p></div></article>
+<p><strong>The pro fix:</strong> Never ask a forward-only machine to state its verdict first. Always ask it to write the step-by-step reasoning <em>first</em> and put the <code>YES/NO</code> verdict on the very last token, so the reasoning sits on the slip of paper before the verdict die is rolled.</p></div></section>
 
-    <h2 style="font-family:var(--serif);margin-top:2.5rem;">Plain-English Jargon Decoder</h2>
-    <table style="width:100%;border-collapse:collapse;background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;overflow:hidden;font-size:0.92rem;">
+    <h2 style="font-family:var(--serif);line-height:1.35;margin-top:2.5rem;">Plain-English Jargon Decoder</h2>
+    <table style="width:100%;border-collapse:collapse;background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;overflow:hidden;font-size:0.94rem;">
       <thead><tr style="background:var(--paper-warm);text-align:left;"><th style="padding:0.8rem;">Term</th><th style="padding:0.8rem;">In Plain Words</th><th style="padding:0.8rem;">Why You Care</th></tr></thead>
       <tbody><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>large language model (LLM)</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">A neural network trained on massive text that scores every possible next word.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Reminds you it is a pattern-completion relay engine, not an oracle or database.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>next-token prediction</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">Guessing the single next piece of text given all the pieces before it.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Explains why word order in your prompt changes quality: the model cannot plan backwards.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>parameters</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">The adjustable number dials inside the neural network.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">More parameters (8B vs 70B) store subtler patterns, at higher memory and latency cost.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>weights</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">The exact frozen numbers saved inside the parameters after training.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Weights are read-only during your chat; the model learns zero permanent facts from your prompt.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>training</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">Showing the model trillions of words and nudging weights to shrink prediction mistakes.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Where the model&#x27;s baseline knowledge and cutoff date come from.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>inference</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">Running your prompt through the frozen weights to generate words.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">What you actually pay for per million tokens when your app is live.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>logits</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">The raw scoreboard numbers the model gives every word before turning them into percentages.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Every decoding control (temperature, top-p, JSON schemas) works by editing logits before rolling.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>softmax</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">The formula that converts raw positive or negative logits into percentages summing to 100%.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Shows why runner-up words still have a chance to be picked when temperature &gt; 0.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>temperature</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">A divisor on logits before softmax that sharpens (0.2) or flattens (1.8) the odds.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Your main dial between repeatable greedy answers (0.0) and creative variety (1.0).</td></tr></tbody>
     </table>
 
-    <h2 style="font-family:var(--serif);margin-top:2.5rem;">Hands-On Python Lab: Build the 40-line next-token predictor &amp; diff 5 runs across temperatures</h2>
+    <h2 style="font-family:var(--serif);line-height:1.35;margin-top:2.5rem;">Hands-On Python Lab: Build the 40-line next-token predictor &amp; diff 5 runs across temperatures</h2>
     <p>See with your own eyes how raw logits turn into probabilities under temperature 0.2, 1.0, and 1.8, and why temperature 0.0 produces 1 unique output across 5 runs while temperature 1.0 produces 5 distinct trajectories.</p>
-    <pre style="background:#1c1917;color:#f5f5f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;"><code>=== STEP 1: Raw logits vs probabilities after (the server) ===
+    <pre style="background:#111c16;color:#f2f7f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;"><code>=== STEP 1: Raw logits vs probabilities after (the server) ===
 Temp 0.2 -&gt; crashed:  80.6%, responded:  18.0%, timed:   1.5%, melted:   0.0%, danced:   0.0%
 Temp 1.0 -&gt; crashed:  44.2%, responded:  32.8%, timed:  19.9%, melted:   2.7%, danced:   0.4%
 Temp 1.8 -&gt; crashed:  36.1%, responded:  30.5%, timed:  23.1%, melted:   7.6%, danced:   2.6%
@@ -248,7 +246,7 @@ Unique outputs at temp 0.0: 1 / 5
   Run 4: the server responded in forty stopped and
   Run 5: the server timed out after thirty recovered
 Unique outputs at temp 1.0: 5 / 5</code></pre>
-    <pre style="background:#1c1917;color:#f5f5f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;margin-top:1rem;"><code>&quot;&quot;&quot;Tiny, pure-Python next-token prediction lab for Module l0-what-is-an-llm.
+    <pre style="background:#111c16;color:#f2f7f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;margin-top:1rem;"><code>&quot;&quot;&quot;Tiny, pure-Python next-token prediction lab for Module l0-what-is-an-llm.
 
 Shows what an LLM actually does at every step:
 1. Takes the current token sequence (context).
@@ -358,15 +356,15 @@ if __name__ == &quot;__main__&quot;:
     main()
 </code></pre>
 
-    <h2 style="font-family:var(--serif);margin-top:2.5rem;">Share Studio · The Turn & X Thread</h2>
+    <h2 style="font-family:var(--serif);line-height:1.35;margin-top:2.5rem;">Share Studio · The Turn & X Thread</h2>
     <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--ink), 0 8px 20px rgba(17,28,22,0.10);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;">
-      <div style="font-family:var(--mono);font-size:0.72rem;font-weight:800;color:var(--terracotta);">THE NOTEBOOK TURN</div>
+      <div style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">THE NOTEBOOK TURN</div>
       <div style="font-family:var(--serif);font-size:1.3rem;line-height:1.45;margin:0.35rem 0;">“I used to treat AI hallucinations like mysterious short-circuits in a super-brain; writing the 40-line next-word loop showed me how often humans do the exact same thing — blurt out a first word and spend five minutes rationalizing it.”</div>
       <div style="font-size:0.88rem;color:var(--ink-soft);"><strong>Reel Hook:</strong> Voiceover: &#x27;When you ask an AI a question, it has no idea how its sentence is going to end when it types the first word. And once I coded the 40-line loop myself, I realized how often we do the exact same thing.&#x27;</div>
     </div>
-    <div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">1/ When an AI starts typing a sentence, it has no idea how that sentence is going to end. It scores every word in its dictionary just to pick the very next piece of text, glues that piece onto your prompt, and starts over from scratch.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">2/ To clear the Entrance Security Gate of my AI Engineering University, I wrote the core LLM generation loop in 40 lines of pure Python (zero libraries).</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">3/ Given the prompt &#x27;the server&#x27;, the model outputs a raw scoreboard (logits): crashed = 3.2, responded = 2.9, timed = 2.4, melted = 0.4, danced = -1.5.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">4/ Before rolling the die, it divides those scores by temperature and runs softmax to get percentages that add up to 100%. Watch what happens to the exact same brain when you turn the temperature dial:</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">5/ At Temp 0.2: &#x27;crashed&#x27; grabs 80.6% of the pie. &#x27;responded&#x27; gets 18.0%.
-At Temp 1.0: &#x27;crashed&#x27; drops to 44.2%, &#x27;responded&#x27; rises to 32.8%, &#x27;timed&#x27; gets 19.9%.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">6/ When I ran the loop 5 times at Temp 0.0, I got 1/5 unique outputs: &#x27;the server crashed because memory ran stopped&#x27; every single time.
-At Temp 1.0, I got 5/5 unique stories — from a 12ms response to a 30s timeout.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">7/ Once you picture this conveyor belt as a 12-year-old relay game, you immediately spot the #1 production prompt bug: asking for a YES/NO verdict on line 1 and the explanation on line 2. If it rolls a 25% &#x27;YES&#x27;, that &#x27;YES&#x27; is now glued onto its prompt. It has to spend the rest of the answer defending its own first roll.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">8/ Gate cleared. Next stop on the campus map: the Parking Lot Token Chopper — why the model sees &#x27;strawberry&#x27; as 3 numbers and can&#x27;t count the letter R.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div>
+    <div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">1/ When an AI starts typing a sentence, it has no idea how that sentence is going to end. It scores every word in its dictionary just to pick the very next piece of text, glues that piece onto your prompt, and starts over from scratch.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">2/ To clear the Entrance Security Gate of my AI Engineering University, I wrote the core LLM generation loop in 40 lines of pure Python (zero libraries).</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">3/ Given the prompt &#x27;the server&#x27;, the model outputs a raw scoreboard (logits): crashed = 3.2, responded = 2.9, timed = 2.4, melted = 0.4, danced = -1.5.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">4/ Before rolling the die, it divides those scores by temperature and runs softmax to get percentages that add up to 100%. Watch what happens to the exact same brain when you turn the temperature dial:</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">5/ At Temp 0.2: &#x27;crashed&#x27; grabs 80.6% of the pie. &#x27;responded&#x27; gets 18.0%.
+At Temp 1.0: &#x27;crashed&#x27; drops to 44.2%, &#x27;responded&#x27; rises to 32.8%, &#x27;timed&#x27; gets 19.9%.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">6/ When I ran the loop 5 times at Temp 0.0, I got 1/5 unique outputs: &#x27;the server crashed because memory ran stopped&#x27; every single time.
+At Temp 1.0, I got 5/5 unique stories — from a 12ms response to a 30s timeout.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">7/ Once you picture this conveyor belt as a 12-year-old relay game, you immediately spot the #1 production prompt bug: asking for a YES/NO verdict on line 1 and the explanation on line 2. If it rolls a 25% &#x27;YES&#x27;, that &#x27;YES&#x27; is now glued onto its prompt. It has to spend the rest of the answer defending its own first roll.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">8/ Gate cleared. Next stop on the campus map: the Parking Lot Token Chopper — why the model sees &#x27;strawberry&#x27; as 3 numbers and can&#x27;t count the letter R.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div>
   </main>
 </body>
 </html>

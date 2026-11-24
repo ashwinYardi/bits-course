@@ -18,8 +18,7 @@
   --line: #bfd2c7;
   --line-strong: #8fa99b;
   --terracotta: #9a2c13;
-  --terracotta-soft: #;
-  --terracotta-soft: #;
+  --terracotta-soft: #fee2e2;
   --amber: #92400e;
   --amber-soft: #fef3c7;
   --meadow: #14532d;
@@ -44,7 +43,7 @@ body {
   overflow-x: hidden;
 }
 
-a { color: var(--terracotta); text-decoration: none; font-weight: 600; }
+a { color: var(--terracotta); text-decoration: none; font-weight: 700; }
 a:hover { text-decoration: underline; }
 
 .top-nav {
@@ -76,8 +75,8 @@ a:hover { text-decoration: underline; }
   font-size: 0.85rem;
   padding: 0.32rem 0.75rem;
   border-radius: 8px;
-  border: 2px solid #9a3412;
-  box-shadow: 0 2px 0 #9a3412;
+  border: 2px solid #7c2d12;
+  box-shadow: 0 2px 0 #7c2d12;
   letter-spacing: 0.01em;
 }
 
@@ -91,7 +90,7 @@ a:hover { text-decoration: underline; }
 .brand-sub {
   font-size: 0.78rem;
   color: var(--muted);
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .nav-pills {
@@ -103,17 +102,16 @@ a:hover { text-decoration: underline; }
 
 .stat-chip {
   background: var(--paper-card);
-  border: 2px solid var(--line);
+  border: 2px solid var(--line-strong);
   padding: 0.28rem 0.75rem;
   border-radius: 999px;
   font-family: var(--mono);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--ink-soft);
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  box-shadow: 0 2px 0 rgba(0,0,0,0.04);
 }
 
 .btn {
@@ -122,28 +120,28 @@ a:hover { text-decoration: underline; }
   gap: 0.45rem;
   background: var(--paper-card);
   color: var(--ink);
-  border: 2px solid var(--line-strong);
-  padding: 0.45rem 0.95rem;
+  border: 2px solid var(--ink);
+  padding: 0.5rem 1rem;
   border-radius: 10px;
-  font-size: 0.83rem;
+  font-size: 0.85rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.14s ease;
   font-family: var(--sans);
-  box-shadow: 0 2px 0 var(--line-strong);
+  box-shadow: 0 2px 0 var(--ink);
 }
 
 .btn:hover {
   transform: translateY(-1px);
-  border-color: var(--ink);
+  background: var(--paper-warm);
   text-decoration: none;
 }
 
 .btn-primary {
   background: var(--terracotta);
   color: #ffffff;
-  border-color: #9a3412;
-  box-shadow: 0 3px 0 #9a3412;
+  border-color: #7c2d12;
+  box-shadow: 0 3px 0 #7c2d12;
 }
 
 .btn-primary:hover {
@@ -154,8 +152,8 @@ a:hover { text-decoration: underline; }
 .btn-meadow {
   background: var(--meadow);
   color: #ffffff;
-  border-color: #14532d;
-  box-shadow: 0 3px 0 #14532d;
+  border-color: #052e16;
+  box-shadow: 0 3px 0 #052e16;
 }
 
 .btn-meadow:hover {
@@ -170,11 +168,11 @@ a:hover { text-decoration: underline; }
   padding: 0.2rem 0.65rem;
   border-radius: 999px;
   background: var(--paper-warm);
-  border: 1.5px solid var(--line);
+  border: 1.5px solid var(--line-strong);
   color: var(--ink-soft);
 }
 
-.tag-terracotta { background: var(--terracotta-soft); color: var(--terracotta); border-color: #fDBA74; }
+.tag-terracotta { background: var(--terracotta-soft); color: var(--terracotta); border-color: #fca5a5; }
 .tag-meadow { background: var(--meadow-soft); color: var(--meadow); border-color: #86efac; }
 .tag-sky { background: var(--sky-soft); color: var(--sky); border-color: #7dd3fc; }
 .tag-amber { background: var(--amber-soft); color: #78350f; border-color: #fcd34d; }
@@ -183,7 +181,7 @@ a:hover { text-decoration: underline; }
 <body>
   <header class="top-nav">
     <div class="brand-cluster">
-      <a class="crest-badge" href="../../index.html">← 3D CAMPUS MAP</a>
+      <a class="crest-badge" href="../../index.html">← 3D CAMPUS RPG</a>
       <div>
         <div class="brand-title">Tokens: how your text becomes numbers</div>
         <div class="brand-sub">BitsByBlocks AI University · Rung 0: Ground floor</div>
@@ -191,11 +189,11 @@ a:hover { text-decoration: underline; }
     </div>
     <div style="display:flex;gap:0.6rem;">
       <a class="btn" href="lesson.json" target="_blank">lesson.json</a>
-      <a class="btn btn-primary" href="../../index.html">🎮 Walk 3D Campus & Take Gate Test</a>
+      <a class="btn btn-primary" href="../../index.html">🎮 Enter 3D Campus & Talk to Characters</a>
     </div>
   </header>
 
-  <main style="max-width:860px;margin:0 auto;padding:2rem 1.5rem 5rem;">
+  <main style="max-width:780px;margin:0 auto;padding:2.5rem 1.5rem 5rem;">
     <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem;">
       <span class="tag tag-terracotta">Parking Lot · Checkpoint #02</span>
       <span class="tag tag-sky">Hall 0: Ground floor</span>
@@ -207,27 +205,27 @@ a:hover { text-decoration: underline; }
       <strong>In One Line:</strong> An AI never sees letters or words; a chopper at the front door slices your text into common puzzle pieces and swaps each piece for a barcode number before the brain ever wakes up.
     </div>
 
-    <article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 01</span><span class="tag tag-amber">Chapter 1 · The Strawberry Mystery</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;line-height:1.4;">Explain it like I&#x27;m 12: Why you can&#x27;t count bricks inside a painted wall</h2><div style="font-size:1.02rem;color:var(--ink-soft);"><p>Here is a famous riddle: if you ask a billion-dollar AI to write a video game in Python, it can do it in ten seconds. If you ask it <code>&#x27;How many R&#x27;s are in the word strawberry?&#x27;</code>, it often confidently says <code>&#x27;Two!&#x27;</code></p>
+    <section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 01</span><span class="tag tag-amber">Chapter 1 · The Strawberry Mystery</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">Explain it like I&#x27;m 12: Why you can&#x27;t count bricks inside a painted wall</h2><div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;"><p>Here is a famous riddle: if you ask a billion-dollar AI to write a video game in Python, it can do it in ten seconds. If you ask it <code>&#x27;How many R&#x27;s are in the word strawberry?&#x27;</code>, it often confidently says <code>&#x27;Two!&#x27;</code></p>
 <p>How can a genius machine fail a second-grade spelling question?</p>
 <p>Because the AI <strong>cannot read letters</strong>. Neural networks are giant calculators that only eat numbers. So before your message ever reaches the AI&#x27;s brain, a small program at the front door called a <strong>tokenizer</strong> chops your sentence into common puzzle pieces (<strong>tokens</strong>) and swaps each piece for a barcode number (<strong>token ID</strong>).</p>
 <p>Look at <code>Figure 1</code> above. When <code>&#x27;strawberry&#x27;</code> walks through the front door, the chopper snaps it into three puzzle pieces: - <code>&#x27;str&#x27;</code> → barcode <code>496</code> - <code>&#x27;aw&#x27;</code> → barcode <code>675</code> - <code>&#x27;berry&#x27;</code> → barcode <code>15717</code></p>
-<p>The AI&#x27;s brain never sees the letters <code>b-e-r-r-y</code>. It just gets handed box number <code>15717</code>. Asking it how many <code>r</code>&#x27;s are inside <code>15717</code> without opening the box is like asking you how many red bricks are hidden behind a painted drywall.</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-01.svg" alt="The barcode chopper at the front door" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 The barcode chopper at the front door:</strong> The neural network only ever receives the final green list of barcode numbers.</span><a href="fig-01.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></article><article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 02</span><span class="tag tag-amber">Chapter 2 · The Compression Trick</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;line-height:1.4;">How the chopper decides where to cut: The Lego glue game (BPE)</h2><div style="font-size:1.02rem;color:var(--ink-soft);"><p>Why did the chopper cut <code>&#x27;strawberry&#x27;</code> into <code>&#x27;str&#x27;</code>, <code>&#x27;aw&#x27;</code>, and <code>&#x27;berry&#x27;</code> instead of whole words or single letters?</p>
+<p>The AI&#x27;s brain never sees the letters <code>b-e-r-r-y</code>. It just gets handed box number <code>15717</code>. Asking it how many <code>r</code>&#x27;s are inside <code>15717</code> without opening the box is like asking you how many red bricks are hidden behind a painted drywall.</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-01.svg" alt="The barcode chopper at the front door" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 The barcode chopper at the front door:</strong> The neural network only ever receives the final green list of barcode numbers.</span><a href="fig-01.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></section><section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 02</span><span class="tag tag-amber">Chapter 2 · The Compression Trick</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">How the chopper decides where to cut: The Lego glue game (BPE)</h2><div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;"><p>Why did the chopper cut <code>&#x27;strawberry&#x27;</code> into <code>&#x27;str&#x27;</code>, <code>&#x27;aw&#x27;</code>, and <code>&#x27;berry&#x27;</code> instead of whole words or single letters?</p>
 <p>Think about packing Lego bricks into boxes: - If you keep every single 1x1 Lego stud loose (<strong>character level</strong>), your dictionary is tiny (just 256 basic computer bytes), but a single book page takes 3,000 studs and the AI&#x27;s memory fills up immediately. - If you pre-glue every word in the world (<strong>word level</strong>), you need millions of boxes, and the moment someone types a new slang word or typo, the machine crashes.</p>
 <p>So engineers use a clever middle path called <strong>byte pair encoding (BPE)</strong> in plain words: start with tiny single-byte letters, find the two neighbors that sit next to each other most often across thousands of books, and glue them into a new puzzle piece. Repeat 100,000 times.</p>
-<p>In our Python lab, we ran just <strong>8 rounds</strong> of BPE glue on <code>&#x27;strawberry berry straw berry strawberry&#x27;</code>. Those 8 merges shrank 39 raw bytes down to <strong>11 puzzle pieces (28.2% of the original size)</strong>!</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-03.svg" alt="How Byte Pair Encoding (BPE) invents puzzle pieces" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 How Byte Pair Encoding (BPE) invents puzzle pieces:</strong> Start with 256 single-byte crumbs and repeatedly glue the most common neighbors together.</span><a href="fig-03.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></article><article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 03</span><span class="tag tag-amber">Chapter 3 · Real Numbers from Our Lab</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;line-height:1.4;">The 3.3x Hindi Tax: Why some languages pay triple at the gate</h2><div style="font-size:1.02rem;color:var(--ink-soft);"><p>Because the BPE glue game is played mostly on English websites and Python code, English words get glued into big, cheap single-token pieces (<code>&#x27; responded&#x27;</code> = 1 token). What happens when you type in Hindi or use emojis?</p>
+<p>In our Python lab, we ran just <strong>8 rounds</strong> of BPE glue on <code>&#x27;strawberry berry straw berry strawberry&#x27;</code>. Those 8 merges shrank 39 raw bytes down to <strong>11 puzzle pieces (28.2% of the original size)</strong>!</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-03.svg" alt="How Byte Pair Encoding (BPE) invents puzzle pieces" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 How Byte Pair Encoding (BPE) invents puzzle pieces:</strong> Start with 256 single-byte crumbs and repeatedly glue the most common neighbors together.</span><a href="fig-03.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></section><section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 03</span><span class="tag tag-amber">Chapter 3 · Real Numbers from Our Lab</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">The 3.3x Hindi Tax: Why some languages pay triple at the gate</h2><div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;"><p>Because the BPE glue game is played mostly on English websites and Python code, English words get glued into big, cheap single-token pieces (<code>&#x27; responded&#x27;</code> = 1 token). What happens when you type in Hindi or use emojis?</p>
 <p>Look at <code>Figure 2</code> from our lab output: - <strong>English (<code>&#x27;The server responded in 12ms.&#x27;</code>):</strong> 29 letters → <strong>8 tokens</strong> (<code>0.28</code> tokens per letter). - <strong>Hindi (<code>&#x27;नमस्ते दुनिया&#x27;</code>):</strong> 13 letters → <strong>12 tokens</strong> (<code>0.92</code> tokens per letter — <strong>3.3x more tokens per letter!</strong>). - <strong>Emojis (<code>&#x27;🚀🔥🤖&#x27;</code>):</strong> 3 emojis → <strong>6 tokens</strong> (<code>2.00</code> tokens per character — <strong>7.1x more!</strong>).</p>
-<p>Engineers call this ratio <strong>token fertility</strong> in plain words: how many tokens a tokenizer needs to represent one word or character. Because the AI&#x27;s conveyor belt (from Checkpoint 1) generates <strong>one token per loop</strong>, 3.3x more tokens means a Hindi user pays <strong>3.3x more money</strong> and waits <strong>3.3x longer</strong> for the exact same answer!</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-02.svg" alt="Why Hindi and Emojis cost more tickets than English" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 Why Hindi and Emojis cost more tickets than English:</strong> Real measurements from our lab: Hindi takes 3.3x more tokens per character than English.</span><a href="fig-02.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></article><article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 04</span><span class="tag tag-amber">Chapter 4 · Pro Mode</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;line-height:1.4;">Three pro tricks every AI engineer keeps in their pocket</h2><div style="font-size:1.02rem;color:var(--ink-soft);"><p>Once you understand the barcode chopper, three mysterious bugs become easy to fix:</p>
-<ol><li><strong>Fixing the &#x27;strawberry&#x27; blind spot.</strong> If you ask the AI to <em>&#x27;spell the word with spaces between every letter first (<code>s t r a w b e r r y</code>), then count the R&#x27;s&#x27;</em>, the spaces force the chopper to give every letter its own separate barcode (<code>436</code> for <code>&#x27; r&#x27;</code>). Now the AI sees three <code>436</code> barcodes in plain sight and counts them with 100% accuracy.</li><li><strong>Why leading spaces matter.</strong> To the chopper, <code>&#x27;server&#x27;</code> (at the start of a line) and <code>&#x27; server&#x27;</code> (after a space) have two completely different barcode numbers! If you end your prompt template with a trailing space, the model&#x27;s next-token scoreboard shifts unexpectedly.</li><li><strong>Why numbers trip up math.</strong> If a chopper glues <code>123</code> into one token on line one, but chops <code>1234</code> into <code>12</code> and <code>34</code> on line two, the model cannot line up the ones, tens, and hundreds columns. Newer models force every digit <code>0–9</code> to be its own token so arithmetic stays consistent.</li></ol></div></article>
+<p>Engineers call this ratio <strong>token fertility</strong> in plain words: how many tokens a tokenizer needs to represent one word or character. Because the AI&#x27;s conveyor belt (from Checkpoint 1) generates <strong>one token per loop</strong>, 3.3x more tokens means a Hindi user pays <strong>3.3x more money</strong> and waits <strong>3.3x longer</strong> for the exact same answer!</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-02.svg" alt="Why Hindi and Emojis cost more tickets than English" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 Why Hindi and Emojis cost more tickets than English:</strong> Real measurements from our lab: Hindi takes 3.3x more tokens per character than English.</span><a href="fig-02.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></section><section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 04</span><span class="tag tag-amber">Chapter 4 · Pro Mode</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">Three pro tricks every AI engineer keeps in their pocket</h2><div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;"><p>Once you understand the barcode chopper, three mysterious bugs become easy to fix:</p>
+<ol><li><strong>Fixing the &#x27;strawberry&#x27; blind spot.</strong> If you ask the AI to <em>&#x27;spell the word with spaces between every letter first (<code>s t r a w b e r r y</code>), then count the R&#x27;s&#x27;</em>, the spaces force the chopper to give every letter its own separate barcode (<code>436</code> for <code>&#x27; r&#x27;</code>). Now the AI sees three <code>436</code> barcodes in plain sight and counts them with 100% accuracy.</li><li><strong>Why leading spaces matter.</strong> To the chopper, <code>&#x27;server&#x27;</code> (at the start of a line) and <code>&#x27; server&#x27;</code> (after a space) have two completely different barcode numbers! If you end your prompt template with a trailing space, the model&#x27;s next-token scoreboard shifts unexpectedly.</li><li><strong>Why numbers trip up math.</strong> If a chopper glues <code>123</code> into one token on line one, but chops <code>1234</code> into <code>12</code> and <code>34</code> on line two, the model cannot line up the ones, tens, and hundreds columns. Newer models force every digit <code>0–9</code> to be its own token so arithmetic stays consistent.</li></ol></div></section>
 
-    <h2 style="font-family:var(--serif);margin-top:2.5rem;">Plain-English Jargon Decoder</h2>
-    <table style="width:100%;border-collapse:collapse;background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;overflow:hidden;font-size:0.92rem;">
+    <h2 style="font-family:var(--serif);line-height:1.35;margin-top:2.5rem;">Plain-English Jargon Decoder</h2>
+    <table style="width:100%;border-collapse:collapse;background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;overflow:hidden;font-size:0.94rem;">
       <thead><tr style="background:var(--paper-warm);text-align:left;"><th style="padding:0.8rem;">Term</th><th style="padding:0.8rem;">In Plain Words</th><th style="padding:0.8rem;">Why You Care</th></tr></thead>
       <tbody><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>token</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">One puzzle piece of text (a word, part of a word, or a single byte) that gets one barcode number.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Your API bill, memory limit, and streaming speed are all measured in tokens, not words.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>tokenizer</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">The front-door program that chops text into tokens and swaps them for integer IDs.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Runs before the neural network; tokenizer blind spots cannot be fixed by &#x27;thinking harder&#x27;.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>byte pair encoding (BPE)</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">Starting with 256 raw bytes and repeatedly gluing the most common adjacent pair into a new token.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">The compression algorithm used by GPT-4, Claude, Llama, and DeepSeek.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>vocabulary</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">The full dictionary of all 100,000+ puzzle pieces the tokenizer knows.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Bigger vocabularies compress non-English languages better.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>token ID</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">The barcode integer (like 15717 for &#x27;berry&#x27;) handed to the model.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">The only representation of your text the model ever actually receives.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>token fertility</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">How many tokens it takes to represent one word or character in a language.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Directly multiplies your cloud bill and response time for Hindi, Indic scripts, and dense JSON.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>byte fallback</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">Breaking unfamiliar characters (like rare emojis) down into raw UTF-8 byte tokens (0–255).</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Prevents unknown-character crashes, at the cost of up to 4 tokens per character.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>special token</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">Reserved control barcodes like &lt;|im_start|&gt; or &lt;|endoftext|&gt;.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Marks where the user stops talking and the assistant starts.</td></tr></tbody>
     </table>
 
-    <h2 style="font-family:var(--serif);margin-top:2.5rem;">Hands-On Python Lab: Train a 30-line BPE Tokenizer &amp; Measure Multilingual Token Fertility</h2>
+    <h2 style="font-family:var(--serif);line-height:1.35;margin-top:2.5rem;">Hands-On Python Lab: Train a 30-line BPE Tokenizer &amp; Measure Multilingual Token Fertility</h2>
     <p>Implement Byte Pair Encoding from raw UTF-8 bytes, watch 8 merges compress a corpus to 28.2% of its byte length, and measure the exact tokens/char cost multiplier across English, Hindi, and emojis.</p>
-    <pre style="background:#1c1917;color:#f5f5f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;"><code>=== STEP 1: Byte Pair Encoding (BPE) Compression on &#x27;strawberry&#x27; corpus ===
+    <pre style="background:#111c16;color:#f2f7f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;"><code>=== STEP 1: Byte Pair Encoding (BPE) Compression on &#x27;strawberry&#x27; corpus ===
 Raw UTF-8 byte length: 39 tokens
 After 8 BPE merges:    11 tokens (28.2% of original)
 Merged pieces: &#x27;straw&#x27; | &#x27;berry&#x27; | &#x27; &#x27; | &#x27;berry&#x27; | &#x27; &#x27; | &#x27;straw&#x27; | &#x27; &#x27; | &#x27;berry&#x27; | &#x27; &#x27; | &#x27;straw&#x27; | &#x27;berry&#x27;
@@ -242,7 +240,7 @@ It sees 3 integer IDs: [496, 675, 15717]. Token 15717 (&#x27;berry&#x27;) hides 
   &#x27;The server responded in 12ms.&#x27;  -&gt; 29 chars |  8 tokens | 0.28 tokens/char
   &#x27;नमस्ते दुनिया&#x27;                  -&gt; 13 chars | 12 tokens | 0.92 tokens/char
   &#x27;🚀🔥🤖&#x27;                            -&gt;  3 chars |  6 tokens | 2.00 tokens/char</code></pre>
-    <pre style="background:#1c1917;color:#f5f5f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;margin-top:1rem;"><code>&quot;&quot;&quot;Pure-Python Byte Pair Encoding (BPE) &amp; Tokenizer Fertility Lab for Module l0-tokens.
+    <pre style="background:#111c16;color:#f2f7f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;margin-top:1rem;"><code>&quot;&quot;&quot;Pure-Python Byte Pair Encoding (BPE) &amp; Tokenizer Fertility Lab for Module l0-tokens.
 
 Demonstrates:
 1. Why character/UTF-8 byte length != token count.
@@ -339,19 +337,19 @@ if __name__ == &quot;__main__&quot;:
     main()
 </code></pre>
 
-    <h2 style="font-family:var(--serif);margin-top:2.5rem;">Share Studio · The Turn & X Thread</h2>
+    <h2 style="font-family:var(--serif);line-height:1.35;margin-top:2.5rem;">Share Studio · The Turn & X Thread</h2>
     <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--ink), 0 8px 20px rgba(17,28,22,0.10);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;">
-      <div style="font-family:var(--mono);font-size:0.72rem;font-weight:800;color:var(--terracotta);">THE NOTEBOOK TURN</div>
+      <div style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">THE NOTEBOOK TURN</div>
       <div style="font-family:var(--serif);font-size:1.3rem;line-height:1.45;margin:0.35rem 0;">“When I wrote the 30-line BPE chopper from raw UTF-8 bytes, I stopped thinking of &#x27;strawberry&#x27; as a reasoning failure — you cannot count letters that were compressed into a single barcode before you even opened your eyes.”</div>
       <div style="font-size:0.88rem;color:var(--ink-soft);"><strong>Reel Hook:</strong> Voiceover: &#x27;Everyone laughed when ChatGPT couldn&#x27;t count the three R&#x27;s in strawberry. Then I wrote a 30-line tokenizer in Python and saw what the model actually receives: three barcode numbers — 496, 675, and 15717.&#x27;</div>
     </div>
-    <div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">1/ Why can an AI write a working compiler in seconds, yet fail to count the three &#x27;r&#x27;s in &#x27;strawberry&#x27;? Because it never sees the word &#x27;strawberry&#x27;. It gets handed three barcode numbers: [496, 675, 15717].</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">2/ For Checkpoint 02 of my AI Engineering University, I coded a Byte Pair Encoding (BPE) tokenizer from scratch in 30 lines of Python to watch how text gets sliced at the front door.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">3/ Every string starts as raw UTF-8 bytes (0-255). BPE scans the books, finds the two neighbors sitting next to each other most often, glues them into barcode 256, and repeats 100,000 times.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">4/ On my test string, just 8 BPE glue rounds compressed 39 raw bytes down to 11 puzzle pieces (28.2% of original length): &#x27;straw&#x27; | &#x27;berry&#x27; | ...</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">5/ Under a GPT-4 class tokenizer, &#x27;strawberry&#x27; becomes:
+    <div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">1/ Why can an AI write a working compiler in seconds, yet fail to count the three &#x27;r&#x27;s in &#x27;strawberry&#x27;? Because it never sees the word &#x27;strawberry&#x27;. It gets handed three barcode numbers: [496, 675, 15717].</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">2/ For Checkpoint 02 of my AI Engineering University, I coded a Byte Pair Encoding (BPE) tokenizer from scratch in 30 lines of Python to watch how text gets sliced at the front door.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">3/ Every string starts as raw UTF-8 bytes (0-255). BPE scans the books, finds the two neighbors sitting next to each other most often, glues them into barcode 256, and repeats 100,000 times.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">4/ On my test string, just 8 BPE glue rounds compressed 39 raw bytes down to 11 puzzle pieces (28.2% of original length): &#x27;straw&#x27; | &#x27;berry&#x27; | ...</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">5/ Under a GPT-4 class tokenizer, &#x27;strawberry&#x27; becomes:
 - &#x27;str&#x27; -&gt; 496
 - &#x27;aw&#x27; -&gt; 675
 - &#x27;berry&#x27; -&gt; 15717
-Two of the three &#x27;r&#x27; letters are locked inside barcode 15717. Asking the model to count them without spelling the word out is like asking you to count bricks behind a painted wall.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">6/ Even wilder is the hidden tax on non-English languages (token fertility). Look at the tokens-per-character ratio from the lab output:</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">7/ • English (&#x27;The server responded in 12ms.&#x27;): 29 chars -&gt; 8 tokens (0.28 tok/char)
+Two of the three &#x27;r&#x27; letters are locked inside barcode 15717. Asking the model to count them without spelling the word out is like asking you to count bricks behind a painted wall.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">6/ Even wilder is the hidden tax on non-English languages (token fertility). Look at the tokens-per-character ratio from the lab output:</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">7/ • English (&#x27;The server responded in 12ms.&#x27;): 29 chars -&gt; 8 tokens (0.28 tok/char)
 • Hindi (&#x27;नमस्ते दुनिया&#x27;): 13 chars -&gt; 12 tokens (0.92 tok/char — 3.3x cost &amp; latency!)
-• Emojis (&#x27;🚀🔥🤖&#x27;): 3 chars -&gt; 6 tokens (2.00 tok/char — 7.1x!)</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">8/ Because the AI generates one token per loop, 3.3x more tokens means a Hindi user pays 3.3x more and waits 3.3x longer. Next campus stop: the Cafeteria — how barcode numbers turn into GPS coordinates of meaning (Embeddings).</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div>
+• Emojis (&#x27;🚀🔥🤖&#x27;): 3 chars -&gt; 6 tokens (2.00 tok/char — 7.1x!)</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">8/ Because the AI generates one token per loop, 3.3x more tokens means a Hindi user pays 3.3x more and waits 3.3x longer. Next campus stop: the Cafeteria — how barcode numbers turn into GPS coordinates of meaning (Embeddings).</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div>
   </main>
 </body>
 </html>

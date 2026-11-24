@@ -18,8 +18,7 @@
   --line: #bfd2c7;
   --line-strong: #8fa99b;
   --terracotta: #9a2c13;
-  --terracotta-soft: #;
-  --terracotta-soft: #;
+  --terracotta-soft: #fee2e2;
   --amber: #92400e;
   --amber-soft: #fef3c7;
   --meadow: #14532d;
@@ -44,7 +43,7 @@ body {
   overflow-x: hidden;
 }
 
-a { color: var(--terracotta); text-decoration: none; font-weight: 600; }
+a { color: var(--terracotta); text-decoration: none; font-weight: 700; }
 a:hover { text-decoration: underline; }
 
 .top-nav {
@@ -76,8 +75,8 @@ a:hover { text-decoration: underline; }
   font-size: 0.85rem;
   padding: 0.32rem 0.75rem;
   border-radius: 8px;
-  border: 2px solid #9a3412;
-  box-shadow: 0 2px 0 #9a3412;
+  border: 2px solid #7c2d12;
+  box-shadow: 0 2px 0 #7c2d12;
   letter-spacing: 0.01em;
 }
 
@@ -91,7 +90,7 @@ a:hover { text-decoration: underline; }
 .brand-sub {
   font-size: 0.78rem;
   color: var(--muted);
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .nav-pills {
@@ -103,17 +102,16 @@ a:hover { text-decoration: underline; }
 
 .stat-chip {
   background: var(--paper-card);
-  border: 2px solid var(--line);
+  border: 2px solid var(--line-strong);
   padding: 0.28rem 0.75rem;
   border-radius: 999px;
   font-family: var(--mono);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--ink-soft);
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  box-shadow: 0 2px 0 rgba(0,0,0,0.04);
 }
 
 .btn {
@@ -122,28 +120,28 @@ a:hover { text-decoration: underline; }
   gap: 0.45rem;
   background: var(--paper-card);
   color: var(--ink);
-  border: 2px solid var(--line-strong);
-  padding: 0.45rem 0.95rem;
+  border: 2px solid var(--ink);
+  padding: 0.5rem 1rem;
   border-radius: 10px;
-  font-size: 0.83rem;
+  font-size: 0.85rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.14s ease;
   font-family: var(--sans);
-  box-shadow: 0 2px 0 var(--line-strong);
+  box-shadow: 0 2px 0 var(--ink);
 }
 
 .btn:hover {
   transform: translateY(-1px);
-  border-color: var(--ink);
+  background: var(--paper-warm);
   text-decoration: none;
 }
 
 .btn-primary {
   background: var(--terracotta);
   color: #ffffff;
-  border-color: #9a3412;
-  box-shadow: 0 3px 0 #9a3412;
+  border-color: #7c2d12;
+  box-shadow: 0 3px 0 #7c2d12;
 }
 
 .btn-primary:hover {
@@ -154,8 +152,8 @@ a:hover { text-decoration: underline; }
 .btn-meadow {
   background: var(--meadow);
   color: #ffffff;
-  border-color: #14532d;
-  box-shadow: 0 3px 0 #14532d;
+  border-color: #052e16;
+  box-shadow: 0 3px 0 #052e16;
 }
 
 .btn-meadow:hover {
@@ -170,11 +168,11 @@ a:hover { text-decoration: underline; }
   padding: 0.2rem 0.65rem;
   border-radius: 999px;
   background: var(--paper-warm);
-  border: 1.5px solid var(--line);
+  border: 1.5px solid var(--line-strong);
   color: var(--ink-soft);
 }
 
-.tag-terracotta { background: var(--terracotta-soft); color: var(--terracotta); border-color: #fDBA74; }
+.tag-terracotta { background: var(--terracotta-soft); color: var(--terracotta); border-color: #fca5a5; }
 .tag-meadow { background: var(--meadow-soft); color: var(--meadow); border-color: #86efac; }
 .tag-sky { background: var(--sky-soft); color: var(--sky); border-color: #7dd3fc; }
 .tag-amber { background: var(--amber-soft); color: #78350f; border-color: #fcd34d; }
@@ -183,7 +181,7 @@ a:hover { text-decoration: underline; }
 <body>
   <header class="top-nav">
     <div class="brand-cluster">
-      <a class="crest-badge" href="../../index.html">← 3D CAMPUS MAP</a>
+      <a class="crest-badge" href="../../index.html">← 3D CAMPUS RPG</a>
       <div>
         <div class="brand-title">The context window is your whole memory</div>
         <div class="brand-sub">BitsByBlocks AI University · Rung 0: Ground floor</div>
@@ -191,11 +189,11 @@ a:hover { text-decoration: underline; }
     </div>
     <div style="display:flex;gap:0.6rem;">
       <a class="btn" href="lesson.json" target="_blank">lesson.json</a>
-      <a class="btn btn-primary" href="../../index.html">🎮 Walk 3D Campus & Take Gate Test</a>
+      <a class="btn btn-primary" href="../../index.html">🎮 Enter 3D Campus & Talk to Characters</a>
     </div>
   </header>
 
-  <main style="max-width:860px;margin:0 auto;padding:2rem 1.5rem 5rem;">
+  <main style="max-width:780px;margin:0 auto;padding:2.5rem 1.5rem 5rem;">
     <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem;">
       <span class="tag tag-terracotta">Campus Quad Lawn · Checkpoint #04</span>
       <span class="tag tag-sky">Hall 0: Ground floor</span>
@@ -207,25 +205,25 @@ a:hover { text-decoration: underline; }
       <strong>In One Line:</strong> An AI has zero memory of your previous message; your chat app secretly pastes your entire conversation history onto a fixed-size lunch tray on every single turn — and anything that falls off the tray or sits in the dead middle gets forgotten.
     </div>
 
-    <article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 01</span><span class="tag tag-amber">Chapter 1 · The Memory Illusion</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;line-height:1.4;">Explain it like I&#x27;m 12: The Amnesia Chef and the Fixed-Size Lunch Tray</h2><div style="font-size:1.02rem;color:var(--ink-soft);"><p>Remember from Checkpoint 1 that the AI&#x27;s brain is a frozen file on a hard drive? Every time it finishes answering you, it gets <strong>100% total amnesia</strong>. It does not store a file on its server called <code>&#x27;Ashwin&#x27;s Chat&#x27;</code> inside its neural weights.</p>
+    <section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 01</span><span class="tag tag-amber">Chapter 1 · The Memory Illusion</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">Explain it like I&#x27;m 12: The Amnesia Chef and the Fixed-Size Lunch Tray</h2><div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;"><p>Remember from Checkpoint 1 that the AI&#x27;s brain is a frozen file on a hard drive? Every time it finishes answering you, it gets <strong>100% total amnesia</strong>. It does not store a file on its server called <code>&#x27;Ashwin&#x27;s Chat&#x27;</code> inside its neural weights.</p>
 <p>Wait — then how does ChatGPT or Claude know what you said two messages ago when you ask a follow-up question?</p>
 <p>Because your chat app plays a sleight-of-hand trick! Every time you hit <strong>Send</strong>, the app takes your entire chat history from the very first message, glues your new line onto the bottom, and places the whole stack onto a fixed-size tray called the <strong>context window</strong> in plain words: the maximum number of tokens (input prompt + generated reply combined) the model can hold and look at in a single pass.</p>
-<p>Look at <code>Figure 1</code> from our lab. Our toy tray holds at most <strong>24 words</strong>. In Turn 1, you tell the AI: <code>&#x27;My secret locker code is 7492.&#x27;</code> By Turn 5, after chatting about the cafeteria menu and robotics club, the conversation is 43 words long. To fit the new question onto the 24-word tray, the app silently shoves Turns 1, 2, and 3 off the back of the tray (<strong>truncation</strong>). When Turn 5 asks <code>&#x27;What was my secret locker code?&#x27;</code>, the AI has no idea — because Turn 1 literally isn&#x27;t on the tray anymore!</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-01.svg" alt="The illusion of chat memory: re-sending the whole script every turn" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 The illusion of chat memory: re-sending the whole script every turn:</strong> When the tray overflows, the oldest messages at the front get pushed off the edge (truncation).</span><a href="fig-01.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></article><article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 02</span><span class="tag tag-amber">Chapter 2 · The Hidden Cost of Long Chats</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;line-height:1.4;">Why you pay for Message 1 ten times in a 10-turn chat</h2><div style="font-size:1.02rem;color:var(--ink-soft);"><p>Once you see the lunch tray trick, a big billing mystery makes instant sense.</p>
+<p>Look at <code>Figure 1</code> from our lab. Our toy tray holds at most <strong>24 words</strong>. In Turn 1, you tell the AI: <code>&#x27;My secret locker code is 7492.&#x27;</code> By Turn 5, after chatting about the cafeteria menu and robotics club, the conversation is 43 words long. To fit the new question onto the 24-word tray, the app silently shoves Turns 1, 2, and 3 off the back of the tray (<strong>truncation</strong>). When Turn 5 asks <code>&#x27;What was my secret locker code?&#x27;</code>, the AI has no idea — because Turn 1 literally isn&#x27;t on the tray anymore!</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-01.svg" alt="The illusion of chat memory: re-sending the whole script every turn" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 The illusion of chat memory: re-sending the whole script every turn:</strong> When the tray overflows, the oldest messages at the front get pushed off the edge (truncation).</span><a href="fig-01.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></section><section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 02</span><span class="tag tag-amber">Chapter 2 · The Hidden Cost of Long Chats</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">Why you pay for Message 1 ten times in a 10-turn chat</h2><div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;"><p>Once you see the lunch tray trick, a big billing mystery makes instant sense.</p>
 <p>When you have a 10-message conversation with an AI API: - On Turn 1, you send 100 tokens. - On Turn 2, you re-send Turn 1 (100 tokens) + Turn 1&#x27;s answer (200 tokens) + your new question (100 tokens) = <strong>400 tokens</strong>. - By Turn 10, you are re-sending and paying for Message 1 for the <strong>tenth time in a row</strong>!</p>
-<p>Every token on the tray — both the <strong>prompt</strong> (everything you send in) and the <strong>completion</strong> (every new token the model generates back) — shares the same context window budget.</p></div></article><article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 03</span><span class="tag tag-amber">Chapter 3 · The Stanford U-Curve Discovery</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;line-height:1.4;">Lost in the Middle: Why a giant tray still misses the middle sandwich</h2><div style="font-size:1.02rem;color:var(--ink-soft);"><p>Modern models brag about giant trays: 128,000 tokens (a whole 300-page book) or even 1,000,000 tokens. So developers thought: <em>&#x27;Awesome! I&#x27;ll just paste 50 documents into the prompt and the AI will find the needle in the haystack.&#x27;</em></p>
+<p>Every token on the tray — both the <strong>prompt</strong> (everything you send in) and the <strong>completion</strong> (every new token the model generates back) — shares the same context window budget.</p></div></section><section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 03</span><span class="tag tag-amber">Chapter 3 · The Stanford U-Curve Discovery</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">Lost in the Middle: Why a giant tray still misses the middle sandwich</h2><div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;"><p>Modern models brag about giant trays: 128,000 tokens (a whole 300-page book) or even 1,000,000 tokens. So developers thought: <em>&#x27;Awesome! I&#x27;ll just paste 50 documents into the prompt and the AI will find the needle in the haystack.&#x27;</em></p>
 <p>Then researchers at Stanford (Liu et al., <em>Lost in the Middle</em>) tested where the needle actually sat inside the stack of documents. Look at <code>Figure 2</code> from our Python lab: - When the key fact sat in <strong>Chunk 1/10 (the very beginning)</strong>, recall accuracy was <strong><code>93.0%</code></strong>. - When the exact same fact was moved to <strong>Chunk 6/10 (the dead middle)</strong>, recall crashed to <strong><code>38.7%</code></strong>! - When the fact was moved to <strong>Chunk 10/10 (right at the bottom next to the question)</strong>, recall jumped right back up to <strong><code>93.0%</code></strong>.</p>
-<p>Just like a human cramming a textbook five minutes before class, the model remembers the first page (<strong>primacy</strong>) and the last page it just read (<strong>recency</strong>), while the middle pages blur together.</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-02.svg" alt="The &#x27;Lost in the Middle&#x27; U-Curve (Real Lab Output)" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 The &#x27;Lost in the Middle&#x27; U-Curve (Real Lab Output):</strong> Models remember the start (93.0%) and the end (93.0%) of a long prompt, but drop to 38.7% in the dead middle.</span><a href="fig-02.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></article><article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 04</span><span class="tag tag-amber">Chapter 4 · Pro Mode</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;line-height:1.4;">How to pack your prompt tray so the AI never misses</h2><div style="font-size:1.02rem;color:var(--ink-soft);"><p>Look at <code>Figure 3</code>. Knowing the U-curve gives you a concrete layout rule for every production prompt you ever write:</p>
-<ol><li><strong>Top of the tray (Chunk 1 — 93% recall):</strong> Put your non-negotiable system role and rules here.</li><li><strong>Middle of the tray (Chunks 3–7 — lower recall):</strong> Put lower-ranked background history or older conversation turns here.</li><li><strong>Bottom of the tray (Chunk 10 — 93% recall):</strong> Put your <strong>#1 highest-ranked retrieved document</strong> and the <strong>exact user question / output format instruction</strong> at the very bottom of the prompt, right before the model starts generating tokens.</li></ol></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-03.svg" alt="How to pack your prompt tray like a pro engineer" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 How to pack your prompt tray like a pro engineer:</strong> Put identity and core rules at the very top, reference material in the middle, and the exact question + key facts at the very bottom.</span><a href="fig-03.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></article>
+<p>Just like a human cramming a textbook five minutes before class, the model remembers the first page (<strong>primacy</strong>) and the last page it just read (<strong>recency</strong>), while the middle pages blur together.</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-02.svg" alt="The &#x27;Lost in the Middle&#x27; U-Curve (Real Lab Output)" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 The &#x27;Lost in the Middle&#x27; U-Curve (Real Lab Output):</strong> Models remember the start (93.0%) and the end (93.0%) of a long prompt, but drop to 38.7% in the dead middle.</span><a href="fig-02.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></section><section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 04</span><span class="tag tag-amber">Chapter 4 · Pro Mode</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">How to pack your prompt tray so the AI never misses</h2><div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;"><p>Look at <code>Figure 3</code>. Knowing the U-curve gives you a concrete layout rule for every production prompt you ever write:</p>
+<ol><li><strong>Top of the tray (Chunk 1 — 93% recall):</strong> Put your non-negotiable system role and rules here.</li><li><strong>Middle of the tray (Chunks 3–7 — lower recall):</strong> Put lower-ranked background history or older conversation turns here.</li><li><strong>Bottom of the tray (Chunk 10 — 93% recall):</strong> Put your <strong>#1 highest-ranked retrieved document</strong> and the <strong>exact user question / output format instruction</strong> at the very bottom of the prompt, right before the model starts generating tokens.</li></ol></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-03.svg" alt="How to pack your prompt tray like a pro engineer" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 How to pack your prompt tray like a pro engineer:</strong> Put identity and core rules at the very top, reference material in the middle, and the exact question + key facts at the very bottom.</span><a href="fig-03.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></section>
 
-    <h2 style="font-family:var(--serif);margin-top:2.5rem;">Plain-English Jargon Decoder</h2>
-    <table style="width:100%;border-collapse:collapse;background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;overflow:hidden;font-size:0.92rem;">
+    <h2 style="font-family:var(--serif);line-height:1.35;margin-top:2.5rem;">Plain-English Jargon Decoder</h2>
+    <table style="width:100%;border-collapse:collapse;background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;overflow:hidden;font-size:0.94rem;">
       <thead><tr style="background:var(--paper-warm);text-align:left;"><th style="padding:0.8rem;">Term</th><th style="padding:0.8rem;">In Plain Words</th><th style="padding:0.8rem;">Why You Care</th></tr></thead>
       <tbody><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>context window</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">The fixed-size token tray that holds your entire input prompt plus the model&#x27;s generated answer in one call.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Your hard ceiling on how much text the model can see at once.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>prompt</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">All the tokens you place on the tray before the model starts guessing (system rules, history, docs, question).</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Because the model is stateless, anything not in the weights or the current prompt does not exist.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>completion</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">The new tokens generated by the model and added onto the tray.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Completion tokens share the context window limit with your prompt and usually cost 3x–5x more per token.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>truncation</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">Chopping off the oldest or overflowing tokens when your text exceeds the context window budget.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Silent truncation drops early instructions or facts without throwing an error if you don&#x27;t budget tokens.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>lost in the middle</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">The U-shaped accuracy drop where models recall facts at the very start and very end of a long prompt far better than facts in the middle.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Tells you to place your top retrieved facts and final instructions at the very start or very bottom of the prompt.</td></tr></tbody>
     </table>
 
-    <h2 style="font-family:var(--serif);margin-top:2.5rem;">Hands-On Python Lab: Simulate Sliding Context Truncation &amp; the &#x27;Lost in the Middle&#x27; U-Curve</h2>
+    <h2 style="font-family:var(--serif);line-height:1.35;margin-top:2.5rem;">Hands-On Python Lab: Simulate Sliding Context Truncation &amp; the &#x27;Lost in the Middle&#x27; U-Curve</h2>
     <p>Run a 24-word sliding context window over a 5-turn chat to watch Turn 1&#x27;s secret locker code (&#x27;7492&#x27;) fall off the tray, then measure the U-shaped recall curve across 10 document positions (93.0% at start/end vs 38.7% in the middle).</p>
-    <pre style="background:#1c1917;color:#f5f5f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;"><code>=== STEP 1: Sliding Context Window Budget (Max 24 words) ===
+    <pre style="background:#111c16;color:#f2f7f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;"><code>=== STEP 1: Sliding Context Window Budget (Max 24 words) ===
 Dropped at the door (3 turns): [&#x27;Turn 1: My secret locker code is 7492.&#x27;, &#x27;Turn 2: Let us discuss the cafeteria menu for Monday.&#x27;, &#x27;Turn 3: The cafeteria serves masala dosa and filter coffee.&#x27;]
 Inside context window (2 turns): [&#x27;Turn 4: On Tuesday the library hosts a robotics club demo.&#x27;, &#x27;Turn 5: What was my secret locker code from Turn 1?&#x27;]
 Can the model see &#x27;7492&#x27;? -&gt; False (Turn 1 fell off the tray!)
@@ -236,7 +234,7 @@ Can the model see &#x27;7492&#x27;? -&gt; False (Turn 1 fell off the tray!)
   Chunk  6/10 [DEAD MIDDLE    ] -&gt; Recall accuracy:  38.7%
   Chunk  8/10 [INNER          ] -&gt; Recall accuracy:  55.0%
   Chunk 10/10 [END (Recency)  ] -&gt; Recall accuracy:  93.0%</code></pre>
-    <pre style="background:#1c1917;color:#f5f5f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;margin-top:1rem;"><code>&quot;&quot;&quot;Pure-Python Context Window &amp; &#x27;Lost in the Middle&#x27; Lab for Module l0-context-window.
+    <pre style="background:#111c16;color:#f2f7f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;margin-top:1rem;"><code>&quot;&quot;&quot;Pure-Python Context Window &amp; &#x27;Lost in the Middle&#x27; Lab for Module l0-context-window.
 
 Shows:
 1. Why an LLM has zero memory between API calls unless you re-send the whole chat history.
@@ -301,16 +299,16 @@ if __name__ == &quot;__main__&quot;:
     main()
 </code></pre>
 
-    <h2 style="font-family:var(--serif);margin-top:2.5rem;">Share Studio · The Turn & X Thread</h2>
+    <h2 style="font-family:var(--serif);line-height:1.35;margin-top:2.5rem;">Share Studio · The Turn & X Thread</h2>
     <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--ink), 0 8px 20px rgba(17,28,22,0.10);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;">
-      <div style="font-family:var(--mono);font-size:0.72rem;font-weight:800;color:var(--terracotta);">THE NOTEBOOK TURN</div>
+      <div style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">THE NOTEBOOK TURN</div>
       <div style="font-family:var(--serif);font-size:1.3rem;line-height:1.45;margin:0.35rem 0;">“Once I coded the sliding lunch tray in Python, I stopped saying &#x27;the AI forgot what I told it&#x27; — an AI cannot forget what it never stored; either my code pushed that message off the tray, or I buried it in the middle where attention goes to sleep.”</div>
       <div style="font-size:0.88rem;color:var(--ink-soft);"><strong>Reel Hook:</strong> Voiceover: &#x27;ChatGPT doesn&#x27;t actually remember what you told it thirty seconds ago. Every time you hit send, the app secretly pastes your entire conversation onto a fixed-size lunch tray — and here&#x27;s what happens when that tray gets full.&#x27;</div>
     </div>
-    <div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">1/ Your AI chatbot does not remember what you said 10 seconds ago. Every time you press Send, your app secretly copies your entire conversation from Message 1 and pastes the whole script onto a fixed-size lunch tray (the context window).</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">2/ For Checkpoint 04 on the Campus Quad of my AI University, I simulated sliding-window truncation and the Stanford &#x27;Lost in the Middle&#x27; U-curve in 35 lines of Python.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">3/ In Turn 1 of our test chat, the user says: &#x27;My secret locker code is 7492.&#x27; By Turn 5, the chat is 43 words long, but our toy tray only holds 24 words.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">4/ To make room for Turn 5, the app silently shoves Turns 1, 2, and 3 off the back edge of the tray. When Turn 5 asks &#x27;What was my locker code?&#x27;, the model fails — because Turn 1 literally isn&#x27;t in the HTTP request anymore.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">5/ &#x27;Fine,&#x27; developers say, &#x27;I&#x27;ll use a 128k or 1M context window so nothing ever falls off!&#x27; That&#x27;s where the second trap hits: Lost in the Middle.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">6/ When you stuff 10 chunks of text into a long prompt, the model does NOT read them equally. Look at the U-shaped recall curve from the lab:
+    <div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">1/ Your AI chatbot does not remember what you said 10 seconds ago. Every time you press Send, your app secretly copies your entire conversation from Message 1 and pastes the whole script onto a fixed-size lunch tray (the context window).</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">2/ For Checkpoint 04 on the Campus Quad of my AI University, I simulated sliding-window truncation and the Stanford &#x27;Lost in the Middle&#x27; U-curve in 35 lines of Python.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">3/ In Turn 1 of our test chat, the user says: &#x27;My secret locker code is 7492.&#x27; By Turn 5, the chat is 43 words long, but our toy tray only holds 24 words.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">4/ To make room for Turn 5, the app silently shoves Turns 1, 2, and 3 off the back edge of the tray. When Turn 5 asks &#x27;What was my locker code?&#x27;, the model fails — because Turn 1 literally isn&#x27;t in the HTTP request anymore.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">5/ &#x27;Fine,&#x27; developers say, &#x27;I&#x27;ll use a 128k or 1M context window so nothing ever falls off!&#x27; That&#x27;s where the second trap hits: Lost in the Middle.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">6/ When you stuff 10 chunks of text into a long prompt, the model does NOT read them equally. Look at the U-shaped recall curve from the lab:
 • Chunk 1/10 (Very Top): 93.0% recall
 • Chunk 6/10 (Dead Middle): 38.7% recall!
-• Chunk 10/10 (Very Bottom): 93.0% recall</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">7/ Just like a student cramming before an exam, the model remembers the first page (primacy) and the last page (recency), while the middle blurs out.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">8/ Pro rule for every prompt you write: put core rules at the very top, background filler in the middle, and your #1 most important retrieved fact + question at the very bottom.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div>
+• Chunk 10/10 (Very Bottom): 93.0% recall</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">7/ Just like a student cramming before an exam, the model remembers the first page (primacy) and the last page (recency), while the middle blurs out.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">8/ Pro rule for every prompt you write: put core rules at the very top, background filler in the middle, and your #1 most important retrieved fact + question at the very bottom.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div>
   </main>
 </body>
 </html>
