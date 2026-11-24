@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-28.0 -28.0 640.6 729.0" width="100%" height="auto" class="excalidraw-svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-28.0 -28.0 752.0 729.0" width="100%" height="auto" class="excalidraw-svg">
 <defs>
 <style>
 .excalidraw-text { font-family: "Virgil", "Comic Neue", "Caveat", "Segoe Print", "Bradley Hand", ui-rounded, sans-serif; }
 </style>
 </defs>
-<text x="0.0" y="22.1" font-size="24" font-weight="700" fill="#1e1e1e" class="excalidraw-text">How Byte Pair Encoding builds a vocabulary</text>
+<text x="0.0" y="22.1" font-size="24" font-weight="700" fill="#1e1e1e" class="excalidraw-text">How Byte Pair Encoding (BPE) invents puzzle pieces</text>
 <rect x="3.0" y="64.0" width="240.0" height="118.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
 <rect x="0.0" y="60.0" width="240.0" height="118.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
 <rect x="0.8" y="60.4" width="240.0" height="118.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
@@ -14,25 +14,26 @@
 <rect x="3.0" y="229.0" width="240.0" height="118.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
 <rect x="0.0" y="225.0" width="240.0" height="118.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
 <rect x="-0.8" y="224.6" width="240.0" height="118.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="38.8" y="262.9" font-size="20" font-weight="700" fill="#1e1e1e" class="excalidraw-text">Count Adjacent</text>
-<text x="91.0" y="288.9" font-size="20" font-weight="700" fill="#1e1e1e" class="excalidraw-text">Pairs</text>
-<text x="26.6" y="317.4" font-size="14" font-weight="500" fill="#64748b" class="excalidraw-text">e+r and r+y repeat most</text>
+<text x="67.8" y="253.4" font-size="20" font-weight="700" fill="#1e1e1e" class="excalidraw-text">Spot Best</text>
+<text x="67.8" y="279.4" font-size="20" font-weight="700" fill="#1e1e1e" class="excalidraw-text">Neighbors</text>
+<text x="22.6" y="307.9" font-size="14" font-weight="500" fill="#64748b" class="excalidraw-text">e+r and r+y sit together</text>
+<text x="103.8" y="326.9" font-size="14" font-weight="500" fill="#64748b" class="excalidraw-text">most</text>
 <rect x="3.0" y="394.0" width="240.0" height="118.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
 <rect x="0.0" y="390.0" width="240.0" height="118.0" rx="12" fill="#e5dbff" stroke="#6d28d9" stroke-width="2" />
 <rect x="0.8" y="390.5" width="240.0" height="118.0" rx="13" fill="none" stroke="#6d28d9" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="21.4" y="440.9" font-size="20" font-weight="700" fill="#1e1e1e" class="excalidraw-text">Mint New Token ID</text>
-<text x="42.9" y="469.4" font-size="14" font-weight="500" fill="#64748b" class="excalidraw-text">pair becomes ID 256</text>
+<text x="27.2" y="440.9" font-size="20" font-weight="700" fill="#1e1e1e" class="excalidraw-text">Mint New Barcode</text>
+<text x="34.7" y="469.4" font-size="14" font-weight="500" fill="#64748b" class="excalidraw-text">glue pair into ID 256</text>
 <rect x="3.0" y="559.0" width="240.0" height="118.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
 <rect x="0.0" y="555.0" width="240.0" height="118.0" rx="12" fill="#d3f9d8" stroke="#15803d" stroke-width="2" />
 <rect x="-0.9" y="554.5" width="240.0" height="118.0" rx="13" fill="none" stroke="#15803d" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="33.0" y="605.9" font-size="20" font-weight="700" fill="#1e1e1e" class="excalidraw-text">100k Vocabulary</text>
-<text x="30.7" y="634.4" font-size="14" font-weight="500" fill="#64748b" class="excalidraw-text">stop after 100k merges</text>
+<text x="33.0" y="605.9" font-size="20" font-weight="700" fill="#1e1e1e" class="excalidraw-text">100k Dictionary</text>
+<text x="18.5" y="634.4" font-size="14" font-weight="500" fill="#64748b" class="excalidraw-text">stop after 100,000 merges</text>
 <path d="M 120.0 186.0 Q 121.1 200.0 120.0 217.0" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 <path d="M 114.1 207.7 L 120.0 217.0 L 125.9 207.7" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-<text x="134.0" y="205.5" font-size="13" font-weight="500" fill="#64748b" class="excalidraw-text">scan</text>
+<text x="134.0" y="205.5" font-size="13" font-weight="500" fill="#64748b" class="excalidraw-text">count</text>
 <path d="M 120.0 351.0 Q 118.9 368.0 120.0 382.0" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 <path d="M 114.1 372.7 L 120.0 382.0 L 125.9 372.7" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-<text x="134.0" y="370.5" font-size="13" font-weight="500" fill="#64748b" class="excalidraw-text">merge</text>
+<text x="134.0" y="370.5" font-size="13" font-weight="500" fill="#64748b" class="excalidraw-text">glue</text>
 <path d="M 120.0 516.0 Q 121.2 530.1 120.0 547.0" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 <path d="M 114.1 537.7 L 120.0 547.0 L 125.9 537.7" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 <text x="134.0" y="535.5" font-size="13" font-weight="500" fill="#64748b" class="excalidraw-text">repeat</text>

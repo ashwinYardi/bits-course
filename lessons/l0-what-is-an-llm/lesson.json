@@ -3,48 +3,48 @@
   "level": 0,
   "level_name": "Ground floor",
   "title": "What an LLM actually is",
-  "published_at": "2026-11-23",
+  "published_at": "2026-11-24",
   "read_time_minutes": 9,
   "question": "What is the model really doing when it answers you?",
   "can": "Describe an LLM as a next-token predictor, and say what that rules out.",
-  "one_line": "An LLM does not look up answers or plan sentences; it scores every possible next piece of text, picks one, appends it to your prompt, and forgets it ever ran.",
+  "one_line": "An LLM does not look up answers or plan sentences ahead of time; it scores every possible next word in its dictionary, rolls a weighted die to pick one, glues that word onto your prompt, and starts over from scratch.",
   "story_spine": {
-    "surprise": "The model does not plan a sentence before it starts typing. It computes a probability distribution over its entire vocabulary just to pick the very next token, appends that single token to your prompt, and starts over from scratch.",
-    "broken": "Treating an LLM like a database or a reasoning engine that 'knows' facts and plans ahead. When it gives two different answers to the same prompt, or commits to a wrong number on word three and defends it for two paragraphs, developers blame randomness instead of the loop.",
-    "question": "If the machine only picks one piece of text at a time from a probability list, how does it ever sound coherent, and why does temperature 1.0 give five completely different server logs from the exact same two-word prompt?",
-    "turn": "Once I wrote the 40-line loop myself — raw logits into softmax, scaled by temperature, sampled and appended — the mystique vanished: coherence is stored in the weights that score the next token, and commitment to a bad early token forces the rest of the completion to justify it.",
-    "payoff": "You can look at any LLM feature and immediately tell whether a failure came from the prompt context, the sampling temperature, or asking a one-token-at-a-time predictor to do backwards planning.",
-    "honest_limit": "Knowing the loop explains how tokens come out and why answers vary, but it still treats the model's forward pass as a black box that hands you raw logit scores. We have not yet opened how text turns into token IDs (Lesson 02) or how attention computes those scores."
+    "surprise": "When an AI starts typing a sentence, it has no idea how that sentence is going to end. It calculates a score for every word in its dictionary just to pick the very next piece of text, glues that piece onto the end of your message, and runs the whole machine again from zero.",
+    "broken": "Treating an AI like a search engine that looks up stored paragraphs, or a human brain that plans an argument before speaking. When it gives two different answers to the exact same question, or blurts out a wrong number on word three and spends two paragraphs defending it, people think it is malfunctioning.",
+    "question": "If the machine only picks one word at a time from a ranked list, how does it ever sound smart — and why does changing one dial (temperature) make it write five completely different stories from the exact same two-word start?",
+    "turn": "Once I coded the 40-line loop myself — raw scores into percentages, rolled with a weighted die and glued back onto the prompt — the magic trick disappeared: intelligence is stored in how the machine scores the next word, and committing to a bad first word traps the rest of the answer into defending it.",
+    "payoff": "You can look at any AI behavior and tell right away whether a bug came from the prompt order, the temperature dial, or asking a one-word-at-a-time guesser to plan backwards.",
+    "honest_limit": "This explains how words come out one by one and why answers change, but we are still treating the scoring box as a black box that hands us numbers. In the next checkpoint (Parking Lot · Token Chopper), we open the front door to see how text becomes numbers in the first place."
   },
   "figures": [
     {
       "id": "fig-01",
-      "title": "The next-token loop",
+      "title": "The conveyor belt that glues one word at a time",
       "layout": "flow",
-      "caption": "Every generated token gets glued back onto the prompt for the very next pass.",
+      "caption": "Every single word the AI picks gets glued back onto your prompt for the next pass.",
       "nodes": [
-        { "id": "p", "label": "Prompt tokens", "note": "the server", "color": "yellow" },
-        { "id": "m", "label": "LLM weights", "note": "billions of numbers", "color": "violet" },
-        { "id": "l", "label": "Logits", "note": "raw score per word", "color": "blue" },
-        { "id": "s", "label": "Sampler", "note": "softmax + pick one", "color": "green" }
+        { "id": "p", "label": "Your prompt", "note": "the server", "color": "yellow" },
+        { "id": "m", "label": "Frozen brain", "note": "billions of dials", "color": "violet" },
+        { "id": "l", "label": "Scoreboard", "note": "raw score per word", "color": "blue" },
+        { "id": "s", "label": "Weighted die", "note": "pick one word", "color": "green" }
       ],
       "edges": [
         { "from": "p", "to": "m", "label": "feed in" },
-        { "from": "m", "to": "l", "label": "compute" },
-        { "from": "l", "to": "s", "label": "scale" },
-        { "from": "s", "to": "p", "label": "append", "dashed": true }
+        { "from": "m", "to": "l", "label": "score all" },
+        { "from": "l", "to": "s", "label": "roll" },
+        { "from": "s", "to": "p", "label": "glue on", "dashed": true }
       ],
       "callouts": [
-        { "at": "s", "text": "temperature shapes how bold this pick is" }
+        { "at": "s", "text": "temperature controls how daring this roll is" }
       ]
     },
     {
       "id": "fig-02",
-      "title": "Candidates after 'the server' across temperatures",
+      "title": "What happens after 'the server' when you turn the temperature dial",
       "layout": "grid",
-      "caption": "Real percentages from our lab run: low temperature locks onto the top score, high temperature spreads mass.",
+      "caption": "Real numbers from our 40-line Python lab: low temperature locks onto the #1 word, high temperature lets underdogs win.",
       "cells": [
-        ["Candidate", "Logit", "Temp 0.2", "Temp 1.0", "Temp 1.8"],
+        ["Next Word", "Raw Score", "Temp 0.2", "Temp 1.0", "Temp 1.8"],
         ["crashed", "3.2", "*80.6%", "*44.2%", "*36.1%"],
         ["responded", "2.9", "18.0%", "32.8%", "30.5%"],
         ["timed", "2.4", "1.5%", "19.9%", "23.1%"],
@@ -54,58 +54,53 @@
     },
     {
       "id": "fig-03",
-      "title": "Training vs inference",
+      "title": "Studying for the exam vs taking the exam",
       "layout": "stack",
-      "caption": "Training moves the weights once at huge cost. Inference freezes them and just multiplies.",
+      "caption": "Training adjusts the dials once at massive cost. Your chat happens on a frozen copy.",
       "nodes": [
-        { "id": "t", "label": "Training run", "note": "trillions of words nudge weights", "color": "orange" },
-        { "id": "f", "label": "Frozen checkpoint", "note": "weights locked in gigabytes", "color": "gray" },
-        { "id": "i", "label": "Your API call", "note": "inference only reads weights", "color": "green" }
+        { "id": "t", "label": "1. Training", "note": "read the web, tune dials", "color": "orange" },
+        { "id": "f", "label": "2. Frozen file", "note": "save dials to disk", "color": "gray" },
+        { "id": "i", "label": "3. Inference", "note": "your chat reads the file", "color": "green" }
       ],
       "edges": [
-        { "from": "t", "to": "f", "label": "save" },
-        { "from": "f", "to": "i", "label": "load" }
+        { "from": "t", "to": "f", "label": "freeze" },
+        { "from": "f", "to": "i", "label": "run" }
       ],
       "callouts": [
-        { "at": "i", "text": "the model learns zero new facts from your chat" }
+        { "at": "i", "text": "the frozen file never learns from your chat" }
       ]
     }
   ],
   "sections": [
     {
-      "heading": "Why this matters to you as a builder",
-      "badge": "The Hook",
-      "body_md": "An LLM is a computer program that takes a sequence of text and scores what single piece of text should come next. It exists because human language is too messy for handwritten rules, but predictable enough when compressed into billions of numbers.\n\n- **You stop asking it to plan backwards.** Because tokens come out left-to-right, asking for a verdict on line one and the reasoning on line ten forces the model to guess a verdict first and rationalize it second.\n- **You debug non-determinism in seconds.** When a test passes four times and fails on the fifth, you know whether sampling temperature or prompt drift caused the branch.\n- **You stop expecting it to remember yesterday's request.** Every call hits frozen weights; if a fact is not in those weights or in your current prompt payload, it does not exist."
-    },
-    {
-      "heading": "The everyday version: autocomplete with a whole library compressed inside",
-      "badge": "Analogy + Fig 1",
+      "heading": "Explain it like I'm 12: The world's fastest relay game",
+      "badge": "Chapter 1 · The Picture",
       "figure_id": "fig-01",
-      "body_md": "Think of your phone keyboard suggesting three words above the keys. Your phone looks at the last word or two and offers a tiny menu.\n\nA **large language model** in plain words: a neural network trained on massive text that scores every token in its vocabulary for what comes next. Instead of looking at two words, it looks at your whole prompt at once. Instead of picking from three common words, it scores 100,000+ pieces of text in parallel, picks one, glues that piece onto the end of your input, and runs the exact same loop again."
+      "body_md": "Imagine you are playing a game with a friend who has read every book in the school library. You write two words on a slip of paper: `the server`.\n\nYour friend is only allowed to write **one single word** on the slip and hand it back. They look at `the server`, quickly score every word in the English dictionary, write `crashed` at the end, and slide the paper back across the desk.\n\nNow the slip says `the server crashed`. Here is the secret: your friend immediately gets amnesia about *why* they picked `crashed`. For the next word, they pick up the slip (`the server crashed`) as if they are seeing it for the very first time, score the whole dictionary again, and write `because`.\n\nThat relay loop is a **large language model** in plain words: a computer program trained on massive text that scores every possible next piece of text, picks one, glues it onto your message, and repeats. It never writes a whole paragraph at once. It plays the one-word relay game fifty times a second."
     },
     {
-      "heading": "Level 1: The six terms you actually need",
-      "badge": "Vocabulary",
+      "heading": "Why the AI doesn't remember you from yesterday (Training vs Inference)",
+      "badge": "Chapter 2 · Inside the Box",
       "figure_id": "fig-03",
-      "body_md": "Before we trace the arithmetic, let's lock in the vocabulary without circular definitions.\n\n- **next-token prediction** in plain words: the core task of guessing the single next piece of text given all previous pieces.\n- **parameters** in plain words: the adjustable numeric dials inside the model that determine how input text turns into output scores.\n- **weights** in plain words: the exact numbers stored in those parameters after training finishes (a 7B model is literally a file holding seven billion floating-point numbers).\n- **training** in plain words: the expensive upfront process of showing the model trillions of text examples and nudging its weights whenever it guesses the next token poorly.\n- **inference** in plain words: running the finished, frozen model on your prompt to generate new tokens without changing any weights."
+      "body_md": "If you tell a chatbot your dog's name today and open a new window tomorrow, it has no clue who your dog is. Why?\n\nBecause the life of an AI is split into two completely separate phases:\n\n1. **training** in plain words: the months-long factory phase where the model reads trillions of words and nudges billions of internal number dials (**parameters**) whenever it guesses the next word wrong.\n2. **weights** in plain words: the final numbers locked into those dials when training finishes. A 7-billion-parameter model is literally just a giant file on a hard drive holding 7 billion frozen decimals.\n3. **inference** in plain words: running your message through that frozen file to predict the next word. During inference, every single dial is glued shut. Your chat never edits the brain; it just passes through it."
     },
     {
-      "heading": "Level 2: How one answer is actually built",
-      "badge": "The Mechanism",
+      "heading": "How the scoreboard and the weighted die work (Logits, Softmax & Temperature)",
+      "badge": "Chapter 3 · The Exact Math in Plain Words",
       "figure_id": "fig-02",
-      "body_md": "When you send `the server` to an LLM, four concrete steps happen inside one tick of the loop:\n\n1. **Forward pass produces raw logits.** Your tokens flow through the frozen weights. At the very end, the model outputs one raw, unnormalized number for every entry in its vocabulary. We call these **logits** in plain words: raw scores the model assigns to each possible next token before turning them into percentages.\n2. **Temperature scales the gap between scores.** We divide every logit by **temperature** in plain words: a dial that controls how sharply the highest-scoring tokens dominate the probability list. In our lab, `crashed` has logit `3.2` and `responded` has `2.9`.\n3. **Softmax turns scores into probabilities.** We exponentiate the scaled logits and divide by their sum (**softmax** in plain words: a math step that converts any list of raw numbers into positive probabilities that add up to 100%). At temperature `0.2`, `crashed` takes `80.6%` of the probability mass. At temperature `1.0`, `crashed` drops to `44.2%` and `responded` gets `32.8%`.\n4. **Sample one token and append.** The sampler rolls a weighted die. If it picks `responded`, the new input becomes `the server responded`, and the whole machine runs again for token four."
+      "body_md": "Wait — if the dials are frozen, why doesn't the AI give the exact same answer every time you ask the same question?\n\nBecause the frozen brain does not output a single word. It outputs a scoreboard across its entire dictionary, and then rolls a weighted die. Let's trace the exact numbers from our Python lab when the prompt is `the server`:\n\n1. **The raw scoreboard (Logits).** The model outputs one raw score for every possible next word. Engineers call these **logits** in plain words: the raw, un-rounded scores the model gives each candidate word. In our lab, `crashed` gets `3.2`, `responded` gets `2.9`, `timed` gets `2.4`, `melted` gets `0.4`, and `danced` gets `-1.5`.\n2. **The boldness dial (Temperature).** Before turning those raw scores into percentages, we divide every score by **temperature** in plain words: a dial that controls whether the #1 word hogs the spotlight or shares a chance with runner-up words.\n3. **Turning scores into percentages (Softmax).** You cannot roll a die with a negative number like `-1.5`. So the computer runs **softmax** in plain words: a math formula (`2.718` raised to each score, divided by the total) that turns any list of raw scores into clean percentages that add up to `100%`.\n4. **Watch the table above (`Figure 2`).** At Temperature `0.2`, `crashed` grabs `80.6%` of the pie. At Temperature `1.0`, `crashed` drops to `44.2%`, `responded` gets `32.8%`, and `timed` gets `19.9%`. Same frozen brain, completely different odds on the die."
     },
     {
-      "heading": "Level 3: Pro mode — what this rules out in production",
-      "badge": "Tradeoffs & Failure Modes",
-      "body_md": "Understanding that an LLM is strictly a forward-only next-token predictor immediately explains three failure modes that burn engineering teams:\n\n1. **The early-token trap (snowballing hallucinations).** If you ask `'Answer YES or NO first, then explain why'`, and at temperature `1.0` the sampler rolls a 20% token (`YES`), every subsequent pass sees `YES` in its prompt context. The model's job is to predict likely text following `YES`, so it invents an argument for `YES` even when the facts point to `NO`. Fix: always ask the model to reason *before* emitting the final verdict token.\n2. **No built-in scratchpad between tokens.** The model does the same fixed amount of arithmetic per token whether the next word is `'the'` or the answer to a 5-digit multiplication. If a calculation requires ten intermediate steps, those steps must be written out as visible tokens in the context.\n3. **Temperature 0 is greedy, not 'more factual'.** Setting temperature to `0.0` (**greedy decoding** in plain words: always picking the single highest-probability token at every step) makes runs repeatable (`1 / 5` unique outputs in our lab), but if the highest-probability phrase is a common misconception, greedy decoding will repeat that misconception 100% of the time."
+      "heading": "The Snowball Trap: How a 12-year-old intuition fixes a senior engineer's bug",
+      "badge": "Chapter 4 · Real Engineering Depth",
+      "body_md": "Once you picture the one-word-at-a-time conveyor belt, you can immediately spot the #1 mistake developers make in production.\n\nSuppose a developer writes a prompt: `'Answer YES or NO on line 1, then explain your reasoning on line 2.'`\n\nWhy is that a trap? Imagine the true answer is `NO`, so the scoreboard gives `NO` a `75%` chance and `YES` a `25%` chance. At Temperature `1.0`, the weighted die rolls a `25%` underdog and picks `YES`.\n\nNow `YES` is glued onto the slip of paper! On the very next tick of the conveyor belt, the model reads `Answer: YES. Explanation:` and asks itself: *what words usually follow a YES answer?* It is now trapped into inventing an excuse for `YES`, even though its own weights knew `NO` was better.\n\n**The pro fix:** Never ask a forward-only machine to state its verdict first. Always ask it to write the step-by-step reasoning *first* and put the `YES/NO` verdict on the very last token, so the reasoning sits on the slip of paper before the verdict die is rolled."
     }
   ],
   "jargon_decoder": [
     {
       "term": "large language model (LLM)",
-      "plain_words": "A neural network trained on massive text that scores every possible next piece of text.",
-      "why_you_care": "Frames the tool properly: it is a pattern-completion engine, not a database."
+      "plain_words": "A neural network trained on massive text that scores every possible next word.",
+      "why_you_care": "Reminds you it is a pattern-completion relay engine, not an oracle or database."
     },
     {
       "term": "next-token prediction",
@@ -114,38 +109,38 @@
     },
     {
       "term": "parameters",
-      "plain_words": "The adjustable numeric dials inside the network architecture.",
-      "why_you_care": "More parameters (8B vs 70B) mean more capacity to store subtle patterns, at higher RAM and latency cost."
+      "plain_words": "The adjustable number dials inside the neural network.",
+      "why_you_care": "More parameters (8B vs 70B) store subtler patterns, at higher memory and latency cost."
     },
     {
       "term": "weights",
-      "plain_words": "The frozen floating-point values stored inside the parameters after training.",
-      "why_you_care": "Weights are read-only during your API call; the model never updates its weights from your prompt."
+      "plain_words": "The exact frozen numbers saved inside the parameters after training.",
+      "why_you_care": "Weights are read-only during your chat; the model learns zero permanent facts from your prompt."
     },
     {
       "term": "training",
-      "plain_words": "Showing the model trillions of tokens and updating weights to reduce prediction error.",
-      "why_you_care": "Where the model's cutoff date and baseline world knowledge come from."
+      "plain_words": "Showing the model trillions of words and nudging weights to shrink prediction mistakes.",
+      "why_you_care": "Where the model's baseline knowledge and cutoff date come from."
     },
     {
       "term": "inference",
-      "plain_words": "Running a prompt through frozen weights to generate tokens.",
-      "why_you_care": "What you actually pay for per million tokens in production."
+      "plain_words": "Running your prompt through the frozen weights to generate words.",
+      "why_you_care": "What you actually pay for per million tokens when your app is live."
     },
     {
       "term": "logits",
-      "plain_words": "Raw, unnormalized scores the model outputs for every token in its vocabulary.",
-      "why_you_care": "Every decoding trick (temperature, top-p, JSON schemas) works by editing logits before sampling."
+      "plain_words": "The raw scoreboard numbers the model gives every word before turning them into percentages.",
+      "why_you_care": "Every decoding control (temperature, top-p, JSON schemas) works by editing logits before rolling."
     },
     {
       "term": "softmax",
-      "plain_words": "Exponentiating logits and dividing by the total so all probabilities sum to 100%.",
-      "why_you_care": "Shows why a slightly higher logit still leaves room for runner-up tokens to be picked."
+      "plain_words": "The formula that converts raw positive or negative logits into percentages summing to 100%.",
+      "why_you_care": "Shows why runner-up words still have a chance to be picked when temperature > 0."
     },
     {
       "term": "temperature",
-      "plain_words": "A divisor applied to logits before softmax that flattens or sharpens the probabilities.",
-      "why_you_care": "Your primary lever between repeatable deterministic output (0.0) and diverse sampling (1.0+)."
+      "plain_words": "A divisor on logits before softmax that sharpens (0.2) or flattens (1.8) the odds.",
+      "why_you_care": "Your main dial between repeatable greedy answers (0.0) and creative variety (1.0)."
     }
   ],
   "lab": {
@@ -178,45 +173,45 @@
     "real_output": "=== STEP 1: Raw logits vs probabilities after (the server) ===\nTemp 0.2 -> crashed:  80.6%, responded:  18.0%, timed:   1.5%, melted:   0.0%, danced:   0.0%\nTemp 1.0 -> crashed:  44.2%, responded:  32.8%, timed:  19.9%, melted:   2.7%, danced:   0.4%\nTemp 1.8 -> crashed:  36.1%, responded:  30.5%, timed:  23.1%, melted:   7.6%, danced:   2.6%\n\n=== STEP 2: 5 runs at temperature = 0.0 (Greedy decoding) ===\n  Run 1: the server crashed because memory ran stopped\n  Run 2: the server crashed because memory ran stopped\n  Run 3: the server crashed because memory ran stopped\n  Run 4: the server crashed because memory ran stopped\n  Run 5: the server crashed because memory ran stopped\nUnique outputs at temp 0.0: 1 / 5\n\n=== STEP 3: 5 runs at temperature = 1.0 (Sampling from the distribution) ===\n  Run 1: the server responded in twelve milliseconds stopped\n  Run 2: the server crashed because memory leaked stopped\n  Run 3: the server timed out after five recovered\n  Run 4: the server responded in forty stopped and\n  Run 5: the server timed out after thirty recovered\nUnique outputs at temp 1.0: 5 / 5"
   },
   "shareable": {
-    "notebook_shelf": "Lab Notes · Entry #01",
-    "the_turn": "I used to treat LLM hallucinations like mystifying bugs in a reasoning brain; writing the 40-line next-token loop showed me how often I too commit to an impulsive first sentence and spend the next five minutes defending it.",
+    "notebook_shelf": "Campus Gate · Checkpoint #01",
+    "the_turn": "I used to treat AI hallucinations like mysterious short-circuits in a super-brain; writing the 40-line next-word loop showed me how often humans do the exact same thing — blurt out a first word and spend five minutes rationalizing it.",
     "x_thread": [
-      "1/ An LLM does not plan a sentence before it starts typing. It scores every word in its vocabulary just to pick the very next token, glues that token onto your prompt, and starts over from scratch.",
-      "2/ I wanted to strip away the mystique of 'AI reasoning', so I wrote the core generation loop in 40 lines of pure Python (zero libraries) for Lesson 01 of my AI engineering notebook.",
-      "3/ Given the prompt 'the server', the model outputs raw scores (logits): crashed = 3.2, responded = 2.9, timed = 2.4, melted = 0.4, danced = -1.5.",
-      "4/ Before picking a word, it divides those scores by temperature and runs softmax to get percentages. Watch what happens to the exact same scores when you turn the temperature dial:",
-      "5/ At Temp 0.2: 'crashed' grabs 80.6% of the probability mass. 'responded' gets 18.0%.\nAt Temp 1.0: 'crashed' drops to 44.2%, 'responded' rises to 32.8%, 'timed' gets 19.9%.",
+      "1/ When an AI starts typing a sentence, it has no idea how that sentence is going to end. It scores every word in its dictionary just to pick the very next piece of text, glues that piece onto your prompt, and starts over from scratch.",
+      "2/ To clear the Entrance Security Gate of my AI Engineering University, I wrote the core LLM generation loop in 40 lines of pure Python (zero libraries).",
+      "3/ Given the prompt 'the server', the model outputs a raw scoreboard (logits): crashed = 3.2, responded = 2.9, timed = 2.4, melted = 0.4, danced = -1.5.",
+      "4/ Before rolling the die, it divides those scores by temperature and runs softmax to get percentages that add up to 100%. Watch what happens to the exact same brain when you turn the temperature dial:",
+      "5/ At Temp 0.2: 'crashed' grabs 80.6% of the pie. 'responded' gets 18.0%.\nAt Temp 1.0: 'crashed' drops to 44.2%, 'responded' rises to 32.8%, 'timed' gets 19.9%.",
       "6/ When I ran the loop 5 times at Temp 0.0, I got 1/5 unique outputs: 'the server crashed because memory ran stopped' every single time.\nAt Temp 1.0, I got 5/5 unique stories — from a 12ms response to a 30s timeout.",
-      "7/ This explains the #1 production prompt bug: asking a model for a YES/NO verdict on line 1 and the explanation on line 2. If it samples 'YES' on a 25% roll, that 'YES' is now part of its prompt. It spends the rest of the response rationalizing its own first token.",
-      "8/ The honest limit: this 40-line loop explains how logits turn into words, but not how 80 transformer layers compute those logits in the first place. Next up in Lesson 02: why tokenizers chop 'strawberry' into pieces. Full runnable lab + visuals in the notebook."
+      "7/ Once you picture this conveyor belt as a 12-year-old relay game, you immediately spot the #1 production prompt bug: asking for a YES/NO verdict on line 1 and the explanation on line 2. If it rolls a 25% 'YES', that 'YES' is now glued onto its prompt. It has to spend the rest of the answer defending its own first roll.",
+      "8/ Gate cleared. Next stop on the campus map: the Parking Lot Token Chopper — why the model sees 'strawberry' as 3 numbers and can't count the letter R."
     ],
     "instagram_carousel": [
       {
         "slide": 1,
         "headline": "It doesn't plan the sentence.",
-        "body": "Lab Note #01: What an LLM is actually doing in the 200ms before the first word appears on your screen."
+        "body": "Campus Gate Cleared (#01): What an AI is actually doing in the 200ms before the first word appears."
       },
       {
         "slide": 2,
-        "headline": "The 4-Step Loop",
-        "body": "Prompt ('the server') -> Frozen Weights -> Raw Logit Scores -> Pick 1 Token -> Glue it back onto the prompt and repeat."
+        "headline": "The One-Word Relay Game",
+        "body": "Prompt ('the server') -> Frozen Brain -> Scoreboard -> Roll Weighted Die -> Glue 1 word onto the prompt and get total amnesia."
       },
       {
         "slide": 3,
         "headline": "Same Brain, Different Temperature",
-        "body": "Logits: crashed (3.2) vs responded (2.9).\n• Temp 0.2: crashed wins 80.6% of the time.\n• Temp 1.0: crashed 44.2%, responded 32.8%, timed 19.9%."
+        "body": "Raw scores: crashed (3.2) vs responded (2.9).\n• Temp 0.2: crashed wins 80.6% of the rolls.\n• Temp 1.0: crashed 44.2%, responded 32.8%, timed 19.9%."
       },
       {
         "slide": 4,
-        "headline": "Why Early Tokens Trap the Model",
-        "body": "Once token #3 is sampled, it becomes part of the prompt for token #4. If you force a verdict before the reasoning, the model has to defend its first roll."
+        "headline": "The Snowball Trap",
+        "body": "Once word #3 is picked, it becomes part of the prompt for word #4. Force a verdict before the reasoning, and the AI is trapped into defending its first roll."
       },
       {
         "slide": 5,
         "headline": "The Turn",
-        "body": "Writing the 40-line loop showed me how often humans do the exact same thing: blurt out a first sentence, then spend five minutes rationalizing it."
+        "body": "Coding the 40-line loop showed me how often humans do the exact same thing: blurt out an impulsive first sentence, then spend five minutes rationalizing it."
       }
     ],
-    "reel_hook": "Voiceover over terminal & road clip: 'When you ask an AI a question, it has no idea how its sentence is going to end when it types the first word. And once I coded the 40-line loop myself, I realized how often we do the exact same thing.'"
+    "reel_hook": "Voiceover: 'When you ask an AI a question, it has no idea how its sentence is going to end when it types the first word. And once I coded the 40-line loop myself, I realized how often we do the exact same thing.'"
   }
 }

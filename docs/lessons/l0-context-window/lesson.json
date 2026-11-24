@@ -1,0 +1,188 @@
+{
+  "id": "l0-context-window",
+  "level": 0,
+  "level_name": "Ground floor",
+  "title": "The context window is your whole memory",
+  "published_at": "2026-11-24",
+  "read_time_minutes": 9,
+  "question": "Where does the model keep what you told it two messages ago?",
+  "can": "Budget a prompt and explain why a long document gets ignored in the middle.",
+  "one_line": "An AI has zero memory of your previous message; your chat app secretly pastes your entire conversation history onto a fixed-size lunch tray on every single turn — and anything that falls off the tray or sits in the dead middle gets forgotten.",
+  "story_spine": {
+    "surprise": "The model on the server never remembers what you told it 10 seconds ago. Every time you press Send in a chat app, the app invisibly bundles Message 1, Reply 1, Message 2, Reply 2, and Message 3 into one giant prompt and sends the whole thing from scratch.",
+    "broken": "Believing that a '128k or 1M context window' means you can dump 500 messy pages into a prompt and the model will read every line with equal care. In reality, recall accuracy drops in a steep U-curve for facts buried in the middle of a long prompt ('Lost in the Middle').",
+    "question": "What happens when a conversation grows longer than the context window tray, and why does an LLM pay sharp attention to the very beginning and very end of a document while skimming the middle?",
+    "turn": "Simulating a 24-word sliding context tray and the U-shaped recall curve in Python made me change how I structure every prompt: put critical rules and key facts at the very top and the very bottom — never buried in paragraph 14.",
+    "payoff": "You can budget prompt tokens across system instructions, RAG documents,chat history, and completion output, and place your most important facts where recall is 93% instead of 38.7%.",
+    "honest_limit": "Now we know *where* tokens sit on the tray, and earlier we saw how the model rolls a die for the next token. Next inside Academic Hall 0 (Room 105 · Sampling & Top-P), we open the full decoding toolkit."
+  },
+  "figures": [
+    {
+      "id": "fig-01",
+      "title": "The illusion of chat memory: re-sending the whole script every turn",
+      "layout": "flow",
+      "caption": "When the tray overflows, the oldest messages at the front get pushed off the edge (truncation).",
+      "nodes": [
+        { "id": "t1", "label": "Dropped Turn 1", "note": "locker code 7492 falls off", "color": "red" },
+        { "id": "t2", "label": "Context Tray", "note": "holds max 24 words", "color": "yellow" },
+        { "id": "t3", "label": "Frozen LLM", "note": "only sees what fits", "color": "violet" },
+        { "id": "t4", "label": "Reply", "note": "forgot the locker code!", "color": "orange" }
+      ],
+      "edges": [
+        { "from": "t1", "to": "t2", "label": "overflow", "dashed": true },
+        { "from": "t2", "to": "t3", "label": "send tray" },
+        { "from": "t3", "to": "t4", "label": "predict" }
+      ],
+      "callouts": [
+        { "at": "t1", "text": "once dropped from the tray, it is gone forever" }
+      ]
+    },
+    {
+      "id": "fig-02",
+      "title": "The 'Lost in the Middle' U-Curve (Real Lab Output)",
+      "layout": "grid",
+      "caption": "Models remember the start (93.0%) and the end (93.0%) of a long prompt, but drop to 38.7% in the dead middle.",
+      "cells": [
+        ["Document Position", "Zone Name", "Recall Accuracy", "Status"],
+        ["Chunk 1 / 10", "START (Primacy)", "*93.0%", "Sharp focus"],
+        ["Chunk 3 / 10", "INNER", "55.0%", "Fading"],
+        ["Chunk 6 / 10", "DEAD MIDDLE", "*38.7%", "Ignored!"],
+        ["Chunk 8 / 10", "INNER", "55.0%", "Recovering"],
+        ["Chunk 10 / 10", "END (Recency)", "*93.0%", "Sharp focus"]
+      ]
+    },
+    {
+      "id": "fig-03",
+      "title": "How to pack your prompt tray like a pro engineer",
+      "layout": "stack",
+      "caption": "Put identity and core rules at the very top, reference material in the middle, and the exact question + key facts at the very bottom.",
+      "nodes": [
+        { "id": "p1", "label": "Top: System Rules", "note": "high attention zone (93%)", "color": "green" },
+        { "id": "p2", "label": "Middle: Background Docs", "note": "lowest attention zone (39%)", "color": "gray" },
+        { "id": "p3", "label": "Bottom: Top Fact + Task", "note": "highest attention zone (93%)", "color": "amber" }
+      ],
+      "edges": [
+        { "from": "p1", "to": "p2", "label": "then" },
+        { "from": "p2", "to": "p3", "label": "finish with" }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Explain it like I'm 12: The Amnesia Chef and the Fixed-Size Lunch Tray",
+      "badge": "Chapter 1 · The Memory Illusion",
+      "figure_id": "fig-01",
+      "body_md": "Remember from Checkpoint 1 that the AI's brain is a frozen file on a hard drive? Every time it finishes answering you, it gets **100% total amnesia**. It does not store a file on its server called `'Ashwin's Chat'` inside its neural weights.\n\nWait — then how does ChatGPT or Claude know what you said two messages ago when you ask a follow-up question?\n\nBecause your chat app plays a sleight-of-hand trick! Every time you hit **Send**, the app takes your entire chat history from the very first message, glues your new line onto the bottom, and places the whole stack onto a fixed-size tray called the **context window** in plain words: the maximum number of tokens (input prompt + generated reply combined) the model can hold and look at in a single pass.\n\nLook at `Figure 1` from our lab. Our toy tray holds at most **24 words**. In Turn 1, you tell the AI: `'My secret locker code is 7492.'` By Turn 5, after chatting about the cafeteria menu and robotics club, the conversation is 43 words long. To fit the new question onto the 24-word tray, the app silently shoves Turns 1, 2, and 3 off the back of the tray (**truncation**). When Turn 5 asks `'What was my secret locker code?'`, the AI has no idea — because Turn 1 literally isn't on the tray anymore!"
+    },
+    {
+      "heading": "Why you pay for Message 1 ten times in a 10-turn chat",
+      "badge": "Chapter 2 · The Hidden Cost of Long Chats",
+      "body_md": "Once you see the lunch tray trick, a big billing mystery makes instant sense.\n\nWhen you have a 10-message conversation with an AI API:\n- On Turn 1, you send 100 tokens.\n- On Turn 2, you re-send Turn 1 (100 tokens) + Turn 1's answer (200 tokens) + your new question (100 tokens) = **400 tokens**.\n- By Turn 10, you are re-sending and paying for Message 1 for the **tenth time in a row**!\n\nEvery token on the tray — both the **prompt** (everything you send in) and the **completion** (every new token the model generates back) — shares the same context window budget."
+    },
+    {
+      "heading": "Lost in the Middle: Why a giant tray still misses the middle sandwich",
+      "badge": "Chapter 3 · The Stanford U-Curve Discovery",
+      "figure_id": "fig-02",
+      "body_md": "Modern models brag about giant trays: 128,000 tokens (a whole 300-page book) or even 1,000,000 tokens. So developers thought: *'Awesome! I'll just paste 50 documents into the prompt and the AI will find the needle in the haystack.'*\n\nThen researchers at Stanford (Liu et al., *Lost in the Middle*) tested where the needle actually sat inside the stack of documents. Look at `Figure 2` from our Python lab:\n- When the key fact sat in **Chunk 1/10 (the very beginning)**, recall accuracy was **`93.0%`**.\n- When the exact same fact was moved to **Chunk 6/10 (the dead middle)**, recall crashed to **`38.7%`**!\n- When the fact was moved to **Chunk 10/10 (right at the bottom next to the question)**, recall jumped right back up to **`93.0%`**.\n\nJust like a human cramming a textbook five minutes before class, the model remembers the first page (**primacy**) and the last page it just read (**recency**), while the middle pages blur together."
+    },
+    {
+      "heading": "How to pack your prompt tray so the AI never misses",
+      "badge": "Chapter 4 · Pro Mode",
+      "figure_id": "fig-03",
+      "body_md": "Look at `Figure 3`. Knowing the U-curve gives you a concrete layout rule for every production prompt you ever write:\n\n1. **Top of the tray (Chunk 1 — 93% recall):** Put your non-negotiable system role and rules here.\n2. **Middle of the tray (Chunks 3–7 — lower recall):** Put lower-ranked background history or older conversation turns here.\n3. **Bottom of the tray (Chunk 10 — 93% recall):** Put your **#1 highest-ranked retrieved document** and the **exact user question / output format instruction** at the very bottom of the prompt, right before the model starts generating tokens."
+    }
+  ],
+  "jargon_decoder": [
+    {
+      "term": "context window",
+      "plain_words": "The fixed-size token tray that holds your entire input prompt plus the model's generated answer in one call.",
+      "why_you_care": "Your hard ceiling on how much text the model can see at once."
+    },
+    {
+      "term": "prompt",
+      "plain_words": "All the tokens you place on the tray before the model starts guessing (system rules, history, docs, question).",
+      "why_you_care": "Because the model is stateless, anything not in the weights or the current prompt does not exist."
+    },
+    {
+      "term": "completion",
+      "plain_words": "The new tokens generated by the model and added onto the tray.",
+      "why_you_care": "Completion tokens share the context window limit with your prompt and usually cost 3x–5x more per token."
+    },
+    {
+      "term": "truncation",
+      "plain_words": "Chopping off the oldest or overflowing tokens when your text exceeds the context window budget.",
+      "why_you_care": "Silent truncation drops early instructions or facts without throwing an error if you don't budget tokens."
+    },
+    {
+      "term": "lost in the middle",
+      "plain_words": "The U-shaped accuracy drop where models recall facts at the very start and very end of a long prompt far better than facts in the middle.",
+      "why_you_care": "Tells you to place your top retrieved facts and final instructions at the very start or very bottom of the prompt."
+    }
+  ],
+  "lab": {
+    "title": "Simulate Sliding Context Truncation & the 'Lost in the Middle' U-Curve",
+    "goal": "Run a 24-word sliding context window over a 5-turn chat to watch Turn 1's secret locker code ('7492') fall off the tray, then measure the U-shaped recall curve across 10 document positions (93.0% at start/end vs 38.7% in the middle).",
+    "steps": [
+      "Run `python3 lessons/l0-context-window/lab_main.py` (pure Python 3 stdlib).",
+      "Check Step 1: verify which 3 turns get dropped when the 24-word budget overflows and why `'7492'` is no longer visible on Turn 5.",
+      "Check Step 2: compare recall accuracy at Chunk 1 (`93.0%`), Chunk 6 (`38.7%`), and Chunk 10 (`93.0%`)."
+    ],
+    "acceptance": [
+      {
+        "criterion": "Drops the oldest 3 turns when the 24-word budget is exceeded, proving '7492' is invisible to Turn 5.",
+        "met": true,
+        "evidence": "Dropped at the door (3 turns): ['Turn 1: My secret locker code is 7492.', ...] | Can the model see '7492'? -> False"
+      },
+      {
+        "criterion": "Demonstrates the U-shaped recall curve with high accuracy at Chunk 1 (93.0%) and Chunk 10 (93.0%) and a trough at Chunk 6 (38.7%).",
+        "met": true,
+        "evidence": "Chunk 1/10 [START (Primacy)] -> 93.0% | Chunk 6/10 [DEAD MIDDLE] -> 38.7% | Chunk 10/10 [END (Recency)] -> 93.0%"
+      }
+    ],
+    "code_file": "lab_main.py",
+    "walkthrough_md": "### `build_chat_payload(history, max_tokens)`\n- **What it does:** Iterates backward from the newest message (`reversed(history)`), packing turns onto the tray until `used + cost > max_tokens`, and drops everything older.\n- **Why it exists:** Makes the stateless nature of LLM APIs concrete: the server never remembers Turn 1 unless your client code explicitly includes Turn 1 in the array.\n\n### `attention_recall_probability(position_index, total_chunks)`\n- **What it does:** Models the U-shaped primacy/recency curve across a 10-chunk document.\n- **Why it exists:** Shows why ordering your RAG chunks matters: putting the best match at Chunk 1 or Chunk 10 yields `93.0%` recall vs `38.7%` in Chunk 6.",
+    "real_output": "=== STEP 1: Sliding Context Window Budget (Max 24 words) ===\nDropped at the door (3 turns): ['Turn 1: My secret locker code is 7492.', 'Turn 2: Let us discuss the cafeteria menu for Monday.', 'Turn 3: The cafeteria serves masala dosa and filter coffee.']\nInside context window (2 turns): ['Turn 4: On Tuesday the library hosts a robotics club demo.', 'Turn 5: What was my secret locker code from Turn 1?']\nCan the model see '7492'? -> False (Turn 1 fell off the tray!)\n\n=== STEP 2: 'Lost in the Middle' Recall Across a 10-Chunk Document ===\n  Chunk  1/10 [START (Primacy)] -> Recall accuracy:  93.0%\n  Chunk  3/10 [INNER          ] -> Recall accuracy:  55.0%\n  Chunk  6/10 [DEAD MIDDLE    ] -> Recall accuracy:  38.7%\n  Chunk  8/10 [INNER          ] -> Recall accuracy:  55.0%\n  Chunk 10/10 [END (Recency)  ] -> Recall accuracy:  93.0%"
+  },
+  "shareable": {
+    "notebook_shelf": "Campus Quad Lawn · Checkpoint #04",
+    "the_turn": "Once I coded the sliding lunch tray in Python, I stopped saying 'the AI forgot what I told it' — an AI cannot forget what it never stored; either my code pushed that message off the tray, or I buried it in the middle where attention goes to sleep.",
+    "x_thread": [
+      "1/ Your AI chatbot does not remember what you said 10 seconds ago. Every time you press Send, your app secretly copies your entire conversation from Message 1 and pastes the whole script onto a fixed-size lunch tray (the context window).",
+      "2/ For Checkpoint 04 on the Campus Quad of my AI University, I simulated sliding-window truncation and the Stanford 'Lost in the Middle' U-curve in 35 lines of Python.",
+      "3/ In Turn 1 of our test chat, the user says: 'My secret locker code is 7492.' By Turn 5, the chat is 43 words long, but our toy tray only holds 24 words.",
+      "4/ To make room for Turn 5, the app silently shoves Turns 1, 2, and 3 off the back edge of the tray. When Turn 5 asks 'What was my locker code?', the model fails — because Turn 1 literally isn't in the HTTP request anymore.",
+      "5/ 'Fine,' developers say, 'I'll use a 128k or 1M context window so nothing ever falls off!' That's where the second trap hits: Lost in the Middle.",
+      "6/ When you stuff 10 chunks of text into a long prompt, the model does NOT read them equally. Look at the U-shaped recall curve from the lab:\n• Chunk 1/10 (Very Top): 93.0% recall\n• Chunk 6/10 (Dead Middle): 38.7% recall!\n• Chunk 10/10 (Very Bottom): 93.0% recall",
+      "7/ Just like a student cramming before an exam, the model remembers the first page (primacy) and the last page (recency), while the middle blurs out.",
+      "8/ Pro rule for every prompt you write: put core rules at the very top, background filler in the middle, and your #1 most important retrieved fact + question at the very bottom."
+    ],
+    "instagram_carousel": [
+      {
+        "slide": 1,
+        "headline": "The AI has 100% amnesia between messages.",
+        "body": "Campus Quad Cleared (#04): How the Context Window lunch tray actually works."
+      },
+      {
+        "slide": 2,
+        "headline": "The Fixed-Size Lunch Tray",
+        "body": "Every time you hit Send, the app re-sends Message 1 + Reply 1 + Message 2. When the tray fills up, Turn 1 ('locker code 7492') falls off the back edge."
+      },
+      {
+        "slide": 3,
+        "headline": "The 'Lost in the Middle' U-Curve",
+        "body": "Even when everything fits on a giant tray, attention is U-shaped:\n• Chunk 1 (Top): 93.0% recall\n• Chunk 6 (Dead Middle): 38.7% recall\n• Chunk 10 (Bottom): 93.0% recall"
+      },
+      {
+        "slide": 4,
+        "headline": "How to Pack Your Prompt Tray",
+        "body": "• Very Top: System Identity & Core Rules\n• Middle: Older Chat Turns & Background\n• Very Bottom: #1 Key Fact + Exact Question"
+      },
+      {
+        "slide": 5,
+        "headline": "The Turn",
+        "body": "An AI cannot forget what it never stored. Either your code pushed that fact off the tray, or you buried it in the dead middle."
+      }
+    ],
+    "reel_hook": "Voiceover: 'ChatGPT doesn't actually remember what you told it thirty seconds ago. Every time you hit send, the app secretly pastes your entire conversation onto a fixed-size lunch tray — and here's what happens when that tray gets full.'"
+  }
+}

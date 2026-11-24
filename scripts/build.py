@@ -1,8 +1,13 @@
-"""Build the BitsByBlocks AI University RPG & Interactive Room Course from curriculum.json and lessons/*/lesson.json.
+"""Build the BitsByBlocks 3D Isometric Sunlit AI University Campus & Interactive Field Guide.
 
 Produces a complete static site in `dist/` and `docs/`:
-- `index.html` — The 2D Top-Down AI University Campus & Building Interior RPG (walk Ashwin across 6 Rung Buildings, enter Building 0, walk from Room to Room, press E / Enter to inspect stations, pass the Gate Challenge at the Room Terminal to unlock the door to the next Room, and mint a shareable Room Cleared Card).
-- `lessons/<id>/index.html` — Dedicated Room Workstation view with the interactive mechanism simulator, Story Spine, Excalidraw figures, Runnable Lab, Gate Challenge Boss Check, and Share Studio.
+- `index.html` — Sunlit 3D Isometric University Campus with:
+  1. South Entrance Security Gate & Guard Booth (Officer Rajan's Basic Entry Check: `l0-what-is-an-llm` lifts the red/white boom barrier)
+  2. West Campus Parking Lot & Token Chopper Kiosk (`l0-tokens`)
+  3. Campus Cafeteria & Chai Terrace (`l0-embeddings` — 4D meaning floor map)
+  4. Central Quad Lawn & Fountain (`l0-context-window` — 24-word fixed lunch tray & Lost-in-the-Middle U-curve)
+  5. 6 3D Isometric Academic Halls (Hall 0 through Hall 5) with walkable interior classrooms for all 36 modules.
+- `lessons/<id>/index.html` — Warm paper editorial Chapter Book with Feynman-style 12-year-old-friendly chapters, inline hand-drawn Excalidraw figures, interactive mechanism playground, runnable Python lab, Gate Test, and Share Studio.
 """
 
 from __future__ import annotations
@@ -93,224 +98,313 @@ def _lesson_to_markdown(lesson: dict, fig_files: dict[str, str]) -> str:
 GATE_CHALLENGES: dict[str, list[dict]] = {
     "l0-what-is-an-llm": [
         {
-            "q": "1. In our lab, after the prompt 'the server', the raw logits are crashed=3.2 and responded=2.9. What happens when you lower temperature from 1.0 down to 0.2?",
+            "q": "1. Officer Rajan's Entry Check: After the prompt 'the server', the raw scores are crashed=3.2 and responded=2.9. What happens when you turn the Temperature dial down from 1.0 to 0.2?",
             "options": [
-                "The model updates its weights to remember 'crashed' permanently.",
-                "Softmax sharpens the gap: 'crashed' jumps from 44.2% to 80.6% probability.",
-                "The probability splits 50/50 between 'crashed' and 'responded'."
+                "The model rewrites its hard drive so it remembers 'crashed' forever.",
+                "Softmax sharpens the gap: 'crashed' jumps from 44.2% to 80.6% chance on the weighted die.",
+                "The chance splits 50/50 between 'crashed' and 'responded'."
             ],
             "correct": 1,
-            "explain": "Dividing logits by a small temperature (0.2) amplifies the gap before exponentiating in softmax, giving 'crashed' 80.6% of the probability mass."
+            "explain": "Dividing scores by a small temperature (0.2) stretches the gap between the top score and runner-up before turning them into percentages."
         },
         {
-            "q": "2. Why did running the loop 5 times at temperature 0.0 produce 1/5 unique outputs while temperature 1.0 produced 5/5 unique trajectories?",
+            "q": "2. Why did rolling the relay game 5 times at Temperature 0.0 give 1 identical sentence, while Temperature 1.0 gave 5 completely different stories?",
             "options": [
-                "Temperature 0.0 is greedy decoding (always picks the top logit), and once an early token is appended at Temp 1.0 it changes the prompt context for every token after it.",
-                "Temperature 1.0 randomly scrambles the prompt order before running.",
-                "The model fetches live server logs from the internet when temperature > 0."
+                "At Temp 1.0, as soon as one different word is picked and glued onto the prompt, it changes the input for every word after it.",
+                "Temperature 1.0 shuffles the user's prompt words into random order.",
+                "The model connects to Google Search whenever Temperature is above 0."
             ],
             "correct": 0,
-            "explain": "Every sampled token is glued onto the prompt context for the next step — so one different pick on token #3 branches the entire rest of the sentence."
+            "explain": "Every word the model picks gets taped onto the end of the prompt — so one different roll on word #3 branches the entire rest of the sentence!"
         },
         {
-            "q": "3. Why is asking an LLM for 'YES/NO on line 1, then explain why on line 2' a production bug?",
+            "q": "3. The Snowball Trap: Why should you never ask an AI to 'Answer YES or NO on line 1, then explain why on line 2'?",
             "options": [
-                "Because YES and NO cost more tokens than numbers.",
-                "Because the model is a forward-only predictor: once it commits to 'YES' on token 1, 'YES' is in its context and it is forced to rationalize it.",
-                "Because softmax cannot score uppercase words."
+                "Because capital letters cost twice as much money.",
+                "Because the AI has no backspace key: once it blurts out 'YES' on word 1, 'YES' is glued onto its prompt and it is forced to invent an excuse for it.",
+                "Because the scoreboard cannot score two-letter words."
             ],
             "correct": 1,
-            "explain": "An LLM cannot plan backwards. Emitting the verdict token first traps the remaining forward passes into defending that first roll."
+            "explain": "Always ask the AI to think step-by-step FIRST and write the final YES/NO verdict on the very last line."
         }
     ],
     "l0-tokens": [
         {
-            "q": "1. Why does an LLM struggle to count the three 'r' letters in 'strawberry' when asked directly?",
+            "q": "1. Parking Lot Barcode Check: Why does a giant AI struggle to count the three 'r's in 'strawberry'?",
             "options": [
-                "It never receives the 10 individual characters; the BPE tokenizer converts 'strawberry' into 3 integer IDs [496, 675, 15717] where two 'r's are sealed inside token 15717 ('berry').",
-                "The letter 'r' is removed during UTF-8 encoding.",
-                "Neural networks cannot count higher than 2."
+                "The Token Chopper glues common letter chunks into single barcode numbers: [496, 675, 15717] ('str', 'aw', 'berry'), hiding two 'r's inside barcode 15717.",
+                "The letter 'r' is deleted by the keyboard before sending.",
+                "Computers cannot count past the number 2."
             ],
             "correct": 0,
-            "explain": "Token 15717 ('berry') is an atomic integer at the input layer. Forcing spaces ('s t r a w b e r r y') splits each letter into its own token ID."
+            "explain": "The AI never sees the letters 'b-e-r-r-y' — it only sees the single sealed number 15717. Adding spaces ('s t r a w b e r r y') forces every letter into its own barcode!"
         },
         {
-            "q": "2. In our BPE lab output, how did the token fertility of Hindi ('नमस्ते दुनिया') compare to English prose?",
+            "q": "2. In our Parking Lot lab, how many token barcodes did Hindi ('नमस्ते दुनिया') need per character compared to English?",
             "options": [
-                "Hindi used fewer tokens per character than English.",
+                "Hindi used half as many tokens as English.",
                 "Hindi and English had the exact same 0.28 tokens/char ratio.",
-                "Hindi took 0.92 tokens/char vs English 0.28 tokens/char — a 3.3x cost and latency multiplier."
+                "Hindi needed 0.92 tokens/char vs English 0.28 tokens/char — a 3.3x price and speed penalty!"
             ],
             "correct": 2,
-            "explain": "Because BPE merges are trained predominantly on English/code corpora, multi-byte UTF-8 scripts split into more fragments per character, multiplying both cost and decode latency."
+            "explain": "Because the BPE Lego-gluing game practiced mostly on English text, Hindi words get chopped into tiny byte crumbs."
         },
         {
-            "q": "3. How does a byte-level BPE tokenizer build its 100k vocabulary from scratch?",
+            "q": "3. How does the Byte-Pair Encoding (BPE) Lego game invent its 100,000-piece vocabulary?",
             "options": [
-                "Linguists hand-write dictionary prefixes and suffixes.",
-                "It starts with the 256 raw UTF-8 bytes and repeatedly merges the most frequent adjacent pair into a new token ID.",
-                "It hashes every word in Wikipedia using SHA-256."
+                "Grammar teachers type in a dictionary of prefixes and suffixes by hand.",
+                "It starts with 256 raw byte blocks and repeatedly glues the most common side-by-side pair into a brand-new block.",
+                "It picks 100,000 random words from a rhyming dictionary."
             ],
             "correct": 1,
-            "explain": "In our 30-line lab, just 8 greedy adjacent-pair merges compressed 39 raw UTF-8 bytes down to 11 subword tokens (28.2%)."
+            "explain": "In our 30-line Python lab, just 8 rounds of gluing the most frequent neighbor pair shrunk 39 raw blocks down to 11 chunks!"
+        }
+    ],
+    "l0-embeddings": [
+        {
+            "q": "1. Campus Cafeteria Check: Why doesn't an AI get confused even though Token #40,000 ('coffee') is numerically right next to Token #40,001 ('coffin')?",
+            "options": [
+                "Because the AI sorts words alphabetically before reading.",
+                "Because a Token ID is just a coat-check ticket; the AI immediately trades it for an Embedding — a list of GPS coordinates on the Meaning Map.",
+                "Because 'coffin' is deleted from the dictionary."
+            ],
+            "correct": 1,
+            "explain": "Barcode numbers have zero meaning. The embedding table turns each barcode into coordinates (like Hot Drink, Spicy, Tech, Royal) where similar ideas sit at the same cafeteria table."
+        },
+        {
+            "q": "2. In our Cafeteria GPS lab, what was the Cosine Similarity (flashlight angle score) between masala_chai and filter_coffee vs masala_chai and kubernetes?",
+            "options": [
+                "masala_chai & filter_coffee scored +0.9924 (almost identical direction), while masala_chai & kubernetes scored +0.1006 (unrelated).",
+                "Both pairs scored 0.5000.",
+                "masala_chai & kubernetes scored +0.9924 because developers drink chai while coding."
+            ],
+            "correct": 0,
+            "explain": "Cosine similarity measures the angle between two coordinate arrows: +1.0 means pointing the exact same way in meaning space."
+        },
+        {
+            "q": "3. When we ran vector arithmetic `king - man + woman` on our 4D Cafeteria map, which word landed at the closest table (and what is the honest trap with cosine similarity)?",
+            "options": [
+                "It landed on 'queen' (0.9854), and the trap is that opposites like 'boiling chai' and 'iced chai' ALSO sit close together because they share the same topic table!",
+                "It landed on 'kubernetes', and cosine similarity never makes mistakes.",
+                "You cannot add or subtract word coordinates."
+            ],
+            "correct": 0,
+            "explain": "Subtracting 'man' and adding 'woman' walks across the gender axis to 'queen' (0.9854), while hot and cold drinks still cluster together because they share the drink context."
+        }
+    ],
+    "l0-context-window": [
+        {
+            "q": "1. Quad Lunch Tray Check: Why does the AI act like it 'remembers' your name on Turn 2 of a chat even though its brain resets to zero after every single response?",
+            "options": [
+                "It secretly writes your name onto its GPU hard drive.",
+                "The chat app silently re-pastes your ENTIRE conversation from Turn 1 onto the tray and sends the whole script back to the AI every turn.",
+                "It recognizes your typing speed."
+            ],
+            "correct": 1,
+            "explain": "An LLM is an Amnesia Chef: it has zero memory between turns unless the app re-sends the whole transcript on the lunch tray."
+        },
+        {
+            "q": "2. In our 24-word Lunch Tray lab, why did the AI forget the secret locker code `7492` by Turn 4?",
+            "options": [
+                "Because the tray only holds 24 words: when the conversation hit 34 words, the oldest 10 words at the left edge slid off into the trash.",
+                "Because 7492 is an even number.",
+                "Because the user asked nicely to delete it."
+            ],
+            "correct": 0,
+            "explain": "Once old words exceed the context window limit and fall off the left edge of the tray, the model literally never receives them."
+        },
+        {
+            "q": "3. According to the 'Lost in the Middle' U-curve we proved in the lab, where should you place your most important rules and facts on a giant prompt tray?",
+            "options": [
+                "Buried right in the middle (Chunk 5 or 6 out of 10), where recall was 38.7%.",
+                "At the very beginning (Chunk 1) or the very end (Chunk 10), where attention recall was 93.0%!",
+                "It doesn't matter; every spot on a 100,000-token tray gets equal attention."
+            ],
+            "correct": 1,
+            "explain": "Attention follows a U-shaped curve: 93.0% recall at the start and end vs 38.7% in the soggy middle. Always put key facts and instructions at the top or bottom!"
         }
     ]
 }
 
 
 SHARED_CSS = """
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,700;1,6..72,400&family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400&family=JetBrains+Mono:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --bg: #080b11;
-  --bg-elev: #0f1420;
-  --bg-card: #151c2c;
-  --bg-subtle: #1d263b;
-  --ink: #f8fafc;
-  --muted: #94a3b8;
-  --line: #28344f;
-  --amber: #f59e0b;
-  --amber-soft: rgba(245, 158, 11, 0.16);
-  --cyan: #38bdf8;
-  --cyan-soft: rgba(56, 189, 248, 0.16);
-  --emerald: #10b981;
-  --emerald-soft: rgba(16, 185, 129, 0.16);
-  --rose: #f43f5e;
-  --violet: #a855f7;
-  --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --serif: 'Newsreader', Georgia, serif;
+  --paper: #fbf8f1;
+  --paper-card: #ffffff;
+  --paper-warm: #f3ece0;
+  --paper-deep: #e8decb;
+  --ink: #1c1917;
+  --ink-soft: #44403c;
+  --muted: #78716c;
+  --line: #d6cbb9;
+  --line-strong: #b8a992;
+  --terracotta: #d94e1f;
+  --terracotta-soft: #fde8df;
+  --amber: #d97706;
+  --amber-soft: #fef3c7;
+  --meadow: #15803d;
+  --meadow-soft: #dcfce7;
+  --sky: #0369a1;
+  --sky-soft: #e0f2fe;
+  --berry: #7e22ce;
+  --berry-soft: #f3e8ff;
+  --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --serif: 'Fraunces', Georgia, serif;
   --mono: 'JetBrains Mono', monospace;
-  --pixel: 'Press Start 2P', 'JetBrains Mono', monospace;
 }
+
 * { box-sizing: border-box; }
+
 body {
   margin: 0;
-  background: var(--bg);
+  background: var(--paper);
   color: var(--ink);
   font-family: var(--sans);
-  line-height: 1.6;
+  line-height: 1.65;
   overflow-x: hidden;
 }
-a { color: var(--amber); text-decoration: none; }
+
+a { color: var(--terracotta); text-decoration: none; font-weight: 600; }
 a:hover { text-decoration: underline; }
-.hud-bar {
+
+.top-nav {
   position: sticky;
   top: 0;
   z-index: 100;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.7rem 1.4rem;
-  background: rgba(8, 11, 17, 0.92);
-  backdrop-filter: blur(12px);
+  padding: 0.65rem 1.4rem;
+  background: rgba(251, 248, 241, 0.94);
+  backdrop-filter: blur(10px);
   border-bottom: 2px solid var(--line);
   gap: 1rem;
   flex-wrap: wrap;
 }
-.hud-brand {
+
+.brand-cluster {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: var(--ink);
+}
+
+.crest-badge {
+  background: var(--terracotta);
+  color: #fff;
+  font-family: var(--serif);
   font-weight: 800;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
+  padding: 0.32rem 0.75rem;
+  border-radius: 8px;
+  border: 2px solid #9a3412;
+  box-shadow: 0 2px 0 #9a3412;
+  letter-spacing: 0.01em;
 }
-.pixel-tag {
-  font-family: var(--pixel);
-  font-size: 0.62rem;
-  background: var(--amber);
-  color: #080b11;
-  padding: 0.35rem 0.6rem;
-  border-radius: 4px;
-  letter-spacing: 0.04em;
-  box-shadow: 0 2px 0 #b45309;
+
+.brand-title {
+  font-family: var(--serif);
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--ink);
 }
-.hud-stats {
+
+.brand-sub {
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.nav-pills {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
-  font-family: var(--mono);
-  font-size: 0.8rem;
+  gap: 0.6rem;
   flex-wrap: wrap;
 }
-.stat-pill {
-  background: var(--bg-card);
-  border: 1px solid var(--line);
-  padding: 0.3rem 0.75rem;
-  border-radius: 8px;
+
+.stat-chip {
+  background: var(--paper-card);
+  border: 2px solid var(--line);
+  padding: 0.28rem 0.75rem;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--ink-soft);
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.4rem;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.04);
 }
-.xp-bar-wrap {
-  width: 110px;
-  height: 10px;
-  background: #05070b;
-  border-radius: 99px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-}
-.xp-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--amber), var(--emerald));
-  width: 4%;
-  transition: width 0.35s ease;
-}
+
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  background: var(--bg-subtle);
+  background: var(--paper-card);
   color: var(--ink);
-  border: 1px solid var(--line);
-  padding: 0.5rem 0.95rem;
-  border-radius: 8px;
+  border: 2px solid var(--line-strong);
+  padding: 0.45rem 0.95rem;
+  border-radius: 10px;
   font-size: 0.83rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.14s ease;
   font-family: var(--sans);
+  box-shadow: 0 2px 0 var(--line-strong);
 }
+
 .btn:hover {
-  border-color: var(--amber);
   transform: translateY(-1px);
+  border-color: var(--ink);
   text-decoration: none;
 }
+
 .btn-primary {
-  background: var(--amber);
-  color: #080b11;
-  border-color: var(--amber);
-  font-weight: 700;
-  box-shadow: 0 3px 0 #b45309;
+  background: var(--terracotta);
+  color: #ffffff;
+  border-color: #9a3412;
+  box-shadow: 0 3px 0 #9a3412;
 }
+
 .btn-primary:hover {
-  background: #fbbf24;
+  background: #ea580c;
+  color: #ffffff;
 }
-.btn-emerald {
-  background: var(--emerald);
-  color: #051b11;
-  border-color: var(--emerald);
-  font-weight: 700;
-  box-shadow: 0 3px 0 #047857;
+
+.btn-meadow {
+  background: var(--meadow);
+  color: #ffffff;
+  border-color: #14532d;
+  box-shadow: 0 3px 0 #14532d;
 }
+
+.btn-meadow:hover {
+  background: #16a34a;
+  color: #ffffff;
+}
+
 .tag {
   font-family: var(--mono);
-  font-size: 0.73rem;
-  padding: 0.22rem 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.65rem;
   border-radius: 999px;
-  background: var(--bg-subtle);
-  border: 1px solid var(--line);
-  color: var(--muted);
+  background: var(--paper-warm);
+  border: 1.5px solid var(--line);
+  color: var(--ink-soft);
 }
-.tag-amber { background: var(--amber-soft); color: var(--amber); border-color: rgba(245,158,11,0.35); }
-.tag-emerald { background: var(--emerald-soft); color: var(--emerald); border-color: rgba(16,185,129,0.35); }
-.tag-cyan { background: var(--cyan-soft); color: var(--cyan); border-color: rgba(56,189,248,0.35); }
+
+.tag-terracotta { background: var(--terracotta-soft); color: var(--terracotta); border-color: #fDBA74; }
+.tag-meadow { background: var(--meadow-soft); color: var(--meadow); border-color: #86efac; }
+.tag-sky { background: var(--sky-soft); color: var(--sky); border-color: #7dd3fc; }
+.tag-amber { background: var(--amber-soft); color: #b45309; border-color: #fcd34d; }
 """
 
 
 def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by_id: dict[str, str]) -> str:
-    """Render the interactive 2D AI University Campus & Building Interior RPG."""
-    # Bundle full lesson data + gate challenges + code into JSON so rooms open instantaneously inside the game
+    """Render the Sunlit 3D Isometric AI University Campus & Interactive Field Guide."""
     game_lessons = {}
     for lid, ldata in lessons.items():
         copy_l = dict(ldata)
@@ -326,436 +420,506 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BitsByBlocks AI University · Interactive Learning RPG</title>
+  <title>BitsByBlocks AI University · 3D Isometric Campus & Field Guide</title>
   <style>
     {SHARED_CSS}
-    .game-shell {{
+    .campus-layout {{
       display: grid;
-      grid-template-columns: 1fr 370px;
-      height: calc(100vh - 56px);
+      grid-template-columns: 1fr 390px;
+      height: calc(100vh - 60px);
       overflow: hidden;
     }}
-    @media (max-width: 1024px) {{
-      .game-shell {{
+    @media (max-width: 1100px) {{
+      .campus-layout {{
         grid-template-columns: 1fr;
         height: auto;
         overflow: visible;
       }}
     }}
-    .viewport-wrap {{
+    .map-stage {{
       position: relative;
-      background: #070a10;
+      background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 24%, #d9f99d 24%, #84cc16 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
       padding: 0.75rem;
+      overflow: hidden;
       user-select: none;
     }}
-    #game-canvas {{
+    #campus-canvas {{
       width: 100%;
-      max-width: 1060px;
+      max-width: 1120px;
       aspect-ratio: 16 / 10;
-      background: #0d131f;
-      border: 3px solid var(--line);
-      border-radius: 14px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65), inset 0 0 40px rgba(0,0,0,0.5);
-      image-rendering: pixelated;
+      border-radius: 18px;
+      border: 4px solid #fff;
+      box-shadow: 0 22px 50px rgba(28, 25, 23, 0.22), 0 0 0 2px var(--line-strong);
       cursor: pointer;
+      background: #84cc16;
     }}
-    .canvas-overlay-top {{
+    .map-hud-top {{
       position: absolute;
-      top: 1.35rem;
+      top: 1.25rem;
       left: 1.5rem;
       right: 1.5rem;
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
       pointer-events: none;
       gap: 0.75rem;
       flex-wrap: wrap;
     }}
-    .canvas-overlay-top > * {{
+    .map-hud-top > * {{
       pointer-events: auto;
     }}
-    .location-banner {{
-      background: rgba(15, 20, 32, 0.92);
-      border: 2px solid var(--amber);
-      padding: 0.45rem 0.9rem;
-      border-radius: 10px;
+    .place-placard {{
+      background: rgba(255, 253, 248, 0.96);
+      border: 2.5px solid var(--ink);
+      padding: 0.55rem 1rem;
+      border-radius: 14px;
+      box-shadow: 0 6px 0 var(--ink);
       display: flex;
       align-items: center;
-      gap: 0.65rem;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+      gap: 0.75rem;
     }}
-    .location-title {{
-      font-family: var(--pixel);
-      font-size: 0.68rem;
-      color: var(--amber);
+    .place-icon {{
+      font-size: 1.45rem;
     }}
-    .controls-toast {{
+    .place-title {{
+      font-family: var(--serif);
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--ink);
+      line-height: 1.15;
+    }}
+    .place-sub {{
+      font-size: 0.76rem;
+      color: var(--muted);
+      font-weight: 600;
+    }}
+    .map-controls-bar {{
       position: absolute;
-      bottom: 1.35rem;
+      bottom: 1.25rem;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(15, 20, 32, 0.94);
-      border: 2px solid var(--line);
-      padding: 0.55rem 1.15rem;
+      background: rgba(255, 253, 248, 0.96);
+      border: 2px solid var(--ink);
+      box-shadow: 0 4px 0 var(--ink);
+      padding: 0.45rem 1.1rem;
       border-radius: 999px;
-      font-family: var(--mono);
-      font-size: 0.8rem;
+      font-size: 0.79rem;
+      font-weight: 700;
       color: var(--ink);
       display: flex;
       align-items: center;
-      gap: 0.85rem;
-      box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+      gap: 1rem;
       white-space: nowrap;
     }}
     .kbd {{
-      background: var(--bg-subtle);
-      border: 1px solid var(--amber);
-      color: var(--amber);
-      padding: 0.1rem 0.45rem;
+      background: var(--paper-warm);
+      border: 1.5px solid var(--ink);
+      box-shadow: 0 2px 0 var(--ink);
       border-radius: 5px;
-      font-weight: 700;
-      font-size: 0.75rem;
+      padding: 0.1rem 0.42rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
     }}
-    .quest-sidebar {{
-      background: var(--bg-elev);
+    .guide-sidebar {{
+      background: var(--paper);
       border-left: 2px solid var(--line);
       display: flex;
       flex-direction: column;
-      height: calc(100vh - 56px);
+      height: 100%;
       overflow-y: auto;
       padding: 1.15rem;
     }}
-    .quest-card {{
-      background: var(--bg-card);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 1rem;
-      margin-bottom: 0.9rem;
+    .npc-dialogue-box {{
+      background: #fffdf9;
+      border: 2.5px solid var(--ink);
+      box-shadow: 0 5px 0 var(--ink);
+      border-radius: 14px;
+      padding: 0.95rem 1rem;
+      margin-bottom: 1.1rem;
+      position: relative;
     }}
-    .quest-card.active-target {{
-      border-color: var(--amber);
-      box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.25);
-    }}
-    .room-pill-list {{
-      display: flex;
-      flex-direction: column;
-      gap: 0.45rem;
-    }}
-    .room-pill {{
+    .npc-header {{
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 0.55rem 0.75rem;
-      border-radius: 9px;
-      background: var(--bg-card);
-      border: 1px solid var(--line);
-      font-size: 0.82rem;
+      gap: 0.6rem;
+      margin-bottom: 0.4rem;
+    }}
+    .npc-avatar-badge {{
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--amber-soft);
+      border: 2px solid var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }}
+    .npc-name {{
+      font-family: var(--serif);
+      font-weight: 800;
+      font-size: 0.95rem;
+    }}
+    .npc-role {{
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--terracotta);
+      font-weight: 700;
+    }}
+    .checkpoint-list {{
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }}
+    .checkpoint-card {{
+      background: var(--paper-card);
+      border: 2px solid var(--line-strong);
+      border-radius: 12px;
+      padding: 0.8rem 0.95rem;
       cursor: pointer;
       transition: all 0.15s ease;
-      gap: 0.5rem;
+      position: relative;
     }}
-    .room-pill:hover {{
-      border-color: var(--amber);
+    .checkpoint-card:hover {{
+      border-color: var(--ink);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 0 var(--line-strong);
     }}
-    .room-pill.cleared {{
-      border-color: rgba(16, 185, 129, 0.5);
-      background: rgba(16, 185, 129, 0.08);
+    .checkpoint-card.active-stop {{
+      border: 2.5px solid var(--terracotta);
+      background: #fffaf5;
+      box-shadow: 0 4px 0 var(--terracotta);
     }}
-    .room-pill.unlocked {{
-      border-color: var(--amber);
-      background: rgba(245, 158, 11, 0.11);
+    .checkpoint-card.cleared-stop {{
+      border-color: var(--meadow);
+      background: #f7fee7;
     }}
-    .room-pill.locked {{
-      opacity: 0.55;
-    }}
-
-    /* ROOM WORKSTATION MODAL */
-    .modal-backdrop {{
+    /* Editorial Chapter Book Modal */
+    .book-modal {{
       position: fixed;
       inset: 0;
-      z-index: 200;
-      background: rgba(4, 6, 10, 0.86);
-      backdrop-filter: blur(8px);
+      z-index: 250;
+      background: rgba(28, 25, 23, 0.62);
+      backdrop-filter: blur(6px);
       display: none;
       align-items: center;
       justify-content: center;
       padding: 1.25rem;
     }}
-    .modal-backdrop.open {{
+    .book-modal.open {{
       display: flex;
     }}
-    .workstation-window {{
-      background: var(--bg-elev);
-      border: 2px solid var(--amber);
-      border-radius: 16px;
+    .book-sheet {{
+      background: var(--paper);
+      border: 3px solid var(--ink);
+      box-shadow: 0 14px 0 var(--ink), 0 30px 70px rgba(0,0,0,0.4);
+      border-radius: 20px;
       width: 100%;
-      max-width: 1120px;
+      max-width: 1080px;
       height: 90vh;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      box-shadow: 0 25px 80px rgba(0,0,0,0.85);
     }}
-    .ws-header {{
+    .book-header {{
+      background: var(--paper-warm);
+      padding: 0.9rem 1.5rem;
+      border-bottom: 2px solid var(--line-strong);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.9rem 1.4rem;
-      background: var(--bg-card);
-      border-bottom: 1px solid var(--line);
       gap: 1rem;
       flex-wrap: wrap;
     }}
-    .ws-tabs {{
+    .book-tabs {{
       display: flex;
-      gap: 0.5rem;
-      padding: 0.7rem 1.4rem;
-      background: #0b0f18;
-      border-bottom: 1px solid var(--line);
-      flex-wrap: wrap;
+      gap: 0.45rem;
+      padding: 0.6rem 1.5rem;
+      background: #f7f2e7;
+      border-bottom: 2px solid var(--line);
+      overflow-x: auto;
     }}
-    .ws-tab {{
-      background: var(--bg-card);
-      color: var(--muted);
-      border: 1px solid var(--line);
-      padding: 0.5rem 0.95rem;
-      border-radius: 8px;
-      font-size: 0.83rem;
-      font-weight: 600;
+    .book-tab {{
+      background: transparent;
+      border: 2px solid transparent;
+      color: var(--ink-soft);
+      font-family: var(--sans);
+      font-size: 0.84rem;
+      font-weight: 700;
+      padding: 0.42rem 0.95rem;
+      border-radius: 10px;
       cursor: pointer;
     }}
-    .ws-tab.active {{
-      background: var(--amber);
-      color: #080b11;
-      border-color: var(--amber);
-      font-weight: 700;
+    .book-tab.active {{
+      background: var(--paper-card);
+      color: var(--terracotta);
+      border-color: var(--ink);
+      box-shadow: 0 2px 0 var(--ink);
     }}
-    .ws-body {{
+    .book-body {{
       flex: 1;
       overflow-y: auto;
-      padding: 1.6rem 2rem 3rem;
+      padding: 1.75rem 2.25rem 3rem;
     }}
-    .ws-pane {{ display: none; }}
-    .ws-pane.active {{ display: block; }}
-
+    .book-pane {{
+      display: none;
+      max-width: 820px;
+      margin: 0 auto;
+    }}
+    .book-pane.active {{
+      display: block;
+    }}
+    .chapter-card {{
+      background: var(--paper-card);
+      border: 2px solid var(--line-strong);
+      border-radius: 16px;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 0 rgba(28, 25, 23, 0.06);
+    }}
+    .chapter-number {{
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: var(--terracotta);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }}
+    .chapter-heading {{
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      font-weight: 800;
+      margin: 0.25rem 0 0.85rem;
+      color: var(--ink);
+    }}
+    .chapter-prose {{
+      font-size: 1.03rem;
+      color: var(--ink-soft);
+      line-height: 1.75;
+    }}
+    .chapter-prose p {{
+      margin: 0 0 0.9rem;
+    }}
+    .chapter-prose code {{
+      background: var(--paper-warm);
+      padding: 0.15rem 0.4rem;
+      border-radius: 5px;
+      font-family: var(--mono);
+      font-size: 0.88em;
+      color: #9a3412;
+      border: 1px solid var(--line);
+    }}
+    .inline-figure {{
+      background: #ffffff;
+      border: 2.5px solid var(--ink);
+      box-shadow: 0 6px 0 var(--line-strong);
+      border-radius: 14px;
+      padding: 1.1rem;
+      margin: 1.35rem 0 0.4rem;
+    }}
+    .playground-box {{
+      background: #fffbeb;
+      border: 2.5px solid var(--ink);
+      box-shadow: 0 6px 0 var(--ink);
+      border-radius: 16px;
+      padding: 1.35rem 1.5rem;
+      margin-bottom: 1.75rem;
+    }}
     .spine-grid {{
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 0.85rem;
-      margin: 1rem 0 1.75rem;
+      margin: 1rem 0 1.5rem;
     }}
     .spine-card {{
-      background: var(--bg-card);
-      border: 1px solid var(--line);
-      border-radius: 11px;
-      padding: 0.95rem 1.1rem;
+      background: var(--paper-card);
+      border: 2px solid var(--line-strong);
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
     }}
     .spine-label {{
       font-family: var(--mono);
       font-size: 0.7rem;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--amber);
-      margin-bottom: 0.3rem;
-    }}
-    .figure-box {{
-      background: #ffffff;
-      color: #1e1e1e;
-      border-radius: 12px;
-      padding: 1.15rem;
-      margin: 1.15rem 0;
-      border: 2px solid var(--line);
+      color: var(--terracotta);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
     }}
     .quiz-option {{
       display: block;
       width: 100%;
       text-align: left;
-      background: var(--bg-card);
+      background: var(--paper-card);
+      border: 2px solid var(--line-strong);
       color: var(--ink);
-      border: 1px solid var(--line);
-      padding: 0.75rem 1rem;
-      border-radius: 9px;
-      margin-bottom: 0.5rem;
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      margin-bottom: 0.55rem;
       cursor: pointer;
-      font-size: 0.9rem;
-      transition: all 0.12s ease;
+      font-family: var(--sans);
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: all 0.12s;
     }}
     .quiz-option:hover {{
-      border-color: var(--amber);
-    }}
-    .quiz-option.selected {{
-      border-color: var(--amber);
-      background: var(--amber-soft);
+      border-color: var(--ink);
+      background: var(--paper-warm);
     }}
     .quiz-option.correct {{
-      border-color: var(--emerald);
-      background: var(--emerald-soft);
+      border-color: var(--meadow);
+      background: var(--meadow-soft);
+      color: #14532d;
     }}
     .quiz-option.wrong {{
-      border-color: var(--rose);
-      background: rgba(244, 63, 94, 0.16);
+      border-color: #dc2626;
+      background: #fee2e2;
+      color: #7f1d1d;
     }}
-    .share-badge-card {{
-      background: linear-gradient(145deg, #111827 0%, #1e1b4b 55%, #064e3b 100%);
-      border: 2px solid var(--amber);
-      border-radius: 16px;
-      padding: 1.5rem 1.75rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 16px 40px rgba(0,0,0,0.45);
+    pre {{
+      background: #1c1917;
+      color: #f5f5f4;
+      padding: 1.1rem 1.25rem;
+      border-radius: 12px;
+      border: 2px solid var(--ink);
+      overflow-x: auto;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      line-height: 1.55;
     }}
     .ig-deck {{
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
-      gap: 0.9rem;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
       margin-top: 1rem;
     }}
     .ig-slide {{
       aspect-ratio: 4 / 5;
-      background: linear-gradient(160deg, #131824 0%, #1e1b2e 100%);
-      border: 2px solid var(--amber);
+      background: linear-gradient(155deg, #fffbeb 0%, #fde8df 100%);
+      border: 2.5px solid var(--ink);
+      box-shadow: 0 5px 0 var(--ink);
       border-radius: 14px;
-      padding: 1.2rem;
+      padding: 1.1rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }}
-    pre {{
-      background: #06080d;
-      color: #e2e8f0;
-      padding: 1rem;
-      border-radius: 10px;
-      overflow-x: auto;
-      font-family: var(--mono);
-      font-size: 0.81rem;
-      border: 1px solid var(--line);
-    }}
-    code {{
-      font-family: var(--mono);
-      background: var(--bg-subtle);
-      padding: 0.12rem 0.35rem;
-      border-radius: 4px;
-      font-size: 0.88em;
-    }}
-    pre code {{ background: none; padding: 0; }}
   </style>
 </head>
 <body>
-  <header class="hud-bar">
-    <div class="hud-brand">
-      <span class="pixel-tag">BITS UNIVERSITY</span>
-      <span>Ashwin's AI Engineering Campus</span>
+  <header class="top-nav">
+    <div class="brand-cluster">
+      <span class="crest-badge">BITS UNIVERSITY</span>
+      <div>
+        <div class="brand-title">BitsByBlocks 3D AI Campus</div>
+        <div class="brand-sub">Walk the Campus · Clear the Guard Gate · Run Real Labs</div>
+      </div>
     </div>
-    <div class="hud-stats">
-      <div class="stat-pill">
-        <span>🧙‍♂️ Player: <strong>Ashwin</strong></span>
+    <div class="nav-pills">
+      <div class="stat-chip">
+        <span>🚧 Security Gate:</span>
+        <strong id="hud-gate-state" style="color:var(--terracotta);">CLOSED</strong>
       </div>
-      <div class="stat-pill">
-        <span>🏛️ <strong id="hud-building-name">Building 0: Ground Floor Hall</strong></span>
+      <div class="stat-chip">
+        <span>⭐ Checkpoints Cleared:</span>
+        <strong id="hud-cleared-count">0 / 36</strong>
       </div>
-      <div class="stat-pill">
-        <span>🔑 Rooms Cleared: <strong id="hud-cleared-count" style="color:var(--emerald);">0 / 49</strong></span>
-        <div class="xp-bar-wrap"><div id="hud-xp-fill" class="xp-bar-fill"></div></div>
-      </div>
-      <button class="btn" onclick="switchScene(state.scene === 'campus' ? 'building' : 'campus')" id="scene-toggle-btn">
-        🗺️ View Campus Overworld
-      </button>
+      <button class="btn" onclick="switchScene('campus')">🌳 3D Campus Map</button>
+      <button class="btn btn-primary" onclick="openActiveCheckpoint()">📖 Open Current Chapter & Test</button>
     </div>
   </header>
 
-  <div class="game-shell">
-    <!-- 2D RPG CANVAS VIEWPORT -->
-    <div class="viewport-wrap">
-      <div class="canvas-overlay-top">
-        <div class="location-banner">
-          <span class="location-title" id="canvas-loc-title">BUILDING 0 · GROUND FLOOR HALL</span>
-          <span class="tag tag-emerald" id="canvas-loc-sub">Walk into a Room & press [E] at the Terminal</span>
+  <div class="campus-layout">
+    <!-- LEFT: 3D ISOMETRIC CAMPUS & HALL FLOORPLAN CANVAS -->
+    <div class="map-stage">
+      <div class="map-hud-top">
+        <div class="place-placard">
+          <div class="place-icon" id="placard-icon">🚧</div>
+          <div>
+            <div class="place-title" id="placard-title">South Security Gate & Guard Booth</div>
+            <div class="place-sub" id="placard-sub">Pass Officer Rajan's 3-question entry test to lift the boom barrier!</div>
+          </div>
         </div>
-        <div style="display:flex;gap:0.5rem;">
-          <button class="btn" onclick="switchScene('campus')">🌍 Campus Map (6 Buildings)</button>
-          <button class="btn btn-primary" onclick="switchScene('building')">🏛️ Inside Building 0</button>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+          <button class="btn" id="btn-back-campus" style="display:none;" onclick="switchScene('campus')">← Exit Hall to 3D Campus</button>
+          <button class="btn btn-meadow" onclick="walkToNextTarget()">🚶 Walk to Next Stop →</button>
         </div>
       </div>
 
-      <canvas id="game-canvas" width="1060" height="662"></canvas>
+      <canvas id="campus-canvas" width="1120" height="700"></canvas>
 
-      <div class="controls-toast" id="controls-toast">
-        <span>Move: <span class="kbd">W A S D</span> or <span class="kbd">← ↑ → ↓</span> or <strong>Click Floor</strong></span>
+      <div class="map-controls-bar">
+        <span><span class="kbd">Click</span> any 3D Landmark or <span class="kbd">W</span><span class="kbd">A</span><span class="kbd">S</span><span class="kbd">D</span> / <span class="kbd">Arrows</span> to walk</span>
         <span>·</span>
-        <span>Interact: <span class="kbd">E</span> or <span class="kbd">Enter</span></span>
+        <span>Press <span class="kbd">E</span> or <span class="kbd">Enter</span> to talk & open Chapter Book</span>
       </div>
     </div>
 
-    <!-- RIGHT SIDEBAR: QUEST LOG & ROOM TELEPORTER -->
-    <aside class="quest-sidebar">
-      <div class="quest-card active-target">
-        <div class="spine-label">ACTIVE QUEST OBJECTIVE</div>
-        <div id="quest-headline" style="font-weight:700;font-size:1.02rem;margin-bottom:0.35rem;">
-          Clear Room 101: What an LLM actually is
+    <!-- RIGHT: CAMPUS FIELD GUIDE & CHECKPOINT LIST -->
+    <aside class="guide-sidebar">
+      <div class="npc-dialogue-box" id="npc-box">
+        <div class="npc-header">
+          <div class="npc-avatar-badge" id="npc-icon">👮🏽‍♂️</div>
+          <div>
+            <div class="npc-name" id="npc-name">Officer Rajan · Chief of Campus Security</div>
+            <div class="npc-role" id="npc-role">SOUTH ENTRANCE BOOM GATE</div>
+          </div>
         </div>
-        <div id="quest-desc" style="font-size:0.84rem;color:var(--muted);margin-bottom:0.75rem;">
-          Walk Ashwin into Room 101 (top-left door) and press <strong>E</strong> at the Workstation Terminal. Pass the 3-question Lab Gate Check to unlock the laser door to Room 102!
+        <div style="font-size:0.86rem;color:var(--ink-soft);" id="npc-speech">
+          “Hold up, Ashwin! Nobody drives onto the Bits University quad thinking an AI is a tiny brain in a jar. Read Chapter 1 and pass my 3-question Basic Check to lift this red-and-white boom barrier!”
         </div>
-        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-          <button class="btn btn-primary" onclick="openCurrentOrNextRoom()" id="quick-enter-btn">
-            ⚡ Enter Active Room Workstation
+        <div style="margin-top:0.75rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+          <button class="btn btn-primary" style="width:100%;justify-content:center;" id="npc-cta-btn" onclick="openActiveCheckpoint()">
+            📖 Open Chapter 1 & Take Gate Test
           </button>
-          <button class="btn" onclick="resetProgress()" title="Reset saved progress">↺ Reset</button>
         </div>
       </div>
 
-      <div style="display:flex;justify-content:space-between;align-items:center;margin:0.4rem 0 0.6rem;">
-        <span style="font-family:var(--pixel);font-size:0.62rem;color:var(--muted);">BUILDING 0 · ROOMS (8)</span>
-        <select id="building-selector" onchange="selectBuilding(parseInt(this.value))" style="background:var(--bg-card);color:var(--ink);border:1px solid var(--line);padding:0.25rem 0.5rem;border-radius:6px;font-size:0.78rem;font-family:var(--mono);">
-          <option value="0">Bldg 0: Ground floor (8 rooms)</option>
-          <option value="1">Bldg 1: Inside the box (8 rooms)</option>
-          <option value="2">Bldg 2: AI engineer (8 rooms)</option>
-          <option value="3">Bldg 3: Adapter (8 rooms)</option>
-          <option value="4">Bldg 4: Operator (9 rooms)</option>
-          <option value="5">Bldg 5: Builder (8 rooms)</option>
-        </select>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.55rem;">
+        <span style="font-family:var(--mono);font-size:0.73rem;font-weight:800;color:var(--muted);text-transform:uppercase;" id="sidebar-list-heading">
+          CAMPUS LANDMARKS & ACADEMIC HALLS
+        </span>
+        <span class="tag tag-amber" id="sidebar-progress-pill">4 Live Labs Ready</span>
       </div>
 
-      <div id="sidebar-room-list" class="room-pill-list"></div>
+      <div class="checkpoint-list" id="checkpoint-list"></div>
     </aside>
   </div>
 
-  <!-- ROOM WORKSTATION & GATE CHALLENGE MODAL -->
-  <div id="room-modal" class="modal-backdrop">
-    <div class="workstation-window">
-      <div class="ws-header">
+  <!-- CHAPTER BOOK & GATE TEST MODAL -->
+  <div class="book-modal" id="book-modal">
+    <div class="book-sheet">
+      <div class="book-header">
         <div>
-          <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.2rem;">
-            <span class="pixel-tag" id="ws-room-code">ROOM 101</span>
-            <span class="tag tag-emerald" id="ws-room-status">UNLOCKED</span>
-            <a id="ws-standalone-link" href="#" class="tag tag-cyan">Open Full Page ↗</a>
+          <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.2rem;">
+            <span class="tag tag-terracotta" id="bk-location-tag">CHECKPOINT 01 · SECURITY GATE</span>
+            <span class="tag tag-meadow" id="bk-status-tag">🟢 UNLOCKED</span>
           </div>
-          <h2 id="ws-title" style="margin:0;font-family:var(--serif);font-size:1.55rem;">What an LLM actually is</h2>
+          <h2 id="bk-title" style="margin:0;font-family:var(--serif);font-size:1.5rem;">What an LLM Actually Does</h2>
         </div>
-        <div style="display:flex;gap:0.6rem;align-items:center;">
-          <button class="btn btn-emerald" onclick="switchWsTab('gate')">🔑 Pass Room Gate Challenge</button>
-          <button class="btn" onclick="closeRoomModal()">✕ Back to Hallway (Esc)</button>
+        <div style="display:flex;gap:0.55rem;align-items:center;">
+          <a id="bk-standalone-link" class="btn" href="#" target="_blank">↗ Full Page View</a>
+          <button class="btn" onclick="closeBookModal()">✕ Back to Campus (Esc)</button>
         </div>
       </div>
 
-      <div class="ws-tabs">
-        <button class="ws-tab active" data-tab="sim" onclick="switchWsTab('sim')">1. Interactive Simulator & Story</button>
-        <button class="ws-tab" data-tab="diagrams" onclick="switchWsTab('diagrams')">2. Excalidraw Diagrams & Jargon</button>
-        <button class="ws-tab" data-tab="lab" onclick="switchWsTab('lab')">3. Python Lab & Verified Output</button>
-        <button class="ws-tab" data-tab="gate" onclick="switchWsTab('gate')">4. 🔑 Gate Challenge (Unlock Next Room)</button>
-        <button class="ws-tab" data-tab="share" onclick="switchWsTab('share')">5. 🏆 Share Studio (X + IG Card)</button>
+      <div class="book-tabs">
+        <button class="book-tab active" data-tab="story" onclick="switchBookTab('story')">1. Illustrated Story & Playground</button>
+        <button class="book-tab" data-tab="lab" onclick="switchBookTab('lab')">2. Runnable Python Lab (Verified)</button>
+        <button class="book-tab" data-tab="gate" onclick="switchBookTab('gate')">3. Checkpoint Gate Test (Unlock Next)</button>
+        <button class="book-tab" data-tab="share" onclick="switchBookTab('share')">4. Share Studio (X & IG)</button>
       </div>
 
-      <div class="ws-body">
-        <div id="ws-pane-sim" class="ws-pane active"></div>
-        <div id="ws-pane-diagrams" class="ws-pane"></div>
-        <div id="ws-pane-lab" class="ws-pane"></div>
-        <div id="ws-pane-gate" class="ws-pane"></div>
-        <div id="ws-pane-share" class="ws-pane"></div>
+      <div class="book-body">
+        <div class="book-pane active" id="bk-pane-story"></div>
+        <div class="book-pane" id="bk-pane-lab"></div>
+        <div class="book-pane" id="bk-pane-gate"></div>
+        <div class="book-pane" id="bk-pane-share"></div>
       </div>
     </div>
   </div>
@@ -764,179 +928,875 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     const CURRICULUM = {curriculum_json};
     const SEEDED_LESSONS = {lessons_json};
 
-    // Persistent game progression
-    const STORAGE_KEY = "bits_university_cleared_v2";
-    let clearedRooms = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"));
+    const STORAGE_KEY = "bits_uni_cleared_v3";
+    let clearedIds = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"));
+
+    function saveProgress() {{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([...clearedIds]));
+      refreshHudAndSidebar();
+    }}
+
+    function isGateOpen() {{
+      return clearedIds.has("l0-what-is-an-llm");
+    }}
+
+    // 4 Outdoor Campus Checkpoints for the 4 live Rung-0 lessons + 6 3D Academic Halls
+    const OUTDOOR_LANDMARKS = [
+      {{
+        id: "l0-what-is-an-llm",
+        kind: "checkpoint",
+        num: "STOP 01",
+        name: "Entrance Security Gate",
+        landmark: "Guard Booth & Boom Barrier",
+        icon: "🚧",
+        npcName: "Officer Rajan · Campus Security Chief",
+        npcIcon: "👮🏽‍♂️",
+        npcSpeech: "“Stop right at the red-and-white barrier! Before I let you onto campus, prove you know how the world's fastest one-word relay game works — and why Temperature changes the dice roll.”",
+        x: 520, y: 585, radius: 68
+      }},
+      {{
+        id: "l0-tokens",
+        kind: "checkpoint",
+        num: "STOP 02",
+        name: "Campus Parking Lot",
+        landmark: "West Lot & Barcode Chopper Kiosk",
+        icon: "🅿️",
+        npcName: "Maya · Parking & Barcode Engineer",
+        npcIcon: "👷🏽‍♀️",
+        npcSpeech: "“Welcome inside the gate! Look at how cars park in numbered bays. An AI chops every sentence into numbered Lego barcodes the exact same way — which is why 'strawberry' hides its r's and Hindi costs 3.3x more!”",
+        x: 205, y: 455, radius: 75
+      }},
+      {{
+        id: "l0-embeddings",
+        kind: "checkpoint",
+        num: "STOP 03",
+        name: "Campus Cafeteria & Chai Terrace",
+        landmark: "Umbrella Patio & 4D Meaning Map",
+        icon: "☕",
+        npcName: "Chef Kabir · Chai Terrace Host",
+        npcIcon: "🧑🏽‍🍳",
+        npcSpeech: "“Grab a masala chai! Notice how masala chai and filter coffee sit at the same table, while Kubernetes sits across the room? That's Embeddings: turning dull barcode numbers into GPS coordinates on a Meaning Map.”",
+        x: 345, y: 295, radius: 75
+      }},
+      {{
+        id: "l0-context-window",
+        kind: "checkpoint",
+        num: "STOP 04",
+        name: "Central Quad & Fountain",
+        landmark: "Great Lawn & Fixed Lunch Tray",
+        icon: "⛲",
+        npcName: "Prof. Meera · Quad Bench Mentor",
+        npcIcon: "👩🏽‍🏫",
+        npcSpeech: "“Sit by the fountain! Every AI is an Amnesia Chef with a fixed-size 24-word lunch tray. When new words squeeze on, old facts fall off the left edge — and anything buried in the middle gets ignored!”",
+        x: 545, y: 345, radius: 75
+      }}
+    ];
+
+    const ACADEMIC_HALLS = [
+      {{ level: 0, code: "HALL 0", name: "Foundations Hall", sub: "Intuition, Eval & First Call", x: 760, y: 470, w: 120, d: 70, h: 52, roof: "#d94e1f", wallL: "#fff7ed", wallR: "#fed7aa" }},
+      {{ level: 1, code: "HALL 1", name: "Prompt & Retrieval Hall", sub: "RAG, Vectors & Chunking", x: 935, y: 470, w: 120, d: 70, h: 52, roof: "#0284c7", wallL: "#f0f9ff", wallR: "#bae6fd" }},
+      {{ level: 2, code: "HALL 2", name: "Attention Conservatory", sub: "Transformers & KV Cache", x: 760, y: 280, w: 120, d: 70, h: 56, roof: "#15803d", wallL: "#f0fdf4", wallR: "#bbf7d0" }},
+      {{ level: 3, code: "HALL 3", name: "Agent Robotics Wing", sub: "Tool Loops, MCP & Memory", x: 935, y: 280, w: 120, d: 70, h: 56, roof: "#7e22ce", wallL: "#faf5ff", wallR: "#e9d5ff" }},
+      {{ level: 4, code: "HALL 4", name: "Fine-Tuning Foundry", sub: "LoRA, DPO & GRPO", x: 645, y: 125, w: 130, d: 72, h: 60, roof: "#b45309", wallL: "#fffbeb", wallR: "#fde68a" }},
+      {{ level: 5, code: "HALL 5", name: "Frontier Observatory", sub: "MoE, Speculative & Prod", x: 885, y: 125, w: 135, d: 72, h: 64, roof: "#be123c", wallL: "#fff1f2", wallR: "#fecdd3" }}
+    ];
+
+    const HALL_ROOMS = [
+      {{ idx: 0, x: 75,  y: 75,  w: 220, h: 175, doorX: 185, doorY: 250 }},
+      {{ idx: 1, x: 325, y: 75,  w: 220, h: 175, doorX: 435, doorY: 250 }},
+      {{ idx: 2, x: 575, y: 75,  w: 220, h: 175, doorX: 685, doorY: 250 }},
+      {{ idx: 3, x: 825, y: 75,  w: 220, h: 175, doorX: 935, doorY: 250 }},
+      {{ idx: 4, x: 75,  y: 425, w: 220, h: 175, doorX: 185, doorY: 425 }},
+      {{ idx: 5, x: 325, y: 425, w: 220, h: 175, doorX: 435, doorY: 425 }},
+      {{ idx: 6, x: 575, y: 425, w: 220, h: 175, doorX: 685, doorY: 425 }},
+      {{ idx: 7, x: 825, y: 425, w: 220, h: 175, doorX: 935, doorY: 425 }}
+    ];
 
     const state = {{
-      scene: "building", // 'building' (interior with 8 rooms) or 'campus' (overworld with 6 buildings)
-      buildingLevel: 0,
-      player: {{ x: 530, y: 330, targetX: null, targetY: null, speed: 4.3, dir: "down", frame: 0 }},
-      campusPlayer: {{ x: 240, y: 240, targetX: null, targetY: null }},
+      scene: "campus", // "campus" | "hall"
+      hallLevel: 0,
+      activeStopId: "l0-what-is-an-llm",
+      player: {{
+        x: 520,
+        y: 648,
+        targetX: null,
+        targetY: null,
+        speed: 4.5,
+        frame: 0,
+        pendingAction: null
+      }},
+      hallPlayer: {{
+        x: 185,
+        y: 335,
+        targetX: null,
+        targetY: null,
+        frame: 0,
+        pendingRoomIdx: null
+      }},
       keys: {{}},
-      nearbyRoomIndex: -1,
-      nearbyBuildingIndex: -1,
-      activeLessonId: null,
-      quizAnswers: {{}}
+      quizAnswers: {{}},
+      tick: 0
     }};
-
-    // 8 Room coordinates inside a Building Floorplan (4 top rooms, 4 bottom rooms, central hallway)
-    const ROOM_RECTS = [
-      {{ idx: 0, x: 55,  y: 55,  w: 215, h: 185, doorX: 162, doorY: 240, termX: 162, termY: 130 }},
-      {{ idx: 1, x: 300, y: 55,  w: 215, h: 185, doorX: 407, doorY: 240, termX: 407, termY: 130 }},
-      {{ idx: 2, x: 545, y: 55,  w: 215, h: 185, doorX: 652, doorY: 240, termX: 652, termY: 130 }},
-      {{ idx: 3, x: 790, y: 55,  w: 215, h: 185, doorX: 897, doorY: 240, termX: 897, termY: 130 }},
-      {{ idx: 4, x: 55,  y: 420, w: 215, h: 185, doorX: 162, doorY: 420, termX: 162, termY: 515 }},
-      {{ idx: 5, x: 300, y: 420, w: 215, h: 185, doorX: 407, doorY: 420, termX: 407, termY: 515 }},
-      {{ idx: 6, x: 545, y: 420, w: 215, h: 185, doorX: 652, doorY: 420, termX: 652, termY: 515 }},
-      {{ idx: 7, x: 790, y: 420, w: 215, h: 185, doorX: 897, doorY: 420, termX: 897, termY: 515 }}
-    ];
-
-    // 6 University Buildings on the Campus Overworld
-    const CAMPUS_BUILDINGS = [
-      {{ level: 0, name: "Ground Floor Hall", sub: "Tokens, Sampling & APIs", x: 90,  y: 95,  w: 250, h: 175, color: "#f59e0b" }},
-      {{ level: 1, name: "Transformer Tower", sub: "Attention, Blocks & KV Cache", x: 405, y: 95,  w: 250, h: 175, color: "#38bdf8" }},
-      {{ level: 2, name: "AI Systems Lab", sub: "Evals, RAG & Agents", x: 720, y: 95,  w: 250, h: 175, color: "#10b981" }},
-      {{ level: 3, name: "Adaptation Foundry", sub: "SFT, LoRA, RLHF & DPO", x: 90,  y: 395, w: 250, h: 175, color: "#a855f7" }},
-      {{ level: 4, name: "Inference Reactor", sub: "Batching, Quantization & Security", x: 405, y: 395, w: 250, h: 175, color: "#f43f5e" }},
-      {{ level: 5, name: "Frontier Citadel", sub: "Kernels, MoE & Pretraining", x: 720, y: 395, w: 250, h: 175, color: "#eab308" }}
-    ];
 
     function getModulesForLevel(lvl) {{
       return CURRICULUM.modules.filter(m => m.level === lvl);
     }}
 
-    function isRoomUnlocked(lvl, idxInLevel) {{
-      const mods = getModulesForLevel(lvl);
-      if (idxInLevel === 0 && lvl === 0) return true;
-      if (idxInLevel > 0) {{
-        const prevMod = mods[idxInLevel - 1];
-        return prevMod && clearedRooms.has(prevMod.id);
+    function isModuleUnlocked(modId) {{
+      if (modId === "l0-what-is-an-llm") return true;
+      if (!isGateOpen()) return false;
+      const allMods = CURRICULUM.modules;
+      const idx = allMods.findIndex(m => m.id === modId);
+      if (idx <= 0) return true;
+      return clearedIds.has(allMods[idx - 1].id);
+    }}
+
+    function switchScene(sceneName, hallLvl) {{
+      state.scene = sceneName;
+      if (typeof hallLvl === "number") {{
+        state.hallLevel = hallLvl;
+        state.hallPlayer.x = 185;
+        state.hallPlayer.y = 335;
+        state.hallPlayer.targetX = null;
+        state.hallPlayer.targetY = null;
       }}
-      // First room of higher building requires previous building cleared
-      const prevMods = getModulesForLevel(lvl - 1);
-      return prevMods.length > 0 && prevMods.every(m => clearedRooms.has(m.id));
+      document.getElementById("btn-back-campus").style.display = sceneName === "hall" ? "inline-flex" : "none";
+      refreshHudAndSidebar();
     }}
 
-    function saveProgress() {{
-      localStorage.setItem(STORAGE_KEY, JSON.stringify([...clearedRooms]));
-      updateHudAndSidebar();
-    }}
-
-    function resetProgress() {{
-      clearedRooms.clear();
-      saveProgress();
-    }}
-
-    function updateHudAndSidebar() {{
-      const total = CURRICULUM.modules.length;
-      const done = clearedRooms.size;
-      document.getElementById("hud-cleared-count").innerText = `${{done}} / ${{total}}`;
-      document.getElementById("hud-xp-fill").style.width = `${{Math.max(4, (done / total) * 100)}}%`;
-
-      const bldg = CAMPUS_BUILDINGS[state.buildingLevel];
-      document.getElementById("hud-building-name").innerText = `Building ${{bldg.level}}: ${{bldg.name}}`;
-      document.getElementById("building-selector").value = String(state.buildingLevel);
-
-      if (state.scene === "campus") {{
-        document.getElementById("canvas-loc-title").innerText = "BITS UNIVERSITY · CAMPUS OVERWORLD";
-        document.getElementById("canvas-loc-sub").innerText = "Walk to any Building entrance & press [E]";
-        document.getElementById("scene-toggle-btn").innerText = "🏛️ Enter Building " + state.buildingLevel;
-      }} else {{
-        document.getElementById("canvas-loc-title").innerText = `BUILDING ${{bldg.level}} · ${{bldg.name.toUpperCase()}}`;
-        document.getElementById("canvas-loc-sub").innerText = bldg.sub;
-        document.getElementById("scene-toggle-btn").innerText = "🗺️ View Campus Overworld";
-      }}
-
-      // Render room pills
-      const mods = getModulesForLevel(state.buildingLevel);
-      const listEl = document.getElementById("sidebar-room-list");
-      let nextTargetMod = null;
-
-      listEl.innerHTML = mods.map((m, idx) => {{
-        const cleared = clearedRooms.has(m.id);
-        const unlocked = isRoomUnlocked(state.buildingLevel, idx);
-        const seeded = Boolean(SEEDED_LESSONS[m.id]);
-        if (!cleared && unlocked && !nextTargetMod) nextTargetMod = {{ m, idx }};
-
-        let statusBadge = "🔒 Locked";
-        let cls = "room-pill locked";
-        if (cleared) {{
-          statusBadge = "✅ Cleared";
-          cls = "room-pill cleared";
-        }} else if (unlocked) {{
-          statusBadge = seeded ? "🟢 Unlocked" : "🟡 Preview";
-          cls = "room-pill unlocked";
-        }}
-
-        const roomNum = `${{state.buildingLevel + 1}}0${{idx + 1}}`;
-        return `<div class="${{cls}}" onclick="walkToAndOpenRoom(${{idx}})">
-          <div style="overflow:hidden;">
-            <div style="font-family:var(--mono);font-size:0.7rem;color:var(--amber);">ROOM ${{roomNum}} ${{seeded ? '· FULL LAB' : ''}}</div>
-            <div style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${{m.title}}</div>
-          </div>
-          <span style="font-family:var(--mono);font-size:0.72rem;white-space:nowrap;">${{statusBadge}}</span>
-        </div>`;
-      }}).join("");
-
-      if (nextTargetMod) {{
-        const rnum = `${{state.buildingLevel + 1}}0${{nextTargetMod.idx + 1}}`;
-        document.getElementById("quest-headline").innerText = `Clear Room ${{rnum}}: ${{nextTargetMod.m.title}}`;
-        document.getElementById("quest-desc").innerText = `Question: "${{nextTargetMod.m.question}}" — Walk into Room ${{rnum}} and pass the Gate Challenge at the terminal to unlock Room ${{state.buildingLevel + 1}}0${{nextTargetMod.idx + 2}}!`;
-      }} else {{
-        document.getElementById("quest-headline").innerText = `Building ${{state.buildingLevel}} Completed!`;
-        document.getElementById("quest-desc").innerText = `Every room in this building is cleared. Head to the Campus Overworld to enter the next building.`;
-      }}
-    }}
-
-    function switchScene(newScene) {{
-      state.scene = newScene;
-      updateHudAndSidebar();
-    }}
-
-    function selectBuilding(lvl) {{
-      state.buildingLevel = lvl;
-      state.scene = "building";
-      state.player.x = 530;
-      state.player.y = 330;
-      state.player.targetX = null;
-      state.player.targetY = null;
-      updateHudAndSidebar();
-    }}
-
-    function walkToAndOpenRoom(idx) {{
-      if (state.scene !== "building") {{
-        state.scene = "building";
-        updateHudAndSidebar();
-      }}
-      const r = ROOM_RECTS[idx];
-      if (!r) return;
-      state.player.targetX = r.termX;
-      state.player.targetY = r.termY + (idx < 4 ? 28 : -28);
-      state.pendingOpenRoomIdx = idx;
-    }}
-
-    function openCurrentOrNextRoom() {{
-      const mods = getModulesForLevel(state.buildingLevel);
-      if (state.nearbyRoomIndex >= 0 && state.nearbyRoomIndex < mods.length) {{
-        openRoomModal(state.nearbyRoomIndex);
+    function selectOutdoorStop(stopId, openImmediately = true) {{
+      const stop = OUTDOOR_LANDMARKS.find(s => s.id === stopId);
+      if (!stop) return;
+      if (stopId !== "l0-what-is-an-llm" && !isGateOpen()) {{
+        // Walk up to the closed boom barrier and prompt Officer Rajan
+        state.activeStopId = "l0-what-is-an-llm";
+        state.player.targetX = 520;
+        state.player.targetY = 615;
+        state.player.pendingAction = () => openLessonBook("l0-what-is-an-llm");
+        refreshHudAndSidebar();
         return;
       }}
-      // Find first unlocked but uncleared room
-      let targetIdx = 0;
-      for (let i = 0; i < mods.length; i++) {{
-        if (isRoomUnlocked(state.buildingLevel, i) && !clearedRooms.has(mods[i].id)) {{
-          targetIdx = i;
-          break;
-        }}
-      }}
-      walkToAndOpenRoom(targetIdx);
+      state.scene = "campus";
+      state.activeStopId = stopId;
+      state.player.targetX = stop.x;
+      state.player.targetY = stop.y + 18;
+      state.player.pendingAction = openImmediately ? () => openLessonBook(stopId) : null;
+      refreshHudAndSidebar();
     }}
 
-    // KEYBOARD & MOUSE CONTROLS
+    function walkToNextTarget() {{
+      if (!isGateOpen()) {{
+        selectOutdoorStop("l0-what-is-an-llm", true);
+        return;
+      }}
+      for (const s of OUTDOOR_LANDMARKS) {{
+        if (!clearedIds.has(s.id)) {{
+          selectOutdoorStop(s.id, true);
+          return;
+        }}
+      }}
+      switchScene("hall", 0);
+    }}
+
+    function openActiveCheckpoint() {{
+      openLessonBook(state.activeStopId || "l0-what-is-an-llm");
+    }}
+
+    function refreshHudAndSidebar() {{
+      const gateEl = document.getElementById("hud-gate-state");
+      if (isGateOpen()) {{
+        gateEl.innerText = "OPEN (BOOM LIFTED)";
+        gateEl.style.color = "var(--meadow)";
+      }} else {{
+        gateEl.innerText = "LOCKED (PASS GUARD CHECK)";
+        gateEl.style.color = "var(--terracotta)";
+      }}
+      document.getElementById("hud-cleared-count").innerText = `${{clearedIds.size}} / ${{CURRICULUM.modules.length}}`;
+
+      const activeOutdoor = OUTDOOR_LANDMARKS.find(s => s.id === state.activeStopId) || OUTDOOR_LANDMARKS[0];
+      if (state.scene === "campus") {{
+        document.getElementById("placard-icon").innerText = activeOutdoor.icon;
+        document.getElementById("placard-title").innerText = `${{activeOutdoor.name}} · ${{activeOutdoor.landmark}}`;
+        document.getElementById("placard-sub").innerText = activeOutdoor.npcName;
+
+        document.getElementById("npc-icon").innerText = activeOutdoor.npcIcon;
+        document.getElementById("npc-name").innerText = activeOutdoor.npcName;
+        document.getElementById("npc-role").innerText = `${{activeOutdoor.num}} · ${{activeOutdoor.name.toUpperCase()}}`;
+        document.getElementById("npc-speech").innerText = activeOutdoor.npcSpeech;
+        const mod = CURRICULUM.modules.find(m => m.id === activeOutdoor.id);
+        document.getElementById("npc-cta-btn").innerText = `📖 Open '${{mod ? mod.title : activeOutdoor.name}}' & Gate Test`;
+      }} else {{
+        const h = ACADEMIC_HALLS[state.hallLevel];
+        document.getElementById("placard-icon").innerText = "🏛️";
+        document.getElementById("placard-title").innerText = `${{h.code}}: ${{h.name}} (Interior Classrooms)`;
+        document.getElementById("placard-sub").innerText = "Click any classroom desk to open its chapter & lab";
+      }}
+
+      const listEl = document.getElementById("checkpoint-list");
+      let html = "";
+
+      if (state.scene === "campus") {{
+        document.getElementById("sidebar-list-heading").innerText = "OUTDOOR CAMPUS CHECKPOINTS & HALLS";
+        for (const s of OUTDOOR_LANDMARKS) {{
+          const mod = CURRICULUM.modules.find(m => m.id === s.id);
+          const cleared = clearedIds.has(s.id);
+          const unlocked = isModuleUnlocked(s.id);
+          const active = state.activeStopId === s.id;
+          html += `
+            <div class="checkpoint-card ${{active ? 'active-stop' : ''}} ${{cleared ? 'cleared-stop' : ''}}" onclick="selectOutdoorStop('${{s.id}}', true)">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.2rem;">
+                <span style="font-family:var(--mono);font-size:0.71rem;font-weight:800;color:var(--terracotta);">${{s.icon}} ${{s.num}} · ${{s.name}}</span>
+                <span class="tag ${{cleared ? 'tag-meadow' : (unlocked ? 'tag-amber' : '')}}">
+                  ${{cleared ? '✓ CLEARED' : (unlocked ? '● LIVE LAB' : '🔒 GATE LOCKED')}}
+                </span>
+              </div>
+              <div style="font-family:var(--serif);font-weight:800;font-size:0.98rem;">${{mod ? mod.title : s.name}}</div>
+              <div style="font-size:0.78rem;color:var(--muted);margin-top:0.15rem;">${{mod ? mod.question : ''}}</div>
+            </div>
+          `;
+        }}
+
+        for (const h of ACADEMIC_HALLS) {{
+          const mods = getModulesForLevel(h.level);
+          const done = mods.filter(m => clearedIds.has(m.id)).length;
+          html += `
+            <div class="checkpoint-card" onclick="switchScene('hall', ${{h.level}})">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.2rem;">
+                <span style="font-family:var(--mono);font-size:0.71rem;font-weight:800;color:var(--sky);">🏛️ ${{h.code}} · 3D ACADEMIC HALL</span>
+                <span class="tag tag-sky">${{done}}/${{mods.length}} Rooms</span>
+              </div>
+              <div style="font-family:var(--serif);font-weight:800;font-size:0.96rem;">${{h.name}}</div>
+              <div style="font-size:0.77rem;color:var(--muted);">${{h.sub}} — Click to enter hall classrooms →</div>
+            </div>
+          `;
+        }}
+      }} else {{
+        const h = ACADEMIC_HALLS[state.hallLevel];
+        document.getElementById("sidebar-list-heading").innerText = `${{h.code}} CLASSROOMS (${{h.name.toUpperCase()}})`;
+        const mods = getModulesForLevel(state.hallLevel);
+        mods.forEach((m, idx) => {{
+          const cleared = clearedIds.has(m.id);
+          const seeded = Boolean(SEEDED_LESSONS[m.id]);
+          const unlocked = isModuleUnlocked(m.id);
+          html += `
+            <div class="checkpoint-card ${{state.activeStopId === m.id ? 'active-stop' : ''}} ${{cleared ? 'cleared-stop' : ''}}" onclick="walkToHallRoom(${{idx}})">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.2rem;">
+                <span style="font-family:var(--mono);font-size:0.71rem;font-weight:800;">ROOM ${{state.hallLevel + 1}}0${{idx + 1}}</span>
+                <span class="tag ${{cleared ? 'tag-meadow' : (seeded ? 'tag-amber' : '')}}">
+                  ${{cleared ? '✓ CLEARED' : (seeded ? '● LIVE LAB' : '◐ SYLLABUS')}}
+                </span>
+              </div>
+              <div style="font-family:var(--serif);font-weight:800;font-size:0.96rem;">${{m.title}}</div>
+              <div style="font-size:0.77rem;color:var(--muted);">${{m.question}}</div>
+            </div>
+          `;
+        }});
+      }}
+      listEl.innerHTML = html;
+    }}
+
+    function walkToHallRoom(roomIdx) {{
+      const mods = getModulesForLevel(state.hallLevel);
+      const mod = mods[roomIdx];
+      if (!mod) return;
+      state.activeStopId = mod.id;
+      const r = HALL_ROOMS[roomIdx];
+      if (r) {{
+        state.hallPlayer.targetX = r.x + r.w / 2;
+        state.hallPlayer.targetY = r.y + r.h / 2;
+        state.hallPlayer.pendingRoomIdx = roomIdx;
+      }} else {{
+        openLessonBook(mod.id);
+      }}
+      refreshHudAndSidebar();
+    }}
+
+    // =========================================================================
+    // 3D ISOMETRIC DRAWING PRIMITIVES (SUNLIT ARCHITECTURAL CAMPUS)
+    // =========================================================================
+    const canvas = document.getElementById("campus-canvas");
+    const ctx = canvas.getContext("2d");
+
+    // Draw an extruded 3D block with top roof, left facade, right facade, and drop shadow
+    function drawIsoBox(cx, cy, w, d, h, topColor, leftColor, rightColor, strokeColor = "#1c1917") {{
+      const hw = w / 2;
+      const hd = d / 2;
+      // Ground shadow
+      ctx.fillStyle = "rgba(28, 25, 23, 0.18)";
+      ctx.beginPath();
+      ctx.moveTo(cx, cy + hd + 8);
+      ctx.lineTo(cx + hw + 14, cy + 8);
+      ctx.lineTo(cx, cy - hd + 8);
+      ctx.lineTo(cx - hw + 6, cy + 8);
+      ctx.closePath();
+      ctx.fill();
+
+      // Left wall
+      ctx.fillStyle = leftColor;
+      ctx.beginPath();
+      ctx.moveTo(cx - hw, cy);
+      ctx.lineTo(cx, cy + hd);
+      ctx.lineTo(cx, cy + hd - h);
+      ctx.lineTo(cx - hw, cy - h);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = strokeColor;
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+
+      // Right wall
+      ctx.fillStyle = rightColor;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy + hd);
+      ctx.lineTo(cx + hw, cy);
+      ctx.lineTo(cx + hw, cy - h);
+      ctx.lineTo(cx, cy + hd - h);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Pitched or flat roof top
+      ctx.fillStyle = topColor;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy - hd - h);
+      ctx.lineTo(cx + hw, cy - h);
+      ctx.lineTo(cx, cy + hd - h);
+      ctx.lineTo(cx - hw, cy - h);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+    }}
+
+    function drawTree3D(x, y, scale = 1.0) {{
+      const sway = Math.sin(state.tick * 0.03 + x) * 1.8;
+      // Shadow
+      ctx.fillStyle = "rgba(20, 83, 45, 0.22)";
+      ctx.beginPath();
+      ctx.ellipse(x + 6, y + 6, 16 * scale, 8 * scale, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Trunk
+      ctx.fillStyle = "#78350f";
+      ctx.fillRect(x - 3 * scale, y - 14 * scale, 6 * scale, 16 * scale);
+      // 3 layered sunlit foliage spheres
+      ctx.fillStyle = "#15803d";
+      ctx.beginPath();
+      ctx.arc(x + sway, y - 20 * scale, 15 * scale, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#22c55e";
+      ctx.beginPath();
+      ctx.arc(x - 4 * scale + sway, y - 24 * scale, 12 * scale, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#86efac";
+      ctx.beginPath();
+      ctx.arc(x - 6 * scale + sway, y - 27 * scale, 6 * scale, 0, Math.PI * 2);
+      ctx.fill();
+    }}
+
+    function drawCar3D(x, y, bodyColor, roofColor, label) {{
+      drawIsoBox(x, y, 44, 24, 11, bodyColor, bodyColor, "#1e293b");
+      drawIsoBox(x, y - 9, 26, 16, 8, roofColor, "#e2e8f0", "#cbd5e1");
+      if (label) {{
+        ctx.font = "bold 9px 'JetBrains Mono', monospace";
+        ctx.fillStyle = "#1c1917";
+        ctx.textAlign = "center";
+        ctx.fillText(label, x, y - 26);
+      }}
+    }}
+
+    function drawUmbrellaTable(x, y, color1) {{
+      // Table shadow
+      ctx.fillStyle = "rgba(28,25,23,0.18)";
+      ctx.beginPath();
+      ctx.ellipse(x, y + 6, 18, 9, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Table top
+      ctx.fillStyle = "#fef3c7";
+      ctx.strokeStyle = "#1c1917";
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.ellipse(x, y, 16, 8, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      // Pole
+      ctx.strokeStyle = "#44403c";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x, y - 20);
+      ctx.stroke();
+      // Striped umbrella canopy
+      ctx.fillStyle = color1;
+      ctx.beginPath();
+      ctx.ellipse(x, y - 20, 20, 10, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = "#1c1917";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }}
+
+    function drawWaypointPin(x, y, numTxt, titleTxt, cleared, unlocked, isActive) {{
+      const floatY = Math.sin(state.tick * 0.07 + x) * 3.5;
+      const py = y + floatY;
+
+      // Pill background
+      const bg = cleared ? "#15803d" : (unlocked ? (isActive ? "#d94e1f" : "#d97706") : "#57534e");
+      ctx.font = "bold 11px 'Plus Jakarta Sans', sans-serif";
+      const tw = Math.max(ctx.measureText(titleTxt).width + 26, 130);
+      const bx = x - tw / 2;
+      const by = py - 36;
+
+      // Shadow
+      ctx.fillStyle = "rgba(28, 25, 23, 0.3)";
+      ctx.beginPath();
+      ctx.roundRect(bx + 2, by + 3, tw, 30, 8);
+      ctx.fill();
+
+      // Main sign
+      ctx.fillStyle = "#fffdf8";
+      ctx.strokeStyle = "#1c1917";
+      ctx.lineWidth = isActive ? 3 : 2;
+      ctx.beginPath();
+      ctx.roundRect(bx, by, tw, 30, 8);
+      ctx.fill();
+      ctx.stroke();
+
+      // Top color bar
+      ctx.fillStyle = bg;
+      ctx.beginPath();
+      ctx.roundRect(bx, by, tw, 12, [8, 8, 0, 0]);
+      ctx.fill();
+
+      ctx.font = "bold 8.5px 'JetBrains Mono', monospace";
+      ctx.fillStyle = "#ffffff";
+      ctx.textAlign = "center";
+      ctx.fillText(cleared ? `✓ ${{numTxt}} CLEARED` : (unlocked ? `★ ${{numTxt}}` : `🔒 ${{numTxt}}`), x, by + 9);
+
+      ctx.font = "bold 11px 'Plus Jakarta Sans', sans-serif";
+      ctx.fillStyle = "#1c1917";
+      ctx.fillText(titleTxt, x, by + 24);
+    }}
+
+    function drawAvatar3D(x, y, name, hoodieColor = "#d94e1f", hatIcon = "") {{
+      const bounce = Math.abs(Math.sin(state.player.frame)) * 3;
+      // Ground shadow
+      ctx.fillStyle = "rgba(28, 25, 23, 0.28)";
+      ctx.beginPath();
+      ctx.ellipse(x, y + 12, 13, 6, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Legs
+      ctx.fillStyle = "#1e293b";
+      ctx.fillRect(x - 6, y + 2 - bounce, 5, 10);
+      ctx.fillRect(x + 1, y + 2 - bounce, 5, 10);
+
+      // Torso / Hoodie
+      ctx.fillStyle = hoodieColor;
+      ctx.strokeStyle = "#1c1917";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.roundRect(x - 10, y - 13 - bounce, 20, 17, 5);
+      ctx.fill();
+      ctx.stroke();
+
+      // Head
+      ctx.fillStyle = "#fed7aa";
+      ctx.beginPath();
+      ctx.arc(x, y - 21 - bounce, 9, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      // Hair / Cap
+      ctx.fillStyle = "#1c1917";
+      ctx.beginPath();
+      ctx.arc(x, y - 24 - bounce, 9, Math.PI, Math.PI * 2);
+      ctx.fill();
+
+      // Eyes
+      ctx.fillStyle = "#1c1917";
+      ctx.fillRect(x - 4, y - 22 - bounce, 2.5, 3);
+      ctx.fillRect(x + 2, y - 22 - bounce, 2.5, 3);
+
+      // Floating Nameplate
+      ctx.font = "bold 10px 'JetBrains Mono', monospace";
+      const nw = ctx.measureText(name).width + 12;
+      ctx.fillStyle = "#1c1917";
+      ctx.beginPath();
+      ctx.roundRect(x - nw / 2, y - 46 - bounce, nw, 15, 4);
+      ctx.fill();
+      ctx.fillStyle = "#fffdf8";
+      ctx.textAlign = "center";
+      ctx.fillText(name, x, y - 35 - bounce);
+    }}
+
+    function drawCampus3D() {{
+      // 1. Sunlit Sky & Horizon Hills
+      const skyGrad = ctx.createLinearGradient(0, 0, 0, 145);
+      skyGrad.addColorStop(0, "#7dd3fc");
+      skyGrad.addColorStop(1, "#e0f2fe");
+      ctx.fillStyle = skyGrad;
+      ctx.fillRect(0, 0, canvas.width, 145);
+
+      // Distant rolling hills
+      ctx.fillStyle = "#a3e635";
+      ctx.beginPath();
+      ctx.moveTo(0, 145);
+      ctx.quadraticCurveTo(240, 88, 520, 130);
+      ctx.quadraticCurveTo(840, 82, 1120, 135);
+      ctx.lineTo(1120, 700);
+      ctx.lineTo(0, 700);
+      ctx.closePath();
+      ctx.fill();
+
+      // Main campus meadow lawn
+      const lawnGrad = ctx.createLinearGradient(0, 130, 0, 700);
+      lawnGrad.addColorStop(0, "#a3e635");
+      lawnGrad.addColorStop(0.5, "#84cc16");
+      lawnGrad.addColorStop(1, "#65a30d");
+      ctx.fillStyle = lawnGrad;
+      ctx.fillRect(0, 130, canvas.width, 570);
+
+      // Isometric decorative lawn grid lines
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.14)";
+      ctx.lineWidth = 1;
+      for (let i = -700; i < 1600; i += 90) {{
+        ctx.beginPath();
+        ctx.moveTo(i, 130);
+        ctx.lineTo(i + 550, 700);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(i + 550, 130);
+        ctx.lineTo(i, 700);
+        ctx.stroke();
+      }}
+
+      // 2. Sandstone Campus Walkways & Main Entry Road
+      // South Entrance Asphalt Driveway (leads up through Security Gate)
+      ctx.fillStyle = "#475569";
+      ctx.fillRect(475, 525, 90, 175);
+      ctx.strokeStyle = "#f8fafc";
+      ctx.lineWidth = 2;
+      ctx.setLineDash([10, 10]);
+      ctx.beginPath();
+      ctx.moveTo(520, 535);
+      ctx.lineTo(520, 695);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Warm sandstone pedestrian avenues connecting Gate -> Parking -> Cafeteria -> Quad -> Academic Halls
+      ctx.fillStyle = "#f5ebe0";
+      ctx.strokeStyle = "#d6cbb9";
+      ctx.lineWidth = 3;
+      // Central North-South Grand Spine
+      ctx.beginPath();
+      ctx.roundRect(492, 185, 56, 355, 16);
+      ctx.fill();
+      ctx.stroke();
+      // West Branch to Parking Lot & Cafeteria
+      ctx.beginPath();
+      ctx.roundRect(190, 435, 330, 42, 12);
+      ctx.fill();
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.roundRect(325, 275, 210, 42, 12);
+      ctx.fill();
+      ctx.stroke();
+      // East Branch to Academic Halls
+      ctx.beginPath();
+      ctx.roundRect(520, 445, 440, 42, 12);
+      ctx.fill();
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.roundRect(520, 265, 440, 42, 12);
+      ctx.fill();
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.roundRect(520, 145, 410, 36, 12);
+      ctx.fill();
+      ctx.stroke();
+
+      // Perimeter Campus Brick Wall at South Gate
+      ctx.fillStyle = "#9a3412";
+      ctx.fillRect(40, 608, 425, 16);
+      ctx.fillRect(575, 608, 505, 16);
+      ctx.fillStyle = "#fed7aa";
+      ctx.fillRect(40, 604, 425, 4);
+      ctx.fillRect(575, 604, 505, 4);
+
+      // =====================================================================
+      // LANDMARK 2: WEST CAMPUS PARKING LOT (l0-tokens)
+      // =====================================================================
+      ctx.save();
+      // Asphalt lot pad
+      ctx.fillStyle = "#334155";
+      ctx.strokeStyle = "#cbd5e1";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.roundRect(65, 375, 235, 155, 14);
+      ctx.fill();
+      ctx.stroke();
+
+      // Painted parking bay dividers
+      ctx.strokeStyle = "#fde047";
+      ctx.lineWidth = 2;
+      for (let bx = 105; bx <= 255; bx += 50) {{
+        ctx.beginPath();
+        ctx.moveTo(bx, 385);
+        ctx.lineTo(bx, 445);
+        ctx.stroke();
+      }}
+      // Parked 3D Isometric Token Cars with Subword Barcode plates!
+      drawCar3D(130, 420, "#ef4444", "#fecaca", '"str" #496');
+      drawCar3D(180, 420, "#3b82f6", "#bfdbfe", '"aw" #675');
+      drawCar3D(232, 420, "#10b981", "#a7f3d0", '"berry" #15717');
+
+      // Token Chopper Kiosk Booth
+      drawIsoBox(115, 495, 58, 36, 34, "#0284c7", "#f0f9ff", "#bae6fd");
+      drawAvatar3D(165, 505, "MAYA (TOKENS)", "#0284c7");
+      ctx.restore();
+
+      // =====================================================================
+      // LANDMARK 3: CAMPUS CAFETERIA & CHAI TERRACE (l0-embeddings)
+      // =====================================================================
+      ctx.save();
+      // Wooden sun-deck patio
+      ctx.fillStyle = "#fed7aa";
+      ctx.strokeStyle = "#c2410c";
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.roundRect(225, 200, 235, 135, 16);
+      ctx.fill();
+      ctx.stroke();
+
+      // 3D Isometric Cafeteria Pavilion Building
+      drawIsoBox(295, 245, 96, 56, 44, "#ea580c", "#fff7ed", "#fdba74");
+      // Striped awning badge
+      ctx.font = "bold 9.5px 'JetBrains Mono', monospace";
+      ctx.fillStyle = "#9a3412";
+      ctx.textAlign = "center";
+      ctx.fillText("CHAI & EMBEDDINGS CAFE", 345, 323);
+
+      // Outdoor Umbrella Tables (Meaning clusters!)
+      drawUmbrellaTable(385, 235, "#ef4444");
+      drawUmbrellaTable(425, 265, "#f59e0b");
+      drawUmbrellaTable(375, 290, "#10b981");
+      drawAvatar3D(330, 295, "CHEF KABIR", "#ea580c");
+      ctx.restore();
+
+      // =====================================================================
+      // LANDMARK 4: CENTRAL QUAD LAWN & FOUNTAIN (l0-context-window)
+      // =====================================================================
+      ctx.save();
+      // Circular stone plaza
+      ctx.fillStyle = "#e7e5e4";
+      ctx.strokeStyle = "#a8a29e";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.ellipse(520, 340, 82, 48, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      // Animated Water Fountain Basin
+      ctx.fillStyle = "#0ea5e9";
+      ctx.strokeStyle = "#1c1917";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.ellipse(520, 338, 46, 26, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      // Rippling water rings
+      const ripple = (state.tick % 40) / 40;
+      ctx.strokeStyle = `rgba(255, 255, 255, ${{1 - ripple}})`;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.ellipse(520, 338, 12 + ripple * 30, 6 + ripple * 16, 0, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Fountain center spire
+      drawIsoBox(520, 338, 20, 14, 22, "#38bdf8", "#f8fafc", "#cbd5e1");
+      drawAvatar3D(578, 355, "PROF. MEERA", "#7e22ce");
+      ctx.restore();
+
+      // =====================================================================
+      // 6 3D ISOMETRIC ACADEMIC HALLS (EAST & NORTH CAMPUS)
+      // =====================================================================
+      for (const h of ACADEMIC_HALLS) {{
+        const mods = getModulesForLevel(h.level);
+        const done = mods.filter(m => clearedIds.has(m.id)).length;
+        drawIsoBox(h.x, h.y, h.w, h.d, h.h, h.roof, h.wallL, h.wallR);
+
+        // Windows on left & right 3D facades
+        ctx.fillStyle = "#38bdf8";
+        for (let wy = h.y - h.h + 14; wy < h.y - 6; wy += 16) {{
+          ctx.fillRect(h.x - h.w / 3, wy, 8, 9);
+          ctx.fillRect(h.x - h.w / 6, wy + 5, 8, 9);
+          ctx.fillRect(h.x + h.w / 8, wy + 5, 8, 9);
+          ctx.fillRect(h.x + h.w / 3 - 8, wy, 8, 9);
+        }}
+
+        // Hall Crest Sign above roof
+        const signY = h.y - h.d / 2 - h.h - 24;
+        ctx.fillStyle = "#fffdf8";
+        ctx.strokeStyle = "#1c1917";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.roundRect(h.x - 74, signY, 148, 28, 7);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = h.roof;
+        ctx.font = "bold 9px 'JetBrains Mono', monospace";
+        ctx.textAlign = "center";
+        ctx.fillText(`${{h.code}} · ${{done}}/${{mods.length}} ROOMS`, h.x, signY + 11);
+
+        ctx.fillStyle = "#1c1917";
+        ctx.font = "bold 10.5px 'Plus Jakarta Sans', sans-serif";
+        ctx.fillText(h.name, h.x, signY + 23);
+      }}
+
+      // =====================================================================
+      // LANDMARK 1: SOUTH SECURITY GATE & GUARD BOOTH (l0-what-is-an-llm)
+      // =====================================================================
+      ctx.save();
+      // 3D Guard Booth on West side of gate
+      drawIsoBox(442, 585, 58, 38, 42, "#d94e1f", "#fffbeb", "#fde68a");
+      // Guard window
+      ctx.fillStyle = "#38bdf8";
+      ctx.fillRect(450, 560, 14, 12);
+
+      // Boom Barrier Post
+      ctx.fillStyle = "#dc2626";
+      ctx.strokeStyle = "#1c1917";
+      ctx.lineWidth = 2;
+      ctx.fillRect(468, 578, 12, 24);
+      ctx.strokeRect(468, 578, 12, 24);
+
+      // Red-and-White Boom Barrier Arm (Closed horizontal vs Open raised!)
+      ctx.save();
+      ctx.translate(474, 584);
+      if (isGateOpen()) {{
+        ctx.rotate(-1.22); // Lifted open!
+      }}
+      // Draw striped arm
+      for (let seg = 0; seg < 6; seg++) {{
+        ctx.fillStyle = seg % 2 === 0 ? "#ef4444" : "#ffffff";
+        ctx.fillRect(seg * 16, -4, 16, 8);
+        ctx.strokeStyle = "#1c1917";
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(seg * 16, -4, 16, 8);
+      }}
+      ctx.restore();
+
+      // Security Guard Officer Rajan NPC
+      drawAvatar3D(492, 575, "OFFICER RAJAN", "#1e3a8a");
+      ctx.restore();
+
+      // 3D Campus Trees around quad and walkways
+      const treeCoords = [
+        [95, 195], [155, 240], [85, 585], [375, 555],
+        [635, 560], [645, 395], [645, 235], [440, 155],
+        [1065, 570], [1070, 365], [1070, 185]
+      ];
+      for (const [tx, ty] of treeCoords) {{
+        drawTree3D(tx, ty, 0.95);
+      }}
+
+      // Floating Waypoint Pins for the 4 Outdoor Live Checkpoints
+      for (const s of OUTDOOR_LANDMARKS) {{
+        const cleared = clearedIds.has(s.id);
+        const unlocked = isModuleUnlocked(s.id);
+        const isActive = state.activeStopId === s.id;
+        drawWaypointPin(s.x, s.y - 45, s.num, s.name, cleared, unlocked, isActive);
+      }}
+
+      // Draw Ashwin Player Avatar
+      drawAvatar3D(state.player.x, state.player.y, "ASHWIN (YOU)", "#d94e1f");
+    }}
+
+    function drawHallInterior3D() {{
+      const h = ACADEMIC_HALLS[state.hallLevel];
+      // Warm sunlit oak classroom floor
+      ctx.fillStyle = "#f5ebe0";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Subtle architectural tile grid
+      ctx.strokeStyle = "#e7dacB";
+      ctx.lineWidth = 1;
+      for (let gx = 0; gx < canvas.width; gx += 40) {{
+        ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, canvas.height); ctx.stroke();
+      }}
+      for (let gy = 0; gy < canvas.height; gy += 40) {{
+        ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(canvas.width, gy); ctx.stroke();
+      }}
+
+      // Central sunlit hallway runner
+      ctx.fillStyle = "#e6ccb2";
+      ctx.strokeStyle = "#b08968";
+      ctx.lineWidth = 3;
+      ctx.fillRect(45, 270, canvas.width - 90, 135);
+      ctx.strokeRect(45, 270, canvas.width - 90, 135);
+
+      ctx.font = "bold 13px 'Fraunces', serif";
+      ctx.fillStyle = "#7f5539";
+      ctx.textAlign = "center";
+      ctx.fillText(`${{h.code}} · ${{h.name.toUpperCase()}} CORRIDOR (CLICK ANY CLASSROOM TO OPEN CHAPTER)`, canvas.width / 2, 342);
+
+      const mods = getModulesForLevel(state.hallLevel);
+      for (let i = 0; i < Math.min(HALL_ROOMS.length, mods.length); i++) {{
+        const r = HALL_ROOMS[i];
+        const m = mods[i];
+        const cleared = clearedIds.has(m.id);
+        const seeded = Boolean(SEEDED_LESSONS[m.id]);
+        const unlocked = isModuleUnlocked(m.id);
+
+        // Classroom card floor
+        ctx.fillStyle = cleared ? "#f0fdf4" : (seeded ? "#fffbeb" : "#ffffff");
+        ctx.strokeStyle = cleared ? "#15803d" : (seeded ? "#d94e1f" : "#a8a29e");
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.roundRect(r.x, r.y, r.w, r.h, 14);
+        ctx.fill();
+        ctx.stroke();
+
+        // Top classroom banner
+        ctx.fillStyle = cleared ? "#15803d" : (seeded ? "#d94e1f" : "#78716c");
+        ctx.beginPath();
+        ctx.roundRect(r.x, r.y, r.w, 28, [14, 14, 0, 0]);
+        ctx.fill();
+
+        ctx.font = "bold 10px 'JetBrains Mono', monospace";
+        ctx.fillStyle = "#ffffff";
+        ctx.textAlign = "left";
+        ctx.fillText(`ROOM ${{state.hallLevel + 1}}0${{i + 1}}`, r.x + 12, r.y + 18);
+        ctx.textAlign = "right";
+        ctx.fillText(cleared ? "✓ CLEARED" : (seeded ? "★ LIVE LAB" : "SYLLABUS"), r.x + r.w - 12, r.y + 18);
+
+        // Room title
+        ctx.fillStyle = "#1c1917";
+        ctx.font = "bold 13px 'Fraunces', serif";
+        ctx.textAlign = "center";
+        const words = m.title.split(" ");
+        let l1 = "", l2 = "";
+        for (const w of words) {{
+          if ((l1 + " " + w).trim().length <= 22) l1 = (l1 + " " + w).trim();
+          else l2 = (l2 + " " + w).trim();
+        }}
+        ctx.fillText(l1, r.x + r.w / 2, r.y + 62);
+        if (l2) ctx.fillText(l2, r.x + r.w / 2, r.y + 80);
+
+        // 3D Lab Desk inside classroom
+        drawIsoBox(r.x + r.w / 2, r.y + 132, 64, 34, 18, "#d97706", "#fef3c7", "#fde68a");
+      }}
+
+      drawAvatar3D(state.hallPlayer.x, state.hallPlayer.y, "ASHWIN (YOU)", "#d94e1f");
+    }}
+
+    // =========================================================================
+    // GAME LOOP & INPUT HANDLING
+    // =========================================================================
     window.addEventListener("keydown", e => {{
-      if (document.getElementById("room-modal").classList.contains("open")) {{
-        if (e.key === "Escape") closeRoomModal();
+      if (document.getElementById("book-modal").classList.contains("open")) {{
+        if (e.key === "Escape") closeBookModal();
         return;
       }}
       state.keys[e.key.toLowerCase()] = true;
@@ -944,7 +1804,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         e.preventDefault();
       }}
       if (e.key.toLowerCase() === "e" || e.key === "Enter") {{
-        triggerInteraction();
+        openActiveCheckpoint();
       }}
     }});
 
@@ -952,566 +1812,438 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       state.keys[e.key.toLowerCase()] = false;
     }});
 
-    const canvas = document.getElementById("game-canvas");
-    const ctx = canvas.getContext("2d");
-
     canvas.addEventListener("click", e => {{
       const rect = canvas.getBoundingClientRect();
-      const scaleX = canvas.width / rect.width;
-      const scaleY = canvas.height / rect.height;
-      const cx = (e.clientX - rect.left) * scaleX;
-      const cy = (e.clientY - rect.top) * scaleY;
+      const cx = (e.clientX - rect.left) * (canvas.width / rect.width);
+      const cy = (e.clientY - rect.top) * (canvas.height / rect.height);
 
       if (state.scene === "campus") {{
-        // Check if clicked on a building
-        for (const b of CAMPUS_BUILDINGS) {{
-          if (cx >= b.x && cx <= b.x + b.w && cy >= b.y && cy <= b.y + b.h) {{
-            selectBuilding(b.level);
+        // 1. Check outdoor checkpoints
+        for (const s of OUTDOOR_LANDMARKS) {{
+          if (Math.hypot(cx - s.x, cy - (s.y - 15)) < s.radius) {{
+            selectOutdoorStop(s.id, true);
             return;
           }}
         }}
-        state.campusPlayer.targetX = cx;
-        state.campusPlayer.targetY = cy;
-      }} else {{
-        // Check if clicked inside a room terminal box
-        const mods = getModulesForLevel(state.buildingLevel);
-        for (let i = 0; i < Math.min(ROOM_RECTS.length, mods.length); i++) {{
-          const r = ROOM_RECTS[i];
-          if (cx >= r.x && cx <= r.x + r.w && cy >= r.y && cy <= r.y + r.h) {{
-            walkToAndOpenRoom(i);
+        // 2. Check 3D Academic Halls
+        for (const h of ACADEMIC_HALLS) {{
+          if (cx >= h.x - h.w / 2 - 15 && cx <= h.x + h.w / 2 + 15 &&
+              cy >= h.y - h.h - h.d / 2 - 25 && cy <= h.y + h.d / 2 + 15) {{
+            if (!isGateOpen()) {{
+              selectOutdoorStop("l0-what-is-an-llm", true);
+              return;
+            }}
+            switchScene("hall", h.level);
             return;
           }}
+        }}
+        // Otherwise walk Ashwin there (respecting the closed boom gate!)
+        if (!isGateOpen() && cy < 575) {{
+          selectOutdoorStop("l0-what-is-an-llm", true);
+          return;
         }}
         state.player.targetX = cx;
         state.player.targetY = cy;
-        state.pendingOpenRoomIdx = null;
+        state.player.pendingAction = null;
+      }} else {{
+        const mods = getModulesForLevel(state.hallLevel);
+        for (let i = 0; i < Math.min(HALL_ROOMS.length, mods.length); i++) {{
+          const r = HALL_ROOMS[i];
+          if (cx >= r.x && cx <= r.x + r.w && cy >= r.y && cy <= r.y + r.h) {{
+            walkToHallRoom(i);
+            return;
+          }}
+        }}
+        state.hallPlayer.targetX = cx;
+        state.hallPlayer.targetY = cy;
       }}
     }});
 
-    function triggerInteraction() {{
-      if (state.scene === "campus") {{
-        if (state.nearbyBuildingIndex >= 0) {{
-          selectBuilding(state.nearbyBuildingIndex);
-        }}
-      }} else {{
-        if (state.nearbyRoomIndex >= 0) {{
-          openRoomModal(state.nearbyRoomIndex);
-        }}
-      }}
-    }}
-
-    // GAME LOOP: UPDATE & RENDER
-    function updateGame() {{
+    function updateLoop() {{
+      state.tick += 1;
       let dx = 0, dy = 0;
       if (state.keys["w"] || state.keys["arrowup"]) dy -= 1;
       if (state.keys["s"] || state.keys["arrowdown"]) dy += 1;
       if (state.keys["a"] || state.keys["arrowleft"]) dx -= 1;
       if (state.keys["d"] || state.keys["arrowright"]) dx += 1;
 
-      const activePlayer = state.scene === "campus" ? state.campusPlayer : state.player;
+      const p = state.scene === "campus" ? state.player : state.hallPlayer;
 
       if (dx !== 0 || dy !== 0) {{
-        activePlayer.targetX = null;
-        activePlayer.targetY = null;
-        state.pendingOpenRoomIdx = null;
+        p.targetX = null;
+        p.targetY = null;
+        p.pendingAction = null;
+        p.pendingRoomIdx = null;
         const len = Math.hypot(dx, dy);
-        activePlayer.x += (dx / len) * state.player.speed;
-        activePlayer.y += (dy / len) * state.player.speed;
-        state.player.frame += 0.2;
-      }} else if (activePlayer.targetX !== null && activePlayer.targetY !== null) {{
-        const tx = activePlayer.targetX - activePlayer.x;
-        const ty = activePlayer.targetY - activePlayer.y;
+        let nx = p.x + (dx / len) * state.player.speed;
+        let ny = p.y + (dy / len) * state.player.speed;
+        if (state.scene === "campus" && !isGateOpen() && ny < 588) {{
+          ny = 588;
+        }}
+        p.x = Math.max(45, Math.min(canvas.width - 45, nx));
+        p.y = Math.max(95, Math.min(canvas.height - 30, ny));
+        state.player.frame += 0.22;
+      }} else if (p.targetX !== null && p.targetY !== null) {{
+        const tx = p.targetX - p.x;
+        const ty = p.targetY - p.y;
         const dist = Math.hypot(tx, ty);
-        if (dist <= state.player.speed * 1.2) {{
-          activePlayer.x = activePlayer.targetX;
-          activePlayer.y = activePlayer.targetY;
-          activePlayer.targetX = null;
-          activePlayer.targetY = null;
-          if (state.pendingOpenRoomIdx !== null && state.pendingOpenRoomIdx !== undefined) {{
-            const idx = state.pendingOpenRoomIdx;
-            state.pendingOpenRoomIdx = null;
-            openRoomModal(idx);
+        if (dist <= state.player.speed * 1.3) {{
+          p.x = p.targetX;
+          p.y = p.targetY;
+          p.targetX = null;
+          p.targetY = null;
+          if (state.scene === "campus" && p.pendingAction) {{
+            const fn = p.pendingAction;
+            p.pendingAction = null;
+            fn();
+          }} else if (state.scene === "hall" && p.pendingRoomIdx !== null && p.pendingRoomIdx !== undefined) {{
+            const idx = p.pendingRoomIdx;
+            p.pendingRoomIdx = null;
+            const mods = getModulesForLevel(state.hallLevel);
+            if (mods[idx]) openLessonBook(mods[idx].id);
           }}
         }} else {{
-          activePlayer.x += (tx / dist) * state.player.speed * 1.25;
-          activePlayer.y += (ty / dist) * state.player.speed * 1.25;
+          p.x += (tx / dist) * state.player.speed * 1.25;
+          p.y += (ty / dist) * state.player.speed * 1.25;
           state.player.frame += 0.25;
         }}
       }}
 
-      // Clamp bounds
-      activePlayer.x = Math.max(40, Math.min(canvas.width - 40, activePlayer.x));
-      activePlayer.y = Math.max(45, Math.min(canvas.height - 45, activePlayer.y));
-
-      // Proximity checks
+      // Check proximity to outdoor landmarks
       if (state.scene === "campus") {{
-        state.nearbyBuildingIndex = -1;
-        for (const b of CAMPUS_BUILDINGS) {{
-          const bx = b.x + b.w / 2;
-          const by = b.y + b.h / 2;
-          if (Math.hypot(activePlayer.x - bx, activePlayer.y - by) < 135) {{
-            state.nearbyBuildingIndex = b.level;
-            break;
-          }}
-        }}
-      }} else {{
-        state.nearbyRoomIndex = -1;
-        const mods = getModulesForLevel(state.buildingLevel);
-        for (let i = 0; i < Math.min(ROOM_RECTS.length, mods.length); i++) {{
-          const r = ROOM_RECTS[i];
-          if (activePlayer.x >= r.x - 15 && activePlayer.x <= r.x + r.w + 15 &&
-              activePlayer.y >= r.y - 25 && activePlayer.y <= r.y + r.h + 25) {{
-            state.nearbyRoomIndex = i;
+        for (const s of OUTDOOR_LANDMARKS) {{
+          if (Math.hypot(state.player.x - s.x, state.player.y - s.y) < 62) {{
+            if (state.activeStopId !== s.id) {{
+              state.activeStopId = s.id;
+              refreshHudAndSidebar();
+            }}
             break;
           }}
         }}
       }}
     }}
 
-    function drawAvatar(x, y, label) {{
-      const bounce = Math.sin(state.player.frame) * 2.2;
-      // Shadow
-      ctx.fillStyle = "rgba(0, 0, 0, 0.45)";
-      ctx.beginPath();
-      ctx.ellipse(x, y + 16, 13, 6, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Body (Amber hoodie)
-      ctx.fillStyle = "#f59e0b";
-      ctx.fillRect(x - 10, y - 4 + bounce, 20, 16);
-      ctx.strokeStyle = "#080b11";
-      ctx.lineWidth = 2;
-      ctx.strokeRect(x - 10, y - 4 + bounce, 20, 16);
-
-      // Head
-      ctx.fillStyle = "#fde68a";
-      ctx.fillRect(x - 9, y - 19 + bounce, 18, 15);
-      ctx.strokeRect(x - 9, y - 19 + bounce, 18, 15);
-
-      // Glasses / Eyes
-      ctx.fillStyle = "#0f172a";
-      ctx.fillRect(x - 6, y - 13 + bounce, 4, 4);
-      ctx.fillRect(x + 2, y - 13 + bounce, 4, 4);
-
-      // Nameplate
-      ctx.font = "bold 11px 'JetBrains Mono', monospace";
-      ctx.fillStyle = "#ffffff";
-      ctx.textAlign = "center";
-      ctx.fillText(label, x, y - 25 + bounce);
+    function gameFrame() {{
+      updateLoop();
+      if (state.scene === "campus") drawCampus3D();
+      else drawHallInterior3D();
+      requestAnimationFrame(gameFrame);
     }}
 
-    function drawBuildingInterior() {{
-      ctx.fillStyle = "#0b101b";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Floor grid tiles
-      ctx.strokeStyle = "#141d30";
-      ctx.lineWidth = 1;
-      for (let gx = 0; gx < canvas.width; gx += 36) {{
-        ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, canvas.height); ctx.stroke();
-      }}
-      for (let gy = 0; gy < canvas.height; gy += 36) {{
-        ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(canvas.width, gy); ctx.stroke();
-      }}
-
-      // Central main corridor carpet
-      ctx.fillStyle = "#131c2e";
-      ctx.fillRect(35, 255, canvas.width - 70, 150);
-      ctx.strokeStyle = "#263554";
-      ctx.lineWidth = 2;
-      ctx.strokeRect(35, 255, canvas.width - 70, 150);
-
-      // Corridor centerline & directional arrows
-      ctx.strokeStyle = "rgba(245, 158, 11, 0.25)";
-      ctx.setLineDash([10, 10]);
-      ctx.beginPath();
-      ctx.moveTo(60, 330);
-      ctx.lineTo(canvas.width - 60, 330);
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      const mods = getModulesForLevel(state.buildingLevel);
-
-      for (let i = 0; i < Math.min(ROOM_RECTS.length, mods.length); i++) {{
-        const r = ROOM_RECTS[i];
-        const m = mods[i];
-        const cleared = clearedRooms.has(m.id);
-        const unlocked = isRoomUnlocked(state.buildingLevel, i);
-        const seeded = Boolean(SEEDED_LESSONS[m.id]);
-        const isNearby = state.nearbyRoomIndex === i;
-
-        // Room floor
-        if (cleared) {{
-          ctx.fillStyle = "rgba(16, 185, 129, 0.13)";
-        }} else if (unlocked) {{
-          ctx.fillStyle = "rgba(245, 158, 11, 0.12)";
-        }} else {{
-          ctx.fillStyle = "rgba(15, 23, 42, 0.78)";
-        }}
-        ctx.fillRect(r.x, r.y, r.w, r.h);
-
-        // Room walls
-        ctx.strokeStyle = cleared ? "#10b981" : (unlocked ? (isNearby ? "#fbbf24" : "#f59e0b") : "#334155");
-        ctx.lineWidth = isNearby ? 4 : 2.5;
-        ctx.strokeRect(r.x, r.y, r.w, r.h);
-
-        // Doorway cutout on the corridor side
-        const doorW = 54;
-        ctx.fillStyle = "#131c2e";
-        if (i < 4) {{
-          ctx.fillRect(r.doorX - doorW / 2, r.y + r.h - 4, doorW, 8);
-        }} else {{
-          ctx.fillRect(r.doorX - doorW / 2, r.y - 4, doorW, 8);
-        }}
-
-        // Laser gate across door if locked
-        if (!unlocked) {{
-          ctx.strokeStyle = "#f43f5e";
-          ctx.lineWidth = 3;
-          ctx.beginPath();
-          ctx.moveTo(r.doorX - doorW / 2, r.doorY);
-          ctx.lineTo(r.doorX + doorW / 2, r.doorY);
-          ctx.stroke();
-        }}
-
-        // Room Number Header
-        const roomCode = `ROOM ${{state.buildingLevel + 1}}0${{i + 1}}`;
-        ctx.fillStyle = cleared ? "#10b981" : (unlocked ? "#f59e0b" : "#64748b");
-        ctx.font = "bold 11px 'JetBrains Mono', monospace";
-        ctx.textAlign = "left";
-        ctx.fillText(roomCode, r.x + 12, r.y + 22);
-
-        // Status Icon top-right
-        ctx.textAlign = "right";
-        ctx.fillText(cleared ? "★ CLEARED" : (unlocked ? (seeded ? "● LIVE LAB" : "◐ PREVIEW") : "🔒 LOCKED"), r.x + r.w - 12, r.y + 22);
-
-        // Room Title (wrapped 2 lines)
-        ctx.fillStyle = unlocked || cleared ? "#f8fafc" : "#94a3b8";
-        ctx.font = "bold 13px 'Inter', sans-serif";
-        ctx.textAlign = "center";
-        const words = m.title.split(" ");
-        let line1 = "", line2 = "";
-        for (const w of words) {{
-          if ((line1 + " " + w).trim().length <= 22) line1 = (line1 + " " + w).trim();
-          else line2 = (line2 + " " + w).trim();
-        }}
-        if (line2.length > 24) line2 = line2.slice(0, 22) + "…";
-        const titleY = i < 4 ? r.y + 52 : r.y + 148;
-        ctx.fillText(line1, r.x + r.w / 2, titleY);
-        if (line2) ctx.fillText(line2, r.x + r.w / 2, titleY + 17);
-
-        // Workstation Desk & Glowing Monitor inside room
-        const tx = r.termX;
-        const ty = r.termY;
-        ctx.fillStyle = "#1e293b";
-        ctx.fillRect(tx - 26, ty - 14, 52, 26);
-        ctx.strokeStyle = cleared ? "#10b981" : (unlocked ? "#38bdf8" : "#475569");
-        ctx.lineWidth = 2;
-        ctx.strokeRect(tx - 26, ty - 14, 52, 26);
-
-        // Monitor screen glow
-        ctx.fillStyle = cleared ? "#10b981" : (unlocked ? "#38bdf8" : "#334155");
-        ctx.fillRect(tx - 16, ty - 9, 32, 14);
-
-        // Prompt bubble when player is inside/near room
-        if (isNearby) {{
-          ctx.fillStyle = "#f59e0b";
-          ctx.fillRect(tx - 78, ty - 42, 156, 22);
-          ctx.fillStyle = "#080b11";
-          ctx.font = "bold 11px 'JetBrains Mono', monospace";
-          ctx.textAlign = "center";
-          ctx.fillText("PRESS [E] / CLICK DESK", tx, ty - 27);
-        }}
-      }}
-
-      // Draw Player Avatar
-      drawAvatar(state.player.x, state.player.y, "ASHWIN");
-    }}
-
-    function drawCampusOverworld() {{
-      ctx.fillStyle = "#09131c";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Campus Courtyard Pathways
-      ctx.fillStyle = "#162235";
-      ctx.fillRect(60, 310, canvas.width - 120, 48);
-      ctx.fillRect(200, 90, 44, 480);
-      ctx.fillRect(510, 90, 44, 480);
-      ctx.fillRect(825, 90, 44, 480);
-
-      for (const b of CAMPUS_BUILDINGS) {{
-        const mods = getModulesForLevel(b.level);
-        const done = mods.filter(m => clearedRooms.has(m.id)).length;
-        const isNearby = state.nearbyBuildingIndex === b.level;
-
-        ctx.fillStyle = "#131c2e";
-        ctx.fillRect(b.x, b.y, b.w, b.h);
-        ctx.strokeStyle = isNearby ? "#ffffff" : b.color;
-        ctx.lineWidth = isNearby ? 4 : 2.5;
-        ctx.strokeRect(b.x, b.y, b.w, b.h);
-
-        // Roof banner
-        ctx.fillStyle = b.color;
-        ctx.fillRect(b.x, b.y, b.w, 28);
-        ctx.fillStyle = "#080b11";
-        ctx.font = "bold 11px 'JetBrains Mono', monospace";
-        ctx.textAlign = "left";
-        ctx.fillText(`BUILDING 0${{b.level}}`, b.x + 10, b.y + 18);
-        ctx.textAlign = "right";
-        ctx.fillText(`${{done}}/${{mods.length}} ROOMS`, b.x + b.w - 10, b.y + 18);
-
-        ctx.fillStyle = "#f8fafc";
-        ctx.font = "bold 16px 'Inter', sans-serif";
-        ctx.textAlign = "center";
-        ctx.fillText(b.name, b.x + b.w / 2, b.y + 75);
-
-        ctx.fillStyle = "#94a3b8";
-        ctx.font = "12px 'Inter', sans-serif";
-        ctx.fillText(b.sub, b.x + b.w / 2, b.y + 100);
-
-        ctx.fillStyle = b.color;
-        ctx.font = "bold 11px 'JetBrains Mono', monospace";
-        ctx.fillText(isNearby ? "▶ PRESS [E] OR CLICK TO ENTER" : "Click to enter building", b.x + b.w / 2, b.y + 145);
-      }}
-
-      drawAvatar(state.campusPlayer.x, state.campusPlayer.y, "ASHWIN");
-    }}
-
-    function loop() {{
-      updateGame();
-      if (state.scene === "campus") drawCampusOverworld();
-      else drawBuildingInterior();
-      requestAnimationFrame(loop);
-    }}
-
-    // ROOM WORKSTATION MODAL RENDERER
-    function openRoomModal(idx) {{
-      const mods = getModulesForLevel(state.buildingLevel);
-      const mod = mods[idx];
-      if (!mod) return;
-
-      const unlocked = isRoomUnlocked(state.buildingLevel, idx);
-      const cleared = clearedRooms.has(mod.id);
-      const roomCode = `ROOM ${{state.buildingLevel + 1}}0${{idx + 1}}`;
-      state.activeLessonId = mod.id;
-      state.activeRoomIdx = idx;
+    // =========================================================================
+    // EDITORIAL CHAPTER BOOK & INTERACTIVE PLAYGROUNDS
+    // =========================================================================
+    function openLessonBook(lessonId) {{
+      state.activeStopId = lessonId;
       state.quizAnswers = {{}};
+      refreshHudAndSidebar();
 
-      document.getElementById("ws-room-code").innerText = roomCode;
-      const statusEl = document.getElementById("ws-room-status");
-      statusEl.innerText = cleared ? "★ ROOM CLEARED" : (unlocked ? "🟢 UNLOCKED" : "🔒 LOCKED (CLEAR PREVIOUS ROOM FIRST)");
-      statusEl.className = cleared ? "tag tag-emerald" : (unlocked ? "tag tag-amber" : "tag");
+      const mod = CURRICULUM.modules.find(m => m.id === lessonId);
+      const lesson = SEEDED_LESSONS[lessonId];
+      const stop = OUTDOOR_LANDMARKS.find(s => s.id === lessonId);
+      const cleared = clearedIds.has(lessonId);
+      const unlocked = isModuleUnlocked(lessonId);
 
-      document.getElementById("ws-title").innerText = mod.title;
-      const lesson = SEEDED_LESSONS[mod.id];
-      const linkEl = document.getElementById("ws-standalone-link");
+      document.getElementById("bk-location-tag").innerText = stop
+        ? `${{stop.icon}} ${{stop.num}} · ${{stop.name.toUpperCase()}}`
+        : `🏛️ HALL ${{mod ? mod.level : 0}} CLASSROOM`;
+
+      const stTag = document.getElementById("bk-status-tag");
+      stTag.innerText = cleared ? "✓ CHECKPOINT CLEARED" : (unlocked ? "🟢 READY TO CLEAR" : "🔒 CLEAR PREVIOUS STOP FIRST");
+      stTag.className = cleared ? "tag tag-meadow" : (unlocked ? "tag tag-amber" : "tag");
+
+      document.getElementById("bk-title").innerText = mod ? mod.title : lessonId;
+      const linkEl = document.getElementById("bk-standalone-link");
+
       if (lesson) {{
-        linkEl.href = `lessons/${{mod.id}}/index.html`;
+        linkEl.href = `lessons/${{lesson.id}}/index.html`;
         linkEl.style.display = "inline-flex";
-        renderSeededLessonModal(mod, lesson, roomCode, unlocked, cleared);
+        renderSeededLessonBook(mod, lesson, stop, unlocked, cleared);
       }} else {{
         linkEl.style.display = "none";
-        renderPreviewModuleModal(mod, roomCode, unlocked, cleared);
+        renderSyllabusPreviewBook(mod, unlocked, cleared);
       }}
 
-      document.getElementById("room-modal").classList.add("open");
-      switchWsTab("sim");
+      document.getElementById("book-modal").classList.add("open");
+      switchBookTab("story");
     }}
 
-    function closeRoomModal() {{
-      document.getElementById("room-modal").classList.remove("open");
+    function closeBookModal() {{
+      document.getElementById("book-modal").classList.remove("open");
     }}
 
-    function switchWsTab(tabName) {{
-      document.querySelectorAll(".ws-tab").forEach(b => {{
+    function switchBookTab(tabName) {{
+      document.querySelectorAll(".book-tab").forEach(b => {{
         b.classList.toggle("active", b.getAttribute("data-tab") === tabName);
       }});
-      document.querySelectorAll(".ws-pane").forEach(p => p.classList.remove("active"));
-      document.getElementById("ws-pane-" + tabName).classList.add("active");
+      document.querySelectorAll(".book-pane").forEach(p => p.classList.remove("active"));
+      document.getElementById("bk-pane-" + tabName).classList.add("active");
     }}
 
-    function renderSeededLessonModal(mod, lesson, roomCode, unlocked, cleared) {{
-      const sp = lesson.story_spine;
-      // TAB 1: Interactive Simulator + Story Spine + Sections
-      let simWidget = "";
-      if (lesson.id === "l0-what-is-an-llm") {{
-        simWidget = `
-          <div class="quest-card active-target" style="margin-bottom:1.5rem;">
-            <div class="spine-label">ROOM 101 INTERACTIVE MECHANISM · NEXT-TOKEN LOOP</div>
-            <h3 style="margin:0.2rem 0 0.5rem;font-family:var(--serif);">Tune Temperature & Roll the Next-Token Sampler</h3>
-            <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:0.85rem;">
-              <label style="font-family:var(--mono);font-size:0.84rem;">Temperature: <strong id="modal-temp-val" style="color:var(--amber);">1.0</strong></label>
-              <input id="modal-temp-slider" type="range" min="0" max="2.0" step="0.1" value="1.0" oninput="updateModalL0Sim()" style="width:200px;accent-color:var(--amber);" />
-              <button class="btn btn-primary" onclick="sampleModalL0Token()">Sample & Append Next Token →</button>
-              <button class="btn" onclick="resetModalL0Sim()">Reset</button>
+    function formatSimpleMarkdown(text) {{
+      if (!text) return "";
+      const paras = text.trim().split(/\\n\\n+/);
+      return paras.map(p => {{
+        let h = p
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/`([^`]+)`/g, "<code>$1</code>")
+          .replace(/\\*\\*([^*]+)\\*\\*/g, "<strong>$1</strong>")
+          .replace(/\\*([^*]+)\\*/g, "<em>$1</em>");
+        return `<p>${{h}}</p>`;
+      }}).join("");
+    }}
+
+    function buildInteractivePlayground(lessonId) {{
+      if (lessonId === "l0-what-is-an-llm") {{
+        return `
+          <div class="playground-box">
+            <div class="spine-label">🎲 INTERACTIVE GUARD BOOTH SIMULATOR · TEMPERATURE & THE WEIGHTED DIE</div>
+            <h3 style="margin:0.2rem 0 0.5rem;font-family:var(--serif);font-size:1.3rem;">Slide the Temperature Dial & Roll the Next Word</h3>
+            <p style="margin:0 0 0.9rem;font-size:0.9rem;color:var(--ink-soft);">
+              Watch what happens to the scoreboard after <code>"the server"</code> (` + "`crashed=3.2`" + ` vs ` + "`responded=2.9`" + `). Lowering Temperature to <strong>0.2</strong> makes the top word almost guaranteed; raising it to <strong>1.5</strong> flattens the bars so weird words can win!
+            </p>
+            <div style="display:flex;gap:0.85rem;align-items:center;flex-wrap:wrap;margin-bottom:0.9rem;">
+              <label style="font-family:var(--mono);font-size:0.86rem;font-weight:700;">
+                Temperature: <strong id="sim-l0-temp-val" style="color:var(--terracotta);">1.0</strong>
+              </label>
+              <input id="sim-l0-temp" type="range" min="0" max="2.0" step="0.1" value="1.0" oninput="updateL0Sim()" style="width:200px;accent-color:var(--terracotta);" />
+              <button class="btn btn-primary" onclick="rollL0NextWord()">🎲 Roll & Glue Next Word →</button>
+              <button class="btn" onclick="resetL0Sim()">↺ Reset</button>
             </div>
-            <div id="modal-prob-bars" style="margin-bottom:0.75rem;"></div>
-            <div style="background:#06080d;padding:0.75rem 1rem;border-radius:8px;border:1px solid var(--line);font-family:var(--mono);font-size:0.86rem;">
-              Prompt Context: <strong id="modal-live-ctx" style="color:var(--amber);">the server</strong>
+            <div id="sim-l0-bars" style="margin-bottom:0.85rem;"></div>
+            <div style="background:#fffdf8;padding:0.75rem 1rem;border-radius:10px;border:2px solid var(--ink);font-family:var(--mono);font-size:0.88rem;">
+              Current Relay Sentence: <strong id="sim-l0-sentence" style="color:var(--terracotta);">the server</strong>
             </div>
-          </div>`;
-      }} else if (lesson.id === "l0-tokens") {{
-        simWidget = `
-          <div class="quest-card active-target" style="margin-bottom:1.5rem;">
-            <div class="spine-label">ROOM 102 INTERACTIVE MECHANISM · BPE TOKENIZER & FERTILITY INSPECTOR</div>
-            <h3 style="margin:0.2rem 0 0.5rem;font-family:var(--serif);">Slice Strings into Subword Token IDs & Check the Cost Multiplier</h3>
-            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.85rem;">
-              <button class="btn btn-primary" onclick="inspectTokenPreset('strawberry')">"strawberry"</button>
-              <button class="btn" onclick="inspectTokenPreset('s t r a w b e r r y')">"s t r a w b e r r y" (Spaced Fix)</button>
-              <button class="btn" onclick="inspectTokenPreset('The server responded in 12ms.')">English Prose</button>
-              <button class="btn" onclick="inspectTokenPreset('नमस्ते दुनिया')">Hindi ('नमस्ते दुनिया')</button>
-              <button class="btn" onclick="inspectTokenPreset('🚀🔥🤖')">Emojis ('🚀🔥🤖')</button>
-            </div>
-            <div id="modal-token-chips" style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem;"></div>
-            <div id="modal-token-stats" style="background:#06080d;padding:0.75rem 1rem;border-radius:8px;border:1px solid var(--line);font-family:var(--mono);font-size:0.84rem;"></div>
-          </div>`;
+          </div>
+        `;
       }}
-
-      const secsHtml = (lesson.sections || []).map((s, i) => `
-        <div class="quest-card" style="margin-bottom:1rem;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
-            <h3 style="margin:0;font-family:var(--serif);">${{i + 1}}. ${{s.heading}}</h3>
-            <span class="tag tag-amber">${{s.badge || ''}}</span>
+      if (lessonId === "l0-tokens") {{
+        return `
+          <div class="playground-box">
+            <div class="spine-label">🅿️ INTERACTIVE PARKING LOT CHOPPER · BPE BARCODES & THE HINDI TAX</div>
+            <h3 style="margin:0.2rem 0 0.5rem;font-family:var(--serif);font-size:1.3rem;">Click Any Phrase to Chop It Into Token Barcodes</h3>
+            <p style="margin:0 0 0.85rem;font-size:0.9rem;color:var(--ink-soft);">
+              See why <code>"strawberry"</code> hides two <code>r</code>'s inside barcode <code>#15717</code>, why adding spaces fixes letter counting immediately, and why Hindi pays a <strong>3.3x token tax</strong>.
+            </p>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.9rem;">
+              <button class="btn btn-primary" onclick="inspectTokenPreset('strawberry')">🍓 "strawberry"</button>
+              <button class="btn" onclick="inspectTokenPreset('s t r a w b e r r y')">✨ "s t r a w b e r r y" (Spaced Fix)</button>
+              <button class="btn" onclick="inspectTokenPreset('The server responded in 12ms.')">🇬🇧 English Sentence</button>
+              <button class="btn" onclick="inspectTokenPreset('नमस्ते दुनिया')">🇮🇳 Hindi ('नमस्ते दुनिया')</button>
+              <button class="btn" onclick="inspectTokenPreset('🚀🔥🤖')">🚀 Emojis ('🚀🔥🤖')</button>
+            </div>
+            <div id="sim-tok-chips" style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.8rem;"></div>
+            <div id="sim-tok-note" style="background:#fffdf8;padding:0.75rem 1rem;border-radius:10px;border:2px solid var(--ink);font-family:var(--mono);font-size:0.84rem;"></div>
           </div>
-          <div style="font-size:0.94rem;color:#cbd5e1;white-space:pre-line;">${{s.body_md}}</div>
-        </div>
-      `).join("");
-
-      document.getElementById("ws-pane-sim").innerHTML = `
-        <div style="font-family:var(--serif);font-size:1.15rem;color:var(--amber);font-style:italic;margin-bottom:0.65rem;">“${{lesson.question}}”</div>
-        <div class="quest-card" style="border-left:4px solid var(--amber);margin-bottom:1.25rem;">
-          <strong>One-Line Takeaway:</strong> ${{lesson.one_line}}
-        </div>
-        ${{simWidget}}
-        <h3 style="font-family:var(--serif);margin-bottom:0.4rem;">The Story Spine</h3>
-        <div class="spine-grid">
-          <div class="spine-card"><div class="spine-label">The Surprise</div><div style="font-size:0.88rem;">${{sp.surprise}}</div></div>
-          <div class="spine-card"><div class="spine-label">What Breaks</div><div style="font-size:0.88rem;">${{sp.broken}}</div></div>
-          <div class="spine-card"><div class="spine-label">The Turn</div><div style="font-size:0.88rem;">${{sp.turn}}</div></div>
-          <div class="spine-card"><div class="spine-label">Honest Limit</div><div style="font-size:0.88rem;">${{sp.honest_limit}}</div></div>
-        </div>
-        ${{secsHtml}}
-      `;
-
-      // TAB 2: Excalidraw Figures + Jargon Decoder
-      const figsHtml = (lesson.figures || []).map(f => `
-        <div class="figure-box">
-          <img src="lessons/${{lesson.id}}/${{f.id}}.svg" alt="${{f.title}}" style="width:100%;height:auto;display:block;" />
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1px dashed #cbd5e1;font-size:0.82rem;color:#475569;">
-            <span><strong>${{f.title}}:</strong> ${{f.caption}}</span>
-            <a href="lessons/${{lesson.id}}/${{f.id}}.excalidraw" download style="color:#0284c7;font-family:var(--mono);">⬇ .excalidraw</a>
+        `;
+      }}
+      if (lessonId === "l0-embeddings") {{
+        return `
+          <div class="playground-box">
+            <div class="spine-label">☕ INTERACTIVE CAFETERIA MEANING MAP · 4D EMBEDDING GPS</div>
+            <h3 style="margin:0.2rem 0 0.5rem;font-family:var(--serif);font-size:1.3rem;">Compare Any Item Against Masala Chai or Run Vector Math</h3>
+            <p style="margin:0 0 0.85rem;font-size:0.9rem;color:var(--ink-soft);">
+              Every item has 4 coordinates: <code>[Hot_Drink, Spicy_Indian, Tech_Code, Royalty]</code>. Click an item to measure its flashlight angle (Cosine Similarity) with <strong>masala_chai</strong>!
+            </p>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.85rem;">
+              <button class="btn btn-primary" onclick="inspectEmbeddingItem('filter_coffee')">☕ filter_coffee</button>
+              <button class="btn" onclick="inspectEmbeddingItem('iced_chai')">🧊 iced_chai (Opposite Trap!)</button>
+              <button class="btn" onclick="inspectEmbeddingItem('samosa')">🥟 samosa</button>
+              <button class="btn" onclick="inspectEmbeddingItem('kubernetes')">☸️ kubernetes</button>
+              <button class="btn btn-meadow" onclick="inspectEmbeddingItem('king_math')">👑 Run king - man + woman</button>
+            </div>
+            <div id="sim-emb-output" style="background:#fffdf8;padding:0.85rem 1rem;border-radius:10px;border:2px solid var(--ink);font-family:var(--mono);font-size:0.84rem;"></div>
           </div>
-        </div>
-      `).join("");
+        `;
+      }}
+      if (lessonId === "l0-context-window") {{
+        return `
+          <div class="playground-box">
+            <div class="spine-label">⛲ INTERACTIVE QUAD LUNCH TRAY · SLIDING WINDOW & U-CURVE</div>
+            <h3 style="margin:0.2rem 0 0.5rem;font-family:var(--serif);font-size:1.3rem;">Watch Turn 1's Secret Code Fall Off the 24-Word Lunch Tray</h3>
+            <p style="margin:0 0 0.85rem;font-size:0.9rem;color:var(--ink-soft);">
+              Click through Turns 1 → 4 on our 24-word tray, or test where to hide the locker code <code>7492</code> on a 10-chunk tray!
+            </p>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.85rem;">
+              <button class="btn btn-primary" onclick="inspectTrayStep(1)">Turn 1 (8/24 words)</button>
+              <button class="btn" onclick="inspectTrayStep(2)">Turn 2 (16/24 words)</button>
+              <button class="btn" onclick="inspectTrayStep(3)">Turn 3 (24/24 FULL!)</button>
+              <button class="btn" onclick="inspectTrayStep(4)">Turn 4 (Overflow! 7492 Dropped)</button>
+              <button class="btn btn-meadow" onclick="inspectTrayStep(5)">📉 Show Lost-in-the-Middle U-Curve</button>
+            </div>
+            <div id="sim-ctx-output" style="background:#fffdf8;padding:0.85rem 1rem;border-radius:10px;border:2px solid var(--ink);font-family:var(--mono);font-size:0.84rem;"></div>
+          </div>
+        `;
+      }}
+      return "";
+    }}
+
+    function renderSeededLessonBook(mod, lesson, stop, unlocked, cleared) {{
+      const sp = lesson.story_spine;
+      const figsById = {{}};
+      (lesson.figures || []).forEach(f => {{ figsById[f.id] = f; }});
+
+      const chaptersHtml = (lesson.sections || []).map((sec, idx) => {{
+        let figHtml = "";
+        if (sec.figure_id && figsById[sec.figure_id]) {{
+          const f = figsById[sec.figure_id];
+          figHtml = `
+            <div class="inline-figure">
+              <img src="lessons/${{lesson.id}}/${{f.id}}.svg" alt="${{f.title}}" style="width:100%;height:auto;display:block;" />
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.81rem;color:var(--ink-soft);flex-wrap:wrap;gap:0.5rem;">
+                <span><strong>📐 ${{f.title}}:</strong> ${{f.caption}}</span>
+                <a href="lessons/${{lesson.id}}/${{f.id}}.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a>
+              </div>
+            </div>
+          `;
+        }}
+        return `
+          <article class="chapter-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+              <span class="chapter-number">CHAPTER 0${{idx + 1}}</span>
+              <span class="tag tag-amber">${{sec.badge || ''}}</span>
+            </div>
+            <h3 class="chapter-heading">${{sec.heading}}</h3>
+            <div class="chapter-prose">${{formatSimpleMarkdown(sec.body_md)}}</div>
+            ${{figHtml}}
+          </article>
+        `;
+      }}).join("");
 
       const jargonHtml = (lesson.jargon_decoder || []).map(j => `
         <div class="spine-card">
-          <div style="font-weight:700;color:var(--amber);margin-bottom:0.25rem;">${{j.term}}</div>
-          <div style="font-size:0.86rem;margin-bottom:0.35rem;">${{j.plain_words}}</div>
+          <div style="font-family:var(--serif);font-weight:800;font-size:1.05rem;color:var(--terracotta);margin-bottom:0.25rem;">${{j.term}}</div>
+          <div style="font-size:0.88rem;color:var(--ink);margin-bottom:0.35rem;"><strong>In plain words:</strong> ${{j.plain_words}}</div>
           <div style="font-size:0.78rem;color:var(--muted);font-family:var(--mono);">Why you care: ${{j.why_you_care}}</div>
         </div>
       `).join("");
 
-      document.getElementById("ws-pane-diagrams").innerHTML = `
-        <h3 style="font-family:var(--serif);margin-top:0;">Hand-Drawn Excalidraw Figures</h3>
-        ${{figsHtml}}
-        <h3 style="font-family:var(--serif);margin-top:2rem;">Jargon Decoder</h3>
+      document.getElementById("bk-pane-story").innerHTML = `
+        <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 5px 0 var(--ink);border-radius:16px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;">
+          <div style="font-family:var(--serif);font-size:1.25rem;font-style:italic;color:var(--terracotta);margin-bottom:0.35rem;">
+            “${{lesson.question}}”
+          </div>
+          <div style="font-size:1rem;color:var(--ink);">
+            <strong>The One-Line Picture:</strong> ${{lesson.one_line}}
+          </div>
+        </div>
+
+        ${{buildInteractivePlayground(lesson.id)}}
+
+        ${{chaptersHtml}}
+
+        <h3 style="font-family:var(--serif);font-size:1.35rem;margin:2rem 0 0.5rem;">Plain-English Jargon Decoder</h3>
         <div class="spine-grid">${{jargonHtml}}</div>
+
+        <h3 style="font-family:var(--serif);font-size:1.35rem;margin:2rem 0 0.5rem;">The 4-Beat Pocket Summary</h3>
+        <div class="spine-grid">
+          <div class="spine-card"><div class="spine-label">1. The Surprise</div><div style="font-size:0.9rem;">${{sp.surprise}}</div></div>
+          <div class="spine-card"><div class="spine-label">2. What Breaks</div><div style="font-size:0.9rem;">${{sp.broken}}</div></div>
+          <div class="spine-card"><div class="spine-label">3. The Turn</div><div style="font-size:0.9rem;">${{sp.turn}}</div></div>
+          <div class="spine-card"><div class="spine-label">4. Honest Limit</div><div style="font-size:0.9rem;">${{sp.honest_limit}}</div></div>
+        </div>
+
+        <div style="text-align:center;margin-top:1.75rem;">
+          <button class="btn btn-primary" style="font-size:0.95rem;padding:0.7rem 1.5rem;" onclick="switchBookTab('gate')">
+            🚧 Ready? Take the 3-Question Checkpoint Gate Test →
+          </button>
+        </div>
       `;
 
-      // TAB 3: Lab & Verified Output
+      // TAB 2: RUNNABLE PYTHON LAB
       const lab = lesson.lab;
       const accHtml = (lab.acceptance || []).map(a => `
-        <div class="spine-card" style="border-left:4px solid var(--emerald);">
-          <div class="spine-label" style="color:var(--emerald);">✓ VERIFIED ACCEPTANCE CRITERION</div>
-          <div style="font-weight:600;font-size:0.88rem;margin-bottom:0.3rem;">${{a.criterion}}</div>
-          <div style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);">Evidence: ${{a.evidence}}</div>
+        <div class="spine-card" style="border-left:5px solid var(--meadow);">
+          <div class="spine-label" style="color:var(--meadow);">✓ VERIFIED ACCEPTANCE CHECK</div>
+          <div style="font-weight:700;font-size:0.9rem;margin-bottom:0.25rem;">${{a.criterion}}</div>
+          <div style="font-family:var(--mono);font-size:0.76rem;color:var(--muted);">Proof: ${{a.evidence}}</div>
         </div>
       `).join("");
 
-      document.getElementById("ws-pane-lab").innerHTML = `
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem;">
+      document.getElementById("bk-pane-lab").innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;margin-bottom:1rem;">
           <div>
-            <div class="spine-label">HANDS-ON PYTHON LAB</div>
-            <h3 style="margin:0.2rem 0;font-family:var(--serif);">${{lab.title}}</h3>
+            <div class="spine-label">PURE PYTHON HANDS-ON LAB (ZERO API KEYS)</div>
+            <h3 style="margin:0.2rem 0;font-family:var(--serif);font-size:1.45rem;">${{lab.title}}</h3>
           </div>
           <a class="btn btn-primary" href="lessons/${{lesson.id}}/${{lab.code_file}}" download>⬇ Download ${{lab.code_file}}</a>
         </div>
-        <p style="font-size:0.9rem;color:var(--muted);">${{lab.goal}}</p>
+        <p style="font-size:0.95rem;color:var(--ink-soft);">${{lab.goal}}</p>
         <div class="spine-grid">${{accHtml}}</div>
-        <h4 style="font-family:var(--mono);font-size:0.82rem;color:var(--emerald);">REAL VERIFIED TERMINAL OUTPUT (EXIT 0)</h4>
+        <h4 style="font-family:var(--mono);font-size:0.82rem;color:var(--meadow);margin-top:1.5rem;">REAL VERIFIED TERMINAL OUTPUT (EXIT CODE 0)</h4>
         <pre><code>${{lab.real_output}}</code></pre>
-        <h4 style="font-family:var(--mono);font-size:0.82rem;color:var(--amber);margin-top:1.5rem;">REFERENCE CODE (${{lab.code_file}})</h4>
-        <pre><code>${{lesson.code_text.replace(/</g, "&lt;")}}</code></pre>
+        <h4 style="font-family:var(--mono);font-size:0.82rem;color:var(--terracotta);margin-top:1.5rem;">COMPLETE SOURCE CODE (${{lab.code_file}})</h4>
+        <pre><code>${{(lesson.code_text || "").replace(/</g, "&lt;")}}</code></pre>
       `;
 
-      // TAB 4: Gate Challenge (3 questions to unlock next room)
+      // TAB 3: GATE TEST
       const questions = lesson.gate_challenge || [];
       const qHtml = questions.map((qObj, qIdx) => {{
         const opts = qObj.options.map((opt, oIdx) => `
-          <button class="quiz-option" id="q-${{qIdx}}-opt-${{oIdx}}" onclick="selectQuizOption(${{qIdx}}, ${{oIdx}})">
+          <button class="quiz-option" id="q-${{qIdx}}-opt-${{oIdx}}" onclick="selectQuizAnswer(${{qIdx}}, ${{oIdx}})">
             ${{opt}}
           </button>
         `).join("");
         return `
-          <div class="quest-card" style="margin-bottom:1rem;">
-            <div style="font-weight:700;margin-bottom:0.65rem;">${{qObj.q}}</div>
+          <div class="chapter-card" style="padding:1.2rem 1.4rem;margin-bottom:1rem;">
+            <div style="font-weight:800;font-size:0.98rem;margin-bottom:0.75rem;">${{qObj.q}}</div>
             ${{opts}}
-            <div id="q-${{qIdx}}-feedback" style="display:none;margin-top:0.5rem;font-size:0.84rem;padding:0.55rem 0.8rem;border-radius:8px;"></div>
+            <div id="q-${{qIdx}}-feedback" style="display:none;margin-top:0.55rem;font-size:0.86rem;font-weight:600;padding:0.6rem 0.85rem;border-radius:8px;"></div>
           </div>
         `;
       }}).join("");
 
-      document.getElementById("ws-pane-gate").innerHTML = `
-        <div class="quest-card active-target" style="margin-bottom:1.25rem;">
-          <div class="spine-label">ROOM GATE VERIFICATION CHALLENGE</div>
-          <h3 style="margin:0.2rem 0 0.35rem;font-family:var(--serif);">Pass all 3 Lab Checks to Unlock the Next Room & Mint Your Share Card</h3>
-          <p style="margin:0;font-size:0.88rem;color:var(--muted);">
-            No skipping by vibes: every answer below comes directly from the mechanism and real lab output in this room.
+      document.getElementById("bk-pane-gate").innerHTML = `
+        <div class="playground-box" style="margin-bottom:1.25rem;">
+          <div class="spine-label">🚧 CAMPUS CHECKPOINT GATE TEST</div>
+          <h3 style="margin:0.2rem 0 0.35rem;font-family:var(--serif);font-size:1.35rem;">
+            Answer All 3 Questions to Lift the Barrier & Unlock the Next Campus Landmark
+          </h3>
+          <p style="margin:0;font-size:0.9rem;color:var(--ink-soft);">
+            Every answer comes straight from the chapters and the Python lab output you just explored.
           </p>
         </div>
         ${{qHtml}}
-        <div id="gate-result-banner" style="margin-top:1rem;"></div>
+        <div id="gate-success-banner" style="margin-top:1rem;"></div>
       `;
 
-      // TAB 5: Share Studio
+      // TAB 4: SHARE STUDIO
       const sh = lesson.shareable;
       const tweetsHtml = (sh.x_thread || []).map(t => `
-        <div class="quest-card" style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;">
-          <div style="white-space:pre-line;font-size:0.9rem;">${{t}}</div>
+        <div class="chapter-card" style="padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;">
+          <div style="white-space:pre-line;font-size:0.92rem;">${{t}}</div>
           <button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button>
         </div>
       `).join("");
 
       const igHtml = (sh.instagram_carousel || []).map(s => `
         <div class="ig-slide">
-          <div style="font-family:var(--mono);font-size:0.72rem;color:var(--amber);">${{roomCode}} · SLIDE 0${{s.slide}}</div>
+          <div style="font-family:var(--mono);font-size:0.72rem;font-weight:800;color:var(--terracotta);">SLIDE 0${{s.slide}} · ${{sh.notebook_shelf}}</div>
           <div>
-            <h4 style="font-family:var(--serif);font-size:1.25rem;margin:0.4rem 0;">${{s.headline}}</h4>
-            <p style="font-size:0.84rem;color:#cbd5e1;margin:0;white-space:pre-line;">${{s.body}}</p>
+            <h4 style="font-family:var(--serif);font-size:1.18rem;margin:0.35rem 0;color:var(--ink);">${{s.headline}}</h4>
+            <p style="font-size:0.83rem;color:var(--ink-soft);margin:0;white-space:pre-line;">${{s.body}}</p>
           </div>
-          <div style="font-family:var(--mono);font-size:0.68rem;color:#94a3b8;border-top:1px solid rgba(255,255,255,0.12);padding-top:0.45rem;display:flex;justify-content:space-between;">
+          <div style="font-family:var(--mono);font-size:0.68rem;color:var(--muted);border-top:1.5px solid var(--line-strong);padding-top:0.4rem;display:flex;justify-content:space-between;">
             <span>@ashwinYardi</span><span>Bits University</span>
           </div>
         </div>
       `).join("");
 
-      document.getElementById("ws-pane-share").innerHTML = `
-        <div class="share-badge-card">
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.6rem;">
-            <span class="pixel-tag">${{roomCode}} CLEARED · ACHIEVEMENT CARD</span>
-            <span class="tag tag-emerald">BitsByBlocks AI University · Rung ${{lesson.level}}</span>
-          </div>
-          <h3 style="font-family:var(--serif);font-size:1.65rem;margin:0.3rem 0;">${{lesson.title}}</h3>
-          <p style="font-family:var(--serif);font-style:italic;font-size:1.12rem;color:#fde68a;margin:0.5rem 0 0.85rem;">
+      document.getElementById("bk-pane-share").innerHTML = `
+        <div class="playground-box">
+          <div class="spine-label">🏆 SHAREABLE FIELD NOTE · ${{sh.notebook_shelf}}</div>
+          <h3 style="font-family:var(--serif);font-size:1.5rem;margin:0.25rem 0;">${{lesson.title}}</h3>
+          <p style="font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--terracotta);margin:0.5rem 0 0.85rem;">
             “${{sh.the_turn}}”
           </p>
-          <div style="font-size:0.84rem;color:#cbd5e1;margin-bottom:0.9rem;">
-            <strong>Reel / Voiceover Hook:</strong> ${{sh.reel_hook}}
+          <div style="font-size:0.88rem;color:var(--ink-soft);margin-bottom:0.95rem;">
+            <strong>60-Second Reel / Short Hook:</strong> ${{sh.reel_hook}}
           </div>
-          <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
-            <button class="btn btn-primary" onclick="copyFullThread()">Copy Complete X Thread (${{sh.x_thread.length}} tweets)</button>
-            <button class="btn" onclick="copyTurnCard()">Copy 'The Turn' Post</button>
+          <div style="display:flex;gap:0.65rem;flex-wrap:wrap;">
+            <button class="btn btn-primary" onclick="copyFullXThread()">📋 Copy Complete X Thread (${{sh.x_thread.length}} posts)</button>
+            <button class="btn" onclick="copyTurnQuote()">📋 Copy 'The Turn' Quote</button>
           </div>
         </div>
         <h3 style="font-family:var(--serif);">Ready-to-Post X Thread</h3>
@@ -1520,42 +2252,47 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         <div class="ig-deck">${{igHtml}}</div>
       `;
 
-      if (lesson.id === "l0-what-is-an-llm") updateModalL0Sim();
+      // Initialize interactive playground defaults
+      if (lesson.id === "l0-what-is-an-llm") updateL0Sim();
       if (lesson.id === "l0-tokens") inspectTokenPreset("strawberry");
+      if (lesson.id === "l0-embeddings") inspectEmbeddingItem("filter_coffee");
+      if (lesson.id === "l0-context-window") inspectTrayStep(1);
     }}
 
-    function renderPreviewModuleModal(mod, roomCode, unlocked, cleared) {{
-      document.getElementById("ws-pane-sim").innerHTML = `
-        <div class="quest-card active-target">
-          <div class="spine-label">${{roomCode}} · CURRICULUM BLUEPRINT</div>
-          <h3 style="font-family:var(--serif);font-size:1.4rem;margin:0.3rem 0;">${{mod.title}}</h3>
-          <p style="color:var(--amber);font-style:italic;font-family:var(--serif);font-size:1.1rem;">“${{mod.question}}”</p>
-          <p><strong>What you unlock after clearing this room:</strong> ${{mod.can}}</p>
-          <p><strong>Hands-On Lab Spec:</strong> ${{mod.exercise}}</p>
-          <p style="font-family:var(--mono);font-size:0.78rem;color:var(--muted);">Jargon covered: ${{(mod.jargon || []).join(", ")}}</p>
+    function renderSyllabusPreviewBook(mod, unlocked, cleared) {{
+      if (!mod) return;
+      document.getElementById("bk-pane-story").innerHTML = `
+        <div class="chapter-card">
+          <div class="chapter-number">CURRICULUM MODULE SPECIFICATION · RUNG ${{mod.level}}</div>
+          <h3 class="chapter-heading">${{mod.title}}</h3>
+          <p style="font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--terracotta);">“${{mod.question}}”</p>
+          <p><strong>What you can do after clearing this room:</strong> ${{mod.can}}</p>
+          <p><strong>Hands-on Lab Blueprint:</strong> ${{mod.exercise}}</p>
+          <p style="font-family:var(--mono);font-size:0.82rem;color:var(--muted);">Jargon decoded in this room: ${{(mod.jargon || []).join(", ")}}</p>
         </div>
       `;
-      document.getElementById("ws-pane-diagrams").innerHTML = `<p style="color:var(--muted);">Planned figures: ${{(mod.figures || []).join(" · ")}}</p>`;
-      document.getElementById("ws-pane-lab").innerHTML = `<p style="color:var(--muted);">Lab exercise: ${{mod.exercise}}</p>`;
-      document.getElementById("ws-pane-gate").innerHTML = `<p style="color:var(--muted);">Clear earlier rooms first so AI Coach seeds this room's live lab and gate check.</p>`;
-      document.getElementById("ws-pane-share").innerHTML = `<p style="color:var(--muted);">Share Studio unlocks when this room's lab is seeded and verified.</p>`;
+      document.getElementById("bk-pane-lab").innerHTML = `<div class="chapter-card"><p>Lab specification: ${{mod.exercise}}</p></div>`;
+      document.getElementById("bk-pane-gate").innerHTML = `<div class="chapter-card"><p>Clear the 4 outdoor Rung 0 campus checkpoints first to unlock this hall classroom!</p></div>`;
+      document.getElementById("bk-pane-share").innerHTML = `<div class="chapter-card"><p>Share cards mint as soon as this classroom's lab is completed.</p></div>`;
     }}
 
-    // INTERACTIVE SIMULATORS INSIDE ROOM MODAL
+    // =========================================================================
+    // 4 LIVE INTERACTIVE MECHANISM PLAYGROUNDS
+    // =========================================================================
     const L0_LOGITS = {{
       "the server": {{"crashed": 3.2, "responded": 2.9, "timed": 2.4, "melted": 0.4, "danced": -1.5}},
       "server crashed": {{"because": 3.6, "after": 2.5, "at": 1.8, "quietly": 0.9}},
       "server responded": {{"in": 3.4, "with": 2.8, "after": 1.7, "slowly": 1.1}},
       "server timed": {{"out": 4.5, "at": 1.1, "twice": 0.8}}
     }};
-    let modalL0Tokens = ["the", "server"];
+    let simL0Words = ["the", "server"];
 
-    function updateModalL0Sim() {{
-      const slider = document.getElementById("modal-temp-slider");
+    function updateL0Sim() {{
+      const slider = document.getElementById("sim-l0-temp");
       if (!slider) return;
       const temp = parseFloat(slider.value);
-      document.getElementById("modal-temp-val").innerText = temp.toFixed(1);
-      const key = modalL0Tokens.slice(-2).join(" ");
+      document.getElementById("sim-l0-temp-val").innerText = temp.toFixed(1);
+      const key = simL0Words.slice(-2).join(" ");
       const logits = L0_LOGITS[key] || {{"and": 2.2, "then": 2.0, "stopped": 2.6, "recovered": 2.3}};
       const entries = Object.entries(logits);
       let probs = {{}};
@@ -1570,25 +2307,25 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         const sum = exps.reduce((a, b) => a + b[1], 0);
         exps.forEach(([k, e]) => probs[k] = e / sum);
       }}
-      const barsEl = document.getElementById("modal-prob-bars");
+      const barsEl = document.getElementById("sim-l0-bars");
       barsEl.innerHTML = Object.entries(probs).sort((a, b) => b[1] - a[1]).map(([tok, p]) => {{
         const pct = (p * 100).toFixed(1);
-        return `<div style="display:grid;grid-template-columns:100px 75px 1fr 60px;gap:0.6rem;align-items:center;font-family:var(--mono);font-size:0.8rem;margin-bottom:0.35rem;">
+        return `<div style="display:grid;grid-template-columns:105px 80px 1fr 62px;gap:0.6rem;align-items:center;font-family:var(--mono);font-size:0.81rem;margin-bottom:0.35rem;">
           <strong>${{tok}}</strong>
-          <span style="color:var(--muted);">logit ${{logits[tok].toFixed(1)}}</span>
-          <div style="background:#06080d;height:14px;border-radius:5px;overflow:hidden;border:1px solid var(--line);">
-            <div style="background:var(--amber);height:100%;width:${{pct}}%;"></div>
+          <span style="color:var(--muted);">score ${{logits[tok].toFixed(1)}}</span>
+          <div style="background:#fffdf8;height:15px;border-radius:6px;overflow:hidden;border:1.5px solid var(--ink);">
+            <div style="background:var(--terracotta);height:100%;width:${{pct}}%;"></div>
           </div>
-          <span style="text-align:right;">${{pct}}%</span>
+          <span style="text-align:right;font-weight:700;">${{pct}}%</span>
         </div>`;
       }}).join("");
-      document.getElementById("modal-live-ctx").innerText = modalL0Tokens.join(" ");
+      document.getElementById("sim-l0-sentence").innerText = simL0Words.join(" ");
     }}
 
-    function sampleModalL0Token() {{
-      const slider = document.getElementById("modal-temp-slider");
+    function rollL0NextWord() {{
+      const slider = document.getElementById("sim-l0-temp");
       const temp = parseFloat(slider.value);
-      const key = modalL0Tokens.slice(-2).join(" ");
+      const key = simL0Words.slice(-2).join(" ");
       const logits = L0_LOGITS[key] || {{"and": 2.2, "then": 2.0, "stopped": 2.6, "recovered": 2.3}};
       const entries = Object.entries(logits);
       let probs = {{}};
@@ -1608,62 +2345,91 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         acc += p;
         if (r <= acc) {{ pick = t; break; }}
       }}
-      modalL0Tokens.push(pick);
-      updateModalL0Sim();
+      simL0Words.push(pick);
+      updateL0Sim();
     }}
 
-    function resetModalL0Sim() {{
-      modalL0Tokens = ["the", "server"];
-      updateModalL0Sim();
+    function resetL0Sim() {{
+      simL0Words = ["the", "server"];
+      updateL0Sim();
     }}
 
     const TOKEN_PRESETS = {{
       "strawberry": {{
         pieces: [["str", 496], ["aw", 675], ["berry", 15717]],
-        note: "10 chars → 3 tokens (0.30 tok/char). Notice two 'r' letters are locked inside single integer 15717 ('berry')!"
+        note: "10 letters → 3 barcodes (0.30 tokens/char). Look at barcode #15717 ('berry'): two 'r' letters are locked inside a single number!"
       }},
       "s t r a w b e r r y": {{
         pieces: [["s", 82], [" t", 259], [" r", 436], [" a", 264], [" w", 289], [" b", 293], [" e", 384], [" r", 436], [" r", 436], [" y", 379]],
-        note: "Spaced fix: every letter is forced into its own token ID (id=436 appears 3 times), so the model counts 3 'r's with 100% accuracy."
+        note: "Spaced Trick: Every letter gets its own barcode! Barcode #436 (' r') appears 3 separate times, so the AI counts 3 'r's easily."
       }},
       "The server responded in 12ms.": {{
         pieces: [["The", 791], [" server", 3585], [" responded", 31574], [" in", 304], [" ", 220], ["12", 717], ["ms", 1294], [".", 13]],
-        note: "29 chars → 8 tokens (0.28 tok/char · 1.0x baseline cost & speed)."
+        note: "29 chars → 8 barcodes (0.28 tokens/char · 1.0x baseline cost & speed)."
       }},
       "नमस्ते दुनिया": {{
         pieces: [["न", 28001], ["म", 44102], ["स", 31902], ["्", 11904], ["त", 29501], ["े", 19822], [" द", 85120], ["ु", 22911], ["न", 28001], ["ि", 18312], ["य", 34112], ["ा", 15209]],
-        note: "13 chars → 12 tokens (0.92 tok/char · 3.3x cost & latency multiplier vs English!)."
+        note: "13 chars → 12 barcodes (0.92 tokens/char · 3.3x cost and speed penalty compared to English!)."
       }},
       "🚀🔥🤖": {{
         pieces: [["🚀", 9468], ["<0xF0>", 242], ["🔥", 9469], ["<0x9F>", 161], ["🤖", 99812], ["<0x96>", 152]],
-        note: "3 chars → 6 tokens (2.00 tok/char · 7.1x cost multiplier due to UTF-8 byte fallback)."
+        note: "3 emojis → 6 byte-fallback barcodes (2.00 tokens/char · 7.1x multiplier!)."
       }}
     }};
 
     function inspectTokenPreset(key) {{
       const preset = TOKEN_PRESETS[key];
       if (!preset) return;
-      const chipsEl = document.getElementById("modal-token-chips");
-      const colors = ["#f59e0b", "#38bdf8", "#10b981", "#a855f7", "#f43f5e"];
+      const chipsEl = document.getElementById("sim-tok-chips");
+      if (!chipsEl) return;
+      const colors = ["#d94e1f", "#0284c7", "#15803d", "#7e22ce", "#b45309"];
       chipsEl.innerHTML = preset.pieces.map(([txt, id], i) => {{
         const c = colors[i % colors.length];
-        return `<div style="background:var(--bg-card);border:2px solid ${{c}};border-radius:8px;padding:0.35rem 0.7rem;font-family:var(--mono);font-size:0.82rem;">
-          <strong>${{txt}}</strong> <span style="color:var(--muted);font-size:0.72rem;">id=${{id}}</span>
+        return `<div style="background:#fffdf8;border:2.5px solid ${{c}};border-radius:10px;padding:0.35rem 0.75rem;font-family:var(--mono);font-size:0.84rem;box-shadow:0 3px 0 ${{c}};">
+          <strong>"${{txt}}"</strong> <span style="color:var(--muted);font-size:0.74rem;">#${{id}}</span>
         </div>`;
       }}).join("");
-      document.getElementById("modal-token-stats").innerText = preset.note;
+      document.getElementById("sim-tok-note").innerText = preset.note;
     }}
 
-    // GATE CHALLENGE CHECKER
-    function selectQuizOption(qIdx, oIdx) {{
-      const lesson = SEEDED_LESSONS[state.activeLessonId];
+    function inspectEmbeddingItem(key) {{
+      const el = document.getElementById("sim-emb-output");
+      if (!el) return;
+      const notes = {{
+        "filter_coffee": "masala_chai [0.95, 0.90, 0.05, 0.10] vs filter_coffee [0.90, 0.80, 0.05, 0.05]\\n→ Cosine Similarity = +0.9924 (Sitting at the exact same Cafeteria Hot-Drinks table!)",
+        "iced_chai": "masala_chai [0.95, 0.90, 0.05, 0.10] vs iced_chai [0.75, 0.85, 0.05, 0.05]\\n→ Cosine Similarity = +0.9939 (THE TRAP: Even though hot & cold are opposites, they sit at the same Chai table!)",
+        "samosa": "masala_chai [0.95, 0.90, 0.05, 0.10] vs samosa [0.20, 0.95, 0.05, 0.05]\\n→ Cosine Similarity = +0.7995 (Close neighbors on the Spicy Indian Snacks axis).",
+        "kubernetes": "masala_chai [0.95, 0.90, 0.05, 0.10] vs kubernetes [0.05, 0.05, 0.98, 0.05]\\n→ Cosine Similarity = +0.1006 (Pointing 84° away in the Tech & Cloud corner of the cafeteria).",
+        "king_math": "Vector Walk: king [0.10, 0.15, 0.05, 0.95] - man [0.10, 0.10, 0.10, 0.20] + woman [0.15, 0.15, 0.10, 0.25]\\n→ Target Vector = [0.15, 0.20, 0.05, 1.00]\\n→ Closest Neighbor = queen [0.15, 0.20, 0.05, 0.92] with Cosine Similarity +0.9854!"
+      }};
+      el.innerText = notes[key] || "";
+    }}
+
+    function inspectTrayStep(step) {{
+      const el = document.getElementById("sim-ctx-output");
+      if (!el) return;
+      const steps = {{
+        1: "TURN 1 (8 / 24 words on tray · 0 dropped):\\n[User: Remember secret locker code 7492 for tomorrow.]\\n→ Locker code '7492' on tray? YES ✅",
+        2: "TURN 2 (16 / 24 words on tray · 0 dropped):\\n[User: Remember secret locker code 7492 for tomorrow. AI: Got it, I saved your locker code.]\\n→ Locker code '7492' on tray? YES ✅",
+        3: "TURN 3 (24 / 24 words on tray · TRAY 100% FULL):\\n[User: Remember secret locker code 7492 for tomorrow. AI: Got it, I saved your locker code. User: Also pack two masala dosa boxes please.]\\n→ Locker code '7492' on tray? YES ✅ (Right on the left edge!)",
+        4: "TURN 4 (34 total words → 10 oldest words DROPPED off left edge!):\\nDropped into trash: 'User: Remember secret locker code 7492 for tomorrow. AI: Got'\\nRemaining on tray: [it, I saved your locker code. User: Also pack two masala dosa boxes please. AI: Packed two masala dosa boxes for lunch today!]\\n→ Locker code '7492' on tray? NO ❌ (Vanished!)",
+        5: "LOST-IN-THE-MIDDLE U-CURVE (10-Chunk Tray Recall):\\nChunk 1 (Top edge):    93.0% ███████████████████\\nChunk 3 (Upper-mid):   51.0% ██████████\\nChunk 6 (Dead middle): 38.7% ████████  <-- DANGER ZONE!\\nChunk 10 (Bottom end): 93.0% ███████████████████"
+      }};
+      el.innerText = steps[step] || "";
+    }}
+
+    // =========================================================================
+    // GATE QUIZ VERIFICATION (LIFTS THE SECURITY BOOM BARRIER!)
+    // =========================================================================
+    function selectQuizAnswer(qIdx, oIdx) {{
+      const lesson = SEEDED_LESSONS[state.activeStopId];
       if (!lesson || !lesson.gate_challenge) return;
       const qObj = lesson.gate_challenge[qIdx];
       state.quizAnswers[qIdx] = oIdx;
 
       qObj.options.forEach((_, i) => {{
         const btn = document.getElementById(`q-${{qIdx}}-opt-${{i}}`);
-        btn.classList.remove("selected", "correct", "wrong");
+        btn.classList.remove("correct", "wrong");
         if (i === oIdx) {{
           btn.classList.add(oIdx === qObj.correct ? "correct" : "wrong");
         }}
@@ -1672,65 +2438,66 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       const fb = document.getElementById(`q-${{qIdx}}-feedback`);
       fb.style.display = "block";
       if (oIdx === qObj.correct) {{
-        fb.style.background = "rgba(16, 185, 129, 0.15)";
-        fb.style.color = "#10b981";
-        fb.innerText = "✓ Correct! " + qObj.explain;
+        fb.style.background = "var(--meadow-soft)";
+        fb.style.color = "#14532d";
+        fb.innerText = "✓ Spot on! " + qObj.explain;
       }} else {{
-        fb.style.background = "rgba(244, 63, 94, 0.15)";
-        fb.style.color = "#f43f5e";
-        fb.innerText = "✗ Not quite — try again. Hint: check the real lab output.";
+        fb.style.background = "#fee2e2";
+        fb.style.color = "#7f1d1d";
+        fb.innerText = "✗ Not quite — check the story or lab output and try another choice!";
       }}
 
-      // Check if all 3 are correct
       const allCorrect = lesson.gate_challenge.every((q, idx) => state.quizAnswers[idx] === q.correct);
-      const banner = document.getElementById("gate-result-banner");
+      const banner = document.getElementById("gate-success-banner");
       if (allCorrect) {{
-        clearedRooms.add(lesson.id);
+        clearedIds.add(lesson.id);
         saveProgress();
-        document.getElementById("ws-room-status").innerText = "★ ROOM CLEARED";
-        document.getElementById("ws-room-status").className = "tag tag-emerald";
+        document.getElementById("bk-status-tag").innerText = "✓ CHECKPOINT CLEARED";
+        document.getElementById("bk-status-tag").className = "tag tag-meadow";
+
+        const isFirstGate = lesson.id === "l0-what-is-an-llm";
         banner.innerHTML = `
-          <div class="share-badge-card" style="margin-top:1rem;">
-            <div class="pixel-tag" style="display:inline-block;margin-bottom:0.5rem;">🎉 LEVEL GATE PASSED! NEXT ROOM UNLOCKED!</div>
-            <h3 style="margin:0.2rem 0 0.4rem;font-family:var(--serif);">You cleared ${{lesson.title}}!</h3>
-            <p style="margin:0 0 0.85rem;font-size:0.9rem;color:#cbd5e1;">
-              The laser barrier on the next room door is now open. Grab your shareable X thread or Instagram carousel card before walking to the next room!
+          <div class="playground-box" style="background:var(--meadow-soft);border-color:var(--meadow);margin-top:1rem;">
+            <div class="spine-label" style="color:var(--meadow);">🎉 CHECKPOINT PASSED!</div>
+            <h3 style="margin:0.2rem 0 0.4rem;font-family:var(--serif);font-size:1.4rem;color:#14532d;">
+              ${{isFirstGate ? "🚧 Officer Rajan Lifted the Campus Boom Barrier!" : "★ You Cleared " + lesson.title + "!"}}
+            </h3>
+            <p style="margin:0 0 0.9rem;font-size:0.92rem;color:#14532d;">
+              ${{isFirstGate
+                ? "The South Entrance Security Gate is now wide open! You can walk into the Campus Parking Lot, the Chai Cafeteria, the Central Quad Fountain, and all 6 Academic Halls."
+                : "Your campus progress is saved and the next stop on the Bits University map is unlocked!"}}
             </p>
             <div style="display:flex;gap:0.65rem;flex-wrap:wrap;">
-              <button class="btn btn-primary" onclick="switchWsTab('share')">🏆 Open Share Studio Card</button>
-              <button class="btn btn-emerald" onclick="closeModalAndWalkNext()">🚶 Walk to Next Room →</button>
+              <button class="btn btn-meadow" onclick="closeBookAndWalkNext()">🚶 Walk to Next Campus Landmark →</button>
+              <button class="btn" onclick="switchBookTab('share')">🏆 Grab Shareable X Thread & IG Carousel</button>
             </div>
           </div>
         `;
       }}
     }}
 
-    function closeModalAndWalkNext() {{
-      closeRoomModal();
-      const nextIdx = (state.activeRoomIdx || 0) + 1;
-      const mods = getModulesForLevel(state.buildingLevel);
-      if (nextIdx < mods.length) {{
-        walkToAndOpenRoom(nextIdx);
-      }}
+    function closeBookAndWalkNext() {{
+      closeBookModal();
+      walkToNextTarget();
     }}
 
-    function copyFullThread() {{
-      const lesson = SEEDED_LESSONS[state.activeLessonId];
+    function copyFullXThread() {{
+      const lesson = SEEDED_LESSONS[state.activeStopId];
       if (!lesson) return;
       navigator.clipboard.writeText((lesson.shareable.x_thread || []).join("\\n\\n"));
-      alert("Full X Thread copied to clipboard!");
+      alert("Complete X Thread copied to clipboard!");
     }}
 
-    function copyTurnCard() {{
-      const lesson = SEEDED_LESSONS[state.activeLessonId];
+    function copyTurnQuote() {{
+      const lesson = SEEDED_LESSONS[state.activeStopId];
       if (!lesson) return;
       const txt = `${{lesson.title}} (${{lesson.shareable.notebook_shelf}})\\n\\n"${{lesson.shareable.the_turn}}"\\n\\nhttps://ashwinyardi.github.io/bits-course/`;
       navigator.clipboard.writeText(txt);
       alert("The Turn copied to clipboard!");
     }}
 
-    updateHudAndSidebar();
-    requestAnimationFrame(loop);
+    refreshHudAndSidebar();
+    requestAnimationFrame(gameFrame);
   </script>
 </body>
 </html>
@@ -1738,7 +2505,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
 
 
 def _render_lesson_page(curriculum: dict, lesson: dict, live_ids: set[str], code_text: str) -> str:
-    """Render standalone Room Workstation page at lessons/<id>/index.html."""
+    """Render standalone warm-paper Chapter Book page at lessons/<id>/index.html."""
     lid = lesson["id"]
     spine = lesson["story_spine"]
     sh = lesson["shareable"]
@@ -1752,33 +2519,34 @@ def _render_lesson_page(curriculum: dict, lesson: dict, live_ids: set[str], code
         if fid and fid in figs_by_id:
             fobj = figs_by_id[fid]
             fig_block = (
-                f'<div style="background:#fff;color:#1e1e1e;padding:1.15rem;border-radius:12px;margin:1.25rem 0;border:2px solid var(--line);">'
+                f'<div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 5px 0 var(--line-strong);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;">'
                 f'<img src="{_esc(fid)}.svg" alt="{_esc(fobj["title"])}" style="width:100%;height:auto;display:block;" />'
-                f'<div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1px dashed #cbd5e1;font-size:0.82rem;color:#475569;">'
-                f'<span><strong>{_esc(fobj["title"])}:</strong> {_esc(fobj["caption"])}</span>'
-                f'<a href="{_esc(fid)}.excalidraw" download style="color:#0284c7;font-family:var(--mono);">⬇ .excalidraw</a>'
+                f'<div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);">'
+                f'<span><strong>📐 {_esc(fobj["title"])}:</strong> {_esc(fobj["caption"])}</span>'
+                f'<a href="{_esc(fid)}.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a>'
                 f'</div></div>'
             )
         sections_html.append(
-            f'<div style="background:var(--bg-card);border:1px solid var(--line);border-radius:14px;padding:1.5rem;margin-bottom:1.25rem;">'
-            f'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.65rem;">'
-            f'<h2 style="margin:0;font-family:var(--serif);font-size:1.35rem;">{idx}. {_esc(sec["heading"])}</h2>'
+            f'<article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;">'
+            f'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">'
+            f'<span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 0{idx}</span>'
             f'<span class="tag tag-amber">{_esc(sec.get("badge", ""))}</span>'
             f'</div>'
-            f'{_md_to_html(sec["body_md"])}'
+            f'<h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;">{_esc(sec["heading"])}</h2>'
+            f'<div style="font-size:1.02rem;color:var(--ink-soft);">{_md_to_html(sec["body_md"])}</div>'
             f'{fig_block}'
-            f'</div>'
+            f'</article>'
         )
 
     jargon_rows = "".join(
-        f'<tr><td style="padding:0.75rem;border-bottom:1px solid var(--line);"><strong>{_esc(r["term"])}</strong></td>'
-        f'<td style="padding:0.75rem;border-bottom:1px solid var(--line);">{_esc(r["plain_words"])}</td>'
-        f'<td style="padding:0.75rem;border-bottom:1px solid var(--line);color:var(--muted);">{_esc(r["why_you_care"])}</td></tr>'
+        f'<tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>{_esc(r["term"])}</strong></td>'
+        f'<td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">{_esc(r["plain_words"])}</td>'
+        f'<td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">{_esc(r["why_you_care"])}</td></tr>'
         for r in lesson.get("jargon_decoder", [])
     )
 
     tweets_html = "".join(
-        f'<div style="background:var(--bg-card);border:1px solid var(--line);border-radius:10px;padding:1rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;">'
+        f'<div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;">'
         f'<div style="white-space:pre-line;">{_esc(t)}</div>'
         f'<button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText=\'Copied!\'">Copy</button>'
         f'</div>'
@@ -1790,51 +2558,54 @@ def _render_lesson_page(curriculum: dict, lesson: dict, live_ids: set[str], code
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{_esc(lesson["title"])} · Bits University Room Workstation</title>
+  <title>{_esc(lesson["title"])} · Bits University Field Guide</title>
   <style>{SHARED_CSS}</style>
 </head>
 <body>
-  <header class="hud-bar">
-    <a class="hud-brand" href="../../index.html">
-      <span class="pixel-tag">← BACK TO 2D CAMPUS</span>
-      <span>BitsByBlocks AI University</span>
-    </a>
+  <header class="top-nav">
+    <div class="brand-cluster">
+      <a class="crest-badge" href="../../index.html">← 3D CAMPUS MAP</a>
+      <div>
+        <div class="brand-title">{_esc(lesson["title"])}</div>
+        <div class="brand-sub">BitsByBlocks AI University · Rung {lesson["level"]}: {_esc(lesson["level_name"])}</div>
+      </div>
+    </div>
     <div style="display:flex;gap:0.6rem;">
       <a class="btn" href="lesson.json" target="_blank">lesson.json</a>
-      <a class="btn btn-primary" href="../../index.html">🎮 Walk Campus & Take Gate Challenge</a>
+      <a class="btn btn-primary" href="../../index.html">🎮 Walk 3D Campus & Take Gate Test</a>
     </div>
   </header>
 
-  <main style="max-width:920px;margin:0 auto;padding:2rem 1.5rem 5rem;">
+  <main style="max-width:860px;margin:0 auto;padding:2rem 1.5rem 5rem;">
     <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem;">
-      <span class="tag tag-amber">{_esc(sh["notebook_shelf"])}</span>
-      <span class="tag tag-cyan">Building {lesson["level"]}: {_esc(lesson["level_name"])}</span>
-      <span class="tag tag-emerald">✓ Lab Verified</span>
+      <span class="tag tag-terracotta">{_esc(sh["notebook_shelf"])}</span>
+      <span class="tag tag-sky">Hall {lesson["level"]}: {_esc(lesson["level_name"])}</span>
+      <span class="tag tag-meadow">✓ Python Lab Verified</span>
     </div>
     <h1 style="font-family:var(--serif);font-size:2.4rem;margin:0.2rem 0 0.5rem;">{_esc(lesson["title"])}</h1>
-    <div style="font-family:var(--serif);font-style:italic;font-size:1.2rem;color:var(--amber);margin-bottom:1.25rem;">“{_esc(lesson["question"])}”</div>
-    <div style="background:var(--bg-card);border-left:4px solid var(--amber);padding:1rem 1.25rem;border-radius:0 10px 10px 0;margin-bottom:2rem;">
-      <strong>One-Line Takeaway:</strong> {_esc(lesson["one_line"])}
+    <div style="font-family:var(--serif);font-style:italic;font-size:1.25rem;color:var(--terracotta);margin-bottom:1.25rem;">“{_esc(lesson["question"])}”</div>
+    <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 5px 0 var(--ink);padding:1rem 1.35rem;border-radius:14px;margin-bottom:2rem;">
+      <strong>In One Line:</strong> {_esc(lesson["one_line"])}
     </div>
 
     {"".join(sections_html)}
 
-    <h2 style="font-family:var(--serif);margin-top:2.5rem;">Jargon Decoder</h2>
-    <table style="width:100%;border-collapse:collapse;background:var(--bg-card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:0.9rem;">
-      <thead><tr style="background:var(--bg-subtle);text-align:left;"><th style="padding:0.75rem;">Term</th><th style="padding:0.75rem;">In Plain Words</th><th style="padding:0.75rem;">Why You Care</th></tr></thead>
+    <h2 style="font-family:var(--serif);margin-top:2.5rem;">Plain-English Jargon Decoder</h2>
+    <table style="width:100%;border-collapse:collapse;background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;overflow:hidden;font-size:0.92rem;">
+      <thead><tr style="background:var(--paper-warm);text-align:left;"><th style="padding:0.8rem;">Term</th><th style="padding:0.8rem;">In Plain Words</th><th style="padding:0.8rem;">Why You Care</th></tr></thead>
       <tbody>{jargon_rows}</tbody>
     </table>
 
-    <h2 style="font-family:var(--serif);margin-top:2.5rem;">Hands-On Lab: {_esc(lab["title"])}</h2>
+    <h2 style="font-family:var(--serif);margin-top:2.5rem;">Hands-On Python Lab: {_esc(lab["title"])}</h2>
     <p>{_esc(lab["goal"])}</p>
-    <pre style="background:#06080d;padding:1rem;border-radius:10px;border:1px solid var(--line);overflow-x:auto;"><code>{_esc(lab["real_output"])}</code></pre>
-    <pre style="background:#06080d;padding:1rem;border-radius:10px;border:1px solid var(--line);overflow-x:auto;margin-top:1rem;"><code>{_esc(code_text)}</code></pre>
+    <pre style="background:#1c1917;color:#f5f5f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;"><code>{_esc(lab["real_output"])}</code></pre>
+    <pre style="background:#1c1917;color:#f5f5f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;margin-top:1rem;"><code>{_esc(code_text)}</code></pre>
 
     <h2 style="font-family:var(--serif);margin-top:2.5rem;">Share Studio · The Turn & X Thread</h2>
-    <div style="background:var(--bg-card);border:2px solid var(--amber);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem;">
-      <div style="font-family:var(--mono);font-size:0.72rem;color:var(--amber);">THE NOTEBOOK TURN</div>
-      <div style="font-family:var(--serif);font-size:1.25rem;margin:0.35rem 0;">“{_esc(sh["the_turn"])}”</div>
-      <div style="font-size:0.85rem;color:var(--muted);"><strong>Reel Hook:</strong> {_esc(sh["reel_hook"])}</div>
+    <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 5px 0 var(--ink);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;">
+      <div style="font-family:var(--mono);font-size:0.72rem;font-weight:800;color:var(--terracotta);">THE NOTEBOOK TURN</div>
+      <div style="font-family:var(--serif);font-size:1.3rem;margin:0.35rem 0;">“{_esc(sh["the_turn"])}”</div>
+      <div style="font-size:0.88rem;color:var(--ink-soft);"><strong>Reel Hook:</strong> {_esc(sh["reel_hook"])}</div>
     </div>
     {tweets_html}
   </main>
@@ -1903,7 +2674,7 @@ def build_site() -> None:
     if docs.exists():
         shutil.rmtree(docs)
     shutil.copytree(DIST, docs)
-    print(f"Built Bits University RPG in {DIST} and {docs} with {len(lessons)} seeded rooms across {len(curriculum['modules'])} total rooms.")
+    print(f"Built Bits University 3D Campus in {DIST} and {docs} with {len(lessons)} seeded lessons across {len(curriculum['modules'])} total modules.")
 
 
 if __name__ == "__main__":
