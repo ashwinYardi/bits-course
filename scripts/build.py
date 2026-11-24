@@ -228,31 +228,32 @@ GATE_CHALLENGES: dict[str, list[dict]] = {
 
 
 SHARED_CSS = """
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400&family=JetBrains+Mono:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;600;700&display=swap');
 
 :root {
-  --paper: #fbf8f1;
+  --paper: #f2f7f4;
   --paper-card: #ffffff;
-  --paper-warm: #f3ece0;
-  --paper-deep: #e8decb;
-  --ink: #1c1917;
-  --ink-soft: #44403c;
-  --muted: #78716c;
-  --line: #d6cbb9;
-  --line-strong: #b8a992;
-  --terracotta: #d94e1f;
-  --terracotta-soft: #fde8df;
-  --amber: #d97706;
+  --paper-warm: #e4efe9;
+  --paper-deep: #cfe2d8;
+  --ink: #111c16;
+  --ink-soft: #26382e;
+  --muted: #47594e;
+  --line: #bfd2c7;
+  --line-strong: #8fa99b;
+  --terracotta: #9a2c13;
+  --terracotta-soft: #;
+  --terracotta-soft: #;
+  --amber: #92400e;
   --amber-soft: #fef3c7;
-  --meadow: #15803d;
+  --meadow: #14532d;
   --meadow-soft: #dcfce7;
-  --sky: #0369a1;
+  --sky: #075985;
   --sky-soft: #e0f2fe;
-  --berry: #7e22ce;
+  --berry: #6b21a8;
   --berry-soft: #f3e8ff;
-  --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --serif: 'Fraunces', Georgia, serif;
-  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Atkinson Hyperlegible', -apple-system, BlinkMacSystemFont, sans-serif;
+  --serif: 'Bricolage Grotesque', Georgia, serif;
+  --mono: 'IBM Plex Mono', monospace;
 }
 
 * { box-sizing: border-box; }
@@ -277,7 +278,7 @@ a:hover { text-decoration: underline; }
   align-items: center;
   justify-content: space-between;
   padding: 0.65rem 1.4rem;
-  background: rgba(251, 248, 241, 0.94);
+  background: rgba(242, 247, 244, 0.95);
   backdrop-filter: blur(10px);
   border-bottom: 2px solid var(--line);
   gap: 1rem;
@@ -369,7 +370,7 @@ a:hover { text-decoration: underline; }
 }
 
 .btn-primary:hover {
-  background: #ea580c;
+  background: #7c2d12;
   color: #ffffff;
 }
 
@@ -381,13 +382,13 @@ a:hover { text-decoration: underline; }
 }
 
 .btn-meadow:hover {
-  background: #16a34a;
+  background: #166534;
   color: #ffffff;
 }
 
 .tag {
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 700;
   padding: 0.2rem 0.65rem;
   border-radius: 999px;
@@ -399,7 +400,7 @@ a:hover { text-decoration: underline; }
 .tag-terracotta { background: var(--terracotta-soft); color: var(--terracotta); border-color: #fDBA74; }
 .tag-meadow { background: var(--meadow-soft); color: var(--meadow); border-color: #86efac; }
 .tag-sky { background: var(--sky-soft); color: var(--sky); border-color: #7dd3fc; }
-.tag-amber { background: var(--amber-soft); color: #b45309; border-color: #fcd34d; }
+.tag-amber { background: var(--amber-soft); color: #78350f; border-color: #fcd34d; }
 """
 
 
@@ -477,7 +478,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       border: 2.5px solid var(--ink);
       padding: 0.55rem 1rem;
       border-radius: 14px;
-      box-shadow: 0 6px 0 var(--ink);
+      box-shadow: 0 3px 0 var(--ink), 0 10px 24px rgba(17,28,22,0.12);
       display: flex;
       align-items: center;
       gap: 0.75rem;
@@ -490,7 +491,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       font-weight: 800;
       font-size: 1rem;
       color: var(--ink);
-      line-height: 1.15;
+      line-height: 1.4;
     }}
     .place-sub {{
       font-size: 0.76rem;
@@ -504,7 +505,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       transform: translateX(-50%);
       background: rgba(255, 253, 248, 0.96);
       border: 2px solid var(--ink);
-      box-shadow: 0 4px 0 var(--ink);
+      box-shadow: 0 2px 0 var(--ink), 0 6px 16px rgba(17,28,22,0.10);
       padding: 0.45rem 1.1rem;
       border-radius: 999px;
       font-size: 0.79rem;
@@ -522,7 +523,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       border-radius: 5px;
       padding: 0.1rem 0.42rem;
       font-family: var(--mono);
-      font-size: 0.72rem;
+      font-size: 0.78rem;
     }}
     .guide-sidebar {{
       background: var(--paper);
@@ -536,7 +537,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     .npc-dialogue-box {{
       background: #fffdf9;
       border: 2.5px solid var(--ink);
-      box-shadow: 0 5px 0 var(--ink);
+      box-shadow: 0 3px 0 var(--ink), 0 8px 20px rgba(17,28,22,0.10);
       border-radius: 14px;
       padding: 0.95rem 1rem;
       margin-bottom: 1.1rem;
@@ -567,7 +568,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     }}
     .npc-role {{
       font-family: var(--mono);
-      font-size: 0.68rem;
+      font-size: 0.76rem;
       color: var(--terracotta);
       font-weight: 700;
     }}
@@ -588,12 +589,12 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     .checkpoint-card:hover {{
       border-color: var(--ink);
       transform: translateY(-2px);
-      box-shadow: 0 4px 0 var(--line-strong);
+      box-shadow: 0 2px 0 var(--line-strong), 0 6px 16px rgba(17,28,22,0.08);
     }}
     .checkpoint-card.active-stop {{
       border: 2.5px solid var(--terracotta);
       background: #fffaf5;
-      box-shadow: 0 4px 0 var(--terracotta);
+      box-shadow: 0 2px 0 var(--terracotta), 0 6px 16px rgba(154,44,19,0.14);
     }}
     .checkpoint-card.cleared-stop {{
       border-color: var(--meadow);
@@ -617,7 +618,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     .book-sheet {{
       background: var(--paper);
       border: 3px solid var(--ink);
-      box-shadow: 0 14px 0 var(--ink), 0 30px 70px rgba(0,0,0,0.4);
+      box-shadow: 0 3px 0 var(--ink), 0 30px 70px rgba(0,0,0,0.4);
       border-radius: 20px;
       width: 100%;
       max-width: 1080px;
@@ -680,11 +681,11 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       border-radius: 16px;
       padding: 1.5rem 1.75rem;
       margin-bottom: 1.5rem;
-      box-shadow: 0 4px 0 rgba(28, 25, 23, 0.06);
+      box-shadow: 0 2px 0 rgba(17, 28, 22, 0.08), 0 8px 20px rgba(17, 28, 22, 0.05);
     }}
     .chapter-number {{
       font-family: var(--mono);
-      font-size: 0.74rem;
+      font-size: 0.78rem;
       font-weight: 800;
       color: var(--terracotta);
       text-transform: uppercase;
@@ -717,7 +718,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     .inline-figure {{
       background: #ffffff;
       border: 2.5px solid var(--ink);
-      box-shadow: 0 6px 0 var(--line-strong);
+      box-shadow: 0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);
       border-radius: 14px;
       padding: 1.1rem;
       margin: 1.35rem 0 0.4rem;
@@ -725,7 +726,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     .playground-box {{
       background: #fffbeb;
       border: 2.5px solid var(--ink);
-      box-shadow: 0 6px 0 var(--ink);
+      box-shadow: 0 3px 0 var(--ink), 0 10px 24px rgba(17,28,22,0.12);
       border-radius: 16px;
       padding: 1.35rem 1.5rem;
       margin-bottom: 1.75rem;
@@ -744,7 +745,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     }}
     .spine-label {{
       font-family: var(--mono);
-      font-size: 0.7rem;
+      font-size: 0.78rem;
       font-weight: 800;
       text-transform: uppercase;
       color: var(--terracotta);
@@ -802,7 +803,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       aspect-ratio: 4 / 5;
       background: linear-gradient(155deg, #fffbeb 0%, #fde8df 100%);
       border: 2.5px solid var(--ink);
-      box-shadow: 0 5px 0 var(--ink);
+      box-shadow: 0 3px 0 var(--ink), 0 8px 20px rgba(17,28,22,0.10);
       border-radius: 14px;
       padding: 1.1rem;
       display: flex;
@@ -2121,7 +2122,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       `).join("");
 
       document.getElementById("bk-pane-story").innerHTML = `
-        <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 5px 0 var(--ink);border-radius:16px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;">
+        <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--ink), 0 8px 20px rgba(17,28,22,0.10);border-radius:16px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;">
           <div style="font-family:var(--serif);font-size:1.25rem;font-style:italic;color:var(--terracotta);margin-bottom:0.35rem;">
             “${{lesson.question}}”
           </div>
@@ -2519,7 +2520,7 @@ def _render_lesson_page(curriculum: dict, lesson: dict, live_ids: set[str], code
         if fid and fid in figs_by_id:
             fobj = figs_by_id[fid]
             fig_block = (
-                f'<div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 5px 0 var(--line-strong);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;">'
+                f'<div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;">'
                 f'<img src="{_esc(fid)}.svg" alt="{_esc(fobj["title"])}" style="width:100%;height:auto;display:block;" />'
                 f'<div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);">'
                 f'<span><strong>📐 {_esc(fobj["title"])}:</strong> {_esc(fobj["caption"])}</span>'
@@ -2532,7 +2533,7 @@ def _render_lesson_page(curriculum: dict, lesson: dict, live_ids: set[str], code
             f'<span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 0{idx}</span>'
             f'<span class="tag tag-amber">{_esc(sec.get("badge", ""))}</span>'
             f'</div>'
-            f'<h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;">{_esc(sec["heading"])}</h2>'
+            f'<h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;line-height:1.4;">{_esc(sec["heading"])}</h2>'
             f'<div style="font-size:1.02rem;color:var(--ink-soft);">{_md_to_html(sec["body_md"])}</div>'
             f'{fig_block}'
             f'</article>'
@@ -2582,9 +2583,9 @@ def _render_lesson_page(curriculum: dict, lesson: dict, live_ids: set[str], code
       <span class="tag tag-sky">Hall {lesson["level"]}: {_esc(lesson["level_name"])}</span>
       <span class="tag tag-meadow">✓ Python Lab Verified</span>
     </div>
-    <h1 style="font-family:var(--serif);font-size:2.4rem;margin:0.2rem 0 0.5rem;">{_esc(lesson["title"])}</h1>
-    <div style="font-family:var(--serif);font-style:italic;font-size:1.25rem;color:var(--terracotta);margin-bottom:1.25rem;">“{_esc(lesson["question"])}”</div>
-    <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 5px 0 var(--ink);padding:1rem 1.35rem;border-radius:14px;margin-bottom:2rem;">
+    <h1 style="font-family:var(--serif);font-size:2.4rem;line-height:1.35;margin:0.2rem 0 0.5rem;">{_esc(lesson["title"])}</h1>
+    <div style="font-family:var(--serif);font-style:italic;font-size:1.25rem;line-height:1.45;color:var(--terracotta);margin-bottom:1.25rem;">“{_esc(lesson["question"])}”</div>
+    <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--ink), 0 8px 20px rgba(17,28,22,0.10);padding:1rem 1.35rem;border-radius:14px;margin-bottom:2rem;">
       <strong>In One Line:</strong> {_esc(lesson["one_line"])}
     </div>
 
@@ -2602,9 +2603,9 @@ def _render_lesson_page(curriculum: dict, lesson: dict, live_ids: set[str], code
     <pre style="background:#1c1917;color:#f5f5f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;margin-top:1rem;"><code>{_esc(code_text)}</code></pre>
 
     <h2 style="font-family:var(--serif);margin-top:2.5rem;">Share Studio · The Turn & X Thread</h2>
-    <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 5px 0 var(--ink);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;">
+    <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--ink), 0 8px 20px rgba(17,28,22,0.10);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;">
       <div style="font-family:var(--mono);font-size:0.72rem;font-weight:800;color:var(--terracotta);">THE NOTEBOOK TURN</div>
-      <div style="font-family:var(--serif);font-size:1.3rem;margin:0.35rem 0;">“{_esc(sh["the_turn"])}”</div>
+      <div style="font-family:var(--serif);font-size:1.3rem;line-height:1.45;margin:0.35rem 0;">“{_esc(sh["the_turn"])}”</div>
       <div style="font-size:0.88rem;color:var(--ink-soft);"><strong>Reel Hook:</strong> {_esc(sh["reel_hook"])}</div>
     </div>
     {tweets_html}

@@ -5,31 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Embeddings: meaning as coordinates · Bits University Field Guide</title>
   <style>
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400&family=JetBrains+Mono:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;600;700&display=swap');
 
 :root {
-  --paper: #fbf8f1;
+  --paper: #f2f7f4;
   --paper-card: #ffffff;
-  --paper-warm: #f3ece0;
-  --paper-deep: #e8decb;
-  --ink: #1c1917;
-  --ink-soft: #44403c;
-  --muted: #78716c;
-  --line: #d6cbb9;
-  --line-strong: #b8a992;
-  --terracotta: #d94e1f;
-  --terracotta-soft: #fde8df;
-  --amber: #d97706;
+  --paper-warm: #e4efe9;
+  --paper-deep: #cfe2d8;
+  --ink: #111c16;
+  --ink-soft: #26382e;
+  --muted: #47594e;
+  --line: #bfd2c7;
+  --line-strong: #8fa99b;
+  --terracotta: #9a2c13;
+  --terracotta-soft: #;
+  --terracotta-soft: #;
+  --amber: #92400e;
   --amber-soft: #fef3c7;
-  --meadow: #15803d;
+  --meadow: #14532d;
   --meadow-soft: #dcfce7;
-  --sky: #0369a1;
+  --sky: #075985;
   --sky-soft: #e0f2fe;
-  --berry: #7e22ce;
+  --berry: #6b21a8;
   --berry-soft: #f3e8ff;
-  --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --serif: 'Fraunces', Georgia, serif;
-  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Atkinson Hyperlegible', -apple-system, BlinkMacSystemFont, sans-serif;
+  --serif: 'Bricolage Grotesque', Georgia, serif;
+  --mono: 'IBM Plex Mono', monospace;
 }
 
 * { box-sizing: border-box; }
@@ -54,7 +55,7 @@ a:hover { text-decoration: underline; }
   align-items: center;
   justify-content: space-between;
   padding: 0.65rem 1.4rem;
-  background: rgba(251, 248, 241, 0.94);
+  background: rgba(242, 247, 244, 0.95);
   backdrop-filter: blur(10px);
   border-bottom: 2px solid var(--line);
   gap: 1rem;
@@ -146,7 +147,7 @@ a:hover { text-decoration: underline; }
 }
 
 .btn-primary:hover {
-  background: #ea580c;
+  background: #7c2d12;
   color: #ffffff;
 }
 
@@ -158,13 +159,13 @@ a:hover { text-decoration: underline; }
 }
 
 .btn-meadow:hover {
-  background: #16a34a;
+  background: #166534;
   color: #ffffff;
 }
 
 .tag {
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 700;
   padding: 0.2rem 0.65rem;
   border-radius: 999px;
@@ -176,7 +177,7 @@ a:hover { text-decoration: underline; }
 .tag-terracotta { background: var(--terracotta-soft); color: var(--terracotta); border-color: #fDBA74; }
 .tag-meadow { background: var(--meadow-soft); color: var(--meadow); border-color: #86efac; }
 .tag-sky { background: var(--sky-soft); color: var(--sky); border-color: #7dd3fc; }
-.tag-amber { background: var(--amber-soft); color: #b45309; border-color: #fcd34d; }
+.tag-amber { background: var(--amber-soft); color: #78350f; border-color: #fcd34d; }
 </style>
 </head>
 <body>
@@ -200,22 +201,22 @@ a:hover { text-decoration: underline; }
       <span class="tag tag-sky">Hall 0: Ground floor</span>
       <span class="tag tag-meadow">✓ Python Lab Verified</span>
     </div>
-    <h1 style="font-family:var(--serif);font-size:2.4rem;margin:0.2rem 0 0.5rem;">Embeddings: meaning as coordinates</h1>
-    <div style="font-family:var(--serif);font-style:italic;font-size:1.25rem;color:var(--terracotta);margin-bottom:1.25rem;">“How can a machine tell that &#x27;masala chai&#x27; and &#x27;filter coffee&#x27; are neighbors?”</div>
-    <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 5px 0 var(--ink);padding:1rem 1.35rem;border-radius:14px;margin-bottom:2rem;">
+    <h1 style="font-family:var(--serif);font-size:2.4rem;line-height:1.35;margin:0.2rem 0 0.5rem;">Embeddings: meaning as coordinates</h1>
+    <div style="font-family:var(--serif);font-style:italic;font-size:1.25rem;line-height:1.45;color:var(--terracotta);margin-bottom:1.25rem;">“How can a machine tell that &#x27;masala chai&#x27; and &#x27;filter coffee&#x27; are neighbors?”</div>
+    <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--ink), 0 8px 20px rgba(17,28,22,0.10);padding:1rem 1.35rem;border-radius:14px;margin-bottom:2rem;">
       <strong>In One Line:</strong> An embedding turns a dead barcode number into a GPS coordinate on a giant meaning map, so words that mean similar things sit at nearly the same angle.
     </div>
 
-    <article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 01</span><span class="tag tag-amber">Chapter 1 · The Map of Meaning</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;">Explain it like I&#x27;m 12: Where do you sit in the Campus Cafeteria?</h2><div style="font-size:1.02rem;color:var(--ink-soft);"><p>At the end of Checkpoint 2, the barcode scanner turned our words into numbers like <code>496</code> and <code>15717</code>. But there is a catch: barcode numbers are just random ID tags. In a grocery store, barcode <code>501</code> might be apples and barcode <code>502</code> might be motor oil. You cannot do math on barcodes to see if two things taste similar.</p>
+    <article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 01</span><span class="tag tag-amber">Chapter 1 · The Map of Meaning</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;line-height:1.4;">Explain it like I&#x27;m 12: Where do you sit in the Campus Cafeteria?</h2><div style="font-size:1.02rem;color:var(--ink-soft);"><p>At the end of Checkpoint 2, the barcode scanner turned our words into numbers like <code>496</code> and <code>15717</code>. But there is a catch: barcode numbers are just random ID tags. In a grocery store, barcode <code>501</code> might be apples and barcode <code>502</code> might be motor oil. You cannot do math on barcodes to see if two things taste similar.</p>
 <p>Now walk into the <strong>Campus Cafeteria</strong>. Imagine the cafeteria floor has two giant chalk lines painted on it: - <strong>East to West:</strong> How <em>Hot</em> vs <em>Cold</em> something is. - <strong>North to South:</strong> How <em>Sweet</em> vs <em>Savory</em> something is.</p>
 <p>If you place every snack on the floor by its two coordinates, where do <strong>Masala Chai</strong> and <strong>Filter Coffee</strong> end up? Right next to each other in the <em>Hot &amp; lightly sweet</em> corner! Where does <strong>Mango Lassi</strong> go? Over in the <em>Cold &amp; very sweet</em> corner. Where does a <strong>Kubernetes server</strong> go? Outside the cafeteria building altogether.</p>
-<p>That list of coordinates is an <strong>embedding</strong> in plain words: a list of numbers (called a <strong>vector</strong>) that places a word or sentence on a multi-dimensional map of meaning so similar ideas sit close together.</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 5px 0 var(--line-strong);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-01.svg" alt="From a dead barcode to a GPS coordinate of meaning" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 From a dead barcode to a GPS coordinate of meaning:</strong> The embedding table swaps one integer ID for a list of coordinate numbers (a vector).</span><a href="fig-01.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></article><article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 02</span><span class="tag tag-amber">Chapter 2 · Inside the Vector</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;">From 2 chalk lines to 1,536 sliders (Dimensions &amp; Vectors)</h2><div style="font-size:1.02rem;color:var(--ink-soft);"><p>On a flat floor, we only have 2 directions (East-West and North-South). Engineers call each direction a <strong>dimension</strong> in plain words: one numbered slider that measures a single trait.</p>
+<p>That list of coordinates is an <strong>embedding</strong> in plain words: a list of numbers (called a <strong>vector</strong>) that places a word or sentence on a multi-dimensional map of meaning so similar ideas sit close together.</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-01.svg" alt="From a dead barcode to a GPS coordinate of meaning" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 From a dead barcode to a GPS coordinate of meaning:</strong> The embedding table swaps one integer ID for a list of coordinate numbers (a vector).</span><a href="fig-01.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></article><article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 02</span><span class="tag tag-amber">Chapter 2 · Inside the Vector</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;line-height:1.4;">From 2 chalk lines to 1,536 sliders (Dimensions &amp; Vectors)</h2><div style="font-size:1.02rem;color:var(--ink-soft);"><p>On a flat floor, we only have 2 directions (East-West and North-South). Engineers call each direction a <strong>dimension</strong> in plain words: one numbered slider that measures a single trait.</p>
 <p>In our Python lab (<code>Figure 2</code> above), we built a <strong>4-dimensional</strong> map with four sliders for every item: <code>[warm_drink, sweet_food, computer_tech, morning_energy]</code></p>
 <p>Look at the coordinates for two items: - <code>masala_chai</code>   → <code>[0.95, 0.40, 0.02, 0.88]</code> - <code>filter_coffee</code> → <code>[0.92, 0.25, 0.05, 0.94]</code> - <code>kubernetes</code>    → <code>[0.01, 0.00, 0.98, 0.12]</code></p>
 <p>Notice how <code>masala_chai</code> and <code>filter_coffee</code> both have high numbers on slider 1 (<code>0.95</code> and <code>0.92</code>) and slider 4 (<code>0.88</code> and <code>0.94</code>), and tiny numbers on slider 3 (<code>0.02</code> and <code>0.05</code>).</p>
-<p>A real frontier <strong>embedding model</strong> (like OpenAI <code>text-embedding-3</code> or BGE) works the exact same way — except instead of 4 sliders, it uses <strong>1,536 sliders</strong> learned automatically during training!</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 5px 0 var(--line-strong);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-02.svg" alt="The Cafeteria 4D Meaning Map (Real Lab Coordinates)" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 The Cafeteria 4D Meaning Map (Real Lab Coordinates):</strong> Chai and coffee match on warm_drink and morning_energy; Kubernetes sits alone in computer_tech.</span><a href="fig-02.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></article><article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 03</span><span class="tag tag-amber">Chapter 3 · The Compass Formula</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;">How the machine checks if two arrows point the same way (Cosine Similarity)</h2><div style="font-size:1.02rem;color:var(--ink-soft);"><p>Once you have two lists of 1,536 numbers, how does the computer calculate a single match score between them in a microsecond?</p>
+<p>A real frontier <strong>embedding model</strong> (like OpenAI <code>text-embedding-3</code> or BGE) works the exact same way — except instead of 4 sliders, it uses <strong>1,536 sliders</strong> learned automatically during training!</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-02.svg" alt="The Cafeteria 4D Meaning Map (Real Lab Coordinates)" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 The Cafeteria 4D Meaning Map (Real Lab Coordinates):</strong> Chai and coffee match on warm_drink and morning_energy; Kubernetes sits alone in computer_tech.</span><a href="fig-02.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></article><article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 03</span><span class="tag tag-amber">Chapter 3 · The Compass Formula</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;line-height:1.4;">How the machine checks if two arrows point the same way (Cosine Similarity)</h2><div style="font-size:1.02rem;color:var(--ink-soft);"><p>Once you have two lists of 1,536 numbers, how does the computer calculate a single match score between them in a microsecond?</p>
 <p>It draws an arrow from <code>[0, 0, 0, 0]</code> to each word&#x27;s coordinate and measures the angle between the two arrows! Engineers call this <strong>cosine similarity</strong> in plain words: a score from <code>-1.0</code> to <code>+1.0</code> that measures whether two coordinate arrows point in the exact same direction (<code>1.0</code>), at a 90-degree right angle (<code>0.0</code>, completely unrelated), or opposite directions (<code>-1.0</code>).</p>
-<p>Here is the entire 3-step recipe from our 25-line Python lab: 1. <strong>Multiply matching sliders and add them up (Dot Product):</strong> <code>(0.95 × 0.92) + (0.40 × 0.25) + (0.02 × 0.05) + (0.88 × 0.94) = 1.8022</code> Notice why this works: when both words have a big number on the same slider, multiplying two big numbers creates a huge boost. When one is <code>0.98</code> and the other is <code>0.02</code> (<code>kubernetes</code> vs <code>chai</code>), <code>0.98 × 0.02</code> collapses to almost zero! 2. <strong>Divide by the length of both arrows:</strong> That puts every comparison on a fair scale up to <code>1.0000</code>. 3. <strong>Read the result:</strong> In our lab, <code>cosine(masala_chai, filter_coffee)</code> is <strong><code>0.9924</code></strong> (nearly identical direction!), while <code>cosine(masala_chai, kubernetes)</code> is <strong><code>0.1006</code></strong>.</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 5px 0 var(--line-strong);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-03.svg" alt="How Cosine Similarity measures the angle between two arrows" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 How Cosine Similarity measures the angle between two arrows:</strong> Multiply matching traits, add them up, and divide by arrow lengths.</span><a href="fig-03.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></article><article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 04</span><span class="tag tag-amber">Chapter 4 · Pro Mode</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;">What embeddings unlock in real apps — and where they break</h2><div style="font-size:1.02rem;color:var(--ink-soft);"><p>Every time you see an AI product that says <em>&#x27;Chat with your PDFs&#x27;</em> or <em>&#x27;Search 10,000 customer tickets by meaning&#x27;</em>, it is running the exact cosine-similarity loop you just learned:</p>
+<p>Here is the entire 3-step recipe from our 25-line Python lab: 1. <strong>Multiply matching sliders and add them up (Dot Product):</strong> <code>(0.95 × 0.92) + (0.40 × 0.25) + (0.02 × 0.05) + (0.88 × 0.94) = 1.8022</code> Notice why this works: when both words have a big number on the same slider, multiplying two big numbers creates a huge boost. When one is <code>0.98</code> and the other is <code>0.02</code> (<code>kubernetes</code> vs <code>chai</code>), <code>0.98 × 0.02</code> collapses to almost zero! 2. <strong>Divide by the length of both arrows:</strong> That puts every comparison on a fair scale up to <code>1.0000</code>. 3. <strong>Read the result:</strong> In our lab, <code>cosine(masala_chai, filter_coffee)</code> is <strong><code>0.9924</code></strong> (nearly identical direction!), while <code>cosine(masala_chai, kubernetes)</code> is <strong><code>0.1006</code></strong>.</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-03.svg" alt="How Cosine Similarity measures the angle between two arrows" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 How Cosine Similarity measures the angle between two arrows:</strong> Multiply matching traits, add them up, and divide by arrow lengths.</span><a href="fig-03.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></article><article style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:16px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.74rem;font-weight:800;color:var(--terracotta);">CHAPTER 04</span><span class="tag tag-amber">Chapter 4 · Pro Mode</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.45rem;line-height:1.4;">What embeddings unlock in real apps — and where they break</h2><div style="font-size:1.02rem;color:var(--ink-soft);"><p>Every time you see an AI product that says <em>&#x27;Chat with your PDFs&#x27;</em> or <em>&#x27;Search 10,000 customer tickets by meaning&#x27;</em>, it is running the exact cosine-similarity loop you just learned:</p>
 <ol><li><strong>Semantic search without matching words.</strong> A user types <code>&#x27;hot morning beverage&#x27;</code>. Even though the words <code>&#x27;masala&#x27;</code> and <code>&#x27;chai&#x27;</code> never appear in the query, the query&#x27;s coordinate vector lands right next to <code>[0.95, 0.40, 0.02, 0.88]</code> and retrieves <code>masala_chai</code> at the top of the list.</li><li><strong>The Antonym Trap (Why &#x27;I love this&#x27; and &#x27;I hate this&#x27; sit close together!).</strong> Here is a trap that catches senior engineers: on an embedding map, <em>opposites</em> like <code>&#x27;hot&#x27;</code> and <code>&#x27;cold&#x27;</code> or <code>&#x27;love&#x27;</code> and <code>&#x27;hate&#x27;</code> often have high cosine similarity (<code>0.80+</code>)! Why? Because they appear in the exact same sentences (<em>&#x27;The tea is too hot/cold&#x27;</em>) and share 95% of the same topic sliders (temperature, drink, feeling). Never trust raw embedding similarity alone to tell <code>&#x27;yes&#x27;</code> from <code>&#x27;no&#x27;</code>.</li><li><strong>Never mix coordinates from two different models.</strong> An embedding from Model A (<code>1536</code> sliders) and Model B (<code>768</code> sliders) have completely different slider meanings. If you upgrade your embedding model, you must re-embed your entire database.</li></ol></div></article>
 
     <h2 style="font-family:var(--serif);margin-top:2.5rem;">Plain-English Jargon Decoder</h2>
@@ -321,9 +322,9 @@ if __name__ == &quot;__main__&quot;:
 </code></pre>
 
     <h2 style="font-family:var(--serif);margin-top:2.5rem;">Share Studio · The Turn & X Thread</h2>
-    <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 5px 0 var(--ink);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;">
+    <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--ink), 0 8px 20px rgba(17,28,22,0.10);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;">
       <div style="font-family:var(--mono);font-size:0.72rem;font-weight:800;color:var(--terracotta);">THE NOTEBOOK TURN</div>
-      <div style="font-family:var(--serif);font-size:1.3rem;margin:0.35rem 0;">“I used to think &#x27;vector databases&#x27; and &#x27;high-dimensional embeddings&#x27; were arcane PhD math; writing cosine similarity in 10 lines of Python showed me it is literally just placing items on a cafeteria floor map and checking which arrows point to the same corner.”</div>
+      <div style="font-family:var(--serif);font-size:1.3rem;line-height:1.45;margin:0.35rem 0;">“I used to think &#x27;vector databases&#x27; and &#x27;high-dimensional embeddings&#x27; were arcane PhD math; writing cosine similarity in 10 lines of Python showed me it is literally just placing items on a cafeteria floor map and checking which arrows point to the same corner.”</div>
       <div style="font-size:0.88rem;color:var(--ink-soft);"><strong>Reel Hook:</strong> Voiceover: &#x27;How does an AI know that masala chai and filter coffee belong together when they share zero letters? I coded a 25-line meaning map in Python, and the secret is just cafeteria seating coordinates.&#x27;</div>
     </div>
     <div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">1/ How does an AI know that &#x27;masala chai&#x27; and &#x27;filter coffee&#x27; are close neighbors, even though they share zero words? Because before thinking, it converts every token barcode into a GPS coordinate on a map of meaning.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">2/ For Checkpoint 03 at the Campus Cafeteria of my AI University, I built a 4-dimensional embedding map and vector search engine in 25 lines of pure Python (zero libraries).</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">3/ Imagine rating every item on 4 sliders: [warm_drink, sweet_food, computer_tech, morning_energy].
