@@ -2933,17 +2933,11 @@ a:hover { text-decoration: underline; }
       const el = document.getElementById("sim-emb-output");
       if (!el) return;
       const notes = {
-        "filter_coffee": "masala_chai [0.95, 0.90, 0.05, 0.10] vs filter_coffee [0.90, 0.80, 0.05, 0.05]
-→ Cosine Similarity = +0.9924 (Sitting at the exact same Cafeteria Hot-Drinks table!)",
-        "iced_chai": "masala_chai [0.95, 0.90, 0.05, 0.10] vs iced_chai [0.75, 0.85, 0.05, 0.05]
-→ Cosine Similarity = +0.9939 (THE TRAP: Even though hot & cold are opposites, they sit at the same Chai table!)",
-        "samosa": "masala_chai [0.95, 0.90, 0.05, 0.10] vs samosa [0.20, 0.95, 0.05, 0.05]
-→ Cosine Similarity = +0.7995 (Close neighbors on the Spicy Indian Snacks axis).",
-        "kubernetes": "masala_chai [0.95, 0.90, 0.05, 0.10] vs kubernetes [0.05, 0.05, 0.98, 0.05]
-→ Cosine Similarity = +0.1006 (Pointing 84° away in the Tech & Cloud corner of the cafeteria).",
-        "king_math": "Vector Walk: king [0.10, 0.15, 0.05, 0.95] - man [0.10, 0.10, 0.10, 0.20] + woman [0.15, 0.15, 0.10, 0.25]
-→ Target Vector = [0.15, 0.20, 0.05, 1.00]
-→ Closest Neighbor = queen [0.15, 0.20, 0.05, 0.92] with Cosine Similarity +0.9854!"
+        "filter_coffee": "masala_chai [0.95, 0.90, 0.05, 0.10] vs filter_coffee [0.90, 0.80, 0.05, 0.05]\n→ Cosine Similarity = +0.9924 (Sitting at the exact same Cafeteria Hot-Drinks table!)",
+        "iced_chai": "masala_chai [0.95, 0.90, 0.05, 0.10] vs iced_chai [0.75, 0.85, 0.05, 0.05]\n→ Cosine Similarity = +0.9939 (THE TRAP: Even though hot & cold are opposites, they sit at the same Chai table!)",
+        "samosa": "masala_chai [0.95, 0.90, 0.05, 0.10] vs samosa [0.20, 0.95, 0.05, 0.05]\n→ Cosine Similarity = +0.7995 (Close neighbors on the Spicy Indian Snacks axis).",
+        "kubernetes": "masala_chai [0.95, 0.90, 0.05, 0.10] vs kubernetes [0.05, 0.05, 0.98, 0.05]\n→ Cosine Similarity = +0.1006 (Pointing 84° away in the Tech & Cloud corner of the cafeteria).",
+        "king_math": "Vector Walk: king [0.10, 0.15, 0.05, 0.95] - man [0.10, 0.10, 0.10, 0.20] + woman [0.15, 0.15, 0.10, 0.25]\n→ Target Vector = [0.15, 0.20, 0.05, 1.00]\n→ Closest Neighbor = queen [0.15, 0.20, 0.05, 0.92] with Cosine Similarity +0.9854!"
       };
       el.innerText = notes[key] || "";
     }
@@ -2952,24 +2946,11 @@ a:hover { text-decoration: underline; }
       const el = document.getElementById("sim-ctx-output");
       if (!el) return;
       const steps = {
-        1: "TURN 1 (8 / 24 words on tray · 0 dropped):
-[User: Remember secret locker code 7492 for tomorrow.]
-→ Locker code '7492' on tray? YES ✅",
-        2: "TURN 2 (16 / 24 words on tray · 0 dropped):
-[User: Remember secret locker code 7492 for tomorrow. AI: Got it, I saved your locker code.]
-→ Locker code '7492' on tray? YES ✅",
-        3: "TURN 3 (24 / 24 words on tray · TRAY 100% FULL):
-[User: Remember secret locker code 7492 for tomorrow. AI: Got it, I saved your locker code. User: Also pack two masala dosa boxes please.]
-→ Locker code '7492' on tray? YES ✅ (Right on the left edge!)",
-        4: "TURN 4 (34 total words → 10 oldest words DROPPED off left edge!):
-Dropped into trash: 'User: Remember secret locker code 7492 for tomorrow. AI: Got'
-Remaining on tray: [it, I saved your locker code. User: Also pack two masala dosa boxes please. AI: Packed two masala dosa boxes for lunch today!]
-→ Locker code '7492' on tray? NO ❌ (Vanished!)",
-        5: "LOST-IN-THE-MIDDLE U-CURVE (10-Chunk Tray Recall):
-Chunk 1 (Top edge):    93.0% ███████████████████
-Chunk 3 (Upper-mid):   51.0% ██████████
-Chunk 6 (Dead middle): 38.7% ████████  <-- DANGER ZONE!
-Chunk 10 (Bottom end): 93.0% ███████████████████"
+        1: "TURN 1 (8 / 24 words on tray · 0 dropped):\n[User: Remember secret locker code 7492 for tomorrow.]\n→ Locker code '7492' on tray? YES ✅",
+        2: "TURN 2 (16 / 24 words on tray · 0 dropped):\n[User: Remember secret locker code 7492 for tomorrow. AI: Got it, I saved your locker code.]\n→ Locker code '7492' on tray? YES ✅",
+        3: "TURN 3 (24 / 24 words on tray · TRAY 100% FULL):\n[User: Remember secret locker code 7492 for tomorrow. AI: Got it, I saved your locker code. User: Also pack two masala dosa boxes please.]\n→ Locker code '7492' on tray? YES ✅ (Right on the left edge!)",
+        4: "TURN 4 (34 total words → 10 oldest words DROPPED off left edge!):\nDropped into trash: 'User: Remember secret locker code 7492 for tomorrow. AI: Got'\nRemaining on tray: [it, I saved your locker code. User: Also pack two masala dosa boxes please. AI: Packed two masala dosa boxes for lunch today!]\n→ Locker code '7492' on tray? NO ❌ (Vanished!)",
+        5: "LOST-IN-THE-MIDDLE U-CURVE (10-Chunk Tray Recall):\nChunk 1 (Top edge):    93.0% ███████████████████\nChunk 3 (Upper-mid):   51.0% ██████████\nChunk 6 (Dead middle): 38.7% ████████  <-- DANGER ZONE!\nChunk 10 (Bottom end): 93.0% ███████████████████"
       };
       el.innerText = steps[step] || "";
     }
@@ -3032,20 +3013,14 @@ Chunk 10 (Bottom end): 93.0% █████████████████
     function copyFullXThread() {
       const lesson = SEEDED_LESSONS[state.activeStopId];
       if (!lesson) return;
-      navigator.clipboard.writeText((lesson.shareable.x_thread || []).join("
-
-"));
+      navigator.clipboard.writeText((lesson.shareable.x_thread || []).join("\n\n"));
       alert("Complete X Thread copied to clipboard!");
     }
 
     function copyTurnQuote() {
       const lesson = SEEDED_LESSONS[state.activeStopId];
       if (!lesson) return;
-      const txt = `${lesson.title} (${lesson.shareable.notebook_shelf})
-
-"${lesson.shareable.the_turn}"
-
-https://ashwinyardi.github.io/bits-course/`;
+      const txt = `${lesson.title} (${lesson.shareable.notebook_shelf})\n\n"${lesson.shareable.the_turn}"\n\nhttps://ashwinyardi.github.io/bits-course/`;
       navigator.clipboard.writeText(txt);
       alert("The Turn copied to clipboard!");
     }
