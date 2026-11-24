@@ -403,7 +403,7 @@ a:hover { text-decoration: underline; }
 
 
 def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by_id: dict[str, str]) -> str:
-    """Render the Full-Screen 3D Isometric AI University Adventure with RPG Dialogue & Karpathy Cutscene."""
+    """Render the Full-Screen 3D Isometric AI University Adventure with Zero Top Navbar, Thin Floating Pills & 3D Karpathy Calls."""
     game_lessons = {}
     for lid, ldata in lessons.items():
         copy_l = dict(ldata)
@@ -422,18 +422,21 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
   <title>BitsByBlocks AI University · The Living 3D AI RPG</title>
   <style>
     {SHARED_CSS}
-    body {{
-      overflow: hidden;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }}
-    /* FULL-VIEWPORT 3D WORLD STAGE */
-    .world-viewport {{
-      position: relative;
-      flex: 1;
+    html, body {{
+      margin: 0;
+      padding: 0;
       width: 100%;
-      height: calc(100vh - 58px);
+      height: 100vh;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }}
+    /* FULL-BLEED 100VH 3D WORLD STAGE (NO TOP NAVBAR BAR!) */
+    .world-viewport {{
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
       background: #7dd3fc;
       overflow: hidden;
       user-select: none;
@@ -444,7 +447,221 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       display: block;
       cursor: pointer;
     }}
-    /* CRISP HTML 3D-PROJECTED FLOATING PINS (Zero blurry canvas text!) */
+
+    /* JAKUB KREHEL STAGED MOTION & CONCENTRIC SURFACES */
+    @keyframes stageEnter {{
+      from {{
+        opacity: 0;
+        transform: translateY(10px);
+        filter: blur(4px);
+      }}
+      to {{
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0px);
+      }}
+    }}
+    @media (prefers-reduced-motion: reduce) {{
+      @keyframes stageEnter {{
+        from {{ opacity: 0; }}
+        to {{ opacity: 1; }}
+      }}
+    }}
+
+    /* THIN MINIMAL FLOATING TOP INDICATORS (ZERO NAVBAR BACKGROUND BAR!) */
+    .hud-top-bar {{
+      position: absolute;
+      top: 0.85rem;
+      left: 1rem;
+      right: 1rem;
+      z-index: 40;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      pointer-events: none;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }}
+    .hud-left-cluster, .hud-right-cluster {{
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+      pointer-events: auto;
+    }}
+    .thin-pill {{
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--ink);
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+      padding: 0.28rem 0.72rem;
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      box-shadow: 0 2px 0 var(--ink), 0 6px 16px rgba(17, 28, 22, 0.12);
+      white-space: nowrap;
+      animation: stageEnter 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }}
+    .thin-pill-brand {{
+      background: var(--terracotta);
+      color: #ffffff;
+      border-color: #7c2d12;
+      box-shadow: 0 2px 0 #7c2d12, 0 6px 16px rgba(17, 28, 22, 0.14);
+      font-family: var(--serif);
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }}
+    .thin-btn {{
+      display: inline-flex;
+      align-items: center;
+      gap: 0.38rem;
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--ink);
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+      padding: 0.28rem 0.78rem 0.28rem 0.84rem;
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      cursor: pointer;
+      box-shadow: 0 2px 0 var(--ink), 0 6px 16px rgba(17, 28, 22, 0.12);
+      transition: transform 140ms cubic-bezier(0.22, 1, 0.36, 1), background-color 140ms ease-out;
+      animation: stageEnter 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }}
+    @media (hover: hover) {{
+      .thin-btn:hover {{
+        background: var(--paper-warm);
+        transform: translateY(-1px);
+      }}
+    }}
+    .thin-btn:active {{
+      transform: scale(0.98) translateY(1px);
+    }}
+    .thin-btn-primary {{
+      background: var(--terracotta);
+      color: #ffffff;
+      border-color: #7c2d12;
+      box-shadow: 0 2px 0 #7c2d12, 0 6px 16px rgba(17, 28, 22, 0.14);
+    }}
+    @media (hover: hover) {{
+      .thin-btn-primary:hover {{
+        background: #7c2d12;
+        color: #ffffff;
+      }}
+    }}
+    .thin-btn-meadow {{
+      background: var(--meadow);
+      color: #ffffff;
+      border-color: #052e16;
+      box-shadow: 0 2px 0 #052e16, 0 6px 16px rgba(17, 28, 22, 0.14);
+    }}
+    @media (hover: hover) {{
+      .thin-btn-meadow:hover {{
+        background: #166534;
+        color: #ffffff;
+      }}
+    }}
+
+    /* COMPACT FLOATING MISSION STRIP (UNDER TOP-LEFT PILLS) */
+    .quest-strip {{
+      position: absolute;
+      top: 3.15rem;
+      left: 1rem;
+      z-index: 30;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1.5px solid var(--ink);
+      border-radius: 14px;
+      padding: 0.45rem 0.85rem;
+      box-shadow: 0 2px 0 var(--ink), 0 8px 20px rgba(17, 28, 22, 0.12);
+      max-width: 350px;
+      pointer-events: auto;
+      animation: stageEnter 320ms 80ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }}
+    .quest-kicker {{
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--terracotta);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-variant-numeric: tabular-nums;
+    }}
+    .quest-headline {{
+      font-family: var(--serif);
+      font-weight: 800;
+      font-size: 0.92rem;
+      color: var(--ink);
+      line-height: 1.35;
+      margin: 0.08rem 0 0;
+      text-wrap: balance;
+    }}
+
+    /* 3D KARPATHY INCOMING CALL COMMUNICATOR HUD WIDGET */
+    .karpathy-call-toast {{
+      position: absolute;
+      top: 3.15rem;
+      right: 1rem;
+      z-index: 65;
+      width: 345px;
+      background: #ffffff;
+      border: 2px solid var(--ink);
+      border-radius: 20px; /* outerRadius = innerRadius(12px) + padding(8px) */
+      padding: 8px;
+      box-shadow: 0 3px 0 var(--ink), 0 16px 36px rgba(17, 28, 22, 0.22);
+      transform-origin: top right;
+      display: none;
+      animation: stageEnter 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }}
+    .karpathy-call-toast.open {{
+      display: block;
+    }}
+    .karpathy-call-inner {{
+      background: var(--paper);
+      border: 1.5px solid var(--line-strong);
+      border-radius: 12px;
+      padding: 0.65rem 0.75rem;
+    }}
+    .karpathy-call-top {{
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }}
+    #karpathy-avatar-canvas {{
+      width: 58px;
+      height: 58px;
+      border-radius: 10px;
+      background: #e0f2fe;
+      border: 1.5px solid var(--ink);
+      flex-shrink: 0;
+    }}
+    .call-wave {{
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      height: 12px;
+    }}
+    .call-wave span {{
+      display: inline-block;
+      width: 2.5px;
+      height: 10px;
+      background: var(--meadow);
+      border-radius: 2px;
+      animation: wavePulse 0.8s infinite ease-in-out;
+    }}
+    .call-wave span:nth-child(2) {{ animation-delay: 0.15s; height: 12px; }}
+    .call-wave span:nth-child(3) {{ animation-delay: 0.3s; height: 7px; }}
+    .call-wave span:nth-child(4) {{ animation-delay: 0.45s; height: 11px; }}
+    @keyframes wavePulse {{
+      0%, 100% {{ transform: scaleY(0.45); }}
+      50% {{ transform: scaleY(1); }}
+    }}
+
+    /* CRISP HTML 3D-PROJECTED FLOATING PINS */
     .pins-layer {{
       position: absolute;
       inset: 0;
@@ -455,41 +672,44 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       position: absolute;
       transform: translate(-50%, -100%);
       pointer-events: auto;
-      background: rgba(255, 255, 255, 0.96);
-      border: 2px solid var(--ink);
-      border-radius: 12px;
-      padding: 0.32rem 0.7rem;
-      box-shadow: 0 3px 0 var(--ink), 0 8px 20px rgba(17, 28, 22, 0.16);
+      background: rgba(255, 255, 255, 0.95);
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+      padding: 0.22rem 0.62rem 0.22rem 0.32rem;
+      box-shadow: 0 2px 0 var(--ink), 0 6px 16px rgba(17, 28, 22, 0.14);
       cursor: pointer;
-      transition: transform 0.14s ease, background 0.14s ease;
+      transition: transform 140ms cubic-bezier(0.22, 1, 0.36, 1), background-color 140ms ease-out;
       display: flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.38rem;
       white-space: nowrap;
+      font-variant-numeric: tabular-nums;
     }}
-    .world-pin:hover {{
-      transform: translate(-50%, -106%) scale(1.04);
-      background: #ffffff;
+    @media (hover: hover) {{
+      .world-pin:hover {{
+        transform: translate(-50%, -106%) scale(1.03);
+        background: #ffffff;
+      }}
     }}
     .world-pin.pin-active {{
       border-color: var(--terracotta);
       background: #fffbeb;
-      box-shadow: 0 3px 0 var(--terracotta), 0 10px 24px rgba(17, 28, 22, 0.16);
+      box-shadow: 0 2px 0 var(--terracotta), 0 8px 20px rgba(17, 28, 22, 0.16);
     }}
     .world-pin.pin-cleared {{
       border-color: var(--meadow);
       background: #f0fdf4;
     }}
     .world-pin.pin-locked {{
-      opacity: 0.85;
+      opacity: 0.86;
       background: #f2f7f4;
     }}
     .pin-badge {{
       font-family: var(--mono);
       font-size: 0.76rem;
       font-weight: 700;
-      padding: 0.12rem 0.45rem;
-      border-radius: 6px;
+      padding: 0.08rem 0.42rem;
+      border-radius: 999px;
       background: var(--terracotta);
       color: #ffffff;
     }}
@@ -505,7 +725,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     .pin-label {{
       font-family: var(--serif);
       font-weight: 800;
-      font-size: 0.86rem;
+      font-size: 0.8rem;
       color: var(--ink);
     }}
 
@@ -516,163 +736,120 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       pointer-events: auto;
       background: var(--terracotta);
       color: #ffffff;
-      border: 2.5px solid #ffffff;
+      border: 2px solid #ffffff;
       border-radius: 999px;
-      padding: 0.48rem 1.05rem;
+      padding: 0.42rem 0.95rem;
       font-family: var(--serif);
-      font-size: 0.9rem;
+      font-size: 0.86rem;
       font-weight: 800;
-      box-shadow: 0 3px 0 #7c2d12, 0 12px 28px rgba(17, 28, 22, 0.35);
+      box-shadow: 0 3px 0 #7c2d12, 0 10px 24px rgba(17, 28, 22, 0.25);
       cursor: pointer;
       display: none;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.4rem;
       white-space: nowrap;
       z-index: 35;
       animation: pulseBounce 1.4s infinite ease-in-out;
     }}
-    .proximity-action-btn:hover {{
-      background: #7c2d12;
-    }}
     @keyframes pulseBounce {{
       0%, 100% {{ transform: translate(-50%, -100%); }}
-      50% {{ transform: translate(-50%, -112%); }}
+      50% {{ transform: translate(-50%, -110%); }}
     }}
 
-    /* TOP-LEFT FLOATING QUEST TRACKER PILL */
-    .quest-hud-card {{
-      position: absolute;
-      top: 1rem;
-      left: 1.25rem;
-      z-index: 30;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(8px);
-      border: 2.5px solid var(--ink);
-      border-radius: 16px;
-      padding: 0.75rem 1.1rem;
-      box-shadow: 0 3px 0 var(--ink), 0 12px 28px rgba(17, 28, 22, 0.16);
-      max-width: 390px;
-    }}
-    .quest-kicker {{
-      font-family: var(--mono);
-      font-size: 0.76rem;
-      font-weight: 700;
-      color: var(--terracotta);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }}
-    .quest-headline {{
-      font-family: var(--serif);
-      font-weight: 800;
-      font-size: 1.05rem;
-      color: var(--ink);
-      line-height: 1.35;
-      margin: 0.15rem 0 0.25rem;
-    }}
-    .quest-sub {{
-      font-size: 0.82rem;
-      color: var(--ink-soft);
-      margin: 0;
-    }}
-
-    /* TOP-RIGHT MAP & LORE CONTROLS */
-    .world-top-right {{
-      position: absolute;
-      top: 1rem;
-      right: 1.25rem;
-      z-index: 30;
-      display: flex;
-      gap: 0.55rem;
-      flex-wrap: wrap;
-    }}
-
-    /* BOTTOM CONTROLS HINT PILL */
+    /* THIN BOTTOM CONTROLS HINT PILL */
     .controls-pill {{
       position: absolute;
-      bottom: 1rem;
+      bottom: 0.75rem;
       left: 50%;
       transform: translateX(-50%);
       z-index: 25;
-      background: rgba(255, 255, 255, 0.94);
-      border: 2px solid var(--ink);
+      background: rgba(255, 255, 255, 0.92);
+      border: 1.5px solid var(--ink);
       border-radius: 999px;
-      padding: 0.38rem 1rem;
-      font-size: 0.82rem;
+      padding: 0.28rem 0.85rem;
+      font-size: 0.78rem;
       font-weight: 700;
       color: var(--ink);
-      box-shadow: 0 2px 0 var(--ink), 0 8px 20px rgba(17, 28, 22, 0.14);
+      box-shadow: 0 2px 0 var(--ink), 0 6px 16px rgba(17, 28, 22, 0.12);
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 0.65rem;
       white-space: nowrap;
     }}
     .kbd {{
       background: var(--paper-warm);
       border: 1.5px solid var(--ink);
       border-radius: 5px;
-      padding: 0.08rem 0.42rem;
+      padding: 0.06rem 0.38rem;
       font-family: var(--mono);
       font-size: 0.76rem;
     }}
 
-    /* RPG TYPEWRITER DIALOGUE STAGE (Pokemon / Stardew / Karpathy style!) */
+    /* RPG TYPEWRITER DIALOGUE STAGE (With Live 3D Character Caricature Canvas!) */
     .rpg-dialogue-backdrop {{
       position: absolute;
       inset: 0;
       z-index: 80;
-      background: rgba(17, 28, 22, 0.32);
+      background: rgba(17, 28, 22, 0.26);
       display: none;
       align-items: flex-end;
       justify-content: center;
-      padding: 1.5rem;
+      padding: 1.25rem;
     }}
     .rpg-dialogue-backdrop.open {{
       display: flex;
     }}
     .rpg-dialogue-stage {{
       width: 100%;
-      max-width: 860px;
+      max-width: 850px;
       background: #ffffff;
-      border: 3px solid var(--ink);
-      border-radius: 20px;
-      box-shadow: 0 3px 0 var(--ink), 0 24px 60px rgba(17, 28, 22, 0.35);
-      padding: 1.35rem 1.6rem;
+      border: 2.5px solid var(--ink);
+      border-radius: 22px; /* outerRadius = 14px + 8px */
+      box-shadow: 0 3px 0 var(--ink), 0 20px 48px rgba(17, 28, 22, 0.28);
+      padding: 1.15rem 1.35rem;
       display: grid;
-      grid-template-columns: 92px 1fr;
-      gap: 1.25rem;
+      grid-template-columns: 96px 1fr;
+      gap: 1.15rem;
       align-items: start;
       position: relative;
+      transform-origin: bottom center;
+      animation: stageEnter 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
     }}
     @media (max-width: 640px) {{
       .rpg-dialogue-stage {{
         grid-template-columns: 1fr;
       }}
     }}
-    .rpg-portrait {{
-      width: 92px;
-      height: 92px;
-      border-radius: 18px;
+    .rpg-portrait-wrap {{
+      width: 96px;
+      height: 96px;
+      border-radius: 14px;
       background: var(--amber-soft);
-      border: 2.5px solid var(--ink);
-      box-shadow: 0 3px 0 var(--ink);
+      border: 2px solid var(--ink);
+      box-shadow: 0 2px 0 var(--ink);
+      overflow: hidden;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 2.6rem;
+      position: relative;
+    }}
+    #rpg-portrait-canvas {{
+      width: 96px;
+      height: 96px;
+      display: block;
     }}
     .rpg-speaker-bar {{
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 0.75rem;
+      gap: 0.65rem;
       flex-wrap: wrap;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.3rem;
     }}
     .rpg-speaker-name {{
       font-family: var(--serif);
       font-weight: 800;
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       color: var(--ink);
     }}
     .rpg-speaker-role {{
@@ -681,72 +858,79 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       font-weight: 700;
       color: var(--terracotta);
       background: var(--terracotta-soft);
-      padding: 0.15rem 0.6rem;
+      padding: 0.14rem 0.58rem;
       border-radius: 999px;
     }}
     .rpg-speech-text {{
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       color: var(--ink);
-      line-height: 1.65;
-      min-height: 4.5rem;
-      margin-bottom: 1rem;
+      line-height: 1.62;
+      min-height: 3.8rem;
+      margin-bottom: 0.85rem;
+      text-wrap: pretty;
+      max-width: 68ch;
     }}
     .rpg-choices {{
       display: flex;
       flex-direction: column;
-      gap: 0.55rem;
+      gap: 0.48rem;
     }}
     .rpg-choice-btn {{
       text-align: left;
       background: var(--paper);
       border: 2px solid var(--ink);
       border-radius: 12px;
-      padding: 0.7rem 1rem;
+      padding: 0.62rem 0.85rem 0.62rem 0.95rem;
       font-family: var(--sans);
-      font-size: 0.94rem;
+      font-size: 0.92rem;
       font-weight: 700;
       color: var(--ink);
       cursor: pointer;
-      transition: all 0.12s ease;
+      transition: transform 140ms cubic-bezier(0.22, 1, 0.36, 1), background-color 140ms ease-out;
       display: flex;
       align-items: center;
       justify-content: space-between;
       box-shadow: 0 2px 0 var(--ink);
     }}
-    .rpg-choice-btn:hover {{
-      background: var(--amber-soft);
-      transform: translateX(4px);
+    @media (hover: hover) {{
+      .rpg-choice-btn:hover {{
+        background: var(--amber-soft);
+        transform: translateX(3px);
+      }}
     }}
     .rpg-choice-btn.choice-primary {{
       background: var(--terracotta);
       color: #ffffff;
       border-color: #7c2d12;
-      box-shadow: 0 3px 0 #7c2d12;
+      box-shadow: 0 2px 0 #7c2d12;
     }}
-    .rpg-choice-btn.choice-primary:hover {{
-      background: #7c2d12;
-      color: #ffffff;
+    @media (hover: hover) {{
+      .rpg-choice-btn.choice-primary:hover {{
+        background: #7c2d12;
+        color: #ffffff;
+      }}
     }}
 
-    /* CLEAN, EDITORIAL STORY BOOK MODAL (No cluttered card-in-card boxes!) */
+    /* CLEAN, EDITORIAL STORY BOOK MODAL */
     .book-modal {{
       position: fixed;
       inset: 0;
       z-index: 200;
-      background: rgba(17, 28, 22, 0.58);
+      background: rgba(17, 28, 22, 0.54);
       backdrop-filter: blur(6px);
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 1.25rem;
+      padding: 1.15rem;
+      overscroll-behavior: contain;
     }}
     .book-modal.open {{
       display: flex;
     }}
     .book-sheet {{
       background: #ffffff;
-      border: 3px solid var(--ink);
-      box-shadow: 0 3px 0 var(--ink), 0 30px 70px rgba(0,0,0,0.4);
+      border: 2.5px solid var(--ink);
+      box-shadow: 0 3px 0 var(--ink), 0 24px 60px rgba(17, 28, 22, 0.32);
       border-radius: 22px;
       width: 100%;
       max-width: 1020px;
@@ -754,10 +938,11 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      animation: stageEnter 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
     }}
     .book-header {{
       background: var(--paper);
-      padding: 1rem 1.75rem;
+      padding: 0.9rem 1.5rem;
       border-bottom: 2px solid var(--line);
       display: flex;
       align-items: center;
@@ -767,8 +952,8 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     }}
     .book-tabs {{
       display: flex;
-      gap: 0.5rem;
-      padding: 0.65rem 1.75rem;
+      gap: 0.45rem;
+      padding: 0.55rem 1.5rem;
       background: var(--paper-warm);
       border-bottom: 2px solid var(--line);
       overflow-x: auto;
@@ -778,9 +963,9 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       border: 2px solid transparent;
       color: var(--ink-soft);
       font-family: var(--sans);
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 700;
-      padding: 0.45rem 1rem;
+      padding: 0.4rem 0.9rem;
       border-radius: 10px;
       cursor: pointer;
     }}
@@ -793,19 +978,19 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     .book-body {{
       flex: 1;
       overflow-y: auto;
-      padding: 2.25rem 2.5rem 4rem;
+      overscroll-behavior: contain;
+      padding: 2rem 2.25rem 3.5rem;
     }}
     .book-pane {{
       display: none;
-      max-width: 740px;
+      max-width: 720px;
       margin: 0 auto;
     }}
     .book-pane.active {{
       display: block;
     }}
-    /* Editorial Flow (Chapters flow like an illustrated book, not separate boxes!) */
     .story-section {{
-      padding: 1.75rem 0;
+      padding: 1.65rem 0;
       border-bottom: 2px dashed var(--line);
     }}
     .story-section:last-of-type {{
@@ -817,27 +1002,29 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       font-weight: 700;
       color: var(--terracotta);
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
     }}
     .chapter-heading {{
       font-family: var(--serif);
-      font-size: 1.65rem;
+      font-size: 1.6rem;
       font-weight: 800;
       line-height: 1.35;
-      margin: 0.25rem 0 0.9rem;
+      margin: 0.25rem 0 0.85rem;
       color: var(--ink);
+      text-wrap: balance;
     }}
     .chapter-prose {{
-      font-size: 1.08rem;
+      font-size: 1.06rem;
       color: var(--ink-soft);
-      line-height: 1.78;
+      line-height: 1.75;
+      text-wrap: pretty;
     }}
     .chapter-prose p {{
-      margin: 0 0 1.05rem;
+      margin: 0 0 1rem;
     }}
     .chapter-prose code {{
       background: var(--paper);
-      padding: 0.15rem 0.45rem;
+      padding: 0.14rem 0.42rem;
       border-radius: 6px;
       font-family: var(--mono);
       font-size: 0.88em;
@@ -848,16 +1035,16 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       background: var(--paper);
       border: 2px solid var(--line-strong);
       border-radius: 16px;
-      padding: 1.25rem;
-      margin: 1.5rem 0 0.5rem;
+      padding: 1.15rem;
+      margin: 1.35rem 0 0.5rem;
     }}
     .playground-band {{
       background: var(--paper);
-      border: 2.5px solid var(--ink);
+      border: 2px solid var(--ink);
       box-shadow: 0 3px 0 var(--ink), 0 10px 24px rgba(17, 28, 22, 0.08);
       border-radius: 18px;
-      padding: 1.5rem 1.75rem;
-      margin: 1.5rem 0 2rem;
+      padding: 1.35rem 1.5rem;
+      margin: 1.35rem 0 1.85rem;
     }}
     .quiz-option {{
       display: block;
@@ -866,18 +1053,20 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       background: var(--paper);
       border: 2px solid var(--line-strong);
       color: var(--ink);
-      padding: 0.9rem 1.1rem;
+      padding: 0.85rem 1.05rem;
       border-radius: 12px;
-      margin-bottom: 0.65rem;
+      margin-bottom: 0.6rem;
       cursor: pointer;
       font-family: var(--sans);
-      font-size: 0.96rem;
+      font-size: 0.95rem;
       font-weight: 700;
-      transition: all 0.12s;
+      transition: border-color 120ms ease-out, background-color 120ms ease-out;
     }}
-    .quiz-option:hover {{
-      border-color: var(--ink);
-      background: var(--paper-warm);
+    @media (hover: hover) {{
+      .quiz-option:hover {{
+        border-color: var(--ink);
+        background: var(--paper-warm);
+      }}
     }}
     .quiz-option.correct {{
       border-color: var(--meadow);
@@ -892,7 +1081,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     pre {{
       background: #111c16;
       color: #f2f7f4;
-      padding: 1.2rem 1.35rem;
+      padding: 1.15rem 1.3rem;
       border-radius: 14px;
       border: 2px solid var(--ink);
       overflow-x: auto;
@@ -904,10 +1093,10 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       width: 100%;
       border-collapse: collapse;
       margin: 1rem 0 2rem;
-      font-size: 0.95rem;
+      font-size: 0.94rem;
     }}
     .jargon-table th, .jargon-table td {{
-      padding: 0.85rem 1rem;
+      padding: 0.8rem 0.95rem;
       border-bottom: 1.5px solid var(--line);
       text-align: left;
       vertical-align: top;
@@ -928,10 +1117,10 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     .ig-slide {{
       aspect-ratio: 4 / 5;
       background: var(--paper);
-      border: 2.5px solid var(--ink);
+      border: 2px solid var(--ink);
       box-shadow: 0 3px 0 var(--ink), 0 8px 20px rgba(17,28,22,0.10);
       border-radius: 16px;
-      padding: 1.15rem;
+      padding: 1.1rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -942,63 +1131,45 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       position: fixed;
       inset: 0;
       z-index: 150;
-      background: rgba(17, 28, 22, 0.45);
+      background: rgba(17, 28, 22, 0.42);
       display: none;
       justify-content: flex-end;
+      overscroll-behavior: contain;
     }}
     .map-drawer-backdrop.open {{
       display: flex;
     }}
     .map-drawer {{
       width: 100%;
-      max-width: 430px;
+      max-width: 410px;
       background: var(--paper);
-      border-left: 3px solid var(--ink);
+      border-left: 2.5px solid var(--ink);
       height: 100%;
-      padding: 1.35rem;
+      padding: 1.25rem;
       overflow-y: auto;
+      overscroll-behavior: contain;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 0.7rem;
     }}
     .teleport-row {{
       background: #ffffff;
-      border: 2px solid var(--line-strong);
+      border: 1.5px solid var(--line-strong);
       border-radius: 12px;
-      padding: 0.75rem 0.95rem;
+      padding: 0.7rem 0.9rem;
       cursor: pointer;
-      transition: all 0.12s;
+      transition: transform 120ms ease-out, border-color 120ms ease-out;
     }}
-    .teleport-row:hover {{
-      border-color: var(--ink);
-      transform: translateX(-3px);
+    @media (hover: hover) {{
+      .teleport-row:hover {{
+        border-color: var(--ink);
+        transform: translateX(-3px);
+      }}
     }}
   </style>
 </head>
 <body>
-  <header class="top-nav">
-    <div class="brand-cluster">
-      <span class="crest-badge">BITS UNIVERSITY · YEAR 2032</span>
-      <div>
-        <div class="brand-title">The Self-Expanding AI Campus</div>
-        <div class="brand-sub">Where Builders Master LLMs to Cure Disease, Automate Discovery & Shape the Frontier</div>
-      </div>
-    </div>
-    <div class="nav-pills">
-      <div class="stat-chip">
-        <span>🚧 Campus Boom Gate:</span>
-        <strong id="hud-gate-state" style="color:var(--terracotta);">LOCKED</strong>
-      </div>
-      <div class="stat-chip">
-        <span>⭐ Badges Earned:</span>
-        <strong id="hud-cleared-count">0 / 49</strong>
-      </div>
-      <button class="btn" onclick="openKarpathyCutscene(0)">📡 Dean Karpathy's Hologram</button>
-      <button class="btn" onclick="toggleTeleportDrawer(true)">🗺️ Fast-Travel Directory</button>
-    </div>
-  </header>
-
-  <!-- FULL-SCREEN 3D ISOMETRIC WORLD -->
+  <!-- FULL-BLEED 100VH 3D ISOMETRIC WORLD (NO TOP NAVBAR!) -->
   <div class="world-viewport" id="world-viewport">
     <canvas id="campus-canvas" width="1280" height="760"></canvas>
 
@@ -1006,36 +1177,76 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     <div class="pins-layer" id="pins-layer"></div>
     <button class="proximity-action-btn" id="proximity-btn" onclick="triggerNearbyInteraction()"></button>
 
-    <!-- TOP-LEFT ACTIVE QUEST TRACKER -->
-    <div class="quest-hud-card">
-      <div class="quest-kicker" id="quest-kicker">🎯 CURRENT MISSION · SOUTH GATE</div>
-      <div class="quest-headline" id="quest-headline">Walk up to Officer Rajan at the Red Boom Gate</div>
-      <p class="quest-sub" id="quest-sub">
-        Dean Karpathy summoned you to Bits University — but Officer Rajan won't lift the barrier until you talk to him!
-      </p>
+    <!-- THIN MINIMAL FLOATING TOP INDICATORS & BUTTONS (Zero Navbar Background!) -->
+    <div class="hud-top-bar">
+      <div class="hud-left-cluster">
+        <span class="thin-pill thin-pill-brand">BITS UNIVERSITY · 2032</span>
+        <span class="thin-pill">
+          <span>🚧 Gate:</span>
+          <strong id="hud-gate-state" style="color:var(--terracotta);">LOCKED</strong>
+        </span>
+        <span class="thin-pill">
+          <span>⭐</span>
+          <strong id="hud-cleared-count">0 / 49</strong>
+        </span>
+      </div>
+      <div class="hud-right-cluster">
+        <button class="thin-btn" id="btn-exit-hall" style="display:none;" onclick="switchScene('campus')">← Exit Hall</button>
+        <button class="thin-btn" onclick="triggerKarpathyCall('manual')">📞 Call Karpathy (3D)</button>
+        <button class="thin-btn thin-btn-meadow" onclick="walkToCurrentQuest()">🚶 Walk to Mission →</button>
+        <button class="thin-btn" onclick="toggleTeleportDrawer(true)">🗺️ Map (49)</button>
+      </div>
     </div>
 
-    <!-- TOP-RIGHT SCENE SWITCHER -->
-    <div class="world-top-right">
-      <button class="btn" id="btn-exit-hall" style="display:none;" onclick="switchScene('campus')">← Exit Hall to 3D Campus</button>
-      <button class="btn btn-meadow" onclick="walkToCurrentQuest()">🚶 Walk to Active Mission →</button>
+    <!-- COMPACT FLOATING MISSION STRIP -->
+    <div class="quest-strip">
+      <div class="quest-kicker" id="quest-kicker">🎯 SOUTH GATE APPROACH</div>
+      <div class="quest-headline" id="quest-headline">Walk up the tree-lined road toward the South Gate</div>
     </div>
 
-    <!-- BOTTOM CONTROLS HINT -->
+    <!-- 3D KARPATHY INCOMING CALL COMMUNICATOR TOAST -->
+    <div class="karpathy-call-toast" id="karpathy-call-toast">
+      <div class="karpathy-call-inner">
+        <div class="karpathy-call-top">
+          <canvas id="karpathy-avatar-canvas" width="116" height="116"></canvas>
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:0.35rem;">
+              <span style="font-family:var(--mono);font-size:0.76rem;font-weight:700;color:var(--meadow);" id="karpathy-call-status">📲 INCOMING 3D CALL</span>
+              <div class="call-wave"><span></span><span></span><span></span><span></span></div>
+            </div>
+            <div style="font-family:var(--serif);font-weight:800;font-size:1rem;color:var(--ink);line-height:1.35;">Andrej Karpathy</div>
+            <div style="font-size:0.76rem;color:var(--muted);font-weight:700;">Founder · Pocket Communicator</div>
+          </div>
+        </div>
+        <p id="karpathy-call-preview" style="margin:0.5rem 0 0.6rem;font-size:0.86rem;color:var(--ink);line-height:1.48;">
+          “Yo Ashwin! I dropped you a pin outside our secret self-expanding AI campus. Walk right up the South Road and head inside!”
+        </p>
+        <div style="display:flex;gap:0.45rem;">
+          <button class="thin-btn thin-btn-primary" style="flex:1;justify-content:center;" id="karpathy-call-action-btn" onclick="acceptKarpathyCall()">
+            📡 Answer & Walk Up Road →
+          </button>
+          <button class="thin-btn" onclick="dismissKarpathyToast()">✕</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- THIN BOTTOM CONTROLS HINT -->
     <div class="controls-pill">
-      <span><span class="kbd">Click</span> anywhere on the 3D ground or use <span class="kbd">W</span><span class="kbd">A</span><span class="kbd">S</span><span class="kbd">D</span> / <span class="kbd">Arrows</span> to walk</span>
+      <span><span class="kbd">Click</span> ground or <span class="kbd">W</span><span class="kbd">A</span><span class="kbd">S</span><span class="kbd">D</span> / <span class="kbd">Arrows</span> to walk</span>
       <span>·</span>
-      <span>Press <span class="kbd">E</span> or <span class="kbd">Enter</span> when near a character</span>
+      <span>Press <span class="kbd">E</span> near a character</span>
     </div>
 
-    <!-- RPG TYPEWRITER DIALOGUE STAGE -->
+    <!-- RPG TYPEWRITER DIALOGUE STAGE (With Live 3D Character Caricature!) -->
     <div class="rpg-dialogue-backdrop" id="rpg-dialogue-backdrop">
       <div class="rpg-dialogue-stage">
-        <div class="rpg-portrait" id="rpg-portrait">📡</div>
+        <div class="rpg-portrait-wrap">
+          <canvas id="rpg-portrait-canvas" width="192" height="192"></canvas>
+        </div>
         <div>
           <div class="rpg-speaker-bar">
-            <span class="rpg-speaker-name" id="rpg-speaker-name">Dean Andrej Karpathy (Hologram)</span>
-            <span class="rpg-speaker-role" id="rpg-speaker-role">FOUNDER · BITS AI UNIVERSITY</span>
+            <span class="rpg-speaker-name" id="rpg-speaker-name">Officer Rajan</span>
+            <span class="rpg-speaker-role" id="rpg-speaker-role">CHIEF OF CAMPUS SECURITY · SOUTH GATE</span>
           </div>
           <div class="rpg-speech-text" id="rpg-speech-text"></div>
           <div class="rpg-choices" id="rpg-choices"></div>
@@ -1053,11 +1264,11 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
             <span class="tag tag-terracotta" id="bk-location-tag">STOP 01 · SECURITY GATE</span>
             <span class="tag tag-meadow" id="bk-status-tag">🟢 ACTIVE MISSION</span>
           </div>
-          <h2 id="bk-title" style="margin:0;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">What an LLM Actually Is</h2>
+          <h2 id="bk-title" style="margin:0;font-family:var(--serif);font-size:1.5rem;line-height:1.35;">What an LLM Actually Is</h2>
         </div>
-        <div style="display:flex;gap:0.55rem;align-items:center;">
-          <a id="bk-standalone-link" class="btn" href="#" target="_blank">↗ Standalone Reader</a>
-          <button class="btn" onclick="closeBookModal()">✕ Return to 3D World (Esc)</button>
+        <div style="display:flex;gap:0.5rem;align-items:center;">
+          <a id="bk-standalone-link" class="thin-btn" href="#" target="_blank">↗ Reader View</a>
+          <button class="thin-btn" onclick="closeBookModal()">✕ Back to 3D World (Esc)</button>
         </div>
       </div>
 
@@ -1083,14 +1294,14 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div>
           <div style="font-family:var(--mono);font-size:0.76rem;font-weight:700;color:var(--terracotta);">SELF-EXPANDING CAMPUS MAP</div>
-          <h3 style="margin:0.1rem 0 0;font-family:var(--serif);font-size:1.3rem;">Fast-Travel Directory</h3>
+          <h3 style="margin:0.1rem 0 0;font-family:var(--serif);font-size:1.25rem;line-height:1.35;">Fast-Travel Directory</h3>
         </div>
-        <button class="btn" onclick="toggleTeleportDrawer(false)">✕ Close</button>
+        <button class="thin-btn" onclick="toggleTeleportDrawer(false)">✕ Close</button>
       </div>
       <p style="margin:0;font-size:0.84rem;color:var(--ink-soft);">
         This university constructs new rooms and labs automatically as frontier AI papers drop. Click any unlocked stop to walk Ashwin there!
       </p>
-      <div id="teleport-list" style="display:flex;flex-direction:column;gap:0.6rem;"></div>
+      <div id="teleport-list" style="display:flex;flex-direction:column;gap:0.55rem;"></div>
     </aside>
   </div>
 
@@ -1098,8 +1309,8 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     const CURRICULUM = {curriculum_json};
     const SEEDED_LESSONS = {lessons_json};
 
-    const STORAGE_KEY = "bits_uni_cleared_v4";
-    const INTRO_SEEN_KEY = "bits_uni_intro_seen_v4";
+    const STORAGE_KEY = "bits_uni_cleared_v5";
+    const INTRO_SEEN_KEY = "bits_uni_intro_seen_v5";
     let clearedIds = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"));
 
     function saveProgress() {{
@@ -1112,38 +1323,90 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     }}
 
     // =========================================================================
-    // WITTY RPG BACKSTORY & NPC DIALOGUE TREES
+    // 3D KARPATHY PERIODIC CALLS & WALK-UP-TO-GATE STORY FLOW
     // =========================================================================
-    const KARPATHY_INTRO_STEPS = [
-      {{
-        speaker: "Dean Andrej Karpathy (Hologram)",
-        role: "FOUNDER · BITS AI UNIVERSITY (YEAR 2032)",
-        portrait: "📡",
-        text: "“bzzzt— Ashwin! Glad my hologram signal reached you outside the South Gate. Welcome to Bits University — the place where humanity stopped writing boilerplate CRUD apps and started training AI systems that fold proteins, cure cancer, and run autonomous science labs.”",
-        choices: [
-          {{ label: "🚀 Wait — why is there a giant red boom barrier blocking the road?", nextStep: 1 }},
-          {{ label: "🧬 Tell me how this University works first!", nextStep: 1 }}
-        ]
+    // Periodic calls from Andrej Karpathy at key moments in the journey!
+    const KARPATHY_CALL_SCRIPTS = {{
+      "arrival": {{
+        status: "📲 INCOMING 3D CALL · ROAD APPROACH",
+        preview: "“Yo Ashwin! I pinned a secret coordinates drop on your map. Humanity is curing diseases and automating science inside these walls, and the campus literally builds new rooms on its own. Walk right up the South Road and head inside!”",
+        btnLabel: "🚶 Walk Up Road to Campus Gate →",
+        onAccept: "walkUpToGateAndGetStopped"
       }},
-      {{
-        speaker: "Dean Andrej Karpathy (Hologram)",
-        role: "FOUNDER · BITS AI UNIVERSITY (YEAR 2032)",
-        portrait: "📡",
-        text: "“Here's the secret about this campus: it's a living, self-expanding organism. Every time a new frontier paper, model, or agent technique drops in the real world, our cranes build a new lab room automatically. You don't memorize stale slides here — you build every mechanism from scratch in pure Python.”",
-        choices: [
-          {{ label: "👮🏽‍♂️ Got it! So how do I get past Officer Rajan at the gate?", nextStep: 2 }}
-        ]
+      "after_l0-what-is-an-llm": {{
+        status: "📲 KARPATHY CHECK-IN · GATE CLEARED!",
+        preview: "“Haha, I knew Officer Rajan would ambush you at the boom barrier! Now you know the secret: an LLM is just a 1-word relay runner rolling a Temperature-weighted die. Head west to Maya's Parking Lot — she'll show you why AI can't count the r's in strawberry!”",
+        btnLabel: "🅿️ Walk to Maya's Parking Lot →",
+        onAccept: "walkNext"
       }},
-      {{
-        speaker: "Dean Andrej Karpathy (Hologram)",
-        role: "FOUNDER · BITS AI UNIVERSITY (YEAR 2032)",
-        portrait: "📡",
-        text: "“Officer Rajan takes campus security very seriously. Last week he turned away three VPs of AI because they thought ChatGPT has a tiny philosopher living inside the GPU. Walk up to Rajan's booth and press [E] — whether you already know what an LLM is or not, his 60-second relay game will change how you see AI forever!”",
-        choices: [
-          {{ label: "🚶 Let's walk up to Officer Rajan at the Security Gate!", action: "walkToGuard" }}
-        ]
+      "after_l0-tokens": {{
+        status: "📲 KARPATHY CHECK-IN · BARCODES MASTERED",
+        preview: "“3.3x more tokens for Hindi than English — wild, right? Every frontier lab is fighting tokenizer efficiency right now. Next stop: grab a cup of chai with Chef Kabir on the Terrace and see how raw barcode IDs turn into 4D Meaning GPS!”",
+        btnLabel: "☕ Walk to Kabir's Chai Terrace →",
+        onAccept: "walkNext"
+      }},
+      "after_l0-embeddings": {{
+        status: "📲 KARPATHY CHECK-IN · VECTORS UNLOCKED",
+        preview: "“king - man + woman = queen! Once words become coordinates in meaning space, you can search all of human knowledge by flashlight angle. Walk over to Prof. Meera at the Central Quad Fountain — she's running the Amnesia Chef lunch tray experiment!”",
+        btnLabel: "⛲ Walk to Meera at Quad Fountain →",
+        onAccept: "walkNext"
+      }},
+      "after_l0-context-window": {{
+        status: "📲 KARPATHY CHECK-IN · QUAD CLEARED!",
+        preview: "“You survived the 24-word Lunch Tray and the Lost-in-the-Middle U-curve! The cranes on the East Lawn just finished all 6 Academic Halls (49 modules). Step inside Hall 0 whenever you're ready!”",
+        btnLabel: "🏛️ Enter Academic Hall 0 →",
+        onAccept: "walkNext"
+      }},
+      "manual": {{
+        status: "📡 LIVE 3D HOLO-CALL · ANDREJ KARPATHY",
+        preview: "“Hey Ashwin! Remember: every time a new paper or model architecture drops, our campus cranes construct a new room automatically. Never memorize jargon — test the toy mechanism in pure Python first!”",
+        btnLabel: "🚶 Continue Active Mission →",
+        onAccept: "walkNext"
       }}
-    ];
+    }};
+
+    let currentKarpathyCallKey = "arrival";
+
+    function triggerKarpathyCall(callKey) {{
+      const script = KARPATHY_CALL_SCRIPTS[callKey] || KARPATHY_CALL_SCRIPTS["manual"];
+      currentKarpathyCallKey = callKey;
+      document.getElementById("karpathy-call-status").innerText = script.status;
+      document.getElementById("karpathy-call-preview").innerText = script.preview;
+      document.getElementById("karpathy-call-action-btn").innerText = script.btnLabel;
+      document.getElementById("karpathy-call-toast").classList.add("open");
+      state.holoRinging = true;
+    }}
+
+    function dismissKarpathyToast() {{
+      document.getElementById("karpathy-call-toast").classList.remove("open");
+      state.holoRinging = false;
+    }}
+
+    function acceptKarpathyCall() {{
+      const script = KARPATHY_CALL_SCRIPTS[currentKarpathyCallKey] || KARPATHY_CALL_SCRIPTS["manual"];
+      dismissKarpathyToast();
+      if (script.onAccept === "walkUpToGateAndGetStopped") {{
+        startWalkToGateAmbush();
+      }} else {{
+        walkToCurrentQuest();
+      }}
+    }}
+
+    // Natural narrative sequence: Ashwin walks up the South Road trying to enter the Quad,
+    // and Officer Rajan physically blows his whistle, drops/flashes the boom gate, and stops him!
+    function startWalkToGateAmbush() {{
+      localStorage.setItem(INTRO_SEEN_KEY, "1");
+      state.scene = "campus";
+      state.activeStopId = "l0-what-is-an-llm";
+      state.guardWhistleTimer = 95;
+      state.player.targetX = 610;
+      state.player.targetY = 618;
+      state.player.pendingCallback = () => {{
+        state.guardWhistleTimer = 110;
+        openNpcDialogue("l0-what-is-an-llm", 0);
+      }};
+      refreshHudAndPins();
+    }}
 
     const OUTDOOR_LANDMARKS = [
       {{
@@ -1154,22 +1417,22 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         icon: "🚧",
         npcName: "Officer Rajan",
         npcRole: "CHIEF OF CAMPUS SECURITY · SOUTH GATE",
-        npcIcon: "👮🏽‍♂️",
+        npcStyle: "guard",
         x: 610, y: 610, interactRadius: 95,
         dialogue: [
           {{
-            text: "“HALT! Hands off the keyboard, Ashwin! I'm Officer Rajan. Before I lift this red-and-white boom barrier and let you into the land where AI cures diseases, answer me one thing: when an LLM answers you, what is it ACTUALLY doing under the hood?”",
+            text: "“🚨 PEEEEEP! WHOA THERE, ASHWIN! Did Karpathy call you and tell you that you could just stroll right through my South Gate?! Not on my watch! Last week I turned away three AI VPs who thought ChatGPT has a tiny philosopher inside. Tell me: what is an LLM actually doing when it replies?”",
             choices: [
-              {{ label: "🤔 Honestly? Break it down for me like I'm 12.", next: 1 }},
-              {{ label: "😎 I think I already know — let me hear your trick anyway!", next: 1 }},
-              {{ label: "⚡ Skip the small talk — take me straight to the 3-Question Gate Test!", action: "openGateQuiz" }}
+              {{ label: "🤔 Karpathy didn't warn me! Break it down for me like I'm 12.", next: 1 }},
+              {{ label: "😎 It's playing a one-word relay game with a weighted die — show me your trick!", next: 1 }},
+              {{ label: "⚡ I'm ready — give me the 3-Question Boom Gate Test right now!", action: "openGateQuiz" }}
             ]
           }},
           {{
-            text: "“Ha! Even senior engineers trip on this! An LLM has NO master plan and NO backspace key. It's playing the world's fastest one-word relay game: score every word in the dictionary, roll a weighted die (controlled by Temperature), glue that ONE word onto your prompt, and start over from scratch! Ready to test my Temperature Dice Machine inside the chapter?”",
+            text: "“Ha! Respect for honesty! An LLM has NO master plan and NO backspace key. It scores every word in the dictionary, rolls a weighted die (controlled by Temperature), glues that ONE winning word onto your prompt, and repeats from scratch! Test my Temperature Dice Machine or pass the 3-question check to lift this barrier!”",
             choices: [
               {{ label: "📖 Open Chapter 1 & Play the Temperature Dice Machine", action: "openStory" }},
-              {{ label: "🚧 Let me take the 3-Question Boom Gate Test right now!", action: "openGateQuiz" }}
+              {{ label: "🚧 Take the 3-Question Boom Gate Test to Lift the Barrier", action: "openGateQuiz" }}
             ]
           }}
         ]
@@ -1182,14 +1445,14 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         icon: "🅿️",
         npcName: "Maya",
         npcRole: "PARKING & BARCODE ENGINEER · WEST LOT",
-        npcIcon: "👷🏽‍♀️",
+        npcStyle: "engineer",
         x: 240, y: 475, interactRadius: 95,
         dialogue: [
           {{
-            text: "“Hey Ashwin! You made it past Officer Rajan! Look at these 3 parked cars in my lot: [str #496], [aw #675], and [berry #15717]. Ever wondered why a billion-dollar AI embarrassed itself counting the letter 'r' in 'strawberry'?”",
+            text: "“Hey Ashwin! You got Officer Rajan to lift the boom gate! Look at these 3 parked cars in my lot: [str #496], [aw #675], and [berry #15717]. Ever wondered why a billion-dollar AI embarrassed itself counting the letter 'r' in 'strawberry'?”",
             choices: [
               {{ label: "🍓 Wait — why CAN'T it count the three r's in strawberry?", next: 1 }},
-              {{ label: "🇮🇳 And what's this rumor about Hindi costing 3.3x more than English?", next: 1 }},
+              {{ label: "🇮🇳 And why does Hindi cost 3.3x more tokens than English?", next: 1 }},
               {{ label: "⚡ Take me straight to the Parking Lot Barcode Test!", action: "openGateQuiz" }}
             ]
           }},
@@ -1210,7 +1473,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         icon: "☕",
         npcName: "Chef Kabir",
         npcRole: "CHAI TERRACE HOST · MEANING MAPPER",
-        npcIcon: "🧑🏽‍🍳",
+        npcStyle: "chef",
         x: 375, y: 295, interactRadius: 95,
         dialogue: [
           {{
@@ -1238,7 +1501,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         icon: "⛲",
         npcName: "Prof. Meera",
         npcRole: "QUAD FOUNTAIN MENTOR · MEMORY ARCHITECT",
-        npcIcon: "👩🏽‍🏫",
+        npcStyle: "prof",
         x: 615, y: 350, interactRadius: 95,
         dialogue: [
           {{
@@ -1281,18 +1544,21 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     ];
 
     const state = {{
-      scene: "campus", // "campus" | "hall"
+      scene: "campus",
       hallLevel: 0,
       activeStopId: "l0-what-is-an-llm",
+      activePortraitStyle: "guard",
       nearbyLandmark: null,
       nearbyHall: null,
       nearbyRoomIdx: -1,
+      holoRinging: false,
+      guardWhistleTimer: 0,
       player: {{
         x: 610,
-        y: 675,
-        targetX: null,
-        targetY: null,
-        speed: 4.8,
+        y: 722, // Spawns down the approach road walking up toward the gate!
+        targetX: 610,
+        targetY: 668,
+        speed: 4.6,
         frame: 0,
         pendingCallback: null
       }},
@@ -1324,6 +1590,178 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     }}
 
     // =========================================================================
+    // 3D CARICATURE RENDERER (Karpathy & Campus Characters in 3D Canvas!)
+    // =========================================================================
+    function draw3DCaricaturePortrait(pCtx, w, h, style, tick) {{
+      pCtx.clearRect(0, 0, w, h);
+      const cx = w / 2;
+      const cy = h / 2 + 10;
+      const bob = Math.sin(tick * 0.12) * 2.5;
+      const tilt = Math.sin(tick * 0.07) * 0.04;
+      const talkOpen = Math.abs(Math.sin(tick * 0.22)) * 4.5;
+
+      pCtx.save();
+      pCtx.translate(cx, cy + bob);
+      pCtx.rotate(tilt);
+
+      if (style === "karpathy") {{
+        // Hologram scanline aura & 3D depth rings
+        const bgGrad = pCtx.createRadialGradient(0, -10, 6, 0, 0, w * 0.48);
+        bgGrad.addColorStop(0, "#bae6fd");
+        bgGrad.addColorStop(1, "#e0f2fe");
+        pCtx.fillStyle = bgGrad;
+        pCtx.fillRect(-w, -h, w * 2, h * 2);
+
+        // Hoodie & Laptop with neural network sticker
+        pCtx.fillStyle = "#1e293b";
+        pCtx.strokeStyle = "#111c16";
+        pCtx.lineWidth = 2.4;
+        pCtx.beginPath();
+        pCtx.roundRect(-28, 12, 56, 36, 12);
+        pCtx.fill();
+        pCtx.stroke();
+
+        // Hoodie drawstrings
+        pCtx.strokeStyle = "#38bdf8";
+        pCtx.lineWidth = 2;
+        pCtx.beginPath();
+        pCtx.moveTo(-7, 15); pCtx.lineTo(-9, 30);
+        pCtx.moveTo(7, 15); pCtx.lineTo(9, 30);
+        pCtx.stroke();
+
+        // 3D Neck & Sculpted Head
+        pCtx.fillStyle = "#fdba74";
+        pCtx.fillRect(-7, 4, 14, 12);
+        pCtx.fillStyle = "#fed7aa";
+        pCtx.strokeStyle = "#111c16";
+        pCtx.lineWidth = 2.4;
+        pCtx.beginPath();
+        pCtx.roundRect(-21, -30, 42, 38, 15);
+        pCtx.fill();
+        pCtx.stroke();
+
+        // 3D Cheek shading
+        pCtx.fillStyle = "rgba(234, 88, 12, 0.16)";
+        pCtx.beginPath();
+        pCtx.arc(-12, -7, 5, 0, Math.PI * 2);
+        pCtx.arc(12, -7, 5, 0, Math.PI * 2);
+        pCtx.fill();
+
+        // Signature tousled wavy brown hair (3D layered tufts)
+        pCtx.fillStyle = "#451a03";
+        pCtx.beginPath();
+        pCtx.arc(0, -28, 22, Math.PI * 0.92, Math.PI * 2.08);
+        pCtx.fill();
+        pCtx.stroke();
+        // Hair curls on top
+        pCtx.beginPath();
+        pCtx.arc(-11, -36, 8, 0, Math.PI * 2);
+        pCtx.arc(2, -38, 9, 0, Math.PI * 2);
+        pCtx.arc(13, -34, 7, 0, Math.PI * 2);
+        pCtx.fill();
+
+        // Signature rectangular dark-rimmed glasses with glowing lens reflection
+        pCtx.fillStyle = "rgba(56, 189, 248, 0.22)";
+        pCtx.strokeStyle = "#111c16";
+        pCtx.lineWidth = 2.4;
+        pCtx.beginPath();
+        pCtx.roundRect(-17, -20, 14, 10, 3);
+        pCtx.roundRect(3, -20, 14, 10, 3);
+        pCtx.fill();
+        pCtx.stroke();
+        // Glasses bridge
+        pCtx.beginPath();
+        pCtx.moveTo(-3, -15);
+        pCtx.lineTo(3, -15);
+        pCtx.stroke();
+
+        // Expressive eyes behind glasses
+        pCtx.fillStyle = "#111c16";
+        pCtx.beginPath();
+        pCtx.arc(-10, -15, 2.2, 0, Math.PI * 2);
+        pCtx.arc(10, -15, 2.2, 0, Math.PI * 2);
+        pCtx.fill();
+
+        // Headset mic boom
+        pCtx.strokeStyle = "#0284c7";
+        pCtx.lineWidth = 2.2;
+        pCtx.beginPath();
+        pCtx.moveTo(-21, -12);
+        pCtx.quadraticCurveTo(-24, -1, -8, -1);
+        pCtx.stroke();
+        pCtx.fillStyle = "#0284c7";
+        pCtx.beginPath();
+        pCtx.arc(-7, -1, 2.8, 0, Math.PI * 2);
+        pCtx.fill();
+
+        // Animated talking smile
+        pCtx.fillStyle = "#7c2d12";
+        pCtx.beginPath();
+        pCtx.ellipse(0, -3, 6.5, 1.8 + talkOpen * 0.6, 0, 0, Math.PI * 2);
+        pCtx.fill();
+      }} else {{
+        // 3D Caricature for Officer Rajan, Maya, Chef Kabir, or Prof. Meera
+        const colors = {{
+          guard: {{ bg: "#fef3c7", coat: "#1e3a8a", hat: "#1e3a8a", badge: "#facc15" }},
+          engineer: {{ bg: "#e0f2fe", coat: "#0284c7", hat: "#eab308", badge: "#38bdf8" }},
+          chef: {{ bg: "#ffedd5", coat: "#ea580c", hat: "#ffffff", badge: "#fed7aa" }},
+          prof: {{ bg: "#f3e8ff", coat: "#6b21a8", hat: "#4c1d95", badge: "#e9d5ff" }}
+        }}[style] || {{ bg: "#fef3c7", coat: "#9a2c13", hat: "#7c2d12", badge: "#facc15" }};
+
+        pCtx.fillStyle = colors.bg;
+        pCtx.fillRect(-w, -h, w * 2, h * 2);
+
+        // Coat / shoulders
+        pCtx.fillStyle = colors.coat;
+        pCtx.strokeStyle = "#111c16";
+        pCtx.lineWidth = 3;
+        pCtx.beginPath();
+        pCtx.roundRect(-38, 16, 76, 48, 16);
+        pCtx.fill();
+        pCtx.stroke();
+
+        // Head
+        pCtx.fillStyle = "#fed7aa";
+        pCtx.beginPath();
+        pCtx.roundRect(-26, -34, 52, 48, 20);
+        pCtx.fill();
+        pCtx.stroke();
+
+        // Hat / Cap / Hair
+        pCtx.fillStyle = colors.hat;
+        pCtx.beginPath();
+        pCtx.roundRect(-29, -46, 58, 18, 8);
+        pCtx.fill();
+        pCtx.stroke();
+
+        if (style === "guard") {{
+          // Gold Security Cap Emblem & Whistle
+          pCtx.fillStyle = "#facc15";
+          pCtx.beginPath();
+          pCtx.arc(0, -37, 5, 0, Math.PI * 2);
+          pCtx.fill();
+          // Mustache
+          pCtx.fillStyle = "#111c16";
+          pCtx.fillRect(-12, -4, 24, 4.5);
+        }}
+
+        // Eyes
+        pCtx.fillStyle = "#111c16";
+        pCtx.beginPath();
+        pCtx.arc(-11, -16, 3.2, 0, Math.PI * 2);
+        pCtx.arc(11, -16, 3.2, 0, Math.PI * 2);
+        pCtx.fill();
+
+        // Talking mouth
+        pCtx.fillStyle = "#7c2d12";
+        pCtx.beginPath();
+        pCtx.ellipse(0, 3, 7, 2 + talkOpen * 0.7, 0, 0, Math.PI * 2);
+        pCtx.fill();
+      }}
+      pCtx.restore();
+    }}
+
+    // =========================================================================
     // TYPEWRITER RPG DIALOGUE ENGINE
     // =========================================================================
     function playTypewriterText(elementId, fullText) {{
@@ -1342,42 +1780,13 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       }}, 16);
     }}
 
-    function openKarpathyCutscene(stepIdx = 0) {{
-      const step = KARPATHY_INTRO_STEPS[stepIdx];
-      if (!step) return;
-      document.getElementById("rpg-portrait").innerText = step.portrait;
-      document.getElementById("rpg-speaker-name").innerText = step.speaker;
-      document.getElementById("rpg-speaker-role").innerText = step.role;
-      playTypewriterText("rpg-speech-text", step.text);
-
-      const choicesEl = document.getElementById("rpg-choices");
-      choicesEl.innerHTML = step.choices.map((c, i) => `
-        <button class="rpg-choice-btn ${{i === 0 ? 'choice-primary' : ''}}" onclick="handleKarpathyChoice(${{stepIdx}}, ${{i}})">
-          <span>${{c.label}}</span>
-          <span>→</span>
-        </button>
-      `).join("");
-      document.getElementById("rpg-dialogue-backdrop").classList.add("open");
-    }}
-
-    function handleKarpathyChoice(stepIdx, choiceIdx) {{
-      const c = KARPATHY_INTRO_STEPS[stepIdx].choices[choiceIdx];
-      if (typeof c.nextStep === "number") {{
-        openKarpathyCutscene(c.nextStep);
-      }} else if (c.action === "walkToGuard") {{
-        localStorage.setItem(INTRO_SEEN_KEY, "1");
-        closeRpgDialogue();
-        walkToOutdoorStop("l0-what-is-an-llm", true);
-      }}
-    }}
-
     function openNpcDialogue(stopId, nodeIdx = 0) {{
       const stop = OUTDOOR_LANDMARKS.find(s => s.id === stopId);
       if (!stop) return;
       state.activeStopId = stopId;
+      state.activePortraitStyle = stop.npcStyle || "guard";
       const node = stop.dialogue[nodeIdx] || stop.dialogue[0];
 
-      document.getElementById("rpg-portrait").innerText = stop.npcIcon;
       document.getElementById("rpg-speaker-name").innerText = stop.npcName;
       document.getElementById("rpg-speaker-role").innerText = stop.npcRole;
       playTypewriterText("rpg-speech-text", node.text);
@@ -1423,12 +1832,8 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       const stop = OUTDOOR_LANDMARKS.find(s => s.id === stopId);
       if (!stop) return;
       if (stopId !== "l0-what-is-an-llm" && !isGateOpen()) {{
-        // Boom barrier is closed! Walk up to Officer Rajan instead
-        state.activeStopId = "l0-what-is-an-llm";
-        state.player.targetX = 610;
-        state.player.targetY = 635;
-        state.player.pendingCallback = () => openNpcDialogue("l0-what-is-an-llm", 0);
-        refreshHudAndPins();
+        // Boom barrier is closed! Officer Rajan intercepts Ashwin at the South Gate!
+        startWalkToGateAmbush();
         return;
       }}
       state.scene = "campus";
@@ -1441,7 +1846,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
 
     function walkToCurrentQuest() {{
       if (!isGateOpen()) {{
-        walkToOutdoorStop("l0-what-is-an-llm", true);
+        startWalkToGateAmbush();
         return;
       }}
       for (const s of OUTDOOR_LANDMARKS) {{
@@ -1473,25 +1878,22 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     function refreshHudAndPins() {{
       const gateEl = document.getElementById("hud-gate-state");
       if (isGateOpen()) {{
-        gateEl.innerText = "OPEN (BOOM LIFTED)";
+        gateEl.innerText = "OPEN";
         gateEl.style.color = "var(--meadow)";
       }} else {{
-        gateEl.innerText = "LOCKED (TALK TO GUARD)";
+        gateEl.innerText = "LOCKED";
         gateEl.style.color = "var(--terracotta)";
       }}
       document.getElementById("hud-cleared-count").innerText = `${{clearedIds.size}} / ${{CURRICULUM.modules.length}}`;
 
-      // Update Top-Left Quest Banner
+      // Update Compact Floating Mission Strip
       let nextQuestStop = OUTDOOR_LANDMARKS.find(s => !clearedIds.has(s.id));
       if (!nextQuestStop) {{
-        document.getElementById("quest-kicker").innerText = "🏛️ OUTDOOR CAMPUS CLEARED · ENTER HALLS";
+        document.getElementById("quest-kicker").innerText = "🏛️ QUAD CLEARED · ENTER HALLS";
         document.getElementById("quest-headline").innerText = "Explore the 6 Self-Expanding Academic Halls";
-        document.getElementById("quest-sub").innerText = "You cleared all 4 outdoor landmarks! Walk into Hall 0–5 on the East Lawn.";
       }} else {{
-        document.getElementById("quest-kicker").innerText = `🎯 ACTIVE MISSION · ${{nextQuestStop.num}}`;
+        document.getElementById("quest-kicker").innerText = `🎯 ACTIVE · ${{nextQuestStop.num}}`;
         document.getElementById("quest-headline").innerText = `${{nextQuestStop.icon}} Talk to ${{nextQuestStop.npcName}} at ${{nextQuestStop.name}}`;
-        const mod = CURRICULUM.modules.find(m => m.id === nextQuestStop.id);
-        document.getElementById("quest-sub").innerText = mod ? mod.question : "";
       }}
 
       // Populate Fast-Travel Drawer
@@ -1507,7 +1909,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
               <span style="font-family:var(--mono);font-size:0.76rem;font-weight:700;color:var(--terracotta);">${{s.icon}} ${{s.num}} · ${{s.name}}</span>
               <span class="tag ${{cleared ? 'tag-meadow' : (unlocked ? 'tag-amber' : '')}}">${{cleared ? '✓ CLEARED' : (unlocked ? '● READY' : '🔒 GATE')}}</span>
             </div>
-            <div style="font-family:var(--serif);font-weight:800;font-size:0.96rem;">${{mod ? mod.title : s.name}}</div>
+            <div style="font-family:var(--serif);font-weight:800;font-size:0.95rem;">${{mod ? mod.title : s.name}}</div>
           </div>
         `;
       }}
@@ -1515,12 +1917,12 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         const mods = getModulesForLevel(h.level);
         const done = mods.filter(m => clearedIds.has(m.id)).length;
         tpHtml += `
-          <div class="teleport-row" onclick="toggleTeleportDrawer(false);if(!isGateOpen())walkToOutdoorStop('l0-what-is-an-llm',true);else switchScene('hall',${{h.level}})">
+          <div class="teleport-row" onclick="toggleTeleportDrawer(false);if(!isGateOpen())startWalkToGateAmbush();else switchScene('hall',${{h.level}})">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.2rem;">
               <span style="font-family:var(--mono);font-size:0.76rem;font-weight:700;color:var(--sky);">🏛️ ${{h.code}}</span>
               <span class="tag tag-sky">${{done}}/${{mods.length}} Rooms</span>
             </div>
-            <div style="font-family:var(--serif);font-weight:800;font-size:0.96rem;">${{h.name}}</div>
+            <div style="font-family:var(--serif);font-weight:800;font-size:0.95rem;">${{h.name}}</div>
             <div style="font-size:0.78rem;color:var(--muted);">${{h.sub}}</div>
           </div>
         `;
@@ -1534,13 +1936,16 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     // =========================================================================
     const canvas = document.getElementById("campus-canvas");
     const ctx = canvas.getContext("2d");
+    const karpathyAvatarCanvas = document.getElementById("karpathy-avatar-canvas");
+    const karpathyAvatarCtx = karpathyAvatarCanvas.getContext("2d");
+    const rpgPortraitCanvas = document.getElementById("rpg-portrait-canvas");
+    const rpgPortraitCtx = rpgPortraitCanvas.getContext("2d");
 
     function renderHtmlWorldPins() {{
       const layer = document.getElementById("pins-layer");
       let html = "";
 
       if (state.scene === "campus") {{
-        // 4 Outdoor Checkpoint Pins
         for (const s of OUTDOOR_LANDMARKS) {{
           const cleared = clearedIds.has(s.id);
           const unlocked = isModuleUnlocked(s.id);
@@ -1548,7 +1953,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
           const leftPct = ((s.x / 1280) * 100).toFixed(2);
           const topPct = (((s.y - 54) / 760) * 100).toFixed(2);
           const cls = cleared ? "pin-cleared" : (active ? "pin-active" : (!unlocked ? "pin-locked" : ""));
-          const badgeTxt = cleared ? "✓ DONE" : (unlocked ? s.num : "🔒 LOCKED");
+          const badgeTxt = cleared ? "✓" : (unlocked ? s.num : "🔒");
           html += `
             <div class="world-pin ${{cls}}" style="left:${{leftPct}}%;top:${{topPct}}%;" onclick="walkToOutdoorStop('${{s.id}}', true)">
               <span class="pin-badge">${{badgeTxt}}</span>
@@ -1556,21 +1961,19 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
             </div>
           `;
         }}
-        // 6 Academic Hall Pins (positioned cleanly above each 3D roof with zero overlap!)
         for (const h of ACADEMIC_HALLS) {{
           const mods = getModulesForLevel(h.level);
           const done = mods.filter(m => clearedIds.has(m.id)).length;
           const leftPct = ((h.x / 1280) * 100).toFixed(2);
           const topPct = (((h.y - h.h - h.d / 2 - 14) / 760) * 100).toFixed(2);
           html += `
-            <div class="world-pin pin-hall" style="left:${{leftPct}}%;top:${{topPct}}%;" onclick="if(!isGateOpen())walkToOutdoorStop('l0-what-is-an-llm',true);else switchScene('hall',${{h.level}})">
+            <div class="world-pin pin-hall" style="left:${{leftPct}}%;top:${{topPct}}%;" onclick="if(!isGateOpen())startWalkToGateAmbush();else switchScene('hall',${{h.level}})">
               <span class="pin-badge">${{h.code}} · ${{done}}/${{mods.length}}</span>
               <span class="pin-label">🏛️ ${{h.name}}</span>
             </div>
           `;
         }}
       }} else {{
-        // Interior Hall Classroom Pins
         const mods = getModulesForLevel(state.hallLevel);
         for (let i = 0; i < Math.min(HALL_ROOMS.length, mods.length); i++) {{
           const r = HALL_ROOMS[i];
@@ -1601,7 +2004,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     }}
 
     // =========================================================================
-    // HIGH-DPI 3D ISOMETRIC ARCHITECTURAL RENDERER (Zero Blurry Canvas Text!)
+    // HIGH-DPI 3D ISOMETRIC ARCHITECTURAL RENDERER
     // =========================================================================
     function syncCanvasRetina() {{
       const dpr = window.devicePixelRatio || 1;
@@ -1614,12 +2017,10 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }}
 
-    // Extruded 3D architectural building with pitched/flat roof, windows, doors, and ambient shadow
     function drawIsoBuilding3D(cx, cy, w, d, h, roofColor, leftWall, rightWall, hasWindows = true) {{
       const hw = w / 2;
       const hd = d / 2;
 
-      // Soft ambient ground shadow
       ctx.fillStyle = "rgba(17, 28, 22, 0.22)";
       ctx.beginPath();
       ctx.moveTo(cx, cy + hd + 12);
@@ -1629,7 +2030,6 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.closePath();
       ctx.fill();
 
-      // Left sunlit facade
       ctx.fillStyle = leftWall;
       ctx.beginPath();
       ctx.moveTo(cx - hw, cy);
@@ -1642,7 +2042,6 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      // Right shaded facade
       ctx.fillStyle = rightWall;
       ctx.beginPath();
       ctx.moveTo(cx, cy + hd);
@@ -1653,14 +2052,12 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.fill();
       ctx.stroke();
 
-      // Isometric aligned windows on left and right facades
       if (hasWindows && h >= 44) {{
         const rows = h >= 65 ? 2 : 1;
         for (let r = 0; r < rows; r++) {{
           const yOff = -h + 16 + r * 22;
           for (let c = 1; c <= 3; c++) {{
             const t = c / 4;
-            // Left facade window
             const lx = (cx - hw) * (1 - t) + cx * t;
             const ly = cy * (1 - t) + (cy + hd) * t + yOff;
             ctx.fillStyle = "#0284c7";
@@ -1669,7 +2066,6 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
             ctx.lineWidth = 1.2;
             ctx.strokeRect(lx - 4, ly, 8, 12);
 
-            // Right facade window
             const rx = cx * (1 - t) + (cx + hw) * t;
             const ry = (cy + hd) * (1 - t) + cy * t + yOff;
             ctx.fillStyle = "#0369a1";
@@ -1677,13 +2073,11 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
             ctx.strokeRect(rx - 4, ry, 8, 12);
           }}
         }}
-        // Arched entrance door on front-left corner
         ctx.fillStyle = "#7c2d12";
         ctx.fillRect(cx - 14, cy + hd - 19, 10, 16);
         ctx.strokeRect(cx - 14, cy + hd - 19, 10, 16);
       }}
 
-      // Roof slab with overhang
       const oh = 5;
       ctx.fillStyle = roofColor;
       ctx.beginPath();
@@ -1697,7 +2091,6 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      // Roof skylight crest
       ctx.fillStyle = "rgba(255,255,255,0.28)";
       ctx.beginPath();
       ctx.moveTo(cx, cy - hd * 0.45 - h);
@@ -1772,7 +2165,6 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         ? Math.abs(Math.sin(state.player.frame)) * 3.5
         : Math.sin(state.tick * 0.05 + x) * 1.5;
 
-      // Ground shadow ring
       ctx.fillStyle = isPlayer ? "rgba(154, 44, 19, 0.35)" : "rgba(17, 28, 22, 0.28)";
       ctx.beginPath();
       ctx.ellipse(x, y + 13, isPlayer ? 16 : 14, isPlayer ? 8 : 6.5, 0, 0, Math.PI * 2);
@@ -1786,12 +2178,10 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         ctx.stroke();
       }}
 
-      // Boots / legs
       ctx.fillStyle = "#1e293b";
       ctx.fillRect(x - 6, y + 1 - bounce, 5, 11);
       ctx.fillRect(x + 1, y + 1 - bounce, 5, 11);
 
-      // Jacket
       ctx.fillStyle = jacketColor;
       ctx.strokeStyle = "#111c16";
       ctx.lineWidth = 2;
@@ -1800,25 +2190,50 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.fill();
       ctx.stroke();
 
-      // Head
       ctx.fillStyle = "#fed7aa";
       ctx.beginPath();
       ctx.arc(x, y - 23 - bounce, 9.5, 0, Math.PI * 2);
       ctx.fill();
       ctx.stroke();
 
-      // Cap / Hair
       ctx.fillStyle = isPlayer ? "#9a2c13" : "#111c16";
       ctx.beginPath();
       ctx.arc(x, y - 26 - bounce, 9.5, Math.PI, Math.PI * 2);
       ctx.fill();
 
-      // Eyes
       ctx.fillStyle = "#111c16";
       ctx.fillRect(x - 4, y - 24 - bounce, 2.5, 3);
       ctx.fillRect(x + 2, y - 24 - bounce, 2.5, 3);
 
-      // Quest Exclamation Bubble above NPC head
+      // If Ashwin's communicator is ringing, project a miniature 3D Karpathy hologram beam above his hand!
+      if (isPlayer && state.holoRinging) {{
+        const pulse = Math.sin(state.tick * 0.15) * 3;
+        ctx.save();
+        ctx.strokeStyle = "rgba(14, 165, 233, 0.75)";
+        ctx.fillStyle = "rgba(56, 189, 248, 0.22)";
+        ctx.lineWidth = 1.8;
+        ctx.beginPath();
+        ctx.moveTo(x + 10, y - 10 - bounce);
+        ctx.lineTo(x + 28, y - 42 - bounce + pulse);
+        ctx.lineTo(x + 48, y - 42 - bounce + pulse);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        // Floating 3D Karpathy holo-head right in the 3D world!
+        ctx.fillStyle = "#38bdf8";
+        ctx.strokeStyle = "#111c16";
+        ctx.beginPath();
+        ctx.arc(x + 38, y - 50 - bounce + pulse, 10, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        // Glasses on mini 3D hologram
+        ctx.fillStyle = "#111c16";
+        ctx.fillRect(x + 32, y - 53 - bounce + pulse, 5, 3.5);
+        ctx.fillRect(x + 39, y - 53 - bounce + pulse, 5, 3.5);
+        ctx.restore();
+      }}
+
       if (hasExclamation) {{
         const floatY = Math.sin(state.tick * 0.08 + x) * 3;
         ctx.fillStyle = "#facc15";
@@ -1838,14 +2253,12 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     function drawCampusWorld() {{
       syncCanvasRetina();
 
-      // 1. Sunlit Sky & Winding River Horizon
       const skyGrad = ctx.createLinearGradient(0, 0, 0, 150);
       skyGrad.addColorStop(0, "#38bdf8");
       skyGrad.addColorStop(1, "#bae6fd");
       ctx.fillStyle = skyGrad;
       ctx.fillRect(0, 0, 1280, 150);
 
-      // Rolling distant hills
       ctx.fillStyle = "#84cc16";
       ctx.beginPath();
       ctx.moveTo(0, 150);
@@ -1856,7 +2269,6 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.closePath();
       ctx.fill();
 
-      // Sunlit Campus Lawn Gradient
       const lawnGrad = ctx.createLinearGradient(0, 135, 0, 760);
       lawnGrad.addColorStop(0, "#a3e635");
       lawnGrad.addColorStop(0.55, "#84cc16");
@@ -1864,7 +2276,6 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.fillStyle = lawnGrad;
       ctx.fillRect(0, 135, 1280, 625);
 
-      // Isometric mowed lawn stripes
       ctx.strokeStyle = "rgba(255, 255, 255, 0.14)";
       ctx.lineWidth = 1.5;
       for (let i = -800; i < 1800; i += 95) {{
@@ -1878,8 +2289,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         ctx.stroke();
       }}
 
-      // 2. Sandstone Campus Avenues & South Entrance Road
-      // South Entrance Asphalt Road
+      // South Entrance Approach Road (Tree-lined arrival avenue)
       ctx.fillStyle = "#334155";
       ctx.fillRect(560, 560, 100, 200);
       ctx.strokeStyle = "#f8fafc";
@@ -1891,40 +2301,18 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // Warm Sandstone Walkways connecting all landmarks
+      // Warm Sandstone Walkways
       ctx.fillStyle = "#f5ebe0";
       ctx.strokeStyle = "#d6cbb9";
       ctx.lineWidth = 3;
-      // Central Grand Avenue (Gate -> Quad Fountain -> North Halls)
-      ctx.beginPath();
-      ctx.roundRect(580, 175, 60, 395, 16);
-      ctx.fill();
-      ctx.stroke();
-      // West Avenue to Parking Lot
-      ctx.beginPath();
-      ctx.roundRect(225, 455, 385, 44, 14);
-      ctx.fill();
-      ctx.stroke();
-      // West Avenue to Chai Cafeteria
-      ctx.beginPath();
-      ctx.roundRect(355, 275, 255, 44, 14);
-      ctx.fill();
-      ctx.stroke();
-      // East Avenues to the 6 Academic Halls
-      ctx.beginPath();
-      ctx.roundRect(610, 495, 535, 44, 14);
-      ctx.fill();
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.roundRect(610, 305, 535, 44, 14);
-      ctx.fill();
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.roundRect(610, 145, 495, 40, 14);
-      ctx.fill();
-      ctx.stroke();
+      ctx.beginPath(); ctx.roundRect(580, 175, 60, 395, 16); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.roundRect(225, 455, 385, 44, 14); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.roundRect(355, 275, 255, 44, 14); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.roundRect(610, 495, 535, 44, 14); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.roundRect(610, 305, 535, 44, 14); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.roundRect(610, 145, 495, 40, 14); ctx.fill(); ctx.stroke();
 
-      // Campus Perimeter Brick Wall & Pillars along South Gate
+      // Campus Perimeter Brick Wall
       ctx.fillStyle = "#9a2c13";
       ctx.fillRect(40, 634, 505, 16);
       ctx.fillRect(675, 634, 565, 16);
@@ -1932,9 +2320,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.fillRect(40, 630, 505, 4);
       ctx.fillRect(675, 630, 565, 4);
 
-      // =====================================================================
-      // LANDMARK 2: WEST CAMPUS PARKING LOT (l0-tokens)
-      // =====================================================================
+      // LANDMARK 2: WEST CAMPUS PARKING LOT
       ctx.save();
       ctx.fillStyle = "#334155";
       ctx.strokeStyle = "#cbd5e1";
@@ -1944,7 +2330,6 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.fill();
       ctx.stroke();
 
-      // Painted yellow parking bays
       ctx.strokeStyle = "#facc15";
       ctx.lineWidth = 2;
       for (let bx = 125; bx <= 285; bx += 54) {{
@@ -1953,21 +2338,16 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         ctx.lineTo(bx, 455);
         ctx.stroke();
       }}
-      // 3 Parked Isometric Token Cars
       drawCar3D(152, 430, "#ef4444", "#fecaca");
       drawCar3D(206, 430, "#3b82f6", "#bfdbfe");
       drawCar3D(260, 430, "#10b981", "#a7f3d0");
 
-      // Token Chopper Kiosk & Maya NPC
       drawIsoBuilding3D(135, 510, 62, 38, 36, "#0369a1", "#f0f9ff", "#bae6fd", false);
       drawCharacter3D(240, 495, "#0284c7", false, !clearedIds.has("l0-tokens"));
       ctx.restore();
 
-      // =====================================================================
-      // LANDMARK 3: CHAI & EMBEDDINGS TERRACE (l0-embeddings)
-      // =====================================================================
+      // LANDMARK 3: CHAI & EMBEDDINGS TERRACE
       ctx.save();
-      // Terracotta wooden sun deck
       ctx.fillStyle = "#fed7aa";
       ctx.strokeStyle = "#9a2c13";
       ctx.lineWidth = 2.5;
@@ -1976,19 +2356,14 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.fill();
       ctx.stroke();
 
-      // 3D Cafeteria Pavilion
       drawIsoBuilding3D(310, 248, 104, 60, 48, "#c2410c", "#fff7ed", "#fdba74", true);
-      // Patio Umbrella Tables (Meaning Clusters)
       drawUmbrellaTable3D(410, 232, "#ef4444");
       drawUmbrellaTable3D(452, 268, "#f59e0b");
       drawUmbrellaTable3D(400, 296, "#15803d");
-      // Chef Kabir NPC
       drawCharacter3D(375, 315, "#ea580c", false, !clearedIds.has("l0-embeddings"));
       ctx.restore();
 
-      // =====================================================================
-      // LANDMARK 4: CENTRAL QUAD FOUNTAIN (l0-context-window)
-      // =====================================================================
+      // LANDMARK 4: CENTRAL QUAD FOUNTAIN
       ctx.save();
       ctx.fillStyle = "#e7e5e4";
       ctx.strokeStyle = "#78716c";
@@ -1998,7 +2373,6 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.fill();
       ctx.stroke();
 
-      // Animated Water Basin
       ctx.fillStyle = "#0284c7";
       ctx.strokeStyle = "#111c16";
       ctx.lineWidth = 2;
@@ -2015,13 +2389,10 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.stroke();
 
       drawIsoBuilding3D(610, 343, 22, 16, 26, "#38bdf8", "#f8fafc", "#cbd5e1", false);
-      // Prof. Meera NPC
       drawCharacter3D(665, 365, "#6b21a8", false, !clearedIds.has("l0-context-window"));
       ctx.restore();
 
-      // =====================================================================
-      // 6 3D ISOMETRIC ACADEMIC HALLS (With Expandable Scaffolding Crane!)
-      // =====================================================================
+      // 6 ACADEMIC HALLS
       for (const h of ACADEMIC_HALLS) {{
         drawIsoBuilding3D(h.x, h.y, h.w, h.d, h.h, h.roof, h.wallL, h.wallR, true);
       }}
@@ -2037,28 +2408,26 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.stroke();
       ctx.restore();
 
-      // =====================================================================
-      // LANDMARK 1: SOUTH ENTRANCE SECURITY GATE & GUARD BOOTH (l0-what-is-an-llm)
-      // =====================================================================
+      // LANDMARK 1: SOUTH ENTRANCE SECURITY GATE & GUARD BOOTH
       ctx.save();
       drawIsoBuilding3D(520, 610, 64, 42, 46, "#9a2c13", "#fffbeb", "#fde68a", false);
-      // Guard booth glass window
       ctx.fillStyle = "#38bdf8";
       ctx.fillRect(528, 582, 16, 14);
       ctx.strokeStyle = "#111c16";
       ctx.lineWidth = 1.5;
       ctx.strokeRect(528, 582, 16, 14);
 
-      // Red Boom Barrier Pedestal
       ctx.fillStyle = "#dc2626";
       ctx.fillRect(552, 602, 14, 26);
       ctx.strokeRect(552, 602, 14, 26);
 
-      // Red-and-White Boom Arm (Rotates UP when cleared!)
+      // Red-and-White Boom Arm (Flashes/vibrates when Officer Rajan blows whistle!)
       ctx.save();
       ctx.translate(559, 608);
       if (isGateOpen()) {{
         ctx.rotate(-1.25);
+      }} else if (state.guardWhistleTimer > 0) {{
+        ctx.rotate(Math.sin(state.tick * 0.45) * 0.06);
       }}
       for (let seg = 0; seg < 6; seg++) {{
         ctx.fillStyle = seg % 2 === 0 ? "#ef4444" : "#ffffff";
@@ -2070,14 +2439,26 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.restore();
 
       // Officer Rajan Security Guard NPC
-      drawCharacter3D(580, 598, "#1e3a8a", false, !clearedIds.has("l0-what-is-an-llm"));
+      const rajanX = state.guardWhistleTimer > 0 ? 596 : 580;
+      drawCharacter3D(rajanX, 598, "#1e3a8a", false, !clearedIds.has("l0-what-is-an-llm"));
+
+      // Animated Whistle Alert Rings when Rajan stops Ashwin at the gate!
+      if (state.guardWhistleTimer > 0) {{
+        state.guardWhistleTimer -= 1;
+        const rPulse = (state.tick % 20) * 2.2;
+        ctx.strokeStyle = "rgba(220, 38, 38, 0.75)";
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.arc(rajanX, 568, 12 + rPulse, 0, Math.PI * 2);
+        ctx.stroke();
+      }}
       ctx.restore();
 
-      // 3D Trees around Campus
+      // 3D Trees lining the South Approach Road & Campus
       const trees = [
         [105, 210], [170, 260], [95, 595], [440, 575],
-        [735, 585], [755, 415], [755, 235], [510, 155],
-        [1225, 595], [1230, 395], [1230, 210]
+        [525, 705], [695, 705], [735, 585], [755, 415],
+        [755, 235], [510, 155], [1225, 595], [1230, 395], [1230, 210]
       ];
       for (const [tx, ty] of trees) {{
         drawTree3D(tx, ty, 1.0);
@@ -2089,7 +2470,6 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
 
     function drawHallInteriorWorld() {{
       syncCanvasRetina();
-      // Sunlit oak parquet floor
       ctx.fillStyle = "#f5ebe0";
       ctx.fillRect(0, 0, 1280, 760);
 
@@ -2102,7 +2482,6 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(1280, gy); ctx.stroke();
       }}
 
-      // Central Corridor Runner Carpet
       ctx.fillStyle = "#ddb892";
       ctx.strokeStyle = "#9c6644";
       ctx.lineWidth = 3;
@@ -2124,7 +2503,6 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         ctx.fill();
         ctx.stroke();
 
-        // 3D Isometric Lab Desk & holographic terminal inside each room
         drawIsoBuilding3D(r.x + r.w / 2, r.y + 135, 76, 40, 22, "#d97706", "#fef3c7", "#fde68a", false);
       }}
 
@@ -2172,15 +2550,16 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
           if (cx >= h.x - h.w / 2 - 15 && cx <= h.x + h.w / 2 + 15 &&
               cy >= h.y - h.h - h.d / 2 - 20 && cy <= h.y + h.d / 2 + 15) {{
             if (!isGateOpen()) {{
-              walkToOutdoorStop("l0-what-is-an-llm", true);
+              startWalkToGateAmbush();
               return;
             }}
             switchScene("hall", h.level);
             return;
           }}
         }}
-        if (!isGateOpen() && cy < 605) {{
-          walkToOutdoorStop("l0-what-is-an-llm", true);
+        if (!isGateOpen() && cy < 608) {{
+          // Trying to click past the South Gate triggers Officer Rajan's ambush!
+          startWalkToGateAmbush();
           return;
         }}
         state.player.targetX = cx;
@@ -2208,7 +2587,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         }}
         if (state.nearbyHall) {{
           if (!isGateOpen()) {{
-            openNpcDialogue("l0-what-is-an-llm", 0);
+            startWalkToGateAmbush();
           }} else {{
             switchScene("hall", state.nearbyHall.level);
           }}
@@ -2240,11 +2619,15 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         const len = Math.hypot(dx, dy);
         let nx = p.x + (dx / len) * state.player.speed;
         let ny = p.y + (dy / len) * state.player.speed;
-        if (state.scene === "campus" && !isGateOpen() && ny < 612) {{
-          ny = 612;
+        if (state.scene === "campus" && !isGateOpen() && ny < 614) {{
+          ny = 614;
+          if (state.guardWhistleTimer <= 0 && !document.getElementById("rpg-dialogue-backdrop").classList.contains("open")) {{
+            state.guardWhistleTimer = 95;
+            openNpcDialogue("l0-what-is-an-llm", 0);
+          }}
         }}
         p.x = Math.max(50, Math.min(1230, nx));
-        p.y = Math.max(110, Math.min(725, ny));
+        p.y = Math.max(110, Math.min(735, ny));
         state.player.frame += 0.22;
       }} else if (p.targetX !== null && p.targetY !== null) {{
         const tx = p.targetX - p.x;
@@ -2261,13 +2644,20 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
             fn();
           }}
         }} else {{
-          p.x += (tx / dist) * state.player.speed * 1.25;
-          p.y += (ty / dist) * state.player.speed * 1.25;
-          state.player.frame += 0.25;
+          p.x += (tx / dist) * state.player.speed * 1.15;
+          p.y += (ty / dist) * state.player.speed * 1.15;
+          state.player.frame += 0.24;
         }}
       }}
 
-      // Proximity check for floating interaction button!
+      // Animate 3D Karpathy Caricature & RPG Dialogue Portrait Canvases!
+      if (document.getElementById("karpathy-call-toast").classList.contains("open")) {{
+        draw3DCaricaturePortrait(karpathyAvatarCtx, 116, 116, "karpathy", state.tick);
+      }}
+      if (document.getElementById("rpg-dialogue-backdrop").classList.contains("open")) {{
+        draw3DCaricaturePortrait(rpgPortraitCtx, 192, 192, state.activePortraitStyle, state.tick);
+      }}
+
       const proxBtn = document.getElementById("proximity-btn");
       state.nearbyLandmark = null;
       state.nearbyHall = null;
@@ -2294,7 +2684,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
           proxBtn.style.display = "inline-flex";
           proxBtn.style.left = ((state.player.x / 1280) * 100).toFixed(2) + "%";
           proxBtn.style.top = (((state.player.y - 44) / 760) * 100).toFixed(2) + "%";
-          proxBtn.innerText = `${{s.npcIcon}} Talk to ${{s.npcName}} [Press E]`;
+          proxBtn.innerText = `👋 Talk to ${{s.npcName}} [Press E]`;
         }} else if (state.nearbyHall) {{
           const h = state.nearbyHall;
           proxBtn.style.display = "inline-flex";
@@ -2548,7 +2938,6 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         </div>
       `;
 
-      // TAB 2: RUNNABLE PYTHON LAB
       const lab = lesson.lab;
       const accList = (lab.acceptance || []).map(a => `
         <li style="margin-bottom:0.5rem;">
@@ -2573,7 +2962,6 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         <pre><code>${{(lesson.code_text || "").replace(/</g, "&lt;")}}</code></pre>
       `;
 
-      // TAB 3: GATE TEST
       const questions = lesson.gate_challenge || [];
       const qHtml = questions.map((qObj, qIdx) => {{
         const opts = qObj.options.map((opt, oIdx) => `
@@ -2601,10 +2989,9 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
           </p>
         </div>
         ${{qHtml}}
-        <div id="gate-success-banner" style="margin-top:1.25rem;"></div>
+        <div id="gate-success-banner"></div>
       `;
 
-      // TAB 4: SHARE STUDIO
       const sh = lesson.shareable;
       const tweetsHtml = (sh.x_thread || []).map(t => `
         <div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;">
@@ -2790,11 +3177,11 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       const el = document.getElementById("sim-emb-output");
       if (!el) return;
       const notes = {{
-        "filter_coffee": "masala_chai [0.95, 0.90, 0.05, 0.10] vs filter_coffee [0.90, 0.80, 0.05, 0.05]\\n→ Cosine Similarity = +0.9924 (Sitting at the exact same Cafeteria Hot-Drinks table!)",
-        "iced_chai": "masala_chai [0.95, 0.90, 0.05, 0.10] vs iced_chai [0.75, 0.85, 0.05, 0.05]\\n→ Cosine Similarity = +0.9939 (THE TRAP: Even though hot & cold are opposites, they sit at the same Chai table!)",
-        "samosa": "masala_chai [0.95, 0.90, 0.05, 0.10] vs samosa [0.20, 0.95, 0.05, 0.05]\\n→ Cosine Similarity = +0.7995 (Close neighbors on the Spicy Indian Snacks axis).",
-        "kubernetes": "masala_chai [0.95, 0.90, 0.05, 0.10] vs kubernetes [0.05, 0.05, 0.98, 0.05]\\n→ Cosine Similarity = +0.1006 (Pointing 84° away in the Tech & Cloud corner of the cafeteria).",
-        "king_math": "Vector Walk: king [0.10, 0.15, 0.05, 0.95] - man [0.10, 0.10, 0.10, 0.20] + woman [0.15, 0.15, 0.10, 0.25]\\n→ Target Vector = [0.15, 0.20, 0.05, 1.00]\\n→ Closest Neighbor = queen [0.15, 0.20, 0.05, 0.92] with Cosine Similarity +0.9854!"
+        "filter_coffee": "masala_chai [0.95, 0.90, 0.05, 0.10] vs filter_coffee [0.90, 0.80, 0.05, 0.05]\n→ Cosine Similarity = +0.9924 (Sitting at the exact same Cafeteria Hot-Drinks table!)",
+        "iced_chai": "masala_chai [0.95, 0.90, 0.05, 0.10] vs iced_chai [0.75, 0.85, 0.05, 0.05]\n→ Cosine Similarity = +0.9939 (THE TRAP: Even though hot & cold are opposites, they sit at the same Chai table!)",
+        "samosa": "masala_chai [0.95, 0.90, 0.05, 0.10] vs samosa [0.20, 0.95, 0.05, 0.05]\n→ Cosine Similarity = +0.7995 (Close neighbors on the Spicy Indian Snacks axis).",
+        "kubernetes": "masala_chai [0.95, 0.90, 0.05, 0.10] vs kubernetes [0.05, 0.05, 0.98, 0.05]\n→ Cosine Similarity = +0.1006 (Pointing 84° away in the Tech & Cloud corner of the cafeteria).",
+        "king_math": "Vector Walk: king [0.10, 0.15, 0.05, 0.95] - man [0.10, 0.10, 0.10, 0.20] + woman [0.15, 0.15, 0.10, 0.25]\n→ Target Vector = [0.15, 0.20, 0.05, 1.00]\n→ Closest Neighbor = queen [0.15, 0.20, 0.05, 0.92] with Cosine Similarity +0.9854!"
       }};
       el.innerText = notes[key] || "";
     }}
@@ -2803,11 +3190,11 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       const el = document.getElementById("sim-ctx-output");
       if (!el) return;
       const steps = {{
-        1: "TURN 1 (8 / 24 words on tray · 0 dropped):\\n[User: Remember secret locker code 7492 for tomorrow.]\\n→ Locker code '7492' on tray? YES ✅",
-        2: "TURN 2 (16 / 24 words on tray · 0 dropped):\\n[User: Remember secret locker code 7492 for tomorrow. AI: Got it, I saved your locker code.]\\n→ Locker code '7492' on tray? YES ✅",
-        3: "TURN 3 (24 / 24 words on tray · TRAY 100% FULL):\\n[User: Remember secret locker code 7492 for tomorrow. AI: Got it, I saved your locker code. User: Also pack two masala dosa boxes please.]\\n→ Locker code '7492' on tray? YES ✅ (Right on the left edge!)",
-        4: "TURN 4 (34 total words → 10 oldest words DROPPED off left edge!):\\nDropped into trash: 'User: Remember secret locker code 7492 for tomorrow. AI: Got'\\nRemaining on tray: [it, I saved your locker code. User: Also pack two masala dosa boxes please. AI: Packed two masala dosa boxes for lunch today!]\\n→ Locker code '7492' on tray? NO ❌ (Vanished!)",
-        5: "LOST-IN-THE-MIDDLE U-CURVE (10-Chunk Tray Recall):\\nChunk 1 (Top edge):    93.0% ███████████████████\\nChunk 3 (Upper-mid):   51.0% ██████████\\nChunk 6 (Dead middle): 38.7% ████████  <-- DANGER ZONE!\\nChunk 10 (Bottom end): 93.0% ███████████████████"
+        1: "TURN 1 (8 / 24 words on tray · 0 dropped):\n[User: Remember secret locker code 7492 for tomorrow.]\n→ Locker code '7492' on tray? YES ✅",
+        2: "TURN 2 (16 / 24 words on tray · 0 dropped):\n[User: Remember secret locker code 7492 for tomorrow. AI: Got it, I saved your locker code.]\n→ Locker code '7492' on tray? YES ✅",
+        3: "TURN 3 (24 / 24 words on tray · TRAY 100% FULL):\n[User: Remember secret locker code 7492 for tomorrow. AI: Got it, I saved your locker code. User: Also pack two masala dosa boxes please.]\n→ Locker code '7492' on tray? YES ✅ (Right on the left edge!)",
+        4: "TURN 4 (34 total words → 10 oldest words DROPPED off left edge!):\nDropped into trash: 'User: Remember secret locker code 7492 for tomorrow. AI: Got'\nRemaining on tray: [it, I saved your locker code. User: Also pack two masala dosa boxes please. AI: Packed two masala dosa boxes for lunch today!]\n→ Locker code '7492' on tray? NO ❌ (Vanished!)",
+        5: "LOST-IN-THE-MIDDLE U-CURVE (10-Chunk Tray Recall):\nChunk 1 (Top edge):    93.0% ███████████████████\nChunk 3 (Upper-mid):   51.0% ██████████\nChunk 6 (Dead middle): 38.7% ████████  <-- DANGER ZONE!\nChunk 10 (Bottom end): 93.0% ███████████████████"
       }};
       el.innerText = steps[step] || "";
     }}
@@ -2855,11 +3242,11 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
             </h3>
             <p style="margin:0 0 0.9rem;font-size:0.95rem;color:#14532d;">
               ${{isFirstGate
-                ? "The South Entrance Boom Gate is wide open! Walk Ashwin onto campus toward Maya's Parking Lot, Chef Kabir's Chai Terrace, Prof. Meera's Quad Fountain, or the 6 Academic Halls."
-                : "Your badge is minted and the next landmark on the Bits University campus is ready!"}}
+                ? "The South Entrance Boom Gate is wide open — and your pocket communicator is ringing with a follow-up call from Andrej Karpathy!"
+                : "Your badge is minted — and Andrej Karpathy is calling in on your pocket communicator with the next tip!"}}
             </p>
             <div style="display:flex;gap:0.65rem;flex-wrap:wrap;">
-              <button class="btn btn-meadow" onclick="closeBookModal();walkToCurrentQuest()">🚶 Walk to Next Campus Character →</button>
+              <button class="btn btn-meadow" onclick="closeBookModal();triggerKarpathyCall('after_${{lesson.id}}');walkToCurrentQuest()">📞 Return to Campus & Take Karpathy's Call →</button>
               <button class="btn" onclick="switchBookTab('share')">🏆 Grab Shareable X Thread & IG Carousel</button>
             </div>
           </div>
@@ -2870,14 +3257,14 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     function copyFullXThread() {{
       const lesson = SEEDED_LESSONS[state.activeStopId];
       if (!lesson) return;
-      navigator.clipboard.writeText((lesson.shareable.x_thread || []).join("\\n\\n"));
+      navigator.clipboard.writeText((lesson.shareable.x_thread || []).join("\n\n"));
       alert("Complete X Thread copied to clipboard!");
     }}
 
     function copyTurnQuote() {{
       const lesson = SEEDED_LESSONS[state.activeStopId];
       if (!lesson) return;
-      const txt = `${{lesson.title}} (${{lesson.shareable.notebook_shelf}})\\n\\n"${{lesson.shareable.the_turn}}"\\n\\nhttps://ashwinyardi.github.io/bits-course/`;
+      const txt = `${{lesson.title}} (${{lesson.shareable.notebook_shelf}})\n\n"${{lesson.shareable.the_turn}}"\n\nhttps://ashwinyardi.github.io/bits-course/`;
       navigator.clipboard.writeText(txt);
       alert("The Turn copied to clipboard!");
     }}
@@ -2885,9 +3272,9 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     refreshHudAndPins();
     requestAnimationFrame(loop);
 
-    // Show Dean Karpathy's Hologram Cutscene automatically on first visit!
-    if (!localStorage.getItem(INTRO_SEEN_KEY) && !isGateOpen()) {{
-      setTimeout(() => openKarpathyCutscene(0), 350);
+    // As Ashwin walks up the South Approach Road on load, his pocket communicator rings with a 3D call from Karpathy!
+    if (!isGateOpen()) {{
+      setTimeout(() => triggerKarpathyCall("arrival"), 450);
     }}
   </script>
 </body>
