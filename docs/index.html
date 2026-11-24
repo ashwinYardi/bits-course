@@ -2,32 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>BitsByBlocks AI University · The Living 3D AI RPG</title>
   <style>
     
 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;600;700&display=swap');
 
 :root {
-  --paper: #f2f7f4;
+  /* Better-Colors Primitive Ramps (Neutral Slate-Mist, Terracotta Accent, Pine Status) */
+  --slate-50: #f6f8f7;
+  --slate-100: #ebf0ed;
+  --slate-200: #d8e1dc;
+  --slate-300: #b8c6be;
+  --slate-600: #4b5b53;
+  --slate-700: #2e3b34;
+  --slate-900: #141d18;
+  --clay-100: #faeae4;
+  --clay-600: #a93b1f;
+  --clay-700: #882d16;
+  --pine-100: #e6f4ec;
+  --pine-700: #1f6a44;
+
+  /* Semantic Role Tokens */
+  --paper: var(--slate-50);
   --paper-card: #ffffff;
-  --paper-warm: #e4efe9;
-  --paper-deep: #cfe2d8;
-  --ink: #111c16;
-  --ink-soft: #26382e;
-  --muted: #47594e;
-  --line: #bfd2c7;
-  --line-strong: #8fa99b;
-  --terracotta: #9a2c13;
-  --terracotta-soft: #fee2e2;
-  --amber: #92400e;
-  --amber-soft: #fef3c7;
-  --meadow: #14532d;
-  --meadow-soft: #dcfce7;
-  --sky: #075985;
-  --sky-soft: #e0f2fe;
-  --berry: #6b21a8;
-  --berry-soft: #f3e8ff;
+  --paper-warm: var(--slate-100);
+  --paper-deep: var(--slate-200);
+  --ink: var(--slate-900);
+  --ink-soft: var(--slate-700);
+  --muted: var(--slate-600);
+  --line: var(--slate-200);
+  --line-strong: var(--slate-300);
+  --color-accent-solid: var(--clay-600);
+  --color-accent-hover: var(--clay-700);
+  --color-accent-soft: var(--clay-100);
+  --color-status-open: var(--pine-700);
+  --color-status-open-soft: var(--pine-100);
+  --terracotta: var(--color-accent-solid);
+  --terracotta-soft: var(--color-accent-soft);
+  --amber: #8a5a18;
+  --amber-soft: #f7eedc;
+  --meadow: var(--color-status-open);
+  --meadow-soft: var(--color-status-open-soft);
+  --sky: #335c73;
+  --sky-soft: #e6eff4;
+  --berry: #5c4d6b;
+  --berry-soft: #efebf4;
+  --shadow-ring: 0 0 0 1px rgba(20, 29, 24, 0.08), 0 4px 10px -2px rgba(20, 29, 24, 0.10), 0 12px 24px -6px rgba(20, 29, 24, 0.08);
+  --shadow-ring-sm: 0 0 0 1px rgba(20, 29, 24, 0.09), 0 2px 6px -1px rgba(20, 29, 24, 0.08);
   --sans: 'Atkinson Hyperlegible', -apple-system, BlinkMacSystemFont, sans-serif;
   --serif: 'Bricolage Grotesque', Georgia, serif;
   --mono: 'IBM Plex Mono', monospace;
@@ -182,18 +204,18 @@ a:hover { text-decoration: underline; }
       margin: 0;
       padding: 0;
       width: 100%;
-      height: 100vh;
+      height: 100dvh;
       overflow: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-    /* FULL-BLEED 100VH 3D WORLD STAGE (NO TOP NAVBAR BAR!) */
+    /* FULL-BLEED 100DVH 3D WORLD STAGE (NO TOP NAVBAR BAR!) */
     .world-viewport {
       position: fixed;
       inset: 0;
-      width: 100vw;
-      height: 100vh;
-      background: #7dd3fc;
+      width: 100%;
+      height: 100dvh;
+      background: #dce8ee;
       overflow: hidden;
       user-select: none;
     }
@@ -227,7 +249,7 @@ a:hover { text-decoration: underline; }
     /* THIN MINIMAL FLOATING TOP INDICATORS (ZERO NAVBAR BACKGROUND BAR!) */
     .hud-top-bar {
       position: absolute;
-      top: 0.85rem;
+      top: 0.75rem;
       left: 1rem;
       right: 1rem;
       z-index: 40;
@@ -248,25 +270,26 @@ a:hover { text-decoration: underline; }
     .thin-pill {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.38rem;
       background: rgba(255, 255, 255, 0.94);
       color: var(--ink);
-      border: 1.5px solid var(--ink);
+      border: 1px solid rgba(20, 29, 24, 0.14);
       border-radius: 999px;
-      padding: 0.28rem 0.72rem;
+      min-height: 32px;
+      padding: 0.34rem 0.76rem;
       font-family: var(--mono);
       font-size: 0.76rem;
+      line-height: 1.2;
       font-weight: 700;
       font-variant-numeric: tabular-nums;
-      box-shadow: 0 2px 0 var(--ink), 0 6px 16px rgba(17, 28, 22, 0.12);
+      box-shadow: var(--shadow-ring-sm);
       white-space: nowrap;
-      animation: stageEnter 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation: stageEnter 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
     }
     .thin-pill-brand {
-      background: var(--terracotta);
+      background: var(--ink);
       color: #ffffff;
-      border-color: #7c2d12;
-      box-shadow: 0 2px 0 #7c2d12, 0 6px 16px rgba(17, 28, 22, 0.14);
+      border-color: var(--ink);
       font-family: var(--serif);
       font-weight: 800;
       letter-spacing: 0.01em;
@@ -275,19 +298,21 @@ a:hover { text-decoration: underline; }
       display: inline-flex;
       align-items: center;
       gap: 0.38rem;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.96);
       color: var(--ink);
-      border: 1.5px solid var(--ink);
+      border: 1px solid rgba(20, 29, 24, 0.16);
       border-radius: 999px;
-      padding: 0.28rem 0.78rem 0.28rem 0.84rem;
+      min-height: 32px;
+      padding: 0.34rem 0.76rem 0.34rem 0.84rem;
       font-family: var(--sans);
       font-size: 0.78rem;
+      line-height: 1.2;
       font-weight: 700;
       font-variant-numeric: tabular-nums;
       cursor: pointer;
-      box-shadow: 0 2px 0 var(--ink), 0 6px 16px rgba(17, 28, 22, 0.12);
+      box-shadow: var(--shadow-ring-sm);
       transition: transform 140ms cubic-bezier(0.22, 1, 0.36, 1), background-color 140ms ease-out;
-      animation: stageEnter 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation: stageEnter 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
     }
     @media (hover: hover) {
       .thin-btn:hover {
@@ -298,51 +323,52 @@ a:hover { text-decoration: underline; }
     .thin-btn:active {
       transform: scale(0.98) translateY(1px);
     }
+    /* BETTER-COLORS: Fill exactly ONE primary action per view */
     .thin-btn-primary {
-      background: var(--terracotta);
+      background: var(--color-accent-solid);
       color: #ffffff;
-      border-color: #7c2d12;
-      box-shadow: 0 2px 0 #7c2d12, 0 6px 16px rgba(17, 28, 22, 0.14);
+      border-color: var(--color-accent-hover);
+      box-shadow: 0 0 0 1px rgba(136, 45, 22, 0.22), 0 4px 12px -2px rgba(20, 29, 24, 0.18);
     }
     @media (hover: hover) {
       .thin-btn-primary:hover {
-        background: #7c2d12;
+        background: var(--color-accent-hover);
         color: #ffffff;
       }
     }
     .thin-btn-meadow {
-      background: var(--meadow);
+      background: var(--color-accent-solid);
       color: #ffffff;
-      border-color: #052e16;
-      box-shadow: 0 2px 0 #052e16, 0 6px 16px rgba(17, 28, 22, 0.14);
+      border-color: var(--color-accent-hover);
+      box-shadow: 0 0 0 1px rgba(136, 45, 22, 0.22), 0 4px 12px -2px rgba(20, 29, 24, 0.18);
     }
     @media (hover: hover) {
       .thin-btn-meadow:hover {
-        background: #166534;
+        background: var(--color-accent-hover);
         color: #ffffff;
       }
     }
 
-    /* COMPACT FLOATING MISSION STRIP (UNDER TOP-LEFT PILLS) */
+    /* COMPACT FLOATING MISSION STRIP (TUCKED IN TOP-LEFT SKY SAFE ZONE) */
     .quest-strip {
       position: absolute;
-      top: 3.15rem;
+      top: 3.4rem;
       left: 1rem;
       z-index: 30;
       background: rgba(255, 255, 255, 0.94);
-      border: 1.5px solid var(--ink);
-      border-radius: 14px;
-      padding: 0.45rem 0.85rem;
-      box-shadow: 0 2px 0 var(--ink), 0 8px 20px rgba(17, 28, 22, 0.12);
-      max-width: 350px;
+      border: 1px solid rgba(20, 29, 24, 0.14);
+      border-radius: 12px;
+      padding: 0.36rem 0.78rem;
+      box-shadow: var(--shadow-ring-sm);
+      max-width: 340px;
       pointer-events: auto;
-      animation: stageEnter 320ms 80ms cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation: stageEnter 300ms 80ms cubic-bezier(0.22, 1, 0.36, 1) both;
     }
     .quest-kicker {
       font-family: var(--mono);
       font-size: 0.76rem;
       font-weight: 700;
-      color: var(--terracotta);
+      color: var(--color-accent-solid);
       text-transform: uppercase;
       letter-spacing: 0.04em;
       font-variant-numeric: tabular-nums;
@@ -350,26 +376,26 @@ a:hover { text-decoration: underline; }
     .quest-headline {
       font-family: var(--serif);
       font-weight: 800;
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       color: var(--ink);
       line-height: 1.35;
-      margin: 0.08rem 0 0;
+      margin: 0.06rem 0 0;
       text-wrap: balance;
     }
 
-    /* 3D KARPATHY INCOMING CALL COMMUNICATOR HUD WIDGET */
+    /* 3D KARPATHY INCOMING CALL COMMUNICATOR (ANCHORED BOTTOM-LEFT OPEN LAWN — ZERO BUILDING OVERLAP!) */
     .karpathy-call-toast {
       position: absolute;
-      top: 3.15rem;
-      right: 1rem;
+      bottom: 0.85rem;
+      left: 1rem;
       z-index: 65;
-      width: 345px;
+      width: 344px;
       background: #ffffff;
-      border: 2px solid var(--ink);
-      border-radius: 20px; /* outerRadius = innerRadius(12px) + padding(8px) */
-      padding: 8px;
-      box-shadow: 0 3px 0 var(--ink), 0 16px 36px rgba(17, 28, 22, 0.22);
-      transform-origin: top right;
+      border: 1px solid rgba(20, 29, 24, 0.14);
+      border-radius: 18px; /* outerRadius = innerRadius(12px) + padding(6px) */
+      padding: 6px;
+      box-shadow: var(--shadow-ring);
+      transform-origin: bottom left;
       display: none;
       animation: stageEnter 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
     }
@@ -378,21 +404,21 @@ a:hover { text-decoration: underline; }
     }
     .karpathy-call-inner {
       background: var(--paper);
-      border: 1.5px solid var(--line-strong);
+      border: 1px solid var(--line);
       border-radius: 12px;
-      padding: 0.65rem 0.75rem;
+      padding: 0.52rem 0.66rem;
     }
     .karpathy-call-top {
       display: flex;
       align-items: center;
-      gap: 0.65rem;
+      gap: 0.6rem;
     }
     #karpathy-avatar-canvas {
-      width: 58px;
-      height: 58px;
+      width: 46px;
+      height: 46px;
       border-radius: 10px;
-      background: #e0f2fe;
-      border: 1.5px solid var(--ink);
+      background: #e6eff4;
+      border: 1px solid var(--line-strong);
       flex-shrink: 0;
     }
     .call-wave {
@@ -405,7 +431,7 @@ a:hover { text-decoration: underline; }
       display: inline-block;
       width: 2.5px;
       height: 10px;
-      background: var(--meadow);
+      background: var(--color-status-open);
       border-radius: 2px;
       animation: wavePulse 0.8s infinite ease-in-out;
     }
@@ -417,7 +443,7 @@ a:hover { text-decoration: underline; }
       50% { transform: scaleY(1); }
     }
 
-    /* CRISP HTML 3D-PROJECTED FLOATING PINS */
+    /* CRISP HTML 3D-PROJECTED FLOATING PINS (ZERO OVERLAP, REFINED RING SHADOWS) */
     .pins-layer {
       position: absolute;
       inset: 0;
@@ -429,17 +455,21 @@ a:hover { text-decoration: underline; }
       transform: translate(-50%, -100%);
       pointer-events: auto;
       background: rgba(255, 255, 255, 0.95);
-      border: 1.5px solid var(--ink);
+      border: 1px solid rgba(20, 29, 24, 0.16);
       border-radius: 999px;
-      padding: 0.22rem 0.62rem 0.22rem 0.32rem;
-      box-shadow: 0 2px 0 var(--ink), 0 6px 16px rgba(17, 28, 22, 0.14);
+      padding: 0.18rem 0.56rem 0.18rem 0.24rem;
+      box-shadow: var(--shadow-ring-sm);
       cursor: pointer;
-      transition: transform 140ms cubic-bezier(0.22, 1, 0.36, 1), background-color 140ms ease-out;
+      transition: transform 140ms cubic-bezier(0.22, 1, 0.36, 1), opacity 140ms ease-out, background-color 140ms ease-out;
       display: flex;
       align-items: center;
-      gap: 0.38rem;
+      gap: 0.34rem;
       white-space: nowrap;
       font-variant-numeric: tabular-nums;
+    }
+    .world-pin.pin-hidden-by-prox {
+      opacity: 0;
+      pointer-events: none;
     }
     @media (hover: hover) {
       .world-pin:hover {
@@ -448,95 +478,94 @@ a:hover { text-decoration: underline; }
       }
     }
     .world-pin.pin-active {
-      border-color: var(--terracotta);
-      background: #fffbeb;
-      box-shadow: 0 2px 0 var(--terracotta), 0 8px 20px rgba(17, 28, 22, 0.16);
+      border-color: var(--color-accent-solid);
+      background: #ffffff;
+      box-shadow: 0 0 0 1px var(--color-accent-solid), 0 6px 16px -4px rgba(20, 29, 24, 0.16);
     }
     .world-pin.pin-cleared {
-      border-color: var(--meadow);
-      background: #f0fdf4;
+      border-color: var(--color-status-open);
+      background: var(--color-status-open-soft);
     }
     .world-pin.pin-locked {
-      opacity: 0.86;
-      background: #f2f7f4;
+      background: rgba(246, 248, 247, 0.94);
     }
     .pin-badge {
       font-family: var(--mono);
       font-size: 0.76rem;
       font-weight: 700;
-      padding: 0.08rem 0.42rem;
+      padding: 0.06rem 0.38rem;
       border-radius: 999px;
-      background: var(--terracotta);
+      background: var(--color-accent-solid);
       color: #ffffff;
     }
     .world-pin.pin-cleared .pin-badge {
-      background: var(--meadow);
+      background: var(--color-status-open);
     }
     .world-pin.pin-locked .pin-badge {
       background: var(--muted);
     }
     .world-pin.pin-hall .pin-badge {
-      background: var(--sky);
+      background: var(--ink-soft);
     }
     .pin-label {
       font-family: var(--serif);
       font-weight: 800;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--ink);
     }
 
-    /* FLOATING PROXIMITY ACTION PROMPT RIGHT ABOVE ASHWIN */
+    /* FLOATING PROXIMITY ACTION PROMPT (REPLACES NEARBY PIN — ZERO COLLISION!) */
     .proximity-action-btn {
       position: absolute;
       transform: translate(-50%, -100%);
       pointer-events: auto;
-      background: var(--terracotta);
+      background: var(--color-accent-solid);
       color: #ffffff;
-      border: 2px solid #ffffff;
+      border: 1.5px solid #ffffff;
       border-radius: 999px;
-      padding: 0.42rem 0.95rem;
+      padding: 0.38rem 0.88rem;
       font-family: var(--serif);
-      font-size: 0.86rem;
+      font-size: 0.84rem;
       font-weight: 800;
-      box-shadow: 0 3px 0 #7c2d12, 0 10px 24px rgba(17, 28, 22, 0.25);
+      box-shadow: 0 0 0 1px rgba(136, 45, 22, 0.3), 0 8px 20px -4px rgba(20, 29, 24, 0.28);
       cursor: pointer;
       display: none;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.38rem;
       white-space: nowrap;
       z-index: 35;
-      animation: pulseBounce 1.4s infinite ease-in-out;
+      animation: pulseBounce 1.5s infinite ease-in-out;
     }
     @keyframes pulseBounce {
       0%, 100% { transform: translate(-50%, -100%); }
-      50% { transform: translate(-50%, -110%); }
+      50% { transform: translate(-50%, -108%); }
     }
 
-    /* THIN BOTTOM CONTROLS HINT PILL */
+    /* THIN BOTTOM CONTROLS HINT PILL (SHIFTED RIGHT OF BOTTOM-LEFT CALL TOAST ON NARROWER SCREENS) */
     .controls-pill {
       position: absolute;
-      bottom: 0.75rem;
-      left: 50%;
+      bottom: 0.85rem;
+      left: 52%;
       transform: translateX(-50%);
       z-index: 25;
-      background: rgba(255, 255, 255, 0.92);
-      border: 1.5px solid var(--ink);
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(20, 29, 24, 0.14);
       border-radius: 999px;
-      padding: 0.28rem 0.85rem;
-      font-size: 0.78rem;
+      padding: 0.26rem 0.82rem;
+      font-size: 0.76rem;
       font-weight: 700;
       color: var(--ink);
-      box-shadow: 0 2px 0 var(--ink), 0 6px 16px rgba(17, 28, 22, 0.12);
+      box-shadow: var(--shadow-ring-sm);
       display: flex;
       align-items: center;
-      gap: 0.65rem;
+      gap: 0.55rem;
       white-space: nowrap;
     }
     .kbd {
       background: var(--paper-warm);
-      border: 1.5px solid var(--ink);
+      border: 1px solid var(--line-strong);
       border-radius: 5px;
-      padding: 0.06rem 0.38rem;
+      padding: 0.04rem 0.34rem;
       font-family: var(--mono);
       font-size: 0.76rem;
     }
@@ -561,7 +590,7 @@ a:hover { text-decoration: underline; }
       background: #ffffff;
       border: 2.5px solid var(--ink);
       border-radius: 22px; /* outerRadius = 14px + 8px */
-      box-shadow: 0 3px 0 var(--ink), 0 20px 48px rgba(17, 28, 22, 0.28);
+      box-shadow: var(--shadow-ring), 0 20px 48px rgba(20, 29, 24, 0.22);
       padding: 1.15rem 1.35rem;
       display: grid;
       grid-template-columns: 96px 1fr;
@@ -686,7 +715,7 @@ a:hover { text-decoration: underline; }
     .book-sheet {
       background: #ffffff;
       border: 2.5px solid var(--ink);
-      box-shadow: 0 3px 0 var(--ink), 0 24px 60px rgba(17, 28, 22, 0.32);
+      box-shadow: var(--shadow-ring), 0 24px 60px rgba(20, 29, 24, 0.26);
       border-radius: 22px;
       width: 100%;
       max-width: 1020px;
@@ -964,7 +993,7 @@ a:hover { text-decoration: underline; }
     <div class="karpathy-call-toast" id="karpathy-call-toast">
       <div class="karpathy-call-inner">
         <div class="karpathy-call-top">
-          <canvas id="karpathy-avatar-canvas" width="116" height="116"></canvas>
+          <canvas id="karpathy-avatar-canvas" width="104" height="104"></canvas>
           <div style="flex:1;min-width:0;">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:0.35rem;">
               <span style="font-family:var(--mono);font-size:0.76rem;font-weight:700;color:var(--meadow);" id="karpathy-call-status">📲 INCOMING 3D CALL</span>
@@ -974,7 +1003,7 @@ a:hover { text-decoration: underline; }
             <div style="font-size:0.76rem;color:var(--muted);font-weight:700;">Founder · Pocket Communicator</div>
           </div>
         </div>
-        <p id="karpathy-call-preview" style="margin:0.5rem 0 0.6rem;font-size:0.86rem;color:var(--ink);line-height:1.48;">
+        <p id="karpathy-call-preview" style="margin:0.35rem 0 0.45rem;font-size:0.8rem;color:var(--ink-soft);line-height:1.4;text-wrap:pretty;">
           “Yo Ashwin! I dropped you a pin outside our secret self-expanding AI campus. Walk right up the South Road and head inside!”
         </p>
         <div style="display:flex;gap:0.45rem;">
@@ -1084,8 +1113,8 @@ a:hover { text-decoration: underline; }
     // Periodic calls from Andrej Karpathy at key moments in the journey!
     const KARPATHY_CALL_SCRIPTS = {
       "arrival": {
-        status: "📲 INCOMING 3D CALL · ROAD APPROACH",
-        preview: "“Yo Ashwin! I pinned a secret coordinates drop on your map. Humanity is curing diseases and automating science inside these walls, and the campus literally builds new rooms on its own. Walk right up the South Road and head inside!”",
+        status: "📲 INCOMING 3D CALL",
+        preview: "“Yo Ashwin! I dropped you the secret pin to our self-expanding AI campus. Walk up the South Road and head inside!”",
         btnLabel: "🚶 Walk Up Road to Campus Gate →",
         onAccept: "walkUpToGateAndGetStopped"
       },
@@ -1169,7 +1198,7 @@ a:hover { text-decoration: underline; }
         id: "l0-what-is-an-llm",
         num: "STOP 01",
         name: "Entrance Security Gate",
-        shortLabel: "1. Security Gate (What is an LLM?)",
+        shortLabel: "1. Security Gate",
         icon: "🚧",
         npcName: "Officer Rajan",
         npcRole: "CHIEF OF CAMPUS SECURITY · SOUTH GATE",
@@ -1197,12 +1226,12 @@ a:hover { text-decoration: underline; }
         id: "l0-tokens",
         num: "STOP 02",
         name: "Campus Parking Lot",
-        shortLabel: "2. Parking Lot (Tokens & Barcodes)",
+        shortLabel: "2. Parking Lot",
         icon: "🅿️",
         npcName: "Maya",
         npcRole: "PARKING & BARCODE ENGINEER · WEST LOT",
         npcStyle: "engineer",
-        x: 240, y: 475, interactRadius: 95,
+        x: 225, y: 445, interactRadius: 95,
         dialogue: [
           {
             text: "“Hey Ashwin! You got Officer Rajan to lift the boom gate! Look at these 3 parked cars in my lot: [str #496], [aw #675], and [berry #15717]. Ever wondered why a billion-dollar AI embarrassed itself counting the letter 'r' in 'strawberry'?”",
@@ -1225,12 +1254,12 @@ a:hover { text-decoration: underline; }
         id: "l0-embeddings",
         num: "STOP 03",
         name: "Chai & Embeddings Terrace",
-        shortLabel: "3. Chai Cafeteria (Embeddings GPS)",
+        shortLabel: "3. Chai Terrace",
         icon: "☕",
         npcName: "Chef Kabir",
         npcRole: "CHAI TERRACE HOST · MEANING MAPPER",
         npcStyle: "chef",
-        x: 375, y: 295, interactRadius: 95,
+        x: 355, y: 295, interactRadius: 95,
         dialogue: [
           {
             text: "“Pull up a chair under the umbrella, Ashwin! In Maya's dictionary, barcode #40,000 ('coffee') sits right next to #40,001 ('coffin'). Why doesn't the AI accidentally serve you a coffin when you order filter coffee?”",
@@ -1253,12 +1282,12 @@ a:hover { text-decoration: underline; }
         id: "l0-context-window",
         num: "STOP 04",
         name: "Central Quad Fountain",
-        shortLabel: "4. Quad Fountain (Context Window)",
+        shortLabel: "4. Quad Fountain",
         icon: "⛲",
         npcName: "Prof. Meera",
         npcRole: "QUAD FOUNTAIN MENTOR · MEMORY ARCHITECT",
         npcStyle: "prof",
-        x: 615, y: 350, interactRadius: 95,
+        x: 610, y: 358, interactRadius: 95,
         dialogue: [
           {
             text: "“Listen to the fountain, Ashwin. People think when they chat with an AI for an hour, the AI is 'getting to know them.' False! The AI is an Amnesia Chef whose brain resets to zero after every single reply. All it ever sees is what fits on a fixed-size lunch tray right now!”",
@@ -1280,12 +1309,12 @@ a:hover { text-decoration: underline; }
     ];
 
     const ACADEMIC_HALLS = [
-      { level: 0, code: "HALL 0", name: "Foundations Hall", sub: "Intuition, Eval & First Call", x: 925, y: 525, w: 138, d: 82, h: 64, roof: "#c2410c", wallL: "#fff7ed", wallR: "#fed7aa" },
-      { level: 1, code: "HALL 1", name: "Retrieval & RAG Hall", sub: "Vectors, Chunking & Search", x: 1125, y: 525, w: 138, d: 82, h: 64, roof: "#0369a1", wallL: "#f0f9ff", wallR: "#bae6fd" },
-      { level: 2, code: "HALL 2", name: "Attention Conservatory", sub: "Transformers & KV Cache", x: 925, y: 335, w: 138, d: 82, h: 68, roof: "#15803d", wallL: "#f0fdf4", wallR: "#bbf7d0" },
-      { level: 3, code: "HALL 3", name: "Agent Robotics Wing", sub: "Tool Loops, MCP & Memory", x: 1125, y: 335, w: 138, d: 82, h: 68, roof: "#6b21a8", wallL: "#faf5ff", wallR: "#e9d5ff" },
-      { level: 4, code: "HALL 4", name: "Fine-Tuning Foundry", sub: "LoRA, DPO & GRPO", x: 845, y: 155, w: 144, d: 84, h: 72, roof: "#92400e", wallL: "#fffbeb", wallR: "#fde68a" },
-      { level: 5, code: "HALL 5", name: "Frontier Observatory", sub: "MoE, Speculative & Prod", x: 1095, y: 155, w: 148, d: 84, h: 76, roof: "#9f1239", wallL: "#fff1f2", wallR: "#fecdd3" }
+      { level: 0, code: "HALL 0", name: "Foundations", sub: "Intuition, Eval & First Call", x: 870, y: 590, w: 120, d: 64, h: 48, roof: "#a9492f", wallL: "#faf8f4", wallR: "#e9e3d8" },
+      { level: 1, code: "HALL 1", name: "RAG & Search", sub: "Vectors, Chunking & Search", x: 1120, y: 590, w: 120, d: 64, h: 48, roof: "#4a6477", wallL: "#faf8f4", wallR: "#e9e3d8" },
+      { level: 2, code: "HALL 2", name: "Attention", sub: "Transformers & KV Cache", x: 870, y: 432, w: 120, d: 64, h: 48, roof: "#496b59", wallL: "#faf8f4", wallR: "#e9e3d8" },
+      { level: 3, code: "HALL 3", name: "Agents Wing", sub: "Tool Loops, MCP & Memory", x: 1120, y: 432, w: 120, d: 64, h: 48, roof: "#655670", wallL: "#faf8f4", wallR: "#e9e3d8" },
+      { level: 4, code: "HALL 4", name: "Fine-Tuning", sub: "LoRA, DPO & GRPO", x: 870, y: 274, w: 120, d: 64, h: 48, roof: "#8b6842", wallL: "#faf8f4", wallR: "#e9e3d8" },
+      { level: 5, code: "HALL 5", name: "Frontier Lab", sub: "MoE, Speculative & Prod", x: 1120, y: 274, w: 120, d: 64, h: 48, roof: "#7d4850", wallL: "#faf8f4", wallR: "#e9e3d8" }
     ];
 
     const HALL_ROOMS = [
@@ -1711,7 +1740,7 @@ a:hover { text-decoration: underline; }
           const cls = cleared ? "pin-cleared" : (active ? "pin-active" : (!unlocked ? "pin-locked" : ""));
           const badgeTxt = cleared ? "✓" : (unlocked ? s.num : "🔒");
           html += `
-            <div class="world-pin ${cls}" style="left:${leftPct}%;top:${topPct}%;" onclick="walkToOutdoorStop('${s.id}', true)">
+            <div class="world-pin ${cls}" data-stop-id="${s.id}" style="left:${leftPct}%;top:${topPct}%;" onclick="walkToOutdoorStop('${s.id}', true)">
               <span class="pin-badge">${badgeTxt}</span>
               <span class="pin-label">${s.icon} ${s.shortLabel}</span>
             </div>
@@ -1721,11 +1750,11 @@ a:hover { text-decoration: underline; }
           const mods = getModulesForLevel(h.level);
           const done = mods.filter(m => clearedIds.has(m.id)).length;
           const leftPct = ((h.x / 1280) * 100).toFixed(2);
-          const topPct = (((h.y - h.h - h.d / 2 - 14) / 760) * 100).toFixed(2);
+          const topPct = (((h.y - h.h - h.d / 2 - 10) / 760) * 100).toFixed(2);
           html += `
-            <div class="world-pin pin-hall" style="left:${leftPct}%;top:${topPct}%;" onclick="if(!isGateOpen())startWalkToGateAmbush();else switchScene('hall',${h.level})">
+            <div class="world-pin pin-hall" data-hall-level="${h.level}" style="left:${leftPct}%;top:${topPct}%;" onclick="if(!isGateOpen())startWalkToGateAmbush();else switchScene('hall',${h.level})">
               <span class="pin-badge">${h.code} · ${done}/${mods.length}</span>
-              <span class="pin-label">🏛️ ${h.name}</span>
+              <span class="pin-label">${h.name}</span>
             </div>
           `;
         }
@@ -1794,8 +1823,8 @@ a:hover { text-decoration: underline; }
       ctx.lineTo(cx - hw, cy - h);
       ctx.closePath();
       ctx.fill();
-      ctx.strokeStyle = "#111c16";
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#2e3b34";
+      ctx.lineWidth = 1.5;
       ctx.stroke();
 
       ctx.fillStyle = rightWall;
@@ -1809,32 +1838,32 @@ a:hover { text-decoration: underline; }
       ctx.stroke();
 
       if (hasWindows && h >= 44) {
-        const rows = h >= 65 ? 2 : 1;
+        const rows = h >= 62 ? 2 : 1;
         for (let r = 0; r < rows; r++) {
-          const yOff = -h + 16 + r * 22;
+          const yOff = -h + 14 + r * 20;
           for (let c = 1; c <= 3; c++) {
             const t = c / 4;
             const lx = (cx - hw) * (1 - t) + cx * t;
             const ly = cy * (1 - t) + (cy + hd) * t + yOff;
-            ctx.fillStyle = "#0284c7";
-            ctx.fillRect(lx - 4, ly, 8, 12);
-            ctx.strokeStyle = "#111c16";
-            ctx.lineWidth = 1.2;
-            ctx.strokeRect(lx - 4, ly, 8, 12);
+            ctx.fillStyle = "#5b7e91";
+            ctx.fillRect(lx - 4, ly, 7.5, 11);
+            ctx.strokeStyle = "#2e3b34";
+            ctx.lineWidth = 1;
+            ctx.strokeRect(lx - 4, ly, 7.5, 11);
 
             const rx = cx * (1 - t) + (cx + hw) * t;
             const ry = (cy + hd) * (1 - t) + cy * t + yOff;
-            ctx.fillStyle = "#0369a1";
-            ctx.fillRect(rx - 4, ry, 8, 12);
-            ctx.strokeRect(rx - 4, ry, 8, 12);
+            ctx.fillStyle = "#47687a";
+            ctx.fillRect(rx - 4, ry, 7.5, 11);
+            ctx.strokeRect(rx - 4, ry, 7.5, 11);
           }
         }
-        ctx.fillStyle = "#7c2d12";
-        ctx.fillRect(cx - 14, cy + hd - 19, 10, 16);
-        ctx.strokeRect(cx - 14, cy + hd - 19, 10, 16);
+        ctx.fillStyle = "#7d4b34";
+        ctx.fillRect(cx - 12, cy + hd - 17, 9, 14);
+        ctx.strokeRect(cx - 12, cy + hd - 17, 9, 14);
       }
 
-      const oh = 5;
+      const oh = 4;
       ctx.fillStyle = roofColor;
       ctx.beginPath();
       ctx.moveTo(cx, cy - hd - h - oh);
@@ -1843,8 +1872,8 @@ a:hover { text-decoration: underline; }
       ctx.lineTo(cx - hw - oh, cy - h);
       ctx.closePath();
       ctx.fill();
-      ctx.strokeStyle = "#111c16";
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#2e3b34";
+      ctx.lineWidth = 1.5;
       ctx.stroke();
 
       ctx.fillStyle = "rgba(255,255,255,0.28)";
@@ -1859,25 +1888,25 @@ a:hover { text-decoration: underline; }
 
     function drawTree3D(x, y, scale = 1.0) {
       const sway = Math.sin(state.tick * 0.03 + x) * 2;
-      ctx.fillStyle = "rgba(20, 83, 45, 0.24)";
+      ctx.fillStyle = "rgba(20, 29, 24, 0.14)";
       ctx.beginPath();
-      ctx.ellipse(x + 7, y + 6, 18 * scale, 9 * scale, 0, 0, Math.PI * 2);
+      ctx.ellipse(x + 6, y + 5, 16 * scale, 8 * scale, 0, 0, Math.PI * 2);
       ctx.fill();
 
-      ctx.fillStyle = "#78350f";
-      ctx.fillRect(x - 3.5 * scale, y - 16 * scale, 7 * scale, 18 * scale);
+      ctx.fillStyle = "#6e5645";
+      ctx.fillRect(x - 3 * scale, y - 15 * scale, 6 * scale, 17 * scale);
 
-      ctx.fillStyle = "#15803d";
+      ctx.fillStyle = "#4c6e55";
       ctx.beginPath();
-      ctx.arc(x + sway, y - 22 * scale, 17 * scale, 0, Math.PI * 2);
+      ctx.arc(x + sway, y - 21 * scale, 16 * scale, 0, Math.PI * 2);
       ctx.fill();
-      ctx.fillStyle = "#22c55e";
+      ctx.fillStyle = "#608469";
       ctx.beginPath();
-      ctx.arc(x - 4 * scale + sway, y - 27 * scale, 13 * scale, 0, Math.PI * 2);
+      ctx.arc(x - 4 * scale + sway, y - 26 * scale, 12 * scale, 0, Math.PI * 2);
       ctx.fill();
-      ctx.fillStyle = "#86efac";
+      ctx.fillStyle = "#83a68a";
       ctx.beginPath();
-      ctx.arc(x - 6 * scale + sway, y - 31 * scale, 7 * scale, 0, Math.PI * 2);
+      ctx.arc(x - 5 * scale + sway, y - 30 * scale, 6 * scale, 0, Math.PI * 2);
       ctx.fill();
     }
 
@@ -1992,8 +2021,8 @@ a:hover { text-decoration: underline; }
 
       if (hasExclamation) {
         const floatY = Math.sin(state.tick * 0.08 + x) * 3;
-        ctx.fillStyle = "#facc15";
-        ctx.strokeStyle = "#111c16";
+        ctx.fillStyle = "#e0a952";
+        ctx.strokeStyle = "#2e3b34";
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.arc(x, y - 44 - bounce + floatY, 10, 0, Math.PI * 2);
@@ -2009,47 +2038,50 @@ a:hover { text-decoration: underline; }
     function drawCampusWorld() {
       syncCanvasRetina();
 
-      const skyGrad = ctx.createLinearGradient(0, 0, 0, 150);
-      skyGrad.addColorStop(0, "#38bdf8");
-      skyGrad.addColorStop(1, "#bae6fd");
+      // Serene Morning Mist Sky (Top HUD Safe Zone: 0..145px)
+      const skyGrad = ctx.createLinearGradient(0, 0, 0, 155);
+      skyGrad.addColorStop(0, "#dce8ee");
+      skyGrad.addColorStop(1, "#eef4f6");
       ctx.fillStyle = skyGrad;
-      ctx.fillRect(0, 0, 1280, 150);
+      ctx.fillRect(0, 0, 1280, 155);
 
-      ctx.fillStyle = "#84cc16";
+      // Soft Distant Botanical Hills (Atmospheric Depth)
+      ctx.fillStyle = "#c2d2c4";
       ctx.beginPath();
-      ctx.moveTo(0, 150);
-      ctx.quadraticCurveTo(290, 88, 620, 132);
-      ctx.quadraticCurveTo(960, 78, 1280, 138);
+      ctx.moveTo(0, 152);
+      ctx.quadraticCurveTo(260, 96, 590, 134);
+      ctx.quadraticCurveTo(950, 88, 1280, 136);
       ctx.lineTo(1280, 760);
       ctx.lineTo(0, 760);
       ctx.closePath();
       ctx.fill();
 
-      const lawnGrad = ctx.createLinearGradient(0, 135, 0, 760);
-      lawnGrad.addColorStop(0, "#a3e635");
-      lawnGrad.addColorStop(0.55, "#84cc16");
-      lawnGrad.addColorStop(1, "#65a30d");
+      // Desaturated Architectural Sage-Meadow Lawn (Restrained, calm ground)
+      const lawnGrad = ctx.createLinearGradient(0, 142, 0, 760);
+      lawnGrad.addColorStop(0, "#cddbc7");
+      lawnGrad.addColorStop(0.55, "#c0d1b9");
+      lawnGrad.addColorStop(1, "#b2c5ab");
       ctx.fillStyle = lawnGrad;
-      ctx.fillRect(0, 135, 1280, 625);
+      ctx.fillRect(0, 142, 1280, 618);
 
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.14)";
-      ctx.lineWidth = 1.5;
-      for (let i = -800; i < 1800; i += 95) {
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.16)";
+      ctx.lineWidth = 1;
+      for (let i = -800; i < 1800; i += 96) {
         ctx.beginPath();
-        ctx.moveTo(i, 135);
+        ctx.moveTo(i, 142);
         ctx.lineTo(i + 620, 760);
         ctx.stroke();
         ctx.beginPath();
-        ctx.moveTo(i + 620, 135);
+        ctx.moveTo(i + 620, 142);
         ctx.lineTo(i, 760);
         ctx.stroke();
       }
 
-      // South Entrance Approach Road (Tree-lined arrival avenue)
-      ctx.fillStyle = "#334155";
+      // South Entrance Approach Road (Refined Slate Asphalt)
+      ctx.fillStyle = "#3e464d";
       ctx.fillRect(560, 560, 100, 200);
-      ctx.strokeStyle = "#f8fafc";
-      ctx.lineWidth = 2.5;
+      ctx.strokeStyle = "#f4f1ea";
+      ctx.lineWidth = 2;
       ctx.setLineDash([12, 12]);
       ctx.beginPath();
       ctx.moveTo(610, 575);
@@ -2057,117 +2089,117 @@ a:hover { text-decoration: underline; }
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // Warm Sandstone Walkways
-      ctx.fillStyle = "#f5ebe0";
-      ctx.strokeStyle = "#d6cbb9";
-      ctx.lineWidth = 3;
-      ctx.beginPath(); ctx.roundRect(580, 175, 60, 395, 16); ctx.fill(); ctx.stroke();
-      ctx.beginPath(); ctx.roundRect(225, 455, 385, 44, 14); ctx.fill(); ctx.stroke();
-      ctx.beginPath(); ctx.roundRect(355, 275, 255, 44, 14); ctx.fill(); ctx.stroke();
-      ctx.beginPath(); ctx.roundRect(610, 495, 535, 44, 14); ctx.fill(); ctx.stroke();
-      ctx.beginPath(); ctx.roundRect(610, 305, 535, 44, 14); ctx.fill(); ctx.stroke();
-      ctx.beginPath(); ctx.roundRect(610, 145, 495, 40, 14); ctx.fill(); ctx.stroke();
+      // Warm Limestone Walkways (Aligned to shifted Academic Hall Rows: y=260, 418, 576)
+      ctx.fillStyle = "#f4f1ea";
+      ctx.strokeStyle = "#d5cfc2";
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.roundRect(582, 248, 56, 322, 14); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.roundRect(225, 428, 385, 38, 12); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.roundRect(355, 278, 255, 38, 12); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.roundRect(610, 566, 530, 36, 12); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.roundRect(610, 408, 530, 36, 12); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.roundRect(610, 250, 530, 36, 12); ctx.fill(); ctx.stroke();
 
-      // Campus Perimeter Brick Wall
-      ctx.fillStyle = "#9a2c13";
-      ctx.fillRect(40, 634, 505, 16);
-      ctx.fillRect(675, 634, 565, 16);
-      ctx.fillStyle = "#fed7aa";
-      ctx.fillRect(40, 630, 505, 4);
-      ctx.fillRect(675, 630, 565, 4);
+      // Campus Perimeter Clay-Brick Wall
+      ctx.fillStyle = "#914531";
+      ctx.fillRect(40, 646, 505, 14);
+      ctx.fillRect(675, 646, 565, 14);
+      ctx.fillStyle = "#e6dcd0";
+      ctx.fillRect(40, 642, 505, 4);
+      ctx.fillRect(675, 642, 565, 4);
 
-      // LANDMARK 2: WEST CAMPUS PARKING LOT
+      // LANDMARK 2: WEST CAMPUS PARKING LOT (Compact, cleanly above bottom-left call card!)
       ctx.save();
-      ctx.fillStyle = "#334155";
-      ctx.strokeStyle = "#cbd5e1";
-      ctx.lineWidth = 3;
+      ctx.fillStyle = "#3e464d";
+      ctx.strokeStyle = "#cfd6d2";
+      ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.roundRect(80, 380, 260, 165, 16);
+      ctx.roundRect(75, 344, 255, 148, 16);
       ctx.fill();
       ctx.stroke();
 
-      ctx.strokeStyle = "#facc15";
-      ctx.lineWidth = 2;
-      for (let bx = 125; bx <= 285; bx += 54) {
+      ctx.strokeStyle = "#d4a656";
+      ctx.lineWidth = 1.8;
+      for (let bx = 120; bx <= 280; bx += 54) {
         ctx.beginPath();
-        ctx.moveTo(bx, 392);
-        ctx.lineTo(bx, 455);
+        ctx.moveTo(bx, 356);
+        ctx.lineTo(bx, 416);
         ctx.stroke();
       }
-      drawCar3D(152, 430, "#ef4444", "#fecaca");
-      drawCar3D(206, 430, "#3b82f6", "#bfdbfe");
-      drawCar3D(260, 430, "#10b981", "#a7f3d0");
+      drawCar3D(147, 394, "#b3543e", "#ead2ca");
+      drawCar3D(201, 394, "#4a6b82", "#d3e0e8");
+      drawCar3D(255, 394, "#4d735e", "#d2e2d8");
 
-      drawIsoBuilding3D(135, 510, 62, 38, 36, "#0369a1", "#f0f9ff", "#bae6fd", false);
-      drawCharacter3D(240, 495, "#0284c7", false, !clearedIds.has("l0-tokens"));
+      drawIsoBuilding3D(130, 468, 58, 34, 34, "#4a6477", "#faf8f4", "#e6e0d5", false);
+      drawCharacter3D(225, 456, "#4a6477", false, !clearedIds.has("l0-tokens"));
       ctx.restore();
 
       // LANDMARK 3: CHAI & EMBEDDINGS TERRACE
       ctx.save();
-      ctx.fillStyle = "#fed7aa";
-      ctx.strokeStyle = "#9a2c13";
-      ctx.lineWidth = 2.5;
+      ctx.fillStyle = "#efe6d8";
+      ctx.strokeStyle = "#c4b6a1";
+      ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.roundRect(235, 195, 255, 145, 18);
+      ctx.roundRect(225, 198, 248, 138, 16);
       ctx.fill();
       ctx.stroke();
 
-      drawIsoBuilding3D(310, 248, 104, 60, 48, "#c2410c", "#fff7ed", "#fdba74", true);
-      drawUmbrellaTable3D(410, 232, "#ef4444");
-      drawUmbrellaTable3D(452, 268, "#f59e0b");
-      drawUmbrellaTable3D(400, 296, "#15803d");
-      drawCharacter3D(375, 315, "#ea580c", false, !clearedIds.has("l0-embeddings"));
+      drawIsoBuilding3D(298, 248, 98, 56, 44, "#a9492f", "#faf8f4", "#e9e3d8", true);
+      drawUmbrellaTable3D(396, 232, "#b3543e");
+      drawUmbrellaTable3D(436, 268, "#c48f45");
+      drawUmbrellaTable3D(388, 294, "#4d735e");
+      drawCharacter3D(355, 310, "#a9492f", false, !clearedIds.has("l0-embeddings"));
       ctx.restore();
 
       // LANDMARK 4: CENTRAL QUAD FOUNTAIN
       ctx.save();
-      ctx.fillStyle = "#e7e5e4";
-      ctx.strokeStyle = "#78716c";
-      ctx.lineWidth = 3;
+      ctx.fillStyle = "#ebe8e1";
+      ctx.strokeStyle = "#b8b3a8";
+      ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.ellipse(610, 345, 92, 54, 0, 0, Math.PI * 2);
+      ctx.ellipse(610, 355, 88, 50, 0, 0, Math.PI * 2);
       ctx.fill();
       ctx.stroke();
 
-      ctx.fillStyle = "#0284c7";
-      ctx.strokeStyle = "#111c16";
-      ctx.lineWidth = 2;
+      ctx.fillStyle = "#52829a";
+      ctx.strokeStyle = "#2e3b34";
+      ctx.lineWidth = 1.5;
       ctx.beginPath();
-      ctx.ellipse(610, 343, 52, 30, 0, 0, Math.PI * 2);
+      ctx.ellipse(610, 353, 50, 28, 0, 0, Math.PI * 2);
       ctx.fill();
       ctx.stroke();
 
       const ripple = (state.tick % 45) / 45;
-      ctx.strokeStyle = `rgba(255, 255, 255, ${1 - ripple})`;
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = `rgba(255, 255, 255, ${0.85 * (1 - ripple)})`;
+      ctx.lineWidth = 1.8;
       ctx.beginPath();
-      ctx.ellipse(610, 343, 14 + ripple * 34, 7 + ripple * 18, 0, 0, Math.PI * 2);
+      ctx.ellipse(610, 353, 14 + ripple * 32, 7 + ripple * 16, 0, 0, Math.PI * 2);
       ctx.stroke();
 
-      drawIsoBuilding3D(610, 343, 22, 16, 26, "#38bdf8", "#f8fafc", "#cbd5e1", false);
-      drawCharacter3D(665, 365, "#6b21a8", false, !clearedIds.has("l0-context-window"));
+      drawIsoBuilding3D(610, 353, 22, 15, 24, "#83a9bc", "#faf8f4", "#dce3e6", false);
+      drawCharacter3D(662, 372, "#655670", false, !clearedIds.has("l0-context-window"));
       ctx.restore();
 
-      // 6 ACADEMIC HALLS
+      // 6 ACADEMIC HALLS (Cleanly below top HUD safe zone!)
       for (const h of ACADEMIC_HALLS) {
         drawIsoBuilding3D(h.x, h.y, h.w, h.d, h.h, h.roof, h.wallL, h.wallR, true);
       }
 
-      // Self-Expanding Campus Yellow Construction Crane behind Hall 5
+      // Self-Expanding Campus Construction Crane behind Hall 5 (Below top HUD!)
       ctx.save();
-      ctx.strokeStyle = "#d97706";
-      ctx.lineWidth = 3;
+      ctx.strokeStyle = "#b3833e";
+      ctx.lineWidth = 2.6;
       ctx.beginPath();
-      ctx.moveTo(1215, 140);
-      ctx.lineTo(1215, 45);
-      ctx.lineTo(1145, 45);
+      ctx.moveTo(1224, 265);
+      ctx.lineTo(1224, 178);
+      ctx.lineTo(1168, 178);
       ctx.stroke();
       ctx.restore();
 
       // LANDMARK 1: SOUTH ENTRANCE SECURITY GATE & GUARD BOOTH
       ctx.save();
-      drawIsoBuilding3D(520, 610, 64, 42, 46, "#9a2c13", "#fffbeb", "#fde68a", false);
-      ctx.fillStyle = "#38bdf8";
+      drawIsoBuilding3D(520, 610, 62, 40, 44, "#a9492f", "#faf8f4", "#e9e3d8", false);
+      ctx.fillStyle = "#7a9eb0";
       ctx.fillRect(528, 582, 16, 14);
       ctx.strokeStyle = "#111c16";
       ctx.lineWidth = 1.5;
@@ -2212,9 +2244,9 @@ a:hover { text-decoration: underline; }
 
       // 3D Trees lining the South Approach Road & Campus
       const trees = [
-        [105, 210], [170, 260], [95, 595], [440, 575],
-        [525, 705], [695, 705], [735, 585], [755, 415],
-        [755, 235], [510, 155], [1225, 595], [1230, 395], [1230, 210]
+        [105, 225], [168, 272], [440, 575],
+        [525, 705], [695, 705], [742, 585], [748, 425],
+        [748, 268], [520, 198], [1232, 595], [1232, 435], [1232, 295]
       ];
       for (const [tx, ty] of trees) {
         drawTree3D(tx, ty, 1.0);
@@ -2408,7 +2440,7 @@ a:hover { text-decoration: underline; }
 
       // Animate 3D Karpathy Caricature & RPG Dialogue Portrait Canvases!
       if (document.getElementById("karpathy-call-toast").classList.contains("open")) {
-        draw3DCaricaturePortrait(karpathyAvatarCtx, 116, 116, "karpathy", state.tick);
+        draw3DCaricaturePortrait(karpathyAvatarCtx, 104, 104, "karpathy", state.tick);
       }
       if (document.getElementById("rpg-dialogue-backdrop").classList.contains("open")) {
         draw3DCaricaturePortrait(rpgPortraitCtx, 192, 192, state.activePortraitStyle, state.tick);
@@ -2435,18 +2467,23 @@ a:hover { text-decoration: underline; }
           }
         }
 
+        document.querySelectorAll(".world-pin.pin-hidden-by-prox").forEach(el => el.classList.remove("pin-hidden-by-prox"));
         if (state.nearbyLandmark) {
           const s = state.nearbyLandmark;
+          const hiddenPin = document.querySelector(`.world-pin[data-stop-id="${s.id}"]`);
+          if (hiddenPin) hiddenPin.classList.add("pin-hidden-by-prox");
           proxBtn.style.display = "inline-flex";
           proxBtn.style.left = ((state.player.x / 1280) * 100).toFixed(2) + "%";
-          proxBtn.style.top = (((state.player.y - 44) / 760) * 100).toFixed(2) + "%";
-          proxBtn.innerText = `👋 Talk to ${s.npcName} [Press E]`;
+          proxBtn.style.top = (((state.player.y - 46) / 760) * 100).toFixed(2) + "%";
+          proxBtn.innerText = `👋 Talk to ${s.npcName} · Press E`;
         } else if (state.nearbyHall) {
           const h = state.nearbyHall;
+          const hiddenHallPin = document.querySelector(`.world-pin[data-hall-level="${h.level}"]`);
+          if (hiddenHallPin) hiddenHallPin.classList.add("pin-hidden-by-prox");
           proxBtn.style.display = "inline-flex";
           proxBtn.style.left = ((state.player.x / 1280) * 100).toFixed(2) + "%";
-          proxBtn.style.top = (((state.player.y - 44) / 760) * 100).toFixed(2) + "%";
-          proxBtn.innerText = `🏛️ Enter ${h.name} [Press E]`;
+          proxBtn.style.top = (((state.player.y - 46) / 760) * 100).toFixed(2) + "%";
+          proxBtn.innerText = `🏛️ Enter ${h.name} · Press E`;
         } else {
           proxBtn.style.display = "none";
         }

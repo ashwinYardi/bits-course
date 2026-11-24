@@ -8,25 +8,47 @@
 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;600;700&display=swap');
 
 :root {
-  --paper: #f2f7f4;
+  /* Better-Colors Primitive Ramps (Neutral Slate-Mist, Terracotta Accent, Pine Status) */
+  --slate-50: #f6f8f7;
+  --slate-100: #ebf0ed;
+  --slate-200: #d8e1dc;
+  --slate-300: #b8c6be;
+  --slate-600: #4b5b53;
+  --slate-700: #2e3b34;
+  --slate-900: #141d18;
+  --clay-100: #faeae4;
+  --clay-600: #a93b1f;
+  --clay-700: #882d16;
+  --pine-100: #e6f4ec;
+  --pine-700: #1f6a44;
+
+  /* Semantic Role Tokens */
+  --paper: var(--slate-50);
   --paper-card: #ffffff;
-  --paper-warm: #e4efe9;
-  --paper-deep: #cfe2d8;
-  --ink: #111c16;
-  --ink-soft: #26382e;
-  --muted: #47594e;
-  --line: #bfd2c7;
-  --line-strong: #8fa99b;
-  --terracotta: #9a2c13;
-  --terracotta-soft: #fee2e2;
-  --amber: #92400e;
-  --amber-soft: #fef3c7;
-  --meadow: #14532d;
-  --meadow-soft: #dcfce7;
-  --sky: #075985;
-  --sky-soft: #e0f2fe;
-  --berry: #6b21a8;
-  --berry-soft: #f3e8ff;
+  --paper-warm: var(--slate-100);
+  --paper-deep: var(--slate-200);
+  --ink: var(--slate-900);
+  --ink-soft: var(--slate-700);
+  --muted: var(--slate-600);
+  --line: var(--slate-200);
+  --line-strong: var(--slate-300);
+  --color-accent-solid: var(--clay-600);
+  --color-accent-hover: var(--clay-700);
+  --color-accent-soft: var(--clay-100);
+  --color-status-open: var(--pine-700);
+  --color-status-open-soft: var(--pine-100);
+  --terracotta: var(--color-accent-solid);
+  --terracotta-soft: var(--color-accent-soft);
+  --amber: #8a5a18;
+  --amber-soft: #f7eedc;
+  --meadow: var(--color-status-open);
+  --meadow-soft: var(--color-status-open-soft);
+  --sky: #335c73;
+  --sky-soft: #e6eff4;
+  --berry: #5c4d6b;
+  --berry-soft: #efebf4;
+  --shadow-ring: 0 0 0 1px rgba(20, 29, 24, 0.08), 0 4px 10px -2px rgba(20, 29, 24, 0.10), 0 12px 24px -6px rgba(20, 29, 24, 0.08);
+  --shadow-ring-sm: 0 0 0 1px rgba(20, 29, 24, 0.09), 0 2px 6px -1px rgba(20, 29, 24, 0.08);
   --sans: 'Atkinson Hyperlegible', -apple-system, BlinkMacSystemFont, sans-serif;
   --serif: 'Bricolage Grotesque', Georgia, serif;
   --mono: 'IBM Plex Mono', monospace;
