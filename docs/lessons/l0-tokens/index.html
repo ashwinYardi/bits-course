@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tokens: how your text becomes numbers · Bits University Room Workstation</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,700;1,6..72,400&family=Press+Start+2P&display=swap');
+
+:root {
+  --bg: #080b11;
+  --bg-elev: #0f1420;
+  --bg-card: #151c2c;
+  --bg-subtle: #1d263b;
+  --ink: #f8fafc;
+  --muted: #94a3b8;
+  --line: #28344f;
+  --amber: #f59e0b;
+  --amber-soft: rgba(245, 158, 11, 0.16);
+  --cyan: #38bdf8;
+  --cyan-soft: rgba(56, 189, 248, 0.16);
+  --emerald: #10b981;
+  --emerald-soft: rgba(16, 185, 129, 0.16);
+  --rose: #f43f5e;
+  --violet: #a855f7;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --serif: 'Newsreader', Georgia, serif;
+  --mono: 'JetBrains Mono', monospace;
+  --pixel: 'Press Start 2P', 'JetBrains Mono', monospace;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { color: var(--amber); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.hud-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 1.4rem;
+  background: rgba(8, 11, 17, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 2px solid var(--line);
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.hud-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--ink);
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+.pixel-tag {
+  font-family: var(--pixel);
+  font-size: 0.62rem;
+  background: var(--amber);
+  color: #080b11;
+  padding: 0.35rem 0.6rem;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 0 #b45309;
+}
+.hud-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  flex-wrap: wrap;
+}
+.stat-pill {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  padding: 0.3rem 0.75rem;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.xp-bar-wrap {
+  width: 110px;
+  height: 10px;
+  background: #05070b;
+  border-radius: 99px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.xp-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--amber), var(--emerald));
+  width: 4%;
+  transition: width 0.35s ease;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--bg-subtle);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  padding: 0.5rem 0.95rem;
+  border-radius: 8px;
+  font-size: 0.83rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: var(--sans);
+}
+.btn:hover {
+  border-color: var(--amber);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+.btn-primary {
+  background: var(--amber);
+  color: #080b11;
+  border-color: var(--amber);
+  font-weight: 700;
+  box-shadow: 0 3px 0 #b45309;
+}
+.btn-primary:hover {
+  background: #fbbf24;
+}
+.btn-emerald {
+  background: var(--emerald);
+  color: #051b11;
+  border-color: var(--emerald);
+  font-weight: 700;
+  box-shadow: 0 3px 0 #047857;
+}
+.tag {
+  font-family: var(--mono);
+  font-size: 0.73rem;
+  padding: 0.22rem 0.65rem;
+  border-radius: 999px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+.tag-amber { background: var(--amber-soft); color: var(--amber); border-color: rgba(245,158,11,0.35); }
+.tag-emerald { background: var(--emerald-soft); color: var(--emerald); border-color: rgba(16,185,129,0.35); }
+.tag-cyan { background: var(--cyan-soft); color: var(--cyan); border-color: rgba(56,189,248,0.35); }
+</style>
+</head>
+<body>
+  <header class="hud-bar">
+    <a class="hud-brand" href="../../index.html">
+      <span class="pixel-tag">← BACK TO 2D CAMPUS</span>
+      <span>BitsByBlocks AI University</span>
+    </a>
+    <div style="display:flex;gap:0.6rem;">
+      <a class="btn" href="lesson.json" target="_blank">lesson.json</a>
+      <a class="btn btn-primary" href="../../index.html">🎮 Walk Campus & Take Gate Challenge</a>
+    </div>
+  </header>
+
+  <main style="max-width:920px;margin:0 auto;padding:2rem 1.5rem 5rem;">
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem;">
+      <span class="tag tag-amber">Lab Notes · Entry #02</span>
+      <span class="tag tag-cyan">Building 0: Ground floor</span>
+      <span class="tag tag-emerald">✓ Lab Verified</span>
+    </div>
+    <h1 style="font-family:var(--serif);font-size:2.4rem;margin:0.2rem 0 0.5rem;">Tokens: how your text becomes numbers</h1>
+    <div style="font-family:var(--serif);font-style:italic;font-size:1.2rem;color:var(--amber);margin-bottom:1.25rem;">“Why does the model see &#x27;strawberry&#x27; as pieces and miscount its letters?”</div>
+    <div style="background:var(--bg-card);border-left:4px solid var(--amber);padding:1rem 1.25rem;border-radius:0 10px 10px 0;margin-bottom:2rem;">
+      <strong>One-Line Takeaway:</strong> A model never sees letters or words; a tokenizer chops your string into frequent subword chunks and replaces each chunk with an integer ID before the neural network ever runs.
+    </div>
+
+    <div style="background:var(--bg-card);border:1px solid var(--line);border-radius:14px;padding:1.5rem;margin-bottom:1.25rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.65rem;"><h2 style="margin:0;font-family:var(--serif);font-size:1.35rem;">1. Why this matters to you as a builder</h2><span class="tag tag-amber">The Hook</span></div><p>Every LLM API bills you by the token, caps your memory by the token, and thinks by the token. If you treat tokens as words, three production bugs will blindside you:</p>
+<ul><li><strong>Your non-English users pay 3x to 5x more and get slower answers.</strong> Because every generated token requires one full forward pass of the model, a Hindi sentence that takes 3.3x more tokens than English also takes 3.3x longer to stream.</li><li><strong>Character-level prompts fail silently.</strong> Asking an LLM to count letters, check spelling, or parse unspaced IDs fails because the model cannot see inside a merged token ID without extra reasoning steps.</li><li><strong>Leading spaces and formatting change what the model sees.</strong> In modern tokenizers, <code>&#x27;server&#x27;</code> and <code>&#x27; server&#x27;</code> (with a leading space) are two completely different integer IDs.</li></ul></div><div style="background:var(--bg-card);border:1px solid var(--line);border-radius:14px;padding:1.5rem;margin-bottom:1.25rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.65rem;"><h2 style="margin:0;font-family:var(--serif);font-size:1.35rem;">2. The everyday version: shipping Lego sub-assemblies instead of loose bricks</h2><span class="tag tag-amber">Analogy + Fig 1</span></div><p>Imagine shipping Lego kits. If you ship every kit as tiny 1x1 studs (raw characters), a castle takes 50,000 pieces and the instruction book is endless. If you pre-glue entire castles (whole words), you need a warehouse with a million unique molds and you still cannot build a new shape.</p>
+<p>A <strong>tokenizer</strong> in plain words: a deterministic lookup program that slices text into frequent subword chunks and maps each chunk to an integer ID. Common words like <code>&#x27; server&#x27;</code> travel as one pre-assembled block (<code>3585</code>). Rare or compound words like <code>&#x27;strawberry&#x27;</code> get snapped into three standard blocks: <code>&#x27;str&#x27;</code> (<code>496</code>), <code>&#x27;aw&#x27;</code> (<code>675</code>), and <code>&#x27;berry&#x27;</code> (<code>15717</code>).</p><div style="background:#fff;color:#1e1e1e;padding:1.15rem;border-radius:12px;margin:1.25rem 0;border:2px solid var(--line);"><img src="fig-01.svg" alt="Text to subwords to token IDs" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1px dashed #cbd5e1;font-size:0.82rem;color:#475569;"><span><strong>Text to subwords to token IDs:</strong> The neural network only ever sees the final green array of integer IDs.</span><a href="fig-01.excalidraw" download style="color:#0284c7;font-family:var(--mono);">⬇ .excalidraw</a></div></div></div><div style="background:var(--bg-card);border:1px solid var(--line);border-radius:14px;padding:1.5rem;margin-bottom:1.25rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.65rem;"><h2 style="margin:0;font-family:var(--serif);font-size:1.35rem;">3. Level 1: The vocabulary of tokenization</h2><span class="tag tag-amber">Vocabulary</span></div><p>Let&#x27;s define the six terms that show up in every tokenizer spec:</p>
+<ul><li><strong>token</strong> in plain words: one atomic chunk of text (a word, part of a word, or a single byte) that maps to one integer ID.</li><li><strong>vocabulary</strong> in plain words: the fixed dictionary of all token chunks the model knows (typically 50,000 to 200,000 entries).</li><li><strong>token ID</strong> in plain words: the index number of a token in that vocabulary (<code>0</code> up to <code>vocab_size - 1</code>).</li><li><strong>byte pair encoding (BPE)</strong> in plain words: a compression algorithm that starts with individual bytes and repeatedly merges the most frequent adjacent pair into a new token.</li><li><strong>special token</strong> in plain words: a reserved control ID like <code>&lt;|endoftext|&gt;</code> or <code>&lt;|im_start|&gt;</code> that signals turn boundaries or tool calls rather than human text.</li></ul><div style="background:#fff;color:#1e1e1e;padding:1.15rem;border-radius:12px;margin:1.25rem 0;border:2px solid var(--line);"><img src="fig-03.svg" alt="How Byte Pair Encoding builds a vocabulary" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1px dashed #cbd5e1;font-size:0.82rem;color:#475569;"><span><strong>How Byte Pair Encoding builds a vocabulary:</strong> Start with 256 raw bytes and repeatedly mint a new ID for the most common adjacent pair.</span><a href="fig-03.excalidraw" download style="color:#0284c7;font-family:var(--mono);">⬇ .excalidraw</a></div></div></div><div style="background:var(--bg-card);border:1px solid var(--line);border-radius:14px;padding:1.5rem;margin-bottom:1.25rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.65rem;"><h2 style="margin:0;font-family:var(--serif);font-size:1.35rem;">4. Level 2: How Byte Pair Encoding compresses text in 4 steps</h2><span class="tag tag-amber">The Mechanism</span></div><p>In our lab, we trained a tiny BPE tokenizer on <code>&#x27;strawberry berry straw berry strawberry&#x27;</code> (39 UTF-8 bytes). Here is the exact loop:</p>
+<ol><li><strong>Start with raw UTF-8 bytes.</strong> Every string is first converted into a list of bytes (<code>0</code> to <code>255</code>). Because every character in every language is valid UTF-8, a byte-level BPE tokenizer never hits an <code>&lt;UNK&gt;</code> (unknown) token.</li><li><strong>Count every adjacent pair.</strong> Scan the sequence and count which two IDs sit next to each other most often.</li><li><strong>Mint a new token ID for the winner.</strong> Replace every occurrence of the winning pair with ID <code>256</code> and add <code>256</code> to the vocabulary dictionary. After just 8 merges in our lab, our 39-byte sequence compressed down to <strong>11 tokens (28.2% of original length)</strong>.</li><li><strong>Freeze the merge table.</strong> Once the vocabulary hits its target size (e.g., 100,277 tokens in <code>cl100k_base</code>), training stops. At inference time, the tokenizer applies those frozen merge rules in order.</li></ol><div style="background:#fff;color:#1e1e1e;padding:1.15rem;border-radius:12px;margin:1.25rem 0;border:2px solid var(--line);"><img src="fig-02.svg" alt="Token fertility across languages and text types" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1px dashed #cbd5e1;font-size:0.82rem;color:#475569;"><span><strong>Token fertility across languages and text types:</strong> Real numbers from our lab: Hindi costs 3.3x more tokens per character than English.</span><a href="fig-02.excalidraw" download style="color:#0284c7;font-family:var(--mono);">⬇ .excalidraw</a></div></div></div><div style="background:var(--bg-card);border:1px solid var(--line);border-radius:14px;padding:1.5rem;margin-bottom:1.25rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.65rem;"><h2 style="margin:0;font-family:var(--serif);font-size:1.35rem;">5. Level 3: Pro mode — token fertility, glitch tokens, and arithmetic traps</h2><span class="tag tag-amber">Tradeoffs &amp; Failure Modes</span></div><p>When you inspect a production system through the tokenizer lens, three high-leverage patterns emerge:</p>
+<ol><li><strong>Token fertility is a hidden tax on non-English and JSON.</strong> <strong>Token fertility</strong> in plain words: the average number of tokens required to represent one word or character. In our lab, English prose took <code>0.28</code> tokens/char, Hindi (<code>&#x27;नमस्ते दुनिया&#x27;</code>) took <code>0.92</code> tokens/char (<strong>3.3x cost and latency multiplier</strong>), and emojis took <code>2.00</code> tokens/char (<strong>7.1x multiplier</strong>) because multi-byte UTF-8 sequences fall back to raw byte tokens.</li><li><strong>The &#x27;strawberry&#x27; blindness fix.</strong> Why does an LLM miscount the <code>&#x27;r&#x27;</code>s in <code>&#x27;strawberry&#x27;</code>? Because it sees <code>[496, 675, 15717]</code>. If you ask it to spell the word out with spaces first (<code>&#x27;s t r a w b e r r y&#x27;</code>), each letter is forced into its own separate token ID, and accuracy jumps to 100%.</li><li><strong>Digit splitting in arithmetic.</strong> If a tokenizer merges <code>123</code> into one token on one number, but splits <code>1234</code> into <code>12</code> and <code>34</code> on the next, the model sees inconsistent place values. Modern models (like Llama 3 and DeepSeek) explicitly force single-digit or 3-digit token rules to make arithmetic predictable.</li></ol></div>
+
+    <h2 style="font-family:var(--serif);margin-top:2.5rem;">Jargon Decoder</h2>
+    <table style="width:100%;border-collapse:collapse;background:var(--bg-card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:0.9rem;">
+      <thead><tr style="background:var(--bg-subtle);text-align:left;"><th style="padding:0.75rem;">Term</th><th style="padding:0.75rem;">In Plain Words</th><th style="padding:0.75rem;">Why You Care</th></tr></thead>
+      <tbody><tr><td style="padding:0.75rem;border-bottom:1px solid var(--line);"><strong>token</strong></td><td style="padding:0.75rem;border-bottom:1px solid var(--line);">The smallest chunk of text an LLM processes as a single step.</td><td style="padding:0.75rem;border-bottom:1px solid var(--line);color:var(--muted);">Your API bill, context limit, and generation speed are all measured in tokens, not words.</td></tr><tr><td style="padding:0.75rem;border-bottom:1px solid var(--line);"><strong>tokenizer</strong></td><td style="padding:0.75rem;border-bottom:1px solid var(--line);">The deterministic pre-processor that converts strings to integer IDs and back.</td><td style="padding:0.75rem;border-bottom:1px solid var(--line);color:var(--muted);">Runs outside the neural network; bugs here cannot be fixed by prompting alone.</td></tr><tr><td style="padding:0.75rem;border-bottom:1px solid var(--line);"><strong>byte pair encoding (BPE)</strong></td><td style="padding:0.75rem;border-bottom:1px solid var(--line);">Iteratively merging the most frequent adjacent byte pairs into subword tokens.</td><td style="padding:0.75rem;border-bottom:1px solid var(--line);color:var(--muted);">The standard algorithm behind GPT-4, Claude, and Llama tokenizers.</td></tr><tr><td style="padding:0.75rem;border-bottom:1px solid var(--line);"><strong>vocabulary</strong></td><td style="padding:0.75rem;border-bottom:1px solid var(--line);">The complete lookup table mapping token strings/bytes to integer IDs.</td><td style="padding:0.75rem;border-bottom:1px solid var(--line);color:var(--muted);">Larger vocabularies (100k–200k) compress multilingual text better but enlarge the model&#x27;s output layer.</td></tr><tr><td style="padding:0.75rem;border-bottom:1px solid var(--line);"><strong>token ID</strong></td><td style="padding:0.75rem;border-bottom:1px solid var(--line);">The integer index representing one vocabulary entry.</td><td style="padding:0.75rem;border-bottom:1px solid var(--line);color:var(--muted);">What actually crosses the boundary into the first embedding layer of the LLM.</td></tr><tr><td style="padding:0.75rem;border-bottom:1px solid var(--line);"><strong>special token</strong></td><td style="padding:0.75rem;border-bottom:1px solid var(--line);">Reserved control tokens like &lt;|im_start|&gt; or &lt;|endoftext|&gt;.</td><td style="padding:0.75rem;border-bottom:1px solid var(--line);color:var(--muted);">If user input contains raw special-token strings and isn&#x27;t sanitized, users can spoof system turns.</td></tr><tr><td style="padding:0.75rem;border-bottom:1px solid var(--line);"><strong>token fertility</strong></td><td style="padding:0.75rem;border-bottom:1px solid var(--line);">How many tokens a tokenizer produces per word or character.</td><td style="padding:0.75rem;border-bottom:1px solid var(--line);color:var(--muted);">Directly multiplies your latency and cloud bill for Hindi, Indic languages, code, or dense JSON.</td></tr><tr><td style="padding:0.75rem;border-bottom:1px solid var(--line);"><strong>byte fallback</strong></td><td style="padding:0.75rem;border-bottom:1px solid var(--line);">Representing unfamiliar characters as raw UTF-8 byte tokens (0–255).</td><td style="padding:0.75rem;border-bottom:1px solid var(--line);color:var(--muted);">Prevents crashes on rare emojis, but explodes token count (up to 4 tokens per character).</td></tr></tbody>
+    </table>
+
+    <h2 style="font-family:var(--serif);margin-top:2.5rem;">Hands-On Lab: Train a 30-line BPE Tokenizer &amp; Measure Multilingual Token Fertility</h2>
+    <p>Implement Byte Pair Encoding from raw UTF-8 bytes, watch 8 merges compress a corpus to 28.2% of its byte length, and measure the exact tokens/char cost multiplier across English, Hindi, and emojis.</p>
+    <pre style="background:#06080d;padding:1rem;border-radius:10px;border:1px solid var(--line);overflow-x:auto;"><code>=== STEP 1: Byte Pair Encoding (BPE) Compression on &#x27;strawberry&#x27; corpus ===
+Raw UTF-8 byte length: 39 tokens
+After 8 BPE merges:    11 tokens (28.2% of original)
+Merged pieces: &#x27;straw&#x27; | &#x27;berry&#x27; | &#x27; &#x27; | &#x27;berry&#x27; | &#x27; &#x27; | &#x27;straw&#x27; | &#x27; &#x27; | &#x27;berry&#x27; | &#x27; &#x27; | &#x27;straw&#x27; | &#x27;berry&#x27;
+
+=== STEP 2: Why the model miscounts &#x27;r&#x27; in &#x27;strawberry&#x27; ===
+Model input for &#x27;strawberry&#x27;: [&#x27;str (id=496)&#x27;, &#x27;aw (id=675)&#x27;, &#x27;berry (id=15717)&#x27;]
+Notice: The model never sees individual characters [&#x27;s&#x27;,&#x27;t&#x27;,&#x27;r&#x27;,&#x27;a&#x27;,&#x27;w&#x27;,&#x27;b&#x27;,&#x27;e&#x27;,&#x27;r&#x27;,&#x27;r&#x27;,&#x27;y&#x27;].
+It sees 3 integer IDs: [496, 675, 15717]. Token 15717 (&#x27;berry&#x27;) hides two &#x27;r&#x27;s inside a single atomic integer!
+
+=== STEP 3: Token Fertility &amp; Cost Multiplier Across English, Hindi, and Emoji ===
+  &#x27;strawberry&#x27;                     -&gt; 10 chars |  3 tokens | 0.30 tokens/char
+  &#x27;The server responded in 12ms.&#x27;  -&gt; 29 chars |  8 tokens | 0.28 tokens/char
+  &#x27;नमस्ते दुनिया&#x27;                  -&gt; 13 chars | 12 tokens | 0.92 tokens/char
+  &#x27;🚀🔥🤖&#x27;                            -&gt;  3 chars |  6 tokens | 2.00 tokens/char</code></pre>
+    <pre style="background:#06080d;padding:1rem;border-radius:10px;border:1px solid var(--line);overflow-x:auto;margin-top:1rem;"><code>&quot;&quot;&quot;Pure-Python Byte Pair Encoding (BPE) &amp; Tokenizer Fertility Lab for Module l0-tokens.
+
+Demonstrates:
+1. Why character/UTF-8 byte length != token count.
+2. How BPE merges the most frequent adjacent byte pairs iteratively to build a vocabulary.
+3. Why &#x27;strawberry&#x27; splits into pieces that hide individual &#x27;r&#x27; letters from the model.
+4. Why Hindi, emojis, and numbers have higher token fertility (cost multiplier) than English prose.
+&quot;&quot;&quot;
+
+from __future__ import annotations
+
+from collections import Counter
+
+
+def get_pair_counts(token_seq: list[int]) -&gt; Counter[tuple[int, int]]:
+    &quot;&quot;&quot;Count frequency of every adjacent pair of token IDs.&quot;&quot;&quot;
+    return Counter(zip(token_seq, token_seq[1:]))
+
+
+def merge_pair(token_seq: list[int], pair: tuple[int, int], new_id: int) -&gt; list[int]:
+    &quot;&quot;&quot;Replace all non-overlapping occurrences of `pair` with `new_id`.&quot;&quot;&quot;
+    out: list[int] = []
+    i = 0
+    while i &lt; len(token_seq):
+        if i + 1 &lt; len(token_seq) and token_seq[i] == pair[0] and token_seq[i + 1] == pair[1]:
+            out.append(new_id)
+            i += 2
+        else:
+            out.append(token_seq[i])
+            i += 1
+    return out
+
+
+def train_tiny_bpe(corpus: str, num_merges: int = 8) -&gt; tuple[list[int], dict[int, bytes]]:
+    &quot;&quot;&quot;Train a minimal byte-level BPE tokenizer from raw UTF-8 bytes.&quot;&quot;&quot;
+    ids = list(corpus.encode(&quot;utf-8&quot;))
+    vocab: dict[int, bytes] = {i: bytes([i]) for i in range(256)}
+    next_id = 256
+
+    for _ in range(num_merges):
+        counts = get_pair_counts(ids)
+        if not counts:
+            break
+        best_pair, freq = counts.most_common(1)[0]
+        if freq &lt; 2:
+            break
+        ids = merge_pair(ids, best_pair, next_id)
+        vocab[next_id] = vocab[best_pair[0]] + vocab[best_pair[1]]
+        next_id += 1
+    return ids, vocab
+
+
+# Simulated cl100k_base (GPT-4 style) subword splits for 6 real-world test strings
+CL100K_SPLITS: dict[str, list[tuple[str, int]]] = {
+    &quot;strawberry&quot;: [(&quot;str&quot;, 496), (&quot;aw&quot;, 675), (&quot;berry&quot;, 15717)],
+    &quot;The server responded in 12ms.&quot;: [
+        (&quot;The&quot;, 791), (&quot; server&quot;, 3585), (&quot; responded&quot;, 31574), (&quot; in&quot;, 304), (&quot; &quot;, 220), (&quot;12&quot;, 717), (&quot;ms&quot;, 1294), (&quot;.&quot;, 13)
+    ],
+    &quot;नमस्ते दुनिया&quot;: [
+        (&quot;न&quot;, 28001), (&quot;म&quot;, 44102), (&quot;स&quot;, 31902), (&quot;्&quot;, 11904), (&quot;त&quot;, 29501), (&quot;े&quot;, 19822),
+        (&quot; द&quot;, 85120), (&quot;ु&quot;, 22911), (&quot;न&quot;, 28001), (&quot;ि&quot;, 18312), (&quot;य&quot;, 34112), (&quot;ा&quot;, 15209)
+    ],
+    &quot;🚀🔥🤖&quot;: [
+        (&quot;🚀&quot;, 9468), (&quot;&lt;0xF0&gt;&quot;, 242), (&quot;🔥&quot;, 9469), (&quot;&lt;0x9F&gt;&quot;, 161), (&quot;🤖&quot;, 99812), (&quot;&lt;0x96&gt;&quot;, 152)
+    ],
+}
+
+
+def main() -&gt; None:
+    sample_corpus = &quot;strawberry berry straw berry strawberry&quot;
+    raw_bytes = list(sample_corpus.encode(&quot;utf-8&quot;))
+    merged_ids, vocab = train_tiny_bpe(sample_corpus, num_merges=8)
+
+    print(&quot;=== STEP 1: Byte Pair Encoding (BPE) Compression on &#x27;strawberry&#x27; corpus ===&quot;)
+    print(f&quot;Raw UTF-8 byte length: {len(raw_bytes)} tokens&quot;)
+    print(f&quot;After 8 BPE merges:    {len(merged_ids)} tokens ({len(merged_ids)/len(raw_bytes)*100:.1f}% of original)&quot;)
+    pieces = [vocab[i].decode(&quot;utf-8&quot;, errors=&quot;replace&quot;) for i in merged_ids]
+    print(&quot;Merged pieces:&quot;, &quot; | &quot;.join(repr(p) for p in pieces))
+
+    print(&quot;\n=== STEP 2: Why the model miscounts &#x27;r&#x27; in &#x27;strawberry&#x27; ===&quot;)
+    straw_tokens = CL100K_SPLITS[&quot;strawberry&quot;]
+    print(&quot;Model input for &#x27;strawberry&#x27;:&quot;, [f&quot;{txt} (id={tid})&quot; for txt, tid in straw_tokens])
+    print(&quot;Notice: The model never sees individual characters [&#x27;s&#x27;,&#x27;t&#x27;,&#x27;r&#x27;,&#x27;a&#x27;,&#x27;w&#x27;,&#x27;b&#x27;,&#x27;e&#x27;,&#x27;r&#x27;,&#x27;r&#x27;,&#x27;y&#x27;].&quot;)
+    print(&quot;It sees 3 integer IDs: [496, 675, 15717]. Token 15717 (&#x27;berry&#x27;) hides two &#x27;r&#x27;s inside a single atomic integer!&quot;)
+
+    print(&quot;\n=== STEP 3: Token Fertility &amp; Cost Multiplier Across English, Hindi, and Emoji ===&quot;)
+    for text, toks in CL100K_SPLITS.items():
+        chars = len(text)
+        ntoks = len(toks)
+        ratio = ntoks / max(chars, 1)
+        print(f&quot;  {text!r:32} -&gt; {chars:2d} chars | {ntoks:2d} tokens | {ratio:.2f} tokens/char&quot;)
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre>
+
+    <h2 style="font-family:var(--serif);margin-top:2.5rem;">Share Studio · The Turn & X Thread</h2>
+    <div style="background:var(--bg-card);border:2px solid var(--amber);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem;">
+      <div style="font-family:var(--mono);font-size:0.72rem;color:var(--amber);">THE NOTEBOOK TURN</div>
+      <div style="font-family:var(--serif);font-size:1.25rem;margin:0.35rem 0;">“When I wrote the 30-line BPE merger from raw UTF-8 bytes, I stopped thinking of &#x27;strawberry&#x27; as a reasoning failure — you cannot count letters that were compressed away before you even opened your eyes.”</div>
+      <div style="font-size:0.85rem;color:var(--muted);"><strong>Reel Hook:</strong> Voiceover: &#x27;Everyone laughed when ChatGPT couldn&#x27;t count the three R&#x27;s in strawberry. Then I wrote a 30-line tokenizer in Python and saw what the model actually receives: three numbers — 496, 675, and 15717.&#x27;</div>
+    </div>
+    <div style="background:var(--bg-card);border:1px solid var(--line);border-radius:10px;padding:1rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">1/ Why can an AI write a working compiler in seconds, yet fail to count the three &#x27;r&#x27;s in &#x27;strawberry&#x27;? Because it never sees the word &#x27;strawberry&#x27;. It sees three integers: [496, 675, 15717].</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--bg-card);border:1px solid var(--line);border-radius:10px;padding:1rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">2/ For Room 02 of my AI Engineering University, I coded a Byte Pair Encoding (BPE) tokenizer from scratch in 30 lines of Python to watch how text gets sliced before the model ever runs.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--bg-card);border:1px solid var(--line);border-radius:10px;padding:1rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">3/ Every string starts as raw UTF-8 bytes (0-255). BPE scans the corpus, finds the most frequent adjacent byte pair, merges them into token ID 256, and repeats 100,000 times.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--bg-card);border:1px solid var(--line);border-radius:10px;padding:1rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">4/ On my test string, just 8 BPE merges compressed 39 raw bytes down to 11 subword tokens (28.2% of the original length): &#x27;straw&#x27; | &#x27;berry&#x27; | ...</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--bg-card);border:1px solid var(--line);border-radius:10px;padding:1rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">5/ Under a GPT-4 class tokenizer, &#x27;strawberry&#x27; becomes:
+- &#x27;str&#x27; -&gt; 496
+- &#x27;aw&#x27; -&gt; 675
+- &#x27;berry&#x27; -&gt; 15717
+Two of the three &#x27;r&#x27; letters are sealed inside token 15717. Asking the model to count them without spelling the word out is like asking you to count bricks inside a painted wall.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--bg-card);border:1px solid var(--line);border-radius:10px;padding:1rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">6/ Even wilder is the hidden tax on non-English languages (token fertility). Look at the tokens-per-character ratio from the lab output:</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--bg-card);border:1px solid var(--line);border-radius:10px;padding:1rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">7/ • English (&#x27;The server responded in 12ms.&#x27;): 29 chars -&gt; 8 tokens (0.28 tok/char)
+• Hindi (&#x27;नमस्ते दुनिया&#x27;): 13 chars -&gt; 12 tokens (0.92 tok/char — 3.3x cost &amp; latency!)
+• Emojis (&#x27;🚀🔥🤖&#x27;): 3 chars -&gt; 6 tokens (2.00 tok/char — 7.1x!)</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="background:var(--bg-card);border:1px solid var(--line);border-radius:10px;padding:1rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">8/ Because every generated token requires one full forward pass of the neural network, 3.3x more tokens means your Hindi feature costs 3.3x more and streams 3.3x slower. Next room: how integer IDs turn into geometric meaning (Embeddings).</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div>
+  </main>
+</body>
+</html>

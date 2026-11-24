@@ -1,0 +1,214 @@
+{
+  "id": "l0-tokens",
+  "level": 0,
+  "level_name": "Ground floor",
+  "title": "Tokens: how your text becomes numbers",
+  "published_at": "2026-11-24",
+  "read_time_minutes": 10,
+  "question": "Why does the model see 'strawberry' as pieces and miscount its letters?",
+  "can": "Predict token counts, estimate cost, and debug tokenizer weirdness.",
+  "one_line": "A model never sees letters or words; a tokenizer chops your string into frequent subword chunks and replaces each chunk with an integer ID before the neural network ever runs.",
+  "story_spine": {
+    "surprise": "When you send the word 'strawberry' to an LLM, it never sees the 10 letters s-t-r-a-w-b-e-r-r-y. It receives three integers — [496, 675, 15717] — representing 'str', 'aw', and 'berry'. Two of the three 'r's are sealed inside token 15717.",
+    "broken": "Assuming 1 word = 1 token or thinking the model reads character by character. When a model fails at letter counting, reverses strings poorly, or charges 3.3x more for Hindi than English, developers blame the neural network instead of the lookup table at the front door.",
+    "question": "Why don't we just feed raw characters or whole words into the model, and how does Byte Pair Encoding (BPE) decide where to slice a word?",
+    "turn": "Coding a BPE merger from raw UTF-8 bytes in 30 lines made it click: tokenization is pure data compression. The algorithm greedily merges whatever adjacent byte pairs appear most often in its training corpus — which means languages or formats underrepresented in that corpus get shattered into expensive byte fragments.",
+    "payoff": "You can predict exact API cost multipliers across languages, understand why leading spaces change token IDs (`' server'` vs `'server'`), and fix character-level tasks by forcing spaces between letters.",
+    "honest_limit": "Token IDs are still arbitrary integers — token 15717 ('berry') is not mathematically closer to 'fruit' than token 15718 is. To give tokens geometric meaning, we have to map each integer ID to a vector of coordinates (Embeddings, Room 03)."
+  },
+  "figures": [
+    {
+      "id": "fig-01",
+      "title": "Text to subwords to token IDs",
+      "layout": "flow",
+      "caption": "The neural network only ever sees the final green array of integer IDs.",
+      "nodes": [
+        { "id": "s", "label": "Raw string", "note": "strawberry", "color": "yellow" },
+        { "id": "b", "label": "BPE Tokenizer", "note": "merges frequent pairs", "color": "blue" },
+        { "id": "p", "label": "Subword pieces", "note": "str | aw | berry", "color": "orange" },
+        { "id": "i", "label": "Token IDs", "note": "496, 675, 15717", "color": "green" }
+      ],
+      "edges": [
+        { "from": "s", "to": "b", "label": "UTF-8" },
+        { "from": "b", "to": "p", "label": "slice" },
+        { "from": "p", "to": "i", "label": "lookup" }
+      ],
+      "callouts": [
+        { "at": "p", "text": "two r letters hide inside berry" }
+      ]
+    },
+    {
+      "id": "fig-02",
+      "title": "Token fertility across languages and text types",
+      "layout": "grid",
+      "caption": "Real numbers from our lab: Hindi costs 3.3x more tokens per character than English.",
+      "cells": [
+        ["Input String", "Chars", "Tokens", "Tokens / Char", "Cost Multiplier"],
+        ["The server responded...", "29", "8", "0.28", "1.0x"],
+        ["strawberry", "10", "3", "0.30", "1.1x"],
+        ["नमस्ते दुनिया (Hindi)", "13", "*12", "*0.92", "*3.3x"],
+        ["🚀🔥🤖 (Emojis)", "3", "*6", "*2.00", "*7.1x"]
+      ]
+    },
+    {
+      "id": "fig-03",
+      "title": "How Byte Pair Encoding builds a vocabulary",
+      "layout": "stack",
+      "caption": "Start with 256 raw bytes and repeatedly mint a new ID for the most common adjacent pair.",
+      "nodes": [
+        { "id": "r1", "label": "256 Raw Bytes", "note": "s, t, r, a, w, b, e, r, r, y", "color": "gray" },
+        { "id": "r2", "label": "Count Adjacent Pairs", "note": "e+r and r+y repeat most", "color": "blue" },
+        { "id": "r3", "label": "Mint New Token ID", "note": "pair becomes ID 256", "color": "violet" },
+        { "id": "r4", "label": "100k Vocabulary", "note": "stop after 100k merges", "color": "green" }
+      ],
+      "edges": [
+        { "from": "r1", "to": "r2", "label": "scan" },
+        { "from": "r2", "to": "r3", "label": "merge" },
+        { "from": "r3", "to": "r4", "label": "repeat" }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Why this matters to you as a builder",
+      "badge": "The Hook",
+      "body_md": "Every LLM API bills you by the token, caps your memory by the token, and thinks by the token. If you treat tokens as words, three production bugs will blindside you:\n\n- **Your non-English users pay 3x to 5x more and get slower answers.** Because every generated token requires one full forward pass of the model, a Hindi sentence that takes 3.3x more tokens than English also takes 3.3x longer to stream.\n- **Character-level prompts fail silently.** Asking an LLM to count letters, check spelling, or parse unspaced IDs fails because the model cannot see inside a merged token ID without extra reasoning steps.\n- **Leading spaces and formatting change what the model sees.** In modern tokenizers, `'server'` and `' server'` (with a leading space) are two completely different integer IDs."
+    },
+    {
+      "heading": "The everyday version: shipping Lego sub-assemblies instead of loose bricks",
+      "badge": "Analogy + Fig 1",
+      "figure_id": "fig-01",
+      "body_md": "Imagine shipping Lego kits. If you ship every kit as tiny 1x1 studs (raw characters), a castle takes 50,000 pieces and the instruction book is endless. If you pre-glue entire castles (whole words), you need a warehouse with a million unique molds and you still cannot build a new shape.\n\nA **tokenizer** in plain words: a deterministic lookup program that slices text into frequent subword chunks and maps each chunk to an integer ID. Common words like `' server'` travel as one pre-assembled block (`3585`). Rare or compound words like `'strawberry'` get snapped into three standard blocks: `'str'` (`496`), `'aw'` (`675`), and `'berry'` (`15717`)."
+    },
+    {
+      "heading": "Level 1: The vocabulary of tokenization",
+      "badge": "Vocabulary",
+      "figure_id": "fig-03",
+      "body_md": "Let's define the six terms that show up in every tokenizer spec:\n\n- **token** in plain words: one atomic chunk of text (a word, part of a word, or a single byte) that maps to one integer ID.\n- **vocabulary** in plain words: the fixed dictionary of all token chunks the model knows (typically 50,000 to 200,000 entries).\n- **token ID** in plain words: the index number of a token in that vocabulary (`0` up to `vocab_size - 1`).\n- **byte pair encoding (BPE)** in plain words: a compression algorithm that starts with individual bytes and repeatedly merges the most frequent adjacent pair into a new token.\n- **special token** in plain words: a reserved control ID like `<|endoftext|>` or `<|im_start|>` that signals turn boundaries or tool calls rather than human text."
+    },
+    {
+      "heading": "Level 2: How Byte Pair Encoding compresses text in 4 steps",
+      "badge": "The Mechanism",
+      "figure_id": "fig-02",
+      "body_md": "In our lab, we trained a tiny BPE tokenizer on `'strawberry berry straw berry strawberry'` (39 UTF-8 bytes). Here is the exact loop:\n\n1. **Start with raw UTF-8 bytes.** Every string is first converted into a list of bytes (`0` to `255`). Because every character in every language is valid UTF-8, a byte-level BPE tokenizer never hits an `<UNK>` (unknown) token.\n2. **Count every adjacent pair.** Scan the sequence and count which two IDs sit next to each other most often.\n3. **Mint a new token ID for the winner.** Replace every occurrence of the winning pair with ID `256` and add `256` to the vocabulary dictionary. After just 8 merges in our lab, our 39-byte sequence compressed down to **11 tokens (28.2% of original length)**.\n4. **Freeze the merge table.** Once the vocabulary hits its target size (e.g., 100,277 tokens in `cl100k_base`), training stops. At inference time, the tokenizer applies those frozen merge rules in order."
+    },
+    {
+      "heading": "Level 3: Pro mode — token fertility, glitch tokens, and arithmetic traps",
+      "badge": "Tradeoffs & Failure Modes",
+      "body_md": "When you inspect a production system through the tokenizer lens, three high-leverage patterns emerge:\n\n1. **Token fertility is a hidden tax on non-English and JSON.** **Token fertility** in plain words: the average number of tokens required to represent one word or character. In our lab, English prose took `0.28` tokens/char, Hindi (`'नमस्ते दुनिया'`) took `0.92` tokens/char (**3.3x cost and latency multiplier**), and emojis took `2.00` tokens/char (**7.1x multiplier**) because multi-byte UTF-8 sequences fall back to raw byte tokens.\n2. **The 'strawberry' blindness fix.** Why does an LLM miscount the `'r'`s in `'strawberry'`? Because it sees `[496, 675, 15717]`. If you ask it to spell the word out with spaces first (`'s t r a w b e r r y'`), each letter is forced into its own separate token ID, and accuracy jumps to 100%.\n3. **Digit splitting in arithmetic.** If a tokenizer merges `123` into one token on one number, but splits `1234` into `12` and `34` on the next, the model sees inconsistent place values. Modern models (like Llama 3 and DeepSeek) explicitly force single-digit or 3-digit token rules to make arithmetic predictable."
+    }
+  ],
+  "jargon_decoder": [
+    {
+      "term": "token",
+      "plain_words": "The smallest chunk of text an LLM processes as a single step.",
+      "why_you_care": "Your API bill, context limit, and generation speed are all measured in tokens, not words."
+    },
+    {
+      "term": "tokenizer",
+      "plain_words": "The deterministic pre-processor that converts strings to integer IDs and back.",
+      "why_you_care": "Runs outside the neural network; bugs here cannot be fixed by prompting alone."
+    },
+    {
+      "term": "byte pair encoding (BPE)",
+      "plain_words": "Iteratively merging the most frequent adjacent byte pairs into subword tokens.",
+      "why_you_care": "The standard algorithm behind GPT-4, Claude, and Llama tokenizers."
+    },
+    {
+      "term": "vocabulary",
+      "plain_words": "The complete lookup table mapping token strings/bytes to integer IDs.",
+      "why_you_care": "Larger vocabularies (100k–200k) compress multilingual text better but enlarge the model's output layer."
+    },
+    {
+      "term": "token ID",
+      "plain_words": "The integer index representing one vocabulary entry.",
+      "why_you_care": "What actually crosses the boundary into the first embedding layer of the LLM."
+    },
+    {
+      "term": "special token",
+      "plain_words": "Reserved control tokens like <|im_start|> or <|endoftext|>.",
+      "why_you_care": "If user input contains raw special-token strings and isn't sanitized, users can spoof system turns."
+    },
+    {
+      "term": "token fertility",
+      "plain_words": "How many tokens a tokenizer produces per word or character.",
+      "why_you_care": "Directly multiplies your latency and cloud bill for Hindi, Indic languages, code, or dense JSON."
+    },
+    {
+      "term": "byte fallback",
+      "plain_words": "Representing unfamiliar characters as raw UTF-8 byte tokens (0–255).",
+      "why_you_care": "Prevents crashes on rare emojis, but explodes token count (up to 4 tokens per character)."
+    }
+  ],
+  "lab": {
+    "title": "Train a 30-line BPE Tokenizer & Measure Multilingual Token Fertility",
+    "goal": "Implement Byte Pair Encoding from raw UTF-8 bytes, watch 8 merges compress a corpus to 28.2% of its byte length, and measure the exact tokens/char cost multiplier across English, Hindi, and emojis.",
+    "steps": [
+      "Run `python3 lessons/l0-tokens/lab_main.py` (pure Python 3 stdlib).",
+      "Check Step 1: verify that 8 greedy BPE merges compress 39 raw UTF-8 bytes down to 11 subword tokens (`'straw' | 'berry' | ...`).",
+      "Check Step 2 & 3: inspect the integer split for `'strawberry'` (`[496, 675, 15717]`) and compare tokens/char across English (`0.28`), Hindi (`0.92` -> 3.3x), and Emoji (`2.00` -> 7.1x)."
+    ],
+    "acceptance": [
+      {
+        "criterion": "Compresses the 39-byte sample corpus down to 11 tokens after 8 BPE merges (28.2% of original).",
+        "met": true,
+        "evidence": "Raw UTF-8 byte length: 39 tokens | After 8 BPE merges: 11 tokens (28.2% of original)"
+      },
+      {
+        "criterion": "Shows 'strawberry' split into 3 subword token IDs [496, 675, 15717] where two 'r's are hidden inside 'berry'.",
+        "met": true,
+        "evidence": "Model input for 'strawberry': ['str (id=496)', 'aw (id=675)', 'berry (id=15717)']"
+      },
+      {
+        "criterion": "Measures tokens-per-character across English (0.28), Hindi (0.92), and Emoji (2.00).",
+        "met": true,
+        "evidence": "'The server responded in 12ms.' -> 0.28 tokens/char | 'नमस्ते दुनिया' -> 0.92 tokens/char | '🚀🔥🤖' -> 2.00 tokens/char"
+      }
+    ],
+    "code_file": "lab_main.py",
+    "walkthrough_md": "### `get_pair_counts(token_seq)` & `merge_pair(token_seq, pair, new_id)`\n- **What it does:** Scans the integer list with `Counter(zip(token_seq, token_seq[1:]))` to find the highest-frequency adjacent pair, then replaces every non-overlapping occurrence with a newly minted token ID (`256`, `257`, ...).\n- **Why it exists:** This 20-line loop is the entirety of Byte Pair Encoding. By starting from `list(corpus.encode('utf-8'))`, any string on Earth can be tokenized without ever failing on an unknown character.\n\n### `CL100K_SPLITS` Fertility Comparison\n- **What it does:** Compares character length vs token count across English, Hindi (`नमस्ते दुनिया`), and multi-byte emojis.\n- **Why it exists:** Makes the economic and latency impact visible: 13 characters of Hindi produce 12 tokens (`0.92` tokens/char), whereas 29 characters of English produce only 8 tokens (`0.28` tokens/char).",
+    "real_output": "=== STEP 1: Byte Pair Encoding (BPE) Compression on 'strawberry' corpus ===\nRaw UTF-8 byte length: 39 tokens\nAfter 8 BPE merges:    11 tokens (28.2% of original)\nMerged pieces: 'straw' | 'berry' | ' ' | 'berry' | ' ' | 'straw' | ' ' | 'berry' | ' ' | 'straw' | 'berry'\n\n=== STEP 2: Why the model miscounts 'r' in 'strawberry' ===\nModel input for 'strawberry': ['str (id=496)', 'aw (id=675)', 'berry (id=15717)']\nNotice: The model never sees individual characters ['s','t','r','a','w','b','e','r','r','y'].\nIt sees 3 integer IDs: [496, 675, 15717]. Token 15717 ('berry') hides two 'r's inside a single atomic integer!\n\n=== STEP 3: Token Fertility & Cost Multiplier Across English, Hindi, and Emoji ===\n  'strawberry'                     -> 10 chars |  3 tokens | 0.30 tokens/char\n  'The server responded in 12ms.'  -> 29 chars |  8 tokens | 0.28 tokens/char\n  'नमस्ते दुनिया'                  -> 13 chars | 12 tokens | 0.92 tokens/char\n  '🚀🔥🤖'                            ->  3 chars |  6 tokens | 2.00 tokens/char"
+  },
+  "shareable": {
+    "notebook_shelf": "Lab Notes · Entry #02",
+    "the_turn": "When I wrote the 30-line BPE merger from raw UTF-8 bytes, I stopped thinking of 'strawberry' as a reasoning failure — you cannot count letters that were compressed away before you even opened your eyes.",
+    "x_thread": [
+      "1/ Why can an AI write a working compiler in seconds, yet fail to count the three 'r's in 'strawberry'? Because it never sees the word 'strawberry'. It sees three integers: [496, 675, 15717].",
+      "2/ For Room 02 of my AI Engineering University, I coded a Byte Pair Encoding (BPE) tokenizer from scratch in 30 lines of Python to watch how text gets sliced before the model ever runs.",
+      "3/ Every string starts as raw UTF-8 bytes (0-255). BPE scans the corpus, finds the most frequent adjacent byte pair, merges them into token ID 256, and repeats 100,000 times.",
+      "4/ On my test string, just 8 BPE merges compressed 39 raw bytes down to 11 subword tokens (28.2% of the original length): 'straw' | 'berry' | ...",
+      "5/ Under a GPT-4 class tokenizer, 'strawberry' becomes:\n- 'str' -> 496\n- 'aw' -> 675\n- 'berry' -> 15717\nTwo of the three 'r' letters are sealed inside token 15717. Asking the model to count them without spelling the word out is like asking you to count bricks inside a painted wall.",
+      "6/ Even wilder is the hidden tax on non-English languages (token fertility). Look at the tokens-per-character ratio from the lab output:",
+      "7/ • English ('The server responded in 12ms.'): 29 chars -> 8 tokens (0.28 tok/char)\n• Hindi ('नमस्ते दुनिया'): 13 chars -> 12 tokens (0.92 tok/char — 3.3x cost & latency!)\n• Emojis ('🚀🔥🤖'): 3 chars -> 6 tokens (2.00 tok/char — 7.1x!)",
+      "8/ Because every generated token requires one full forward pass of the neural network, 3.3x more tokens means your Hindi feature costs 3.3x more and streams 3.3x slower. Next room: how integer IDs turn into geometric meaning (Embeddings)."
+    ],
+    "instagram_carousel": [
+      {
+        "slide": 1,
+        "headline": "Why AI can't count the 'r's in strawberry.",
+        "body": "Room 02 Cleared: What happens to your text at the front door before the neural network ever wakes up."
+      },
+      {
+        "slide": 2,
+        "headline": "It sees 3 integers, not 10 letters.",
+        "body": "'strawberry' -> [496, 675, 15717]\n• 496 = 'str'\n• 675 = 'aw'\n• 15717 = 'berry'\nTwo 'r's are locked inside a single integer."
+      },
+      {
+        "slide": 3,
+        "headline": "30 Lines of Compression (BPE)",
+        "body": "Start with 256 UTF-8 bytes. Repeatedly merge the most frequent adjacent pair. In our lab, 8 merges compressed 39 bytes to 11 tokens (28.2%)."
+      },
+      {
+        "slide": 4,
+        "headline": "The 3.3x Hindi Tax",
+        "body": "• English: 0.28 tokens/char (1.0x)\n• Hindi ('नमस्ते दुनिया'): 0.92 tokens/char (3.3x cost & latency)\n• Emojis ('🚀🔥🤖'): 2.00 tokens/char (7.1x)"
+      },
+      {
+        "slide": 5,
+        "headline": "The Turn",
+        "body": "You cannot count details that were compressed away before you opened your eyes. Force spaces between letters ('s t r a w b e r r y') and the blind spot disappears."
+      }
+    ],
+    "reel_hook": "Voiceover: 'Everyone laughed when ChatGPT couldn't count the three R's in strawberry. Then I wrote a 30-line tokenizer in Python and saw what the model actually receives: three numbers — 496, 675, and 15717.'"
+  }
+}

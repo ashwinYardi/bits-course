@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-28.0 -28.0 710.2 478.0" width="100%" height="auto" class="excalidraw-svg">
+<defs>
+<style>
+.excalidraw-text { font-family: "Virgil", "Comic Neue", "Caveat", "Segoe Print", "Bradley Hand", ui-rounded, sans-serif; }
+</style>
+</defs>
+<text x="0.0" y="22.1" font-size="24" font-weight="700" fill="#1e1e1e" class="excalidraw-text">Token fertility across languages and text types</text>
+<rect x="3.0" y="64.0" width="148.6" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="0.0" y="60.0" width="148.6" height="70.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
+<rect x="0.8" y="60.4" width="148.6" height="70.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="18.6" y="98.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Input String</text>
+<rect x="161.6" y="64.0" width="74.4" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="158.6" y="60.0" width="74.4" height="70.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
+<rect x="159.5" y="60.5" width="74.4" height="70.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="172.6" y="98.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Chars</text>
+<rect x="246.0" y="64.0" width="83.7" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="243.0" y="60.0" width="83.7" height="70.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
+<rect x="243.9" y="60.5" width="83.7" height="70.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="257.0" y="98.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Tokens</text>
+<rect x="339.7" y="64.0" width="148.6" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="336.7" y="60.0" width="148.6" height="70.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
+<rect x="337.7" y="60.6" width="148.6" height="70.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="350.7" y="98.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Tokens / Char</text>
+<rect x="498.4" y="64.0" width="120.8" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="495.4" y="60.0" width="120.8" height="70.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
+<rect x="496.3" y="60.7" width="120.8" height="70.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="537.2" y="87.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Cost</text>
+<text x="509.4" y="109.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Multiplier</text>
+<rect x="3.0" y="144.0" width="148.6" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="0.0" y="140.0" width="148.6" height="70.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
+<rect x="-1.0" y="139.2" width="148.6" height="70.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="27.9" y="167.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">The server</text>
+<text x="18.6" y="189.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">responded...</text>
+<rect x="161.6" y="144.0" width="74.4" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="158.6" y="140.0" width="74.4" height="70.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
+<rect x="159.7" y="140.9" width="74.4" height="70.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="186.6" y="178.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">29</text>
+<rect x="246.0" y="144.0" width="83.7" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="243.0" y="140.0" width="83.7" height="70.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
+<rect x="244.1" y="140.9" width="83.7" height="70.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="280.2" y="178.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">8</text>
+<rect x="339.7" y="144.0" width="148.6" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="336.7" y="140.0" width="148.6" height="70.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
+<rect x="337.8" y="141.0" width="148.6" height="70.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="392.5" y="178.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.28</text>
+<rect x="498.4" y="144.0" width="120.8" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="495.4" y="140.0" width="120.8" height="70.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
+<rect x="496.5" y="141.0" width="120.8" height="70.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="537.2" y="178.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">1.0x</text>
+<rect x="3.0" y="224.0" width="148.6" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="0.0" y="220.0" width="148.6" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
+<rect x="1.1" y="221.0" width="148.6" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="27.9" y="251.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">strawberry</text>
+<rect x="161.6" y="224.0" width="74.4" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="158.6" y="220.0" width="74.4" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
+<rect x="159.7" y="221.1" width="74.4" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="186.6" y="251.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">10</text>
+<rect x="246.0" y="224.0" width="83.7" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="243.0" y="220.0" width="83.7" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
+<rect x="244.1" y="221.1" width="83.7" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="280.2" y="251.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">3</text>
+<rect x="339.7" y="224.0" width="148.6" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="336.7" y="220.0" width="148.6" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
+<rect x="337.8" y="221.1" width="148.6" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="392.5" y="251.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.30</text>
+<rect x="498.4" y="224.0" width="120.8" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="495.4" y="220.0" width="120.8" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
+<rect x="496.4" y="221.1" width="120.8" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="537.2" y="251.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">1.1x</text>
+<rect x="3.0" y="290.0" width="148.6" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="0.0" y="286.0" width="148.6" height="70.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
+<rect x="1.0" y="287.1" width="148.6" height="70.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="14.0" y="313.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">नमस्ते दुनिया</text>
+<text x="41.8" y="335.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">(Hindi)</text>
+<rect x="161.6" y="290.0" width="74.4" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="158.6" y="286.0" width="74.4" height="70.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
+<rect x="157.8" y="284.9" width="74.4" height="70.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="186.6" y="324.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">13</text>
+<rect x="246.0" y="290.0" width="83.7" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="243.0" y="286.0" width="83.7" height="70.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
+<rect x="242.2" y="284.9" width="83.7" height="70.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="275.6" y="324.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">12</text>
+<rect x="339.7" y="290.0" width="148.6" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="336.7" y="286.0" width="148.6" height="70.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
+<rect x="336.0" y="285.0" width="148.6" height="70.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="392.5" y="324.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.92</text>
+<rect x="498.4" y="290.0" width="120.8" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="495.4" y="286.0" width="120.8" height="70.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
+<rect x="494.7" y="285.0" width="120.8" height="70.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="537.2" y="324.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">3.3x</text>
+<rect x="3.0" y="370.0" width="148.6" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="0.0" y="366.0" width="148.6" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
+<rect x="-0.6" y="365.1" width="148.6" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="18.6" y="397.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">🚀🔥🤖 (Emojis)</text>
+<rect x="161.6" y="370.0" width="74.4" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="158.6" y="366.0" width="74.4" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
+<rect x="158.1" y="365.1" width="74.4" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="191.2" y="397.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">3</text>
+<rect x="246.0" y="370.0" width="83.7" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="243.0" y="366.0" width="83.7" height="56.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
+<rect x="242.6" y="365.2" width="83.7" height="56.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="280.2" y="397.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">6</text>
+<rect x="339.7" y="370.0" width="148.6" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="336.7" y="366.0" width="148.6" height="56.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
+<rect x="336.3" y="365.2" width="148.6" height="56.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="392.5" y="397.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">2.00</text>
+<rect x="498.4" y="370.0" width="120.8" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
+<rect x="495.4" y="366.0" width="120.8" height="56.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
+<rect x="495.1" y="365.3" width="120.8" height="56.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
+<text x="537.2" y="397.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">7.1x</text>
+</svg>
