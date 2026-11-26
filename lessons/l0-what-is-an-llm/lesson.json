@@ -4,7 +4,7 @@
   "level_name": "Ground floor",
   "title": "What an LLM actually is",
   "published_at": "2026-11-24",
-  "read_time_minutes": 9,
+  "read_time_minutes": 12,
   "question": "What is the model really doing when it answers you?",
   "can": "Describe an LLM as a next-token predictor, and say what that rules out.",
   "one_line": "An LLM does not look up answers or plan sentences ahead of time; it scores every possible next word in its dictionary, rolls a weighted die to pick one, glues that word onto your prompt, and starts over from scratch.",
@@ -23,19 +23,59 @@
       "layout": "flow",
       "caption": "Every single word the AI picks gets glued back onto your prompt for the next pass.",
       "nodes": [
-        { "id": "p", "label": "Your prompt", "note": "the server", "color": "yellow" },
-        { "id": "m", "label": "Frozen brain", "note": "billions of dials", "color": "violet" },
-        { "id": "l", "label": "Scoreboard", "note": "raw score per word", "color": "blue" },
-        { "id": "s", "label": "Weighted die", "note": "pick one word", "color": "green" }
+        {
+          "id": "p",
+          "label": "Your prompt",
+          "note": "the server",
+          "color": "yellow"
+        },
+        {
+          "id": "m",
+          "label": "Frozen brain",
+          "note": "billions of dials",
+          "color": "violet"
+        },
+        {
+          "id": "l",
+          "label": "Scoreboard",
+          "note": "raw score per word",
+          "color": "blue"
+        },
+        {
+          "id": "s",
+          "label": "Weighted die",
+          "note": "pick one word",
+          "color": "green"
+        }
       ],
       "edges": [
-        { "from": "p", "to": "m", "label": "feed in" },
-        { "from": "m", "to": "l", "label": "score all" },
-        { "from": "l", "to": "s", "label": "roll" },
-        { "from": "s", "to": "p", "label": "glue on", "dashed": true }
+        {
+          "from": "p",
+          "to": "m",
+          "label": "feed in"
+        },
+        {
+          "from": "m",
+          "to": "l",
+          "label": "score all"
+        },
+        {
+          "from": "l",
+          "to": "s",
+          "label": "roll"
+        },
+        {
+          "from": "s",
+          "to": "p",
+          "label": "glue on",
+          "dashed": true
+        }
       ],
       "callouts": [
-        { "at": "s", "text": "temperature controls how daring this roll is" }
+        {
+          "at": "s",
+          "text": "temperature controls how daring this roll is"
+        }
       ]
     },
     {
@@ -44,12 +84,48 @@
       "layout": "grid",
       "caption": "Real numbers from our 40-line Python lab: low temperature locks onto the #1 word, high temperature lets underdogs win.",
       "cells": [
-        ["Next Word", "Raw Score", "Temp 0.2", "Temp 1.0", "Temp 1.8"],
-        ["crashed", "3.2", "*80.6%", "*44.2%", "*36.1%"],
-        ["responded", "2.9", "18.0%", "32.8%", "30.5%"],
-        ["timed", "2.4", "1.5%", "19.9%", "23.1%"],
-        ["melted", "0.4", "0.0%", "2.7%", "7.6%"],
-        ["danced", "-1.5", "0.0%", "0.4%", "2.6%"]
+        [
+          "Next Word",
+          "Raw Score",
+          "Temp 0.2",
+          "Temp 1.0",
+          "Temp 1.8"
+        ],
+        [
+          "crashed",
+          "3.2",
+          "*80.6%",
+          "*44.2%",
+          "*36.1%"
+        ],
+        [
+          "responded",
+          "2.9",
+          "18.0%",
+          "32.8%",
+          "30.5%"
+        ],
+        [
+          "timed",
+          "2.4",
+          "1.5%",
+          "19.9%",
+          "23.1%"
+        ],
+        [
+          "melted",
+          "0.4",
+          "0.0%",
+          "2.7%",
+          "7.6%"
+        ],
+        [
+          "danced",
+          "-1.5",
+          "0.0%",
+          "0.4%",
+          "2.6%"
+        ]
       ]
     },
     {
@@ -58,42 +134,72 @@
       "layout": "stack",
       "caption": "Training adjusts the dials once at massive cost. Your chat happens on a frozen copy.",
       "nodes": [
-        { "id": "t", "label": "1. Training", "note": "read the web, tune dials", "color": "orange" },
-        { "id": "f", "label": "2. Frozen file", "note": "save dials to disk", "color": "gray" },
-        { "id": "i", "label": "3. Inference", "note": "your chat reads the file", "color": "green" }
+        {
+          "id": "t",
+          "label": "1. Training",
+          "note": "read the web, tune dials",
+          "color": "orange"
+        },
+        {
+          "id": "f",
+          "label": "2. Frozen file",
+          "note": "save dials to disk",
+          "color": "gray"
+        },
+        {
+          "id": "i",
+          "label": "3. Inference",
+          "note": "your chat reads the file",
+          "color": "green"
+        }
       ],
       "edges": [
-        { "from": "t", "to": "f", "label": "freeze" },
-        { "from": "f", "to": "i", "label": "run" }
+        {
+          "from": "t",
+          "to": "f",
+          "label": "freeze"
+        },
+        {
+          "from": "f",
+          "to": "i",
+          "label": "run"
+        }
       ],
       "callouts": [
-        { "at": "i", "text": "the frozen file never learns from your chat" }
+        {
+          "at": "i",
+          "text": "the frozen file never learns from your chat"
+        }
       ]
     }
   ],
   "sections": [
     {
-      "heading": "Explain it like I'm 12: The world's fastest relay game",
-      "badge": "Chapter 1 · The Picture",
+      "heading": "Explain it like I'm 12: The world's fastest one-word relay game",
+      "badge": "Chapter 1 · The Mental Model",
       "figure_id": "fig-01",
-      "body_md": "Imagine you are playing a game with a friend who has read every book in the school library. You write two words on a slip of paper: `the server`.\n\nYour friend is only allowed to write **one single word** on the slip and hand it back. They look at `the server`, quickly score every word in the English dictionary, write `crashed` at the end, and slide the paper back across the desk.\n\nNow the slip says `the server crashed`. Here is the secret: your friend immediately gets amnesia about *why* they picked `crashed`. For the next word, they pick up the slip (`the server crashed`) as if they are seeing it for the very first time, score the whole dictionary again, and write `because`.\n\nThat relay loop is a **large language model** in plain words: a computer program trained on massive text that scores every possible next piece of text, picks one, glues it onto your message, and repeats. It never writes a whole paragraph at once. It plays the one-word relay game fifty times a second."
+      "body_md": "Imagine you are playing a game with a friend who has read every book in the school library. You write two words on a slip of paper: `the server`.\n\nYour friend is only allowed to write **one single word** on the slip and hand it back. They look at `the server`, quickly score every word in the dictionary, write `crashed` at the end, and slide the paper back across the desk.\n\nNow the slip says `the server crashed`. Here is the secret: your friend immediately gets amnesia about *why* they picked `crashed`. For the next word, they pick up the slip (`the server crashed`) from scratch, score the entire dictionary all over again, and write `because`.\n\nHow does the game ever end? Inside the dictionary sits a special invisible finish-line word called **`<|eos|>` (End of Sequence)**. At every single tick, `<|eos|>` competes on the scoreboard alongside normal words. The moment the weighted die lands on `<|eos|>`, the relay stops and hands you the finished reply.\n\nThat loop — *score every possible next piece of text, pick one, glue it onto the end, repeat until `<|eos|>`* — is **autoregressive next-token prediction**, and it is literally the entire outer loop of every modern **large language model**.",
+      "expert_note": "Under the hood, modern LLMs don't recompute earlier tokens from scratch on every tick — they cache each past token's Key and Value attention matrices (the KV cache) so generating token #500 only runs a forward pass for token #499 against the cached history. Mathematically, though, the output distribution is identical to re-reading the entire slip."
     },
     {
-      "heading": "Why the AI doesn't remember you from yesterday (Training vs Inference)",
-      "badge": "Chapter 2 · Inside the Box",
+      "heading": "Why it answers your question instead of continuing it (Pre-Training → Post-Training)",
+      "badge": "Chapter 2 · Base vs. Chat Models",
       "figure_id": "fig-03",
-      "body_md": "If you tell a chatbot your dog's name today and open a new window tomorrow, it has no clue who your dog is. Why?\n\nBecause the life of an AI is split into two completely separate phases:\n\n1. **training** in plain words: the months-long factory phase where the model reads trillions of words and nudges billions of internal number dials (**parameters**) whenever it guesses the next word wrong.\n2. **weights** in plain words: the final numbers locked into those dials when training finishes. A 7-billion-parameter model is literally just a giant file on a hard drive holding 7 billion frozen decimals.\n3. **inference** in plain words: running your message through that frozen file to predict the next word. During inference, every single dial is glued shut. Your chat never edits the brain; it just passes through it."
+      "body_md": "Wait — beginners always ask the sharpest follow-up question right here: *'If an LLM is just guessing the next word from internet text, why does it answer `What is the capital of France?` instead of continuing with `2. What is the capital of Spain?` like a quiz worksheet?'*\n\nBecause a finished AI assistant goes through **three distinct stages** before its dials are frozen into a read-only file:\n\n1. **Pre-Training (Base Model):** The model reads trillions of tokens of web text, code, and books, nudging billions of internal number dials (**parameters**) to minimize next-token prediction error. A raw *Base Model* really WOULD continue your question with more quiz questions!\n2. **Post-Training (SFT + RLHF / RLVR):** Engineers wrap conversations in a structured **chat template** (`<|user|> ... <|assistant|>`) and train the model on curated Q&A examples (**Supervised Fine-Tuning**), followed by **Reinforcement Learning** (human preference feedback or verifiable rewards on math/code) so that the highest-scoring tokens right after `<|assistant|>` are helpful, truthful answers ending with `<|eos|>`.\n3. **Inference (Frozen Weights):** When training finishes, those billions of numbers (**weights**) are saved to disk and glued shut. During your chat (**inference**), your prompt passes through the frozen weights without changing a single dial — which is why opening a brand-new chat tomorrow starts with zero memory of you.",
+      "expert_note": "A 70B-parameter model in BF16 precision is literally ~140 GB of frozen 16-bit floats (or ~35–40 GB in 4-bit quantization). Because weights are immutable at inference time, all 'in-session learning' happens strictly inside the input prompt (in-context learning), never by updating model weights."
     },
     {
-      "heading": "How the scoreboard and the weighted die work (Logits, Softmax & Temperature)",
-      "badge": "Chapter 3 · The Exact Math in Plain Words",
+      "heading": "Inside the scoreboard: Logits, Softmax, Temperature & Top-P",
+      "badge": "Chapter 3 · Exact Decoding Math",
       "figure_id": "fig-02",
-      "body_md": "Wait — if the dials are frozen, why doesn't the AI give the exact same answer every time you ask the same question?\n\nBecause the frozen brain does not output a single word. It outputs a scoreboard across its entire dictionary, and then rolls a weighted die. Let's trace the exact numbers from our Python lab when the prompt is `the server`:\n\n1. **The raw scoreboard (Logits).** The model outputs one raw score for every possible next word. Engineers call these **logits** in plain words: the raw, un-rounded scores the model gives each candidate word. In our lab, `crashed` gets `3.2`, `responded` gets `2.9`, `timed` gets `2.4`, `melted` gets `0.4`, and `danced` gets `-1.5`.\n2. **The boldness dial (Temperature).** Before turning those raw scores into percentages, we divide every score by **temperature** in plain words: a dial that controls whether the #1 word hogs the spotlight or shares a chance with runner-up words.\n3. **Turning scores into percentages (Softmax).** You cannot roll a die with a negative number like `-1.5`. So the computer runs **softmax** in plain words: a math formula (`2.718` raised to each score, divided by the total) that turns any list of raw scores into clean percentages that add up to `100%`.\n4. **Watch the table above (`Figure 2`).** At Temperature `0.2`, `crashed` grabs `80.6%` of the pie. At Temperature `1.0`, `crashed` drops to `44.2%`, `responded` gets `32.8%`, and `timed` gets `19.9%`. Same frozen brain, completely different odds on the die."
+      "body_md": "If the weights are frozen, why can the exact same prompt produce five different replies? Because the neural network does not output a word — it outputs a raw scoreboard of **logits** across its entire vocabulary (100,000+ tokens), and a tiny **sampler** turns that scoreboard into a roll of a weighted die.\n\nTrace the exact numbers from our Python lab after `the server` (`crashed: 3.2`, `responded: 2.9`, `timed: 2.4`, `melted: 0.4`, `danced: -1.5`):\n\n1. **Scale by Temperature (`z / T`):** Divide every raw logit by **temperature**. Dividing by `0.2` multiplies every gap by `5×` (`3.2 - 2.9 = 0.3` stretches to `1.5`), making the leader crush the runner-up. Dividing by `1.8` shrinks gaps so underdogs rise.\n2. **Numerically Stable Softmax:** Raw logits can be negative (`-1.5`). **Softmax** applies `e^(z_i - max_z)` and divides by the sum so all entries sit in `[0, 1]` and total `100%`. Subtracting `max_z` doesn't change a single percentage, yet prevents `math.exp()` from overflowing to `Infinity` on huge logits.\n3. **Watch the shift (`Figure 2`):** At Temp `0.2`, `crashed` grabs **`80.6%`** and `danced` drops to **`0.0%`**. At Temp `1.0`, `crashed` is **`44.2%`** and `responded` is **`32.8%`**. At Temp `1.8`, `danced` climbs to **`2.6%`**.\n4. **Trim the crazy tail with Top-P (Nucleus Sampling):** On a real 100,000-word vocabulary, even a `0.001%` tail adds up to bizarre hallucinations at high temperature. **Top-P (`0.90`)** sorts tokens from highest to lowest, keeps only the smallest top group summing to `90%`, deletes the weird tail (`danced` vanishes to `0%`!), and re-normalizes the survivors.",
+      "expert_note": "Production nuance: even at `temperature = 0.0` (greedy argmax), cloud LLM APIs are NOT 100% bitwise deterministic! GPU floating-point reduction order across dynamic server batches (and Mixture-of-Experts capacity routing) can flip ties between near-equal logits. Treat `temperature = 0` as 'low variance', never as a cryptographic hash."
     },
     {
-      "heading": "The Snowball Trap: How a 12-year-old intuition fixes a senior engineer's bug",
-      "badge": "Chapter 4 · Real Engineering Depth",
-      "body_md": "Once you picture the one-word-at-a-time conveyor belt, you can immediately spot the #1 mistake developers make in production.\n\nSuppose a developer writes a prompt: `'Answer YES or NO on line 1, then explain your reasoning on line 2.'`\n\nWhy is that a trap? Imagine the true answer is `NO`, so the scoreboard gives `NO` a `75%` chance and `YES` a `25%` chance. At Temperature `1.0`, the weighted die rolls a `25%` underdog and picks `YES`.\n\nNow `YES` is glued onto the slip of paper! On the very next tick of the conveyor belt, the model reads `Answer: YES. Explanation:` and asks itself: *what words usually follow a YES answer?* It is now trapped into inventing an excuse for `YES`, even though its own weights knew `NO` was better.\n\n**The pro fix:** Never ask a forward-only machine to state its verdict first. Always ask it to write the step-by-step reasoning *first* and put the `YES/NO` verdict on the very last token, so the reasoning sits on the slip of paper before the verdict die is rolled."
+      "heading": "The Snowball Trap: How forward-only prediction breaks real production prompts",
+      "badge": "Chapter 4 · Engineering Mastery",
+      "body_md": "Once you truly internalize the one-word conveyor belt, you immediately spot the #1 mistake developers ship in production.\n\nSuppose a team writes a classifier prompt: `'Output YES or NO on line 1, then explain your reasoning on line 2.'`\n\nImagine the true answer is `NO`, so the scoreboard gives `NO` `75%` and `YES` `25%`. At `temperature = 1.0`, one in four calls rolls the `25%` underdog and emits `YES` on token 1.\n\nNow `YES` is glued onto the slip of paper! On token 2, the model reads `Answer: YES. Explanation:` and asks: *what tokens statistically follow an answer that already declared YES?* Because the conveyor belt has **no backspace key**, it is trapped into rationalizing a wrong verdict.\n\n**The pro fix (Reason-Before-Verdict):** Always put your structured scratchpad or ``reasoning` JSON field *before* the final `verdict` field. By the time the die rolls for `YES` or `NO`, the evidence is already sitting on the prompt slip — and that exact insight is why modern reasoning models (o3, DeepSeek-R1, Claude extended thinking) spend tokens thinking *before* emitting the final answer.",
+      "trap_note": "Common Trap: Asking for `{ \"verdict\": \"PASS/FAIL\", \"reason\": \"...\" }` in JSON! JSON keys are generated left-to-right, so putting `verdict` before `reason` forces the model to guess blind before writing a single word of analysis. Flip the schema to `{ \"reason\": \"...\", \"verdict\": \"PASS/FAIL\" }`."
     }
   ],
   "jargon_decoder": [
@@ -141,11 +247,26 @@
       "term": "temperature",
       "plain_words": "A divisor on logits before softmax that sharpens (0.2) or flattens (1.8) the odds.",
       "why_you_care": "Your main dial between repeatable greedy answers (0.0) and creative variety (1.0)."
+    },
+    {
+      "term": "top-p (nucleus sampling)",
+      "plain_words": "Keeping only the smallest set of top-ranked tokens whose probabilities add up to P (e.g. 90%), cutting off bizarre tail words.",
+      "why_you_care": "Lets you keep answers lively without ever rolling a 0.1% nonsense word from a 100k vocabulary."
+    },
+    {
+      "term": "<|eos|> (stop token)",
+      "plain_words": "A special finish-line token in the vocabulary that tells the generation loop to stop.",
+      "why_you_care": "Explains why models naturally finish replies — and why hitting max_tokens cuts sentences off mid-word."
+    },
+    {
+      "term": "base vs. instruct model",
+      "plain_words": "Base models only continue text like autocomplete; Instruct/Chat models are post-trained (SFT + RL) to follow instructions.",
+      "why_you_care": "Never send a raw chat prompt to a base model and expect assistant behavior."
     }
   ],
   "lab": {
-    "title": "Build the 40-line next-token predictor & diff 5 runs across temperatures",
-    "goal": "See with your own eyes how raw logits turn into probabilities under temperature 0.2, 1.0, and 1.8, and why temperature 0.0 produces 1 unique output across 5 runs while temperature 1.0 produces 5 distinct trajectories.",
+    "title": "Build the 60-line Autoregressive Loop: Softmax, Temperature, Top-P & Stop Token",
+    "goal": "See exact softmax probabilities across Temp 0.2/1.0/1.8, watch Top-P (0.90) chop off the weird tail ('danced'), and verify how <|eos|> terminates generation while Temp 0.0 gives 1/5 unique outputs vs Temp 1.0's 5/5 branching runs.",
     "steps": [
       "Run `python3 lessons/l0-what-is-an-llm/lab_main.py` (pure Python 3 stdlib, zero installs).",
       "Inspect Step 1 in the output: verify how the exact same logit gap (`crashed: 3.2` vs `responded: 2.9`) shifts from 80.6% vs 18.0% at Temp 0.2 to 44.2% vs 32.8% at Temp 1.0.",
@@ -153,24 +274,24 @@
     ],
     "acceptance": [
       {
-        "criterion": "Prints exact softmax probability distribution for ('the', 'server') across at least three temperatures.",
+        "criterion": "Prints numerically stable softmax probabilities for ('the', 'server') across Temp 0.2, 1.0, and 1.8.",
         "met": true,
-        "evidence": "Temp 0.2 -> crashed: 80.6%, responded: 18.0% ... Temp 1.0 -> crashed: 44.2%, responded: 32.8% ... Temp 1.8 -> crashed: 36.1%, responded: 30.5%"
+        "evidence": "Temp 0.2 -> crashed: 80.6%, responded: 18.0% | Temp 1.0 -> crashed: 44.2% | Temp 1.8 -> crashed: 36.1%, danced: 2.6%"
       },
       {
-        "criterion": "Runs the prompt 5 times at temperature 0.0 and verifies all 5 completions are identical (1 / 5 unique).",
+        "criterion": "Applies Top-P = 0.90 at Temp 1.8 and proves the weird tail token ('danced') is pruned to 0%.",
         "met": true,
-        "evidence": "Run 1..5: 'the server crashed because memory ran stopped' -> Unique outputs at temp 0.0: 1 / 5"
+        "evidence": "Temp 1.8 (Top-P = 0.90): crashed: 37.1%, responded: 31.4%, timed: 23.8%, melted: 7.8% ('danced' removed)"
       },
       {
-        "criterion": "Runs the prompt 5 times at temperature 1.0 and demonstrates branching completions (5 / 5 unique).",
+        "criterion": "Terminates generation cleanly on <|eos|> with 1/5 unique runs at Temp 0.0 vs 5/5 unique runs at Temp 1.0.",
         "met": true,
-        "evidence": "Unique outputs at temp 1.0: 5 / 5 ('the server responded in twelve milliseconds stopped', 'the server crashed because memory leaked stopped', ...)"
+        "evidence": "Temp 0.0: 1 / 5 ('the server crashed because memory exhausted <|eos|>') | Temp 1.0: 5 / 5 unique trajectories"
       }
     ],
     "code_file": "lab_main.py",
     "walkthrough_md": "### `softmax(logits, temperature)`\n- **What it does:** Divides every raw logit score by `temperature`, exponentiates with `math.exp`, and normalizes so the dictionary sums to `1.0`.\n- **Why it exists:** Raw neural network outputs (`3.2`, `-1.5`) can be negative or add up to anything. You cannot roll a probability die until every entry is between `0` and `1` and sums to `1.0`.\n\n### `generate(prompt, steps, temperature, rng)`\n- **What it does:** Runs a `for` loop where each iteration looks up logits for the current tail tokens, converts them to probabilities, samples one token, and appends it with `tokens.append(next_tok)`.\n- **Why it exists:** This 7-line loop *is* autoregressive generation. Notice that once `next_tok` is appended, the next iteration cannot undo it — it becomes part of the prompt.",
-    "real_output": "=== STEP 1: Raw logits vs probabilities after (the server) ===\nTemp 0.2 -> crashed:  80.6%, responded:  18.0%, timed:   1.5%, melted:   0.0%, danced:   0.0%\nTemp 1.0 -> crashed:  44.2%, responded:  32.8%, timed:  19.9%, melted:   2.7%, danced:   0.4%\nTemp 1.8 -> crashed:  36.1%, responded:  30.5%, timed:  23.1%, melted:   7.6%, danced:   2.6%\n\n=== STEP 2: 5 runs at temperature = 0.0 (Greedy decoding) ===\n  Run 1: the server crashed because memory ran stopped\n  Run 2: the server crashed because memory ran stopped\n  Run 3: the server crashed because memory ran stopped\n  Run 4: the server crashed because memory ran stopped\n  Run 5: the server crashed because memory ran stopped\nUnique outputs at temp 0.0: 1 / 5\n\n=== STEP 3: 5 runs at temperature = 1.0 (Sampling from the distribution) ===\n  Run 1: the server responded in twelve milliseconds stopped\n  Run 2: the server crashed because memory leaked stopped\n  Run 3: the server timed out after five recovered\n  Run 4: the server responded in forty stopped and\n  Run 5: the server timed out after thirty recovered\nUnique outputs at temp 1.0: 5 / 5"
+    "real_output": "=== STEP 1: Raw logits vs probabilities after (the server) ===\nTemp 0.2 -> crashed:  80.6%, responded:  18.0%, timed:   1.5%, melted:   0.0%, danced:   0.0%\nTemp 1.0 -> crashed:  44.2%, responded:  32.8%, timed:  19.9%, melted:   2.7%, danced:   0.4%\nTemp 1.8 -> crashed:  36.1%, responded:  30.5%, timed:  23.1%, melted:   7.6%, danced:   2.6%\n\n=== STEP 2: Top-P (Nucleus = 0.90) cuts off the weird tail at Temp 1.8 ===\n  Temp 1.8 (no Top-P):     crashed: 36.1%, responded: 30.5%, timed: 23.1%, melted:  7.6%, danced:  2.6%\n  Temp 1.8 (Top-P = 0.90): crashed: 37.1%, responded: 31.4%, timed: 23.8%, melted:  7.8%\n\n=== STEP 3: 5 runs at temperature = 0.0 (Greedy decoding + <|eos|> stop) ===\n  Run 1: the server crashed because memory exhausted <|eos|>\n  Run 2: the server crashed because memory exhausted <|eos|>\n  Run 3: the server crashed because memory exhausted <|eos|>\n  Run 4: the server crashed because memory exhausted <|eos|>\n  Run 5: the server crashed because memory exhausted <|eos|>\nUnique outputs at temp 0.0: 1 / 5\n\n=== STEP 4: 5 runs at temperature = 1.0 (Sampling + Top-P 0.95) ===\n  Run 1: the server responded in twelve milliseconds and recovered\n  Run 2: the server crashed because memory leaked <|eos|>\n  Run 3: the server timed out after five and then\n  Run 4: the server crashed because disk <|eos|>\n  Run 5: the server timed out after thirty then <|eos|>\nUnique outputs at temp 1.0: 5 / 5"
   },
   "shareable": {
     "notebook_shelf": "Campus Gate · Checkpoint #01",

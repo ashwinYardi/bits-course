@@ -1,33 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-28.0 -28.0 612.8 564.0" width="100%" height="auto" class="excalidraw-svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-34.0 -34.0 624.8 576.0" width="100%" height="auto" class="excalidraw-svg">
 <defs>
+<pattern id="draft-dots" width="22" height="22" patternUnits="userSpaceOnUse">
+<circle cx="11" cy="11" r="1.15" fill="#c7d3cc" opacity="0.65" />
+</pattern>
+<filter id="card-shadow" x="-10%" y="-10%" width="125%" height="130%">
+<feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#141d18" flood-opacity="0.08" />
+</filter>
 <style>
-.excalidraw-text { font-family: "Virgil", "Comic Neue", "Caveat", "Segoe Print", "Bradley Hand", ui-rounded, sans-serif; }
+.ed-title { font-family: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, sans-serif; letter-spacing: -0.015em; }
+.ed-label { font-family: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, sans-serif; }
+.ed-mono  { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace; }
 </style>
 </defs>
-<text x="0.0" y="22.1" font-size="24" font-weight="700" fill="#1e1e1e" class="excalidraw-text">Studying for the exam vs taking the exam</text>
-<rect x="3.0" y="64.0" width="240.0" height="118.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="60.0" width="240.0" height="118.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
-<rect x="0.8" y="60.4" width="240.0" height="118.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="56.2" y="110.9" font-size="20" font-weight="700" fill="#1e1e1e" class="excalidraw-text">1. Training</text>
-<text x="22.6" y="139.4" font-size="14" font-weight="500" fill="#64748b" class="excalidraw-text">read the web, tune dials</text>
-<rect x="3.0" y="229.0" width="240.0" height="118.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="225.0" width="240.0" height="118.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="-0.8" y="224.6" width="240.0" height="118.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="38.8" y="275.9" font-size="20" font-weight="700" fill="#1e1e1e" class="excalidraw-text">2. Frozen file</text>
-<text x="46.9" y="304.4" font-size="14" font-weight="500" fill="#64748b" class="excalidraw-text">save dials to disk</text>
-<rect x="3.0" y="394.0" width="240.0" height="118.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="390.0" width="240.0" height="118.0" rx="12" fill="#d3f9d8" stroke="#15803d" stroke-width="2" />
-<rect x="0.8" y="390.5" width="240.0" height="118.0" rx="13" fill="none" stroke="#15803d" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="50.4" y="440.9" font-size="20" font-weight="700" fill="#1e1e1e" class="excalidraw-text">3. Inference</text>
-<text x="22.6" y="469.4" font-size="14" font-weight="500" fill="#64748b" class="excalidraw-text">your chat reads the file</text>
-<path d="M 120.0 186.0 Q 119.0 203.1 120.0 217.0" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-<path d="M 114.1 207.7 L 120.0 217.0 L 125.9 207.7" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-<text x="134.0" y="205.5" font-size="13" font-weight="500" fill="#64748b" class="excalidraw-text">freeze</text>
-<path d="M 120.0 351.0 Q 121.1 365.0 120.0 382.0" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-<path d="M 114.1 372.7 L 120.0 382.0 L 125.9 372.7" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-<text x="134.0" y="370.5" font-size="13" font-weight="500" fill="#64748b" class="excalidraw-text">run</text>
-<text x="330.0" y="440.8" font-size="15" font-weight="600" fill="#c2255c" class="excalidraw-text">the frozen file never</text>
-<text x="330.0" y="462.8" font-size="15" font-weight="600" fill="#c2255c" class="excalidraw-text">learns from your chat</text>
-<path d="M 314.0 449.0 Q 280.3 447.2 250.0 449.0" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 5" />
-<path d="M 259.3 443.1 L 250.0 449.0 L 259.3 454.9" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<rect x="-34.0" y="-34.0" width="624.8" height="576.0" rx="14" fill="#fbfcfb" />
+<rect x="-34.0" y="-34.0" width="624.8" height="576.0" rx="14" fill="url(#draft-dots)" />
+<text x="0.0" y="22.1" font-size="24" font-weight="800" fill="#141d18" class="ed-title">Studying for the exam vs taking the exam</text>
+<rect x="0.0" y="60.0" width="240.0" height="118.0" rx="13" fill="#ffffff" stroke="#a93b1f" stroke-opacity="0.55" stroke-width="1.6" filter="url(#card-shadow)" />
+<path d="M 13.0 60.8 H 227.0 Q 239.2 60.8 239.2 73.0 V 78.0 H 0.8 V 73.0 Q 0.8 60.8 13.0 60.8 Z" fill="#faeae4" />
+<line x1="14.0" y1="78.0" x2="226.0" y2="78.0" stroke="#a93b1f" stroke-opacity="0.28" stroke-width="1" />
+<text x="56.2" y="110.9" font-size="20" font-weight="700" fill="#141d18" class="ed-label">1. Training</text>
+<text x="22.6" y="139.4" font-size="14" font-weight="600" fill="#4b5b53" class="ed-mono">read the web, tune dials</text>
+<rect x="0.0" y="225.0" width="240.0" height="118.0" rx="13" fill="#ffffff" stroke="#8d9c94" stroke-opacity="0.55" stroke-width="1.6" filter="url(#card-shadow)" />
+<path d="M 13.0 225.8 H 227.0 Q 239.2 225.8 239.2 238.0 V 243.0 H 0.8 V 238.0 Q 0.8 225.8 13.0 225.8 Z" fill="#f3f6f4" />
+<line x1="14.0" y1="243.0" x2="226.0" y2="243.0" stroke="#8d9c94" stroke-opacity="0.28" stroke-width="1" />
+<text x="38.8" y="275.9" font-size="20" font-weight="700" fill="#141d18" class="ed-label">2. Frozen file</text>
+<text x="46.9" y="304.4" font-size="14" font-weight="600" fill="#4b5b53" class="ed-mono">save dials to disk</text>
+<rect x="0.0" y="390.0" width="240.0" height="118.0" rx="13" fill="#ffffff" stroke="#1f6a44" stroke-opacity="0.55" stroke-width="1.6" filter="url(#card-shadow)" />
+<path d="M 13.0 390.8 H 227.0 Q 239.2 390.8 239.2 403.0 V 408.0 H 0.8 V 403.0 Q 0.8 390.8 13.0 390.8 Z" fill="#e6f2eb" />
+<line x1="14.0" y1="408.0" x2="226.0" y2="408.0" stroke="#1f6a44" stroke-opacity="0.28" stroke-width="1" />
+<text x="50.4" y="440.9" font-size="20" font-weight="700" fill="#141d18" class="ed-label">3. Inference</text>
+<text x="22.6" y="469.4" font-size="14" font-weight="600" fill="#4b5b53" class="ed-mono">your chat reads the file</text>
+<path d="M 120.0 186.0 L 120.0 217.0" fill="none" stroke="#3e4c44" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" />
+<polygon points="120.0,217.0 114.9,207.8 125.1,207.8" fill="#3e4c44" />
+<text x="134.0" y="205.5" font-size="13" font-weight="600" fill="#4b5b53" class="ed-mono">freeze</text>
+<path d="M 120.0 351.0 L 120.0 382.0" fill="none" stroke="#3e4c44" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" />
+<polygon points="120.0,382.0 114.9,372.8 125.1,372.8" fill="#3e4c44" />
+<text x="134.0" y="370.5" font-size="13" font-weight="600" fill="#4b5b53" class="ed-mono">run</text>
+<text x="330.0" y="440.8" font-size="15" font-weight="600" fill="#a93b1f" class="ed-label">the frozen file never</text>
+<text x="330.0" y="462.8" font-size="15" font-weight="600" fill="#a93b1f" class="ed-label">learns from your chat</text>
+<path d="M 314.0 449.0 L 250.0 449.0" fill="none" stroke="#a93b1f" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 5" />
+<polygon points="250.0,449.0 259.2,443.9 259.2,454.1" fill="#a93b1f" />
 </svg>

@@ -1,152 +1,90 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-28.0 -28.0 793.3 502.0" width="100%" height="auto" class="excalidraw-svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-34.0 -34.0 814.6 514.0" width="100%" height="auto" class="excalidraw-svg">
 <defs>
+<pattern id="draft-dots" width="22" height="22" patternUnits="userSpaceOnUse">
+<circle cx="11" cy="11" r="1.15" fill="#c7d3cc" opacity="0.65" />
+</pattern>
+<filter id="card-shadow" x="-10%" y="-10%" width="125%" height="130%">
+<feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#141d18" flood-opacity="0.08" />
+</filter>
 <style>
-.excalidraw-text { font-family: "Virgil", "Comic Neue", "Caveat", "Segoe Print", "Bradley Hand", ui-rounded, sans-serif; }
+.ed-title { font-family: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, sans-serif; letter-spacing: -0.015em; }
+.ed-label { font-family: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, sans-serif; }
+.ed-mono  { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace; }
 </style>
 </defs>
-<text x="0.0" y="22.1" font-size="24" font-weight="700" fill="#1e1e1e" class="excalidraw-text">The Cafeteria 4D Meaning Map (Real Lab Coordinates)</text>
-<rect x="3.0" y="64.0" width="148.6" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="60.0" width="148.6" height="56.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
-<rect x="0.8" y="60.4" width="148.6" height="56.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="55.8" y="91.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Item</text>
-<rect x="161.6" y="64.0" width="120.8" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="158.6" y="60.0" width="120.8" height="56.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
-<rect x="159.5" y="60.5" width="120.8" height="56.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="172.6" y="91.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Warm Drink</text>
-<rect x="292.4" y="64.0" width="120.8" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="289.4" y="60.0" width="120.8" height="56.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
-<rect x="290.3" y="60.5" width="120.8" height="56.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="303.4" y="91.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Sweet Food</text>
-<rect x="423.2" y="64.0" width="74.0" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="420.2" y="60.0" width="74.0" height="56.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
-<rect x="421.2" y="60.6" width="74.0" height="56.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="438.7" y="91.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Tech</text>
-<rect x="507.2" y="64.0" width="93.0" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="504.2" y="60.0" width="93.0" height="56.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
-<rect x="505.2" y="60.7" width="93.0" height="56.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="518.2" y="91.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Morning</text>
-<rect x="610.2" y="64.0" width="130.1" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="607.2" y="60.0" width="130.1" height="56.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
-<rect x="608.2" y="60.8" width="130.1" height="56.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="621.2" y="91.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Sim to Chai</text>
-<rect x="3.0" y="130.0" width="148.6" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="126.0" width="148.6" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="1.0" y="126.8" width="148.6" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="23.3" y="157.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">masala_chai</text>
-<rect x="161.6" y="130.0" width="120.8" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="158.6" y="126.0" width="120.8" height="56.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
-<rect x="159.7" y="126.9" width="120.8" height="56.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="200.5" y="157.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.95</text>
-<rect x="292.4" y="130.0" width="120.8" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="289.4" y="126.0" width="120.8" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="290.5" y="126.9" width="120.8" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="331.3" y="157.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.40</text>
-<rect x="423.2" y="130.0" width="74.0" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="420.2" y="126.0" width="74.0" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="421.3" y="127.0" width="74.0" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="438.7" y="157.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.02</text>
-<rect x="507.2" y="130.0" width="93.0" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="504.2" y="126.0" width="93.0" height="56.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
-<rect x="505.3" y="127.0" width="93.0" height="56.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="532.2" y="157.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.88</text>
-<rect x="610.2" y="130.0" width="130.1" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="607.2" y="126.0" width="130.1" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="608.3" y="127.0" width="130.1" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="649.0" y="157.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">1.000</text>
-<rect x="3.0" y="196.0" width="148.6" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="192.0" width="148.6" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="1.1" y="193.1" width="148.6" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="14.0" y="223.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">filter_coffee</text>
-<rect x="161.6" y="196.0" width="120.8" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="158.6" y="192.0" width="120.8" height="56.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
-<rect x="159.7" y="193.1" width="120.8" height="56.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="200.5" y="223.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.92</text>
-<rect x="292.4" y="196.0" width="120.8" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="289.4" y="192.0" width="120.8" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="290.5" y="193.1" width="120.8" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="331.3" y="223.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.25</text>
-<rect x="423.2" y="196.0" width="74.0" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="420.2" y="192.0" width="74.0" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="421.2" y="193.1" width="74.0" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="438.7" y="223.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.05</text>
-<rect x="507.2" y="196.0" width="93.0" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="504.2" y="192.0" width="93.0" height="56.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
-<rect x="505.2" y="193.1" width="93.0" height="56.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="532.2" y="223.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.94</text>
-<rect x="610.2" y="196.0" width="130.1" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="607.2" y="192.0" width="130.1" height="56.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
-<rect x="608.1" y="193.1" width="130.1" height="56.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="649.0" y="223.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.992</text>
-<rect x="3.0" y="262.0" width="148.6" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="258.0" width="148.6" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="0.9" y="259.1" width="148.6" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="32.6" y="289.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">croissant</text>
-<rect x="161.6" y="262.0" width="120.8" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="158.6" y="258.0" width="120.8" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="159.4" y="259.0" width="120.8" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="200.5" y="289.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.20</text>
-<rect x="292.4" y="262.0" width="120.8" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="289.4" y="258.0" width="120.8" height="56.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
-<rect x="290.2" y="259.0" width="120.8" height="56.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="331.3" y="289.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.85</text>
-<rect x="423.2" y="262.0" width="74.0" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="420.2" y="258.0" width="74.0" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="420.9" y="259.0" width="74.0" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="438.7" y="289.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.03</text>
-<rect x="507.2" y="262.0" width="93.0" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="504.2" y="258.0" width="93.0" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="504.8" y="258.9" width="93.0" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="532.2" y="289.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.60</text>
-<rect x="610.2" y="262.0" width="130.1" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="607.2" y="258.0" width="130.1" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="607.7" y="258.9" width="130.1" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="649.0" y="289.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.737</text>
-<rect x="3.0" y="328.0" width="148.6" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="324.0" width="148.6" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="0.4" y="324.8" width="148.6" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="23.3" y="355.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">mango_lassi</text>
-<rect x="161.6" y="328.0" width="120.8" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="158.6" y="324.0" width="120.8" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="159.0" y="324.7" width="120.8" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="200.5" y="355.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.15</text>
-<rect x="292.4" y="328.0" width="120.8" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="289.4" y="324.0" width="120.8" height="56.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
-<rect x="289.7" y="324.7" width="120.8" height="56.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="331.3" y="355.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.92</text>
-<rect x="423.2" y="328.0" width="74.0" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="420.2" y="324.0" width="74.0" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="420.4" y="324.6" width="74.0" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="438.7" y="355.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.01</text>
-<rect x="507.2" y="328.0" width="93.0" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="504.2" y="324.0" width="93.0" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="504.3" y="324.5" width="93.0" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="532.2" y="355.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.35</text>
-<rect x="610.2" y="328.0" width="130.1" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="607.2" y="324.0" width="130.1" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="607.2" y="324.4" width="130.1" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="649.0" y="355.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.607</text>
-<rect x="3.0" y="394.0" width="148.6" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="390.0" width="148.6" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="-0.1" y="390.4" width="148.6" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="27.9" y="421.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">kubernetes</text>
-<rect x="161.6" y="394.0" width="120.8" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="158.6" y="390.0" width="120.8" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="158.5" y="390.3" width="120.8" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="200.5" y="421.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.01</text>
-<rect x="292.4" y="394.0" width="120.8" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="289.4" y="390.0" width="120.8" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="289.2" y="390.2" width="120.8" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="331.3" y="421.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.00</text>
-<rect x="423.2" y="394.0" width="74.0" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="420.2" y="390.0" width="74.0" height="56.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
-<rect x="419.9" y="390.1" width="74.0" height="56.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="438.7" y="421.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.98</text>
-<rect x="507.2" y="394.0" width="93.0" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="504.2" y="390.0" width="93.0" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="503.8" y="390.0" width="93.0" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="532.2" y="421.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.12</text>
-<rect x="610.2" y="394.0" width="130.1" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="607.2" y="390.0" width="130.1" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="606.7" y="389.9" width="130.1" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="649.0" y="421.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.101</text>
+<rect x="-34.0" y="-34.0" width="814.6" height="514.0" rx="14" fill="#fbfcfb" />
+<rect x="-34.0" y="-34.0" width="814.6" height="514.0" rx="14" fill="url(#draft-dots)" />
+<text x="0.0" y="22.1" font-size="24" font-weight="800" fill="#141d18" class="ed-title">The Cafeteria 4D Meaning Map (Exact Lab Coordinates)</text>
+<rect x="0.0" y="60.0" width="148.6" height="56.0" rx="9" fill="#e8f0f4" stroke="#335c73" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="55.8" y="91.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">Item</text>
+<rect x="158.6" y="60.0" width="74.4" height="56.0" rx="9" fill="#e8f0f4" stroke="#335c73" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="172.6" y="91.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">Drink</text>
+<rect x="243.0" y="60.0" width="102.2" height="56.0" rx="9" fill="#e8f0f4" stroke="#335c73" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="257.0" y="91.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">Hot Temp</text>
+<rect x="355.3" y="60.0" width="139.4" height="56.0" rx="9" fill="#e8f0f4" stroke="#335c73" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="369.3" y="91.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">Spiced/Sweet</text>
+<rect x="504.6" y="60.0" width="74.0" height="56.0" rx="9" fill="#e8f0f4" stroke="#335c73" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="523.1" y="91.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">Tech</text>
+<rect x="588.6" y="60.0" width="157.9" height="56.0" rx="9" fill="#e8f0f4" stroke="#335c73" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="602.6" y="91.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">Cosine to Chai</text>
+<rect x="0.0" y="126.0" width="148.6" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="23.3" y="157.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">masala_chai</text>
+<rect x="158.6" y="126.0" width="74.4" height="56.0" rx="9" fill="#faeae4" stroke="#a93b1f" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="177.3" y="157.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.95</text>
+<rect x="243.0" y="126.0" width="102.2" height="56.0" rx="9" fill="#faeae4" stroke="#a93b1f" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="275.6" y="157.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.90</text>
+<rect x="355.3" y="126.0" width="139.4" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="406.4" y="157.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.72</text>
+<rect x="504.6" y="126.0" width="74.0" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="523.1" y="157.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.02</text>
+<rect x="588.6" y="126.0" width="157.9" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="611.9" y="157.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">1.000 (0.0°)</text>
+<rect x="0.0" y="192.0" width="148.6" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="14.0" y="223.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">filter_coffee</text>
+<rect x="158.6" y="192.0" width="74.4" height="56.0" rx="9" fill="#faeae4" stroke="#a93b1f" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="177.3" y="223.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.94</text>
+<rect x="243.0" y="192.0" width="102.2" height="56.0" rx="9" fill="#faeae4" stroke="#a93b1f" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="275.6" y="223.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.88</text>
+<rect x="355.3" y="192.0" width="139.4" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="406.4" y="223.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.45</text>
+<rect x="504.6" y="192.0" width="74.0" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="523.1" y="223.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.05</text>
+<rect x="588.6" y="192.0" width="157.9" height="56.0" rx="9" fill="#faeae4" stroke="#a93b1f" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="611.9" y="223.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.986 (9.7°)</text>
+<rect x="0.0" y="258.0" width="148.6" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="32.6" y="289.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">iced_chai</text>
+<rect x="158.6" y="258.0" width="74.4" height="56.0" rx="9" fill="#faeae4" stroke="#a93b1f" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="177.3" y="289.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.92</text>
+<rect x="243.0" y="258.0" width="102.2" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="275.6" y="289.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.05</text>
+<rect x="355.3" y="258.0" width="139.4" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="406.4" y="289.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.70</text>
+<rect x="504.6" y="258.0" width="74.0" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="523.1" y="289.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.02</text>
+<rect x="588.6" y="258.0" width="157.9" height="56.0" rx="9" fill="#faeae4" stroke="#a93b1f" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="607.3" y="289.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.823 (34.6°)</text>
+<rect x="0.0" y="324.0" width="148.6" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="46.5" y="355.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">samosa</text>
+<rect x="158.6" y="324.0" width="74.4" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="177.3" y="355.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.10</text>
+<rect x="243.0" y="324.0" width="102.2" height="56.0" rx="9" fill="#faeae4" stroke="#a93b1f" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="275.6" y="355.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.80</text>
+<rect x="355.3" y="324.0" width="139.4" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="406.4" y="355.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.78</text>
+<rect x="504.6" y="324.0" width="74.0" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="523.1" y="355.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.02</text>
+<rect x="588.6" y="324.0" width="157.9" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="607.3" y="355.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.822 (34.8°)</text>
+<rect x="0.0" y="390.0" width="148.6" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="27.9" y="421.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">kubernetes</text>
+<rect x="158.6" y="390.0" width="74.4" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="177.3" y="421.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.01</text>
+<rect x="243.0" y="390.0" width="102.2" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="275.6" y="421.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.02</text>
+<rect x="355.3" y="390.0" width="139.4" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="406.4" y="421.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.00</text>
+<rect x="504.6" y="390.0" width="74.0" height="56.0" rx="9" fill="#faeae4" stroke="#a93b1f" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="523.1" y="421.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.98</text>
+<rect x="588.6" y="390.0" width="157.9" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="607.3" y="421.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.032 (88.2°)</text>
 </svg>

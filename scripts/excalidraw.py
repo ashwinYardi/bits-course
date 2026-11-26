@@ -12,29 +12,29 @@ import math
 from typing import Any
 
 PALETTE = {
-    "yellow": "#fff3bf",
-    "blue": "#d0ebff",
-    "green": "#d3f9d8",
-    "red": "#ffc9c9",
-    "violet": "#e5dbff",
-    "gray": "#f1f3f5",
-    "orange": "#ffd8a8",
+    "yellow": "#f9f3e4",
+    "blue": "#e8f0f4",
+    "green": "#e6f2eb",
+    "red": "#faeae4",
+    "violet": "#efecf4",
+    "gray": "#f3f6f4",
+    "orange": "#faeae4",
+    "amber": "#f9f3e4",
     "none": "transparent",
 }
 
 STROKE_PALETTE = {
-    "#fff3bf": "#d97706",
-    "#d0ebff": "#1d4ed8",
-    "#d3f9d8": "#15803d",
-    "#ffc9c9": "#b91c1c",
-    "#e5dbff": "#6d28d9",
-    "#f1f3f5": "#475569",
-    "#ffd8a8": "#c2410c",
+    "#f9f3e4": "#9a6c2a",
+    "#e8f0f4": "#335c73",
+    "#e6f2eb": "#1f6a44",
+    "#faeae4": "#a93b1f",
+    "#efecf4": "#5c4d6b",
+    "#f3f6f4": "#8d9c94",
 }
 
-INK = "#1e1e1e"
-MUTED = "#64748b"
-ACCENT = "#c2255c"
+INK = "#141d18"
+MUTED = "#4b5b53"
+ACCENT = "#a93b1f"
 
 BOX_W = 240
 BOX_H = 118
@@ -485,7 +485,7 @@ def _jitter(val: float, seed: int, amp: float = 1.6) -> float:
 
 
 def scene_to_svg(scene: dict[str, Any]) -> str:
-    """Render an Excalidraw scene dictionary into a self-contained hand-drawn SVG."""
+    """Render an Excalidraw scene dictionary into a crisp editorial architectural SVG."""
     els = [e for e in scene.get("elements", []) if not e.get("isDeleted")]
     if not els:
         return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50"></svg>'
@@ -508,87 +508,106 @@ def scene_to_svg(scene: dict[str, Any]) -> str:
             max_x = max(max_x, ex + ew)
             max_y = max(max_y, ey + eh)
 
-    pad = 28.0
+    pad = 34.0
     vx = min_x - pad
     vy = min_y - pad
-    vw = max(200.0, (max_x - min_x) + pad * 2)
-    vh = max(100.0, (max_y - min_y) + pad * 2)
+    vw = max(240.0, (max_x - min_x) + pad * 2)
+    vh = max(120.0, (max_y - min_y) + pad * 2)
 
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{vx:.1f} {vy:.1f} {vw:.1f} {vh:.1f}" width="100%" height="auto" class="excalidraw-svg">',
         "<defs>",
-        '<style>',
-        '.excalidraw-text { font-family: "Virgil", "Comic Neue", "Caveat", "Segoe Print", "Bradley Hand", ui-rounded, sans-serif; }',
-        '</style>',
+        '<pattern id="draft-dots" width="22" height="22" patternUnits="userSpaceOnUse">',
+        '<circle cx="11" cy="11" r="1.15" fill="#c7d3cc" opacity="0.65" />',
+        "</pattern>",
+        '<filter id="card-shadow" x="-10%" y="-10%" width="125%" height="130%">',
+        '<feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#141d18" flood-opacity="0.08" />',
+        "</filter>",
+        "<style>",
+        '.ed-title { font-family: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, sans-serif; letter-spacing: -0.015em; }',
+        '.ed-label { font-family: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, sans-serif; }',
+        '.ed-mono  { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace; }',
+        "</style>",
         "</defs>",
+        # Subtle architectural blueprint paper background
+        f'<rect x="{vx:.1f}" y="{vy:.1f}" width="{vw:.1f}" height="{vh:.1f}" rx="14" fill="#fbfcfb" />',
+        f'<rect x="{vx:.1f}" y="{vy:.1f}" width="{vw:.1f}" height="{vh:.1f}" rx="14" fill="url(#draft-dots)" />',
     ]
 
     for e in els:
         kind = e["type"]
-        seed = int(e.get("seed", 1))
         x = float(e.get("x", 0))
         y = float(e.get("y", 0))
         w = float(e.get("width", 0))
         h = float(e.get("height", 0))
         stroke = e.get("strokeColor", INK)
         bg = e.get("backgroundColor", "transparent")
-        sw = e.get("strokeWidth", 2)
-        dash = ' stroke-dasharray="6 5"' if e.get("strokeStyle") == "dashed" else ""
+        sw = float(e.get("strokeWidth", 1.8))
+        is_dashed = e.get("strokeStyle") == "dashed"
+        dash = ' stroke-dasharray="6 5"' if is_dashed else ""
 
         if kind == "rectangle":
-            # Soft shadow + two slightly jittered hand-drawn passes
-            border_color = STROKE_PALETTE.get(bg, stroke)
-            parts.append(
-                f'<rect x="{x+3:.1f}" y="{y+4:.1f}" width="{w:.1f}" height="{h:.1f}" rx="12" fill="#0f172a" fill-opacity="0.06" />'
-            )
-            parts.append(
-                f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" rx="12" fill="{bg}" stroke="{border_color}" stroke-width="{sw}"{dash} />'
-            )
-            jx = _jitter(x, seed, 1.1)
-            jy = _jitter(y, seed + 1, 1.1)
-            parts.append(
-                f'<rect x="{jx:.1f}" y="{jy:.1f}" width="{w:.1f}" height="{h:.1f}" rx="13" fill="none" stroke="{border_color}" stroke-width="1.1" stroke-opacity="0.55" />'
-            )
+            accent_bar = STROKE_PALETTE.get(bg, "#4b5b53")
+            is_tall_card = h >= 85
+            if is_tall_card:
+                # Architectural card: crisp white surface, colored top accent strip, soft ambient shadow
+                parts.append(
+                    f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" rx="13" fill="#ffffff" stroke="{accent_bar}" stroke-opacity="0.55" stroke-width="1.6" filter="url(#card-shadow)" />'
+                )
+                parts.append(
+                    f'<path d="M {x+13:.1f} {y+0.8:.1f} H {x+w-13:.1f} Q {x+w-0.8:.1f} {y+0.8:.1f} {x+w-0.8:.1f} {y+13:.1f} V {y+18:.1f} H {x+0.8:.1f} V {y+13:.1f} Q {x+0.8:.1f} {y+0.8:.1f} {x+13:.1f} {y+0.8:.1f} Z" fill="{bg}" />'
+                )
+                parts.append(
+                    f'<line x1="{x+14:.1f}" y1="{y+18:.1f}" x2="{x+w-14:.1f}" y2="{y+18:.1f}" stroke="{accent_bar}" stroke-opacity="0.28" stroke-width="1" />'
+                )
+            else:
+                # Grid / data cell: refined architectural fill & thin crisp border
+                parts.append(
+                    f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" rx="9" fill="{bg}" stroke="{accent_bar}" stroke-opacity="0.45" stroke-width="1.3" />'
+                )
         elif kind == "ellipse":
             cx, cy = x + w / 2, y + h / 2
             rx, ry = w / 2, h / 2
             border_color = STROKE_PALETTE.get(bg, stroke)
             parts.append(
-                f'<ellipse cx="{cx:.1f}" cy="{cy:.1f}" rx="{rx:.1f}" ry="{ry:.1f}" fill="{bg}" stroke="{border_color}" stroke-width="{sw}"{dash} />'
+                f'<ellipse cx="{cx:.1f}" cy="{cy:.1f}" rx="{rx:.1f}" ry="{ry:.1f}" fill="{bg}" stroke="{border_color}" stroke-width="1.6" filter="url(#card-shadow)" />'
             )
         elif kind == "arrow":
             pts = [(x + px, y + py) for px, py in e.get("points", [])]
             if len(pts) >= 2:
                 d_cmds = [f"M {pts[0][0]:.1f} {pts[0][1]:.1f}"]
                 for i in range(1, len(pts)):
-                    px0, py0 = pts[i - 1]
-                    px1, py1 = pts[i]
-                    mx = _jitter((px0 + px1) / 2, seed + i, 2.2)
-                    my = _jitter((py0 + py1) / 2, seed + i + 3, 2.2)
-                    d_cmds.append(f"Q {mx:.1f} {my:.1f} {px1:.1f} {py1:.1f}")
+                    d_cmds.append(f"L {pts[i][0]:.1f} {pts[i][1]:.1f}")
                 d_str = " ".join(d_cmds)
+                arrow_color = ACCENT if is_dashed else "#3e4c44"
                 parts.append(
-                    f'<path d="{d_str}" fill="none" stroke="{stroke}" stroke-width="{sw}" stroke-linecap="round" stroke-linejoin="round"{dash} />'
+                    f'<path d="{d_str}" fill="none" stroke="{arrow_color}" stroke-width="{sw:.1f}" stroke-linecap="round" stroke-linejoin="round"{dash} />'
                 )
-                # Arrowhead at last segment
+                # Crisp filled triangular arrowhead
                 (ax, ay), (bx, by) = pts[-2], pts[-1]
                 ang = math.atan2(by - ay, bx - ax)
-                hlen = 11.0
-                a1 = ang + math.pi * 0.82
-                a2 = ang - math.pi * 0.82
+                hlen = 10.5
+                a1 = ang + math.pi * 0.84
+                a2 = ang - math.pi * 0.84
                 hx1, hy1 = bx + math.cos(a1) * hlen, by + math.sin(a1) * hlen
                 hx2, hy2 = bx + math.cos(a2) * hlen, by + math.sin(a2) * hlen
                 parts.append(
-                    f'<path d="M {hx1:.1f} {hy1:.1f} L {bx:.1f} {by:.1f} L {hx2:.1f} {hy2:.1f}" fill="none" stroke="{stroke}" stroke-width="{sw}" stroke-linecap="round" stroke-linejoin="round" />'
+                    f'<polygon points="{bx:.1f},{by:.1f} {hx1:.1f},{hy1:.1f} {hx2:.1f},{hy2:.1f}" fill="{arrow_color}" />'
                 )
         elif kind == "text":
             txt = html.escape(str(e.get("text", "")))
             fsize = int(e.get("fontSize", 18))
-            weight = "700" if fsize >= 20 else ("600" if stroke == ACCENT else "500")
-            # SVG text y is baseline
             by = y + fsize * 0.92
+            if fsize >= 22:
+                cls, weight = "ed-title", "800"
+            elif fsize >= 18:
+                cls, weight = "ed-label", "700"
+            elif fsize <= 14:
+                cls, weight = "ed-mono", "600"
+            else:
+                cls, weight = "ed-label", "600"
             parts.append(
-                f'<text x="{x:.1f}" y="{by:.1f}" font-size="{fsize}" font-weight="{weight}" fill="{stroke}" class="excalidraw-text">{txt}</text>'
+                f'<text x="{x:.1f}" y="{by:.1f}" font-size="{fsize}" font-weight="{weight}" fill="{stroke}" class="{cls}">{txt}</text>'
             )
 
     parts.append("</svg>")

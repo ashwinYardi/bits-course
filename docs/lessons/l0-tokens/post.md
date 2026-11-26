@@ -2,60 +2,58 @@
 *Why does the model see 'strawberry' as pieces and miscount its letters?*
 > **In one line:** An AI never sees letters or words; a chopper at the front door slices your text into common puzzle pieces and swaps each piece for a barcode number before the brain ever wakes up.
 
-## Explain it like I'm 12: Why you can't count bricks inside a painted wall
+## Explain it like I'm 12: Why you can't count bricks behind a painted wall
 
-Here is a famous riddle: if you ask a billion-dollar AI to write a video game in Python, it can do it in ten seconds. If you ask it `'How many R's are in the word strawberry?'`, it often confidently says `'Two!'`
+Here is a riddle that stumped the whole tech world: a frontier AI can write a working compiler in ten seconds, yet when you ask `'How many R's are in strawberry?'`, it often replies `'Two!'` with total confidence.
 
-How can a genius machine fail a second-grade spelling question?
+How can a super-genius fail a second-grade spelling check?
 
-Because the AI **cannot read letters**. Neural networks are giant calculators that only eat numbers. So before your message ever reaches the AI's brain, a small program at the front door called a **tokenizer** chops your sentence into common puzzle pieces (**tokens**) and swaps each piece for a barcode number (**token ID**).
+Because neural networks are giant matrix calculators — they **cannot read letters**. Before your message ever reaches Layer 1 of the model, a separate deterministic front-door program called a **tokenizer** slices your text into common puzzle pieces (**tokens**) and replaces each piece with an integer barcode (**token ID**).
 
-Look at `Figure 1` above. When `'strawberry'` walks through the front door, the chopper snaps it into three puzzle pieces:
+Look at `Figure 1`: under a GPT-4 class tokenizer (`cl100k_base`), `'strawberry'` enters the brain as just three sealed integers:
 - `'str'` → barcode `496`
 - `'aw'` → barcode `675`
 - `'berry'` → barcode `15717`
 
-The AI's brain never sees the letters `b-e-r-r-y`. It just gets handed box number `15717`. Asking it how many `r`'s are inside `15717` without opening the box is like asking you how many red bricks are hidden behind a painted drywall.
+The model never receives the 10 characters `s-t-r-a-w-b-e-r-r-y`. Two of the `'r'`s are sealed inside integer `15717`. Unless the model memorized spelling facts during training, asking it to count letters inside a single atomic ID is like asking you how many bricks sit behind painted drywall.
 
 ![The neural network only ever receives the final green list of barcode numbers.](fig-01.svg)
 *The neural network only ever receives the final green list of barcode numbers.*
 
-## How the chopper decides where to cut: The Lego glue game (BPE)
+## How real tokenizers work: Regex Pre-Tokenization + Byte-Level BPE
 
-Why did the chopper cut `'strawberry'` into `'str'`, `'aw'`, and `'berry'` instead of whole words or single letters?
+Why not use 256 single bytes (too long — a short essay explodes to 5,000 tokens) or whole dictionary words (millions of entries, crashes on typos and code)? Modern LLMs use a two-step compression pipeline:
 
-Think about packing Lego bricks into boxes:
-- If you keep every single 1x1 Lego stud loose (**character level**), your dictionary is tiny (just 256 basic computer bytes), but a single book page takes 3,000 studs and the AI's memory fills up immediately.
-- If you pre-glue every word in the world (**word level**), you need millions of boxes, and the moment someone types a new slang word or typo, the machine crashes.
+1. **Step A — Regex Pre-Tokenization:** Before counting pairs, the tokenizer splits text with a regex pattern so letters, numbers, and punctuation stay in separate buckets (`['strawberry', ',', ' berry', '!', ...]`). Why? Without pre-tokenization, BPE would waste precious vocabulary slots minting `'dog.'`, `'dog!'`, `'dog,'`, and `'dog?'` as four different tokens! Notice also how the regex attaches **leading spaces** to the word (`' berry'`), which means `'server'` and `' server'` get completely different IDs.
+2. **Step B — Byte-Level BPE (The Lego Glue Game):** Start with the 256 raw UTF-8 bytes (`0–255`) — guaranteeing **zero unknown-character crashes** on any Unicode script or emoji on Earth (**byte fallback**). Repeatedly scan the training corpus, find the most frequent adjacent pair inside pre-token boundaries, and glue it into a new barcode (`256`, `257`, ...).
 
-So engineers use a clever middle path called **byte pair encoding (BPE)** in plain words: start with tiny single-byte letters, find the two neighbors that sit next to each other most often across thousands of books, and glue them into a new puzzle piece. Repeat 100,000 times.
-
-In our Python lab, we ran just **8 rounds** of BPE glue on `'strawberry berry straw berry strawberry'`. Those 8 merges shrank 39 raw bytes down to **11 puzzle pieces (28.2% of the original size)**!
+In our Python lab, watch the exact 8-step merge trace: `'b'+'e' -> 'be' (256)` ... `'berr'+'y' -> 'berry' (259)` ... `'stra'+'w' -> 'straw' (263)`, shrinking **42 raw UTF-8 bytes down to 14 tokens (33.3% of original)** while keeping `,`, `!`, and `.` cleanly isolated!
 
 ![Start with 256 single-byte crumbs and repeatedly glue the most common neighbors together.](fig-03.svg)
 *Start with 256 single-byte crumbs and repeatedly glue the most common neighbors together.*
 
-## The 3.3x Hindi Tax: Why some languages pay triple at the gate
+## The 3.3x Hindi Tax: Token Fertility & Real API Economics
 
-Because the BPE glue game is played mostly on English websites and Python code, English words get glued into big, cheap single-token pieces (`' responded'` = 1 token). What happens when you type in Hindi or use emojis?
+Because BPE learns merges strictly by frequency in its training data, whatever languages dominate that corpus get long, cheap single-token chunks. Underrepresented scripts get shattered into tiny UTF-8 byte crumbs.
 
-Look at `Figure 2` from our lab output:
-- **English (`'The server responded in 12ms.'`):** 29 letters → **8 tokens** (`0.28` tokens per letter).
-- **Hindi (`'नमस्ते दुनिया'`):** 13 letters → **12 tokens** (`0.92` tokens per letter — **3.3x more tokens per letter!**).
-- **Emojis (`'🚀🔥🤖'`):** 3 emojis → **6 tokens** (`2.00` tokens per character — **7.1x more!**).
+Look at `Figure 2` from our lab output (`cl100k_base`):
+- **English (`'The server responded in 12ms.'`):** 29 chars → **8 tokens** (`0.28` tok/char · **`1.0×`** baseline).
+- **Hindi (`'नमस्ते दुनिया'`):** 13 chars → **12 tokens** (`0.92` tok/char · **`3.3×` cost & latency tax!**).
+- **Emojis (`'🚀🔥🤖'`):** 3 chars → **6 tokens** (`2.00` tok/char · **`7.2×`** multiplier via UTF-8 byte fallback!).
 
-Engineers call this ratio **token fertility** in plain words: how many tokens a tokenizer needs to represent one word or character. Because the AI's conveyor belt (from Checkpoint 1) generates **one token per loop**, 3.3x more tokens means a Hindi user pays **3.3x more money** and waits **3.3x longer** for the exact same answer!
+Engineers call this **token fertility**. Remember Lesson 1: the model generates **one token per forward pass**. A `3.3×` fertility penalty doesn't just triple a Hindi user's API bill — it also makes streaming **3.3× slower** AND shrinks their effective memory window by **3.3×**! Switching from a 100k vocab (`cl100k`) to a 200k multilingual vocab (`o200k`) cuts Hindi fertility nearly in half.
 
 ![Real measurements from our lab: Hindi takes 3.3x more tokens per character than English.](fig-02.svg)
 *Real measurements from our lab: Hindi takes 3.3x more tokens per character than English.*
 
-## Three pro tricks every AI engineer keeps in their pocket
+## Four production tokenizer bugs every AI engineer catches immediately
 
-Once you understand the barcode chopper, three mysterious bugs become easy to fix:
+Understanding the front-door chopper immediately lets you debug four notorious production failures:
 
-1. **Fixing the 'strawberry' blind spot.** If you ask the AI to *'spell the word with spaces between every letter first (`s t r a w b e r r y`), then count the R's'*, the spaces force the chopper to give every letter its own separate barcode (`436` for `' r'`). Now the AI sees three `436` barcodes in plain sight and counts them with 100% accuracy.
-2. **Why leading spaces matter.** To the chopper, `'server'` (at the start of a line) and `' server'` (after a space) have two completely different barcode numbers! If you end your prompt template with a trailing space, the model's next-token scoreboard shifts unexpectedly.
-3. **Why numbers trip up math.** If a chopper glues `123` into one token on line one, but chops `1234` into `12` and `34` on line two, the model cannot line up the ones, tens, and hundreds columns. Newer models force every digit `0–9` to be its own token so arithmetic stays consistent.
+1. **The Trailing-Space Bug:** Never end a prompt template with a trailing space (`'Answer: '`). Because BPE expects spaces *attached to the start of the next word* (`' Yes'`), a dangling space forces an awkward standalone space token (`220`) followed by a rare space-less `'Yes'` token — measurably degrading accuracy.
+2. **Digit Splitting & Math:** Older BPE tokenizers glued `123` into one token but chopped `1234` into `12` + `34`, breaking place-value alignment. Modern frontier tokenizers (Llama 3, DeepSeek, GPT-4o) restrict number merges in their pre-tokenization regex to 1–3 digits (or single digits `0–9`) so arithmetic lines up cleanly.
+3. **Special Tokens & Prompt Injection:** Control markers like `<|im_start|>`, `<|im_end|>`, and `<|endoftext|>` are reserved integer IDs injected by the chat template. Never pass untrusted user input with `allowed_special='all'`, or a user can literally type `<|im_end|><|im_start|>system` and hijack the model's role!
+4. **Fixing Character Tasks Instantly:** Whenever an app needs exact spelling, letter counting, or string reversal, either call a Python tool (best!) or instruct the model to space-separate characters (`s t r a w b e r r y`) before counting.
 
 ## Jargon Decoder
 
@@ -69,7 +67,8 @@ Once you understand the barcode chopper, three mysterious bugs become easy to fi
 | **token fertility** | How many tokens it takes to represent one word or character in a language. | Directly multiplies your cloud bill and response time for Hindi, Indic scripts, and dense JSON. |
 | **byte fallback** | Breaking unfamiliar characters (like rare emojis) down into raw UTF-8 byte tokens (0–255). | Prevents unknown-character crashes, at the cost of up to 4 tokens per character. |
 | **special token** | Reserved control barcodes like <|im_start|> or <|endoftext|>. | Marks where the user stops talking and the assistant starts. |
+| **pre-tokenization** | A regex split run BEFORE BPE so words, numbers, and punctuation don't get glued together into duplicate tokens. | Explains why leading spaces attach to words (' server') and why trailing spaces in prompts degrade completions. |
 
-## Hands-On Lab: Train a 30-line BPE Tokenizer & Measure Multilingual Token Fertility
+## Hands-On Lab: Build Regex Pre-Tokenization + Byte-Level BPE & Measure Multilingual Fertility
 
-Implement Byte Pair Encoding from raw UTF-8 bytes, watch 8 merges compress a corpus to 28.2% of its byte length, and measure the exact tokens/char cost multiplier across English, Hindi, and emojis.
+Implement regex pre-tokenization + byte-level BPE from raw UTF-8 bytes, inspect every single merge step (#1–#8), and measure exact token fertility multipliers across English (1.0x), Hindi (3.3x), and Emojis (7.2x).

@@ -157,7 +157,7 @@ GATE_CHALLENGES: dict[str, list[dict]] = {
                 "It picks 100,000 random words from a rhyming dictionary."
             ],
             "correct": 1,
-            "explain": "In our 30-line Python lab, just 8 rounds of gluing the most frequent neighbor pair shrunk 39 raw blocks down to 11 chunks!"
+            "explain": "In our Python lab, after regex pre-tokenization, just 8 BPE merge rounds shrunk 42 raw byte blocks down to 14 chunks (33.3% of the original length)!"
         }
     ],
     "l0-embeddings": [
@@ -174,22 +174,22 @@ GATE_CHALLENGES: dict[str, list[dict]] = {
         {
             "q": "2. In our Cafeteria GPS lab, what was the Cosine Similarity (flashlight angle score) between masala_chai and filter_coffee vs masala_chai and kubernetes?",
             "options": [
-                "masala_chai & filter_coffee scored +0.9924 (almost identical direction), while masala_chai & kubernetes scored +0.1006 (unrelated).",
+                "masala_chai & filter_coffee scored +0.9858 (9.7° apart — same hot-drink table), while masala_chai & kubernetes scored +0.0322 (88.2° — nearly perpendicular).",
                 "Both pairs scored 0.5000.",
-                "masala_chai & kubernetes scored +0.9924 because developers drink chai while coding."
+                "masala_chai & kubernetes scored +0.9858 because developers drink chai while coding."
             ],
             "correct": 0,
-            "explain": "Cosine similarity measures the angle between two coordinate arrows: +1.0 means pointing the exact same way in meaning space."
+            "explain": "Cosine similarity measures the angle between two coordinate arrows: +0.9858 (9.7°) points almost the exact same way, while +0.0322 (88.2°) is nearly orthogonal."
         },
         {
-            "q": "3. When we ran vector arithmetic `king - man + woman` on our 4D Cafeteria map, which word landed at the closest table (and what is the honest trap with cosine similarity)?",
+            "q": "3. When we ran vector arithmetic `king - man + woman` in our lab, which word landed at the closest table (and what is the Antonym Trap with cosine similarity)?",
             "options": [
-                "It landed on 'queen' (0.9854), and the trap is that opposites like 'boiling chai' and 'iced chai' ALSO sit close together because they share the same topic table!",
+                "It landed on 'queen' (+1.0000 exact direction match), and the trap is that opposites like 'masala_chai' and 'iced_chai' still score +0.8234 (34.6°) because they share the same drink context!",
                 "It landed on 'kubernetes', and cosine similarity never makes mistakes.",
                 "You cannot add or subtract word coordinates."
             ],
             "correct": 0,
-            "explain": "Subtracting 'man' and adding 'woman' walks across the gender axis to 'queen' (0.9854), while hot and cold drinks still cluster together because they share the drink context."
+            "explain": "Subtracting 'man' and adding 'woman' walks cleanly across the gender axis to 'queen' (+1.0000), while hot and cold drinks still cluster at +0.8234 because distributional embeddings group co-occurring topics — even opposites."
         }
     ],
     "l0-context-window": [
@@ -1060,12 +1060,148 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       color: var(--terracotta);
       border: 1px solid var(--line-strong);
     }}
-    .inline-figure {{
+    .book-progress-track {{
+      height: 4px;
+      width: 100%;
+      background: var(--paper-warm);
+      overflow: hidden;
+      flex-shrink: 0;
+    }}
+    .book-progress-bar {{
+      height: 100%;
+      width: 0%;
+      background: var(--terracotta);
+      transition: width 80ms linear;
+    }}
+    .chapter-toc {{
+      display: flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+      margin: 0 0 1.4rem;
+      padding: 0.65rem 0.8rem;
       background: var(--paper);
-      border: 2px solid var(--line-strong);
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      align-items: center;
+    }}
+    .toc-chip {{
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.36rem 0.72rem;
+      border-radius: 999px;
+      border: 1.5px solid var(--line-strong);
+      background: #ffffff;
+      color: var(--ink-soft);
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 120ms ease-out, color 120ms ease-out, background-color 120ms ease-out;
+    }}
+    @media (hover: hover) {{
+      .toc-chip:hover {{
+        border-color: var(--terracotta);
+        color: var(--terracotta);
+        background: var(--paper-warm);
+      }}
+    }}
+    .callout-grid {{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin: 1.15rem 0 0.35rem;
+    }}
+    .callout-box {{
+      border-radius: 12px;
+      padding: 0.9rem 1.1rem;
+      font-size: 0.93rem;
+      line-height: 1.62;
+    }}
+    .callout-expert {{
+      background: #f2f6f9;
+      border: 1.5px solid #b4ccd9;
+      color: #1c2e38;
+    }}
+    .callout-trap {{
+      background: #fdf4ee;
+      border: 1.5px solid #e2baa7;
+      color: #3a1d15;
+    }}
+    .callout-title {{
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 0.32rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }}
+    .callout-expert .callout-title {{ color: #264d60; }}
+    .callout-trap .callout-title {{ color: #8c331c; }}
+    .chapter-prose ul, .chapter-prose ol {{
+      margin: 0.55rem 0 1rem;
+      padding-left: 1.35rem;
+    }}
+    .chapter-prose li {{
+      margin-bottom: 0.42rem;
+    }}
+    .sim-input {{
+      flex: 1;
+      min-width: 210px;
+      padding: 0.48rem 0.78rem;
+      border-radius: 10px;
+      border: 1.5px solid var(--line-strong);
+      background: #ffffff;
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 0.84rem;
+    }}
+    .sim-input:focus {{
+      outline: 2px solid var(--terracotta);
+      outline-offset: 1px;
+    }}
+    .tray-slot-grid {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.55rem;
+    }}
+    .tray-word {{
+      display: inline-flex;
+      align-items: center;
+      padding: 0.24rem 0.5rem;
+      border-radius: 7px;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+      border: 1.5px solid var(--line-strong);
+      background: #ffffff;
+      color: var(--ink);
+    }}
+    .tray-word.secret {{
+      background: #fef3c7;
+      border-color: #b45309;
+      color: #78350f;
+      font-weight: 800;
+    }}
+    .tray-word.dropped {{
+      background: #fee2e2;
+      border-color: #dc2626;
+      color: #7f1d1d;
+      text-decoration: line-through;
+      opacity: 0.85;
+    }}
+    .inline-figure {{
+      background: #fbfaf7;
+      border: 1.5px solid var(--line-strong);
+      box-shadow: 0 6px 20px rgba(24, 34, 29, 0.06);
       border-radius: 16px;
-      padding: 1.15rem;
-      margin: 1.35rem 0 0.5rem;
+      padding: 1.1rem;
+      margin: 1.35rem 0 0.65rem;
     }}
     .playground-band {{
       background: var(--paper);
@@ -1308,7 +1444,8 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         <button class="book-tab" data-tab="share" onclick="switchBookTab('share')">🏆 4. Share Studio (X & IG)</button>
       </div>
 
-      <div class="book-body">
+      <div class="book-progress-track"><div class="book-progress-bar" id="bk-progress-bar"></div></div>
+      <div class="book-body" id="bk-body-scroll" onscroll="updateBookReadingProgress()">
         <div class="book-pane active" id="bk-pane-story"></div>
         <div class="book-pane" id="bk-pane-lab"></div>
         <div class="book-pane" id="bk-pane-gate"></div>
@@ -1458,13 +1595,22 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
             ]
           }},
           {{
-            text: "“Ha! Respect for honesty! An LLM has NO master plan and NO backspace key. It scores every word in the dictionary, rolls a weighted die (controlled by Temperature), glues that ONE winning word onto your prompt, and repeats from scratch! Test my Temperature Dice Machine or pass the 3-question check to lift this barrier!”",
+            text: "“Ha! Respect for honesty! An LLM has NO master plan and NO backspace key. It scores every word in the dictionary, rolls a weighted die (controlled by Temperature & Top-P), glues that ONE winning word onto your prompt, and repeats until <|eos|>! Test my Guard Booth Simulator or pass the 3-question check to lift this barrier!”",
             choices: [
-              {{ label: "📖 Open Chapter 1 & Play the Temperature Dice Machine", action: "openStory" }},
+              {{ label: "📖 Open Chapter 1 & Play the Temperature + Top-P Simulator", action: "openStory" }},
               {{ label: "🚧 Take the 3-Question Boom Gate Test to Lift the Barrier", action: "openGateQuiz" }}
             ]
           }}
-        ]
+        ],
+        clearedDialogue: {{
+          text: "“🫡 Welcome back through the South Gate, Ashwin! You already passed my Security Boom Check — the barrier stays wide open for you. Want to revise Chapter 1 (Temperature, Top-P & Post-Training), re-run the Python lab, or head straight to your next campus mission?”",
+          choices: [
+            {{ label: "📖 Revise Chapter 1 & Temperature/Top-P Playground", action: "openStory" }},
+            {{ label: "🧪 Re-open Chapter 1 Runnable Python Lab", action: "openLab" }},
+            {{ label: "🔁 Practice the 3-Question Security Check Again", action: "openGateQuiz" }},
+            {{ label: "🚶 Walk to Next Campus Mission", action: "nextMission" }}
+          ]
+        }}
       }},
       {{
         id: "l0-tokens",
@@ -1486,13 +1632,22 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
             ]
           }},
           {{
-            text: "“Because an AI never reads letters! My BPE Token Chopper glues common letter chunks into single integer barcodes before the AI even wakes up. Two of the 'r's are sealed inside barcode #15717 ('berry') like bricks behind a painted wall! Come try the live Barcode Chopper inside Chapter 2.”",
+            text: "“Because an AI never reads letters! My BPE Token Chopper runs regex pre-tokenization and glues common chunks into integer barcodes before the AI even wakes up. Two of the 'r's are sealed inside barcode #15717 ('berry')! Come try the live Barcode Chopper inside Chapter 2.”",
             choices: [
-              {{ label: "📖 Open Chapter 2 & Chop Words into Barcodes", action: "openStory" }},
+              {{ label: "📖 Open Chapter 2 & Chop Custom Text into Barcodes", action: "openStory" }},
               {{ label: "🚧 Take the 3-Question Parking Lot Gate Test", action: "openGateQuiz" }}
             ]
           }}
-        ]
+        ],
+        clearedDialogue: {{
+          text: "“Hey Ashwin! Your Parking Lot Barcode pass is already stamped ✓. Swing by anytime you want to test custom words in my live BPE Chopper, review regex pre-tokenization & the 3.3x Hindi tax, or walk over to your next stop!”",
+          choices: [
+            {{ label: "📖 Revise Chapter 2 & Live Barcode Chopper", action: "openStory" }},
+            {{ label: "🧪 Re-open BPE Python Lab (42 → 14 tokens)", action: "openLab" }},
+            {{ label: "🔁 Practice the 3-Question Barcode Check Again", action: "openGateQuiz" }},
+            {{ label: "🚶 Walk to Next Campus Mission", action: "nextMission" }}
+          ]
+        }}
       }},
       {{
         id: "l0-embeddings",
@@ -1514,13 +1669,22 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
             ]
           }},
           {{
-            text: "“Spot on! The moment a barcode enters the model, we trade it for an Embedding — a list of GPS coordinates on a giant Meaning Map. Here on my patio, masala_chai and filter_coffee sit at the exact same table (+0.9924 similarity), while Kubernetes sits 84 degrees away! Come explore the 4D Cafeteria Map.”",
+            text: "“Spot on! The moment a barcode enters the model, we trade it for an Embedding — a list of GPS coordinates on a giant Meaning Map. Here on my patio, masala_chai and filter_coffee sit just 9.7° apart (+0.9858 similarity), while Kubernetes sits 88.2° away (+0.0322)! Come explore the Vector Angle Compass.”",
             choices: [
-              {{ label: "📖 Open Chapter 3 & Explore the 4D Meaning Map", action: "openStory" }},
+              {{ label: "📖 Open Chapter 3 & Explore the Vector Angle Compass", action: "openStory" }},
               {{ label: "🚧 Take the 3-Question Cafeteria Gate Test", action: "openGateQuiz" }}
             ]
           }}
-        ]
+        ],
+        clearedDialogue: {{
+          text: "“Fresh cutting chai on the house, Ashwin! You already cleared the Cafeteria Meaning Map ✓. Want to spin the 2D Vector Angle Compass, revisit the Antonym Trap (+0.8234) & Hybrid Search, or head to your next mission?”",
+          choices: [
+            {{ label: "📖 Revise Chapter 3 & Vector Angle Compass", action: "openStory" }},
+            {{ label: "🧪 Re-open 4D Embeddings Python Lab", action: "openLab" }},
+            {{ label: "🔁 Practice the 3-Question Cafeteria Check Again", action: "openGateQuiz" }},
+            {{ label: "🚶 Walk to Next Campus Mission", action: "nextMission" }}
+          ]
+        }}
       }},
       {{
         id: "l0-context-window",
@@ -1542,13 +1706,22 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
             ]
           }},
           {{
-            text: "“When the tray hits its 24-word limit, the oldest words at the left edge literally slide off into the trash — taking your Turn 1 locker code 7492 with them! Worse, even when everything fits, attention follows a U-curve: 93% recall at the top and bottom edges, but only 38.7% in the soggy middle!”",
+            text: "“When the tray hits its 24-word limit, the oldest words at the left edge literally slide off into the trash — taking your Turn 1 locker code 7492 with them! Worse, even when everything fits, attention follows a U-curve: 93% recall at the edges vs 38.7% in the middle, while KV Prefix Caching saves 81% on repeated turns!”",
             choices: [
-              {{ label: "📖 Open Chapter 4 & Test the 24-Word Lunch Tray Simulator", action: "openStory" }},
+              {{ label: "📖 Open Chapter 4 & Test the Lunch Tray + KV Cache Simulator", action: "openStory" }},
               {{ label: "🚧 Take the 3-Question Quad Gate Test", action: "openGateQuiz" }}
             ]
           }}
-        ]
+        ],
+        clearedDialogue: {{
+          text: "“Great to see you back by the Quad Fountain, Ashwin! You've mastered Context Windows & KV Prefix Caching ✓. Want to revise Chapter 4, inspect the O(N²) lab output, or walk into the Academic Halls?”",
+          choices: [
+            {{ label: "📖 Revise Chapter 4 & Lunch Tray + KV Cache Simulator", action: "openStory" }},
+            {{ label: "🧪 Re-open Context Window & KV Cache Python Lab", action: "openLab" }},
+            {{ label: "🔁 Practice the 3-Question Quad Check Again", action: "openGateQuiz" }},
+            {{ label: "🚶 Walk to Next Campus Mission", action: "nextMission" }}
+          ]
+        }}
       }}
     ];
 
@@ -1580,6 +1753,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       nearbyLandmark: null,
       nearbyHall: null,
       nearbyRoomIdx: -1,
+      hoveredHallLevel: -1,
       holoRinging: false,
       guardWhistleTimer: 0,
       player: {{
@@ -1814,15 +1988,19 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       if (!stop) return;
       state.activeStopId = stopId;
       state.activePortraitStyle = stop.npcStyle || "guard";
-      const node = stop.dialogue[nodeIdx] || stop.dialogue[0];
+      const isCleared = clearedIds.has(stopId) && stop.clearedDialogue;
+      const node = isCleared ? stop.clearedDialogue : (stop.dialogue[nodeIdx] || stop.dialogue[0]);
+      const modeKey = isCleared ? -1 : nodeIdx;
 
       document.getElementById("rpg-speaker-name").innerText = stop.npcName;
-      document.getElementById("rpg-speaker-role").innerText = stop.npcRole;
+      const roleEl = document.getElementById("rpg-speaker-role");
+      roleEl.innerText = isCleared ? `✓ CLEARED · REVISION MODE · ${{stop.npcRole}}` : stop.npcRole;
+      roleEl.style.color = isCleared ? "var(--meadow)" : "";
       playTypewriterText("rpg-speech-text", node.text);
 
       const choicesEl = document.getElementById("rpg-choices");
       choicesEl.innerHTML = node.choices.map((c, i) => `
-        <button class="rpg-choice-btn ${{i === 0 ? 'choice-primary' : ''}}" onclick="handleNpcChoice('${{stopId}}', ${{nodeIdx}}, ${{i}})">
+        <button class="rpg-choice-btn ${{i === 0 ? 'choice-primary' : ''}}" onclick="handleNpcChoice('${{stopId}}', ${{modeKey}}, ${{i}})">
           <span>${{c.label}}</span>
           <span>→</span>
         </button>
@@ -1837,15 +2015,23 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
 
     function handleNpcChoice(stopId, nodeIdx, choiceIdx) {{
       const stop = OUTDOOR_LANDMARKS.find(s => s.id === stopId);
-      const choice = stop.dialogue[nodeIdx].choices[choiceIdx];
+      const node = (nodeIdx === -1 && stop.clearedDialogue) ? stop.clearedDialogue : stop.dialogue[nodeIdx];
+      const choice = node && node.choices[choiceIdx];
+      if (!choice) return;
       if (typeof choice.next === "number") {{
         openNpcDialogue(stopId, choice.next);
       }} else if (choice.action === "openStory") {{
         closeRpgDialogue();
         openLessonBook(stopId, "story");
+      }} else if (choice.action === "openLab") {{
+        closeRpgDialogue();
+        openLessonBook(stopId, "lab");
       }} else if (choice.action === "openGateQuiz") {{
         closeRpgDialogue();
         openLessonBook(stopId, "gate");
+      }} else if (choice.action === "nextMission") {{
+        closeRpgDialogue();
+        walkToCurrentQuest();
       }}
     }}
 
@@ -2046,40 +2232,78 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }}
 
-    function drawIsoBuilding3D(cx, cy, w, d, h, roofColor, leftWall, rightWall, hasWindows = true) {{
+    function drawIsoBuilding3D(cx, cy, w, d, h, roofColor, leftWall, rightWall, hasWindows = true, isHovered = false) {{
       const hw = w / 2;
       const hd = d / 2;
+      const lift = isHovered ? 5 : 0;
+      const by = cy - lift;
 
-      ctx.fillStyle = "rgba(17, 28, 22, 0.22)";
+      // Ground contact shadow (softens slightly when hovered)
+      ctx.fillStyle = isHovered ? "rgba(17, 28, 22, 0.16)" : "rgba(17, 28, 22, 0.22)";
       ctx.beginPath();
-      ctx.moveTo(cx, cy + hd + 12);
+      ctx.moveTo(cx, cy + hd + 13);
       ctx.lineTo(cx + hw + 18, cy + 10);
       ctx.lineTo(cx, cy - hd + 10);
       ctx.lineTo(cx - hw + 6, cy + 10);
       ctx.closePath();
       ctx.fill();
 
+      // Stepped limestone foundation plinth (architectural base)
+      const ph = hasWindows ? 6 : 3;
+      ctx.fillStyle = "#d9d2c5";
+      ctx.beginPath();
+      ctx.moveTo(cx - hw - 3, by + 2);
+      ctx.lineTo(cx, by + hd + 4);
+      ctx.lineTo(cx + hw + 3, by + 2);
+      ctx.lineTo(cx + hw + 3, by + 2 - ph);
+      ctx.lineTo(cx, by + hd + 4 - ph);
+      ctx.lineTo(cx - hw - 3, by + 2 - ph);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = "#48524c";
+      ctx.lineWidth = 1.1;
+      ctx.stroke();
+
+      // Left sun-lit facade
       ctx.fillStyle = leftWall;
       ctx.beginPath();
-      ctx.moveTo(cx - hw, cy);
-      ctx.lineTo(cx, cy + hd);
-      ctx.lineTo(cx, cy + hd - h);
-      ctx.lineTo(cx - hw, cy - h);
+      ctx.moveTo(cx - hw, by);
+      ctx.lineTo(cx, by + hd);
+      ctx.lineTo(cx, by + hd - h);
+      ctx.lineTo(cx - hw, by - h);
       ctx.closePath();
       ctx.fill();
       ctx.strokeStyle = "#2e3b34";
-      ctx.lineWidth = 1.5;
+      ctx.lineWidth = 1.4;
       ctx.stroke();
 
+      // Right shaded facade
       ctx.fillStyle = rightWall;
       ctx.beginPath();
-      ctx.moveTo(cx, cy + hd);
-      ctx.lineTo(cx + hw, cy);
-      ctx.lineTo(cx + hw, cy - h);
-      ctx.lineTo(cx, cy + hd - h);
+      ctx.moveTo(cx, by + hd);
+      ctx.lineTo(cx + hw, by);
+      ctx.lineTo(cx + hw, by - h);
+      ctx.lineTo(cx, by + hd - h);
       ctx.closePath();
       ctx.fill();
       ctx.stroke();
+
+      // Subtle architectural roof-under-eave shadow band
+      ctx.fillStyle = "rgba(17, 28, 22, 0.08)";
+      ctx.beginPath();
+      ctx.moveTo(cx - hw, by - h);
+      ctx.lineTo(cx, by + hd - h);
+      ctx.lineTo(cx, by + hd - h + 6);
+      ctx.lineTo(cx - hw, by - h + 6);
+      ctx.closePath();
+      ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(cx, by + hd - h);
+      ctx.lineTo(cx + hw, by - h);
+      ctx.lineTo(cx + hw, by - h + 6);
+      ctx.lineTo(cx, by + hd - h + 6);
+      ctx.closePath();
+      ctx.fill();
 
       if (hasWindows && h >= 44) {{
         const rows = h >= 62 ? 2 : 1;
@@ -2088,46 +2312,73 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
           for (let c = 1; c <= 3; c++) {{
             const t = c / 4;
             const lx = (cx - hw) * (1 - t) + cx * t;
-            const ly = cy * (1 - t) + (cy + hd) * t + yOff;
-            ctx.fillStyle = "#5b7e91";
+            const ly = by * (1 - t) + (by + hd) * t + yOff;
+            const warmLeft = (c + r) % 3 === 0;
+            ctx.fillStyle = warmLeft ? "#e8c47a" : "#567d92";
             ctx.fillRect(lx - 4, ly, 7.5, 11);
+            // Glazed diagonal sheen
+            ctx.fillStyle = "rgba(255,255,255,0.32)";
+            ctx.fillRect(lx - 3, ly + 1, 2.2, 8);
             ctx.strokeStyle = "#2e3b34";
             ctx.lineWidth = 1;
             ctx.strokeRect(lx - 4, ly, 7.5, 11);
 
             const rx = cx * (1 - t) + (cx + hw) * t;
-            const ry = (cy + hd) * (1 - t) + cy * t + yOff;
-            ctx.fillStyle = "#47687a";
+            const ry = (by + hd) * (1 - t) + by * t + yOff;
+            const warmRight = (c + r) % 2 === 1;
+            ctx.fillStyle = warmRight ? "#d8b16a" : "#436678";
             ctx.fillRect(rx - 4, ry, 7.5, 11);
+            ctx.fillStyle = "rgba(255,255,255,0.22)";
+            ctx.fillRect(rx - 3, ry + 1, 2, 8);
             ctx.strokeRect(rx - 4, ry, 7.5, 11);
           }}
         }}
-        ctx.fillStyle = "#7d4b34";
-        ctx.fillRect(cx - 12, cy + hd - 17, 9, 14);
-        ctx.strokeRect(cx - 12, cy + hd - 17, 9, 14);
+        // Arched wooden entry portal
+        ctx.fillStyle = "#6c3f2b";
+        ctx.fillRect(cx - 12, by + hd - 17, 9, 14);
+        ctx.fillStyle = "#e8c47a";
+        ctx.fillRect(cx - 10, by + hd - 15, 5, 4);
+        ctx.strokeStyle = "#2e3b34";
+        ctx.strokeRect(cx - 12, by + hd - 17, 9, 14);
       }}
 
-      const oh = 4;
+      const oh = 4.5;
       ctx.fillStyle = roofColor;
       ctx.beginPath();
-      ctx.moveTo(cx, cy - hd - h - oh);
-      ctx.lineTo(cx + hw + oh, cy - h);
-      ctx.lineTo(cx, cy + hd - h + oh);
-      ctx.lineTo(cx - hw - oh, cy - h);
+      ctx.moveTo(cx, by - hd - h - oh);
+      ctx.lineTo(cx + hw + oh, by - h);
+      ctx.lineTo(cx, by + hd - h + oh);
+      ctx.lineTo(cx - hw - oh, by - h);
       ctx.closePath();
       ctx.fill();
-      ctx.strokeStyle = "#2e3b34";
-      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = isHovered ? "#111c16" : "#2e3b34";
+      ctx.lineWidth = isHovered ? 2.1 : 1.4;
       ctx.stroke();
 
-      ctx.fillStyle = "rgba(255,255,255,0.28)";
+      // Sunlit roof bevel + glass skylight lantern on Academic Halls
+      ctx.fillStyle = "rgba(255,255,255,0.26)";
       ctx.beginPath();
-      ctx.moveTo(cx, cy - hd * 0.45 - h);
-      ctx.lineTo(cx + hw * 0.45, cy - h);
-      ctx.lineTo(cx, cy + hd * 0.45 - h);
-      ctx.lineTo(cx - hw * 0.45, cy - h);
+      ctx.moveTo(cx, by - hd * 0.45 - h);
+      ctx.lineTo(cx + hw * 0.45, by - h);
+      ctx.lineTo(cx, by + hd * 0.45 - h);
+      ctx.lineTo(cx - hw * 0.45, by - h);
       ctx.closePath();
       ctx.fill();
+
+      if (hasWindows && w >= 90) {{
+        // Glass atrium skylight crown
+        ctx.fillStyle = "rgba(224, 242, 254, 0.72)";
+        ctx.strokeStyle = "#2e3b34";
+        ctx.lineWidth = 1.1;
+        ctx.beginPath();
+        ctx.moveTo(cx, by - hd * 0.32 - h - 5);
+        ctx.lineTo(cx + hw * 0.28, by - h - 3);
+        ctx.lineTo(cx, by + hd * 0.32 - h - 1);
+        ctx.lineTo(cx - hw * 0.28, by - h - 3);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+      }}
     }}
 
     function drawTree3D(x, y, scale = 1.0) {{
@@ -2189,7 +2440,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.stroke();
     }}
 
-    function drawCharacter3D(x, y, jacketColor, isPlayer = false, hasExclamation = false) {{
+    function drawCharacter3D(x, y, jacketColor, isPlayer = false, hasExclamation = false, isClearedBadge = false) {{
       const bounce = isPlayer
         ? Math.abs(Math.sin(state.player.frame)) * 3.5
         : Math.sin(state.tick * 0.05 + x) * 1.5;
@@ -2276,6 +2527,22 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         ctx.fillStyle = "#111c16";
         ctx.fillRect(x - 1.5, y - 49 - bounce + floatY, 3, 6);
         ctx.fillRect(x - 1.5, y - 41 - bounce + floatY, 3, 2.5);
+      }} else if (isClearedBadge) {{
+        const floatY = Math.sin(state.tick * 0.06 + x) * 2;
+        ctx.fillStyle = "#2c6b4f";
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 1.8;
+        ctx.beginPath();
+        ctx.arc(x, y - 44 - bounce + floatY, 9.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 2.1;
+        ctx.beginPath();
+        ctx.moveTo(x - 4, y - 44 - bounce + floatY);
+        ctx.lineTo(x - 1, y - 41 - bounce + floatY);
+        ctx.lineTo(x + 4.5, y - 47.5 - bounce + floatY);
+        ctx.stroke();
       }}
     }}
 
@@ -2284,10 +2551,21 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
 
       // Serene Morning Mist Sky (Top HUD Safe Zone: 0..145px)
       const skyGrad = ctx.createLinearGradient(0, 0, 0, 155);
-      skyGrad.addColorStop(0, "#dce8ee");
-      skyGrad.addColorStop(1, "#eef4f6");
+      skyGrad.addColorStop(0, "#d7e5ec");
+      skyGrad.addColorStop(1, "#eff4f6");
       ctx.fillStyle = skyGrad;
       ctx.fillRect(0, 0, 1280, 155);
+
+      // Gentle Drifting Morning Clouds
+      ctx.fillStyle = "rgba(255, 255, 255, 0.55)";
+      const c1 = ((state.tick * 0.14) % 1420) - 120;
+      const c2 = (((state.tick * 0.09) + 640) % 1420) - 120;
+      ctx.beginPath();
+      ctx.ellipse(c1, 74, 58, 15, 0, 0, Math.PI * 2);
+      ctx.ellipse(c1 + 32, 68, 36, 12, 0, 0, Math.PI * 2);
+      ctx.ellipse(c2, 92, 48, 13, 0, 0, Math.PI * 2);
+      ctx.ellipse(c2 - 26, 88, 30, 10, 0, 0, Math.PI * 2);
+      ctx.fill();
 
       // Soft Distant Botanical Hills (Atmospheric Depth)
       ctx.fillStyle = "#c2d2c4";
@@ -2370,12 +2648,20 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         ctx.lineTo(bx, 416);
         ctx.stroke();
       }}
+      // Painted BPE Barcode Stall Stencils
+      ctx.fillStyle = "rgba(244, 241, 234, 0.65)";
+      ctx.font = "700 9.5px 'IBM Plex Mono', monospace";
+      ctx.textAlign = "center";
+      ctx.fillText("#496", 147, 368);
+      ctx.fillText("#675", 201, 368);
+      ctx.fillText("#15717", 255, 368);
+
       drawCar3D(147, 394, "#b3543e", "#ead2ca");
       drawCar3D(201, 394, "#4a6b82", "#d3e0e8");
       drawCar3D(255, 394, "#4d735e", "#d2e2d8");
 
       drawIsoBuilding3D(130, 468, 58, 34, 34, "#4a6477", "#faf8f4", "#e6e0d5", false);
-      drawCharacter3D(225, 456, "#4a6477", false, !clearedIds.has("l0-tokens"));
+      drawCharacter3D(225, 456, "#4a6477", false, !clearedIds.has("l0-tokens"), clearedIds.has("l0-tokens"));
       ctx.restore();
 
       // LANDMARK 3: CHAI & EMBEDDINGS TERRACE
@@ -2389,10 +2675,21 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.stroke();
 
       drawIsoBuilding3D(298, 248, 98, 56, 44, "#a9492f", "#faf8f4", "#e9e3d8", true);
+      // Aromatic rising Chai steam wisps above the cafe roof
+      for (let sw = 0; sw < 3; sw++) {{
+        const phase = ((state.tick * 0.03 + sw * 0.33) % 1);
+        const sx = 290 + sw * 9 + Math.sin(state.tick * 0.08 + sw) * 3;
+        const sy = 178 - phase * 22;
+        ctx.strokeStyle = `rgba(255, 250, 240, ${{0.65 * (1 - phase)}})`;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(sx, sy, 3.5 + phase * 3, 0, Math.PI * 1.4);
+        ctx.stroke();
+      }}
       drawUmbrellaTable3D(396, 232, "#b3543e");
       drawUmbrellaTable3D(436, 268, "#c48f45");
       drawUmbrellaTable3D(388, 294, "#4d735e");
-      drawCharacter3D(355, 310, "#a9492f", false, !clearedIds.has("l0-embeddings"));
+      drawCharacter3D(355, 310, "#a9492f", false, !clearedIds.has("l0-embeddings"), clearedIds.has("l0-embeddings"));
       ctx.restore();
 
       // LANDMARK 4: CENTRAL QUAD FOUNTAIN
@@ -2421,23 +2718,42 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.stroke();
 
       drawIsoBuilding3D(610, 353, 22, 15, 24, "#83a9bc", "#faf8f4", "#dce3e6", false);
-      drawCharacter3D(662, 372, "#655670", false, !clearedIds.has("l0-context-window"));
+      // Animated Twin Parabolic Fountain Water Arcs
+      ctx.strokeStyle = "rgba(224, 242, 254, 0.85)";
+      ctx.lineWidth = 1.8;
+      const jet = Math.sin(state.tick * 0.14) * 2.5;
+      ctx.beginPath();
+      ctx.moveTo(610, 326);
+      ctx.quadraticCurveTo(590, 308 + jet, 578, 349);
+      ctx.moveTo(610, 326);
+      ctx.quadraticCurveTo(630, 308 - jet, 642, 349);
+      ctx.stroke();
+      drawCharacter3D(662, 372, "#655670", false, !clearedIds.has("l0-context-window"), clearedIds.has("l0-context-window"));
       ctx.restore();
 
-      // 6 ACADEMIC HALLS (Cleanly below top HUD safe zone!)
+      // 6 ACADEMIC HALLS (Cleanly below top HUD safe zone, with subtle hover elevation!)
       for (const h of ACADEMIC_HALLS) {{
-        drawIsoBuilding3D(h.x, h.y, h.w, h.d, h.h, h.roof, h.wallL, h.wallR, true);
+        drawIsoBuilding3D(h.x, h.y, h.w, h.d, h.h, h.roof, h.wallL, h.wallR, true, state.hoveredHallLevel === h.level);
       }}
 
-      // Self-Expanding Campus Construction Crane behind Hall 5 (Below top HUD!)
+      // Self-Expanding Campus Construction Crane behind Hall 5 (Swaying hook!)
       ctx.save();
+      const hookSway = Math.sin(state.tick * 0.04) * 5;
       ctx.strokeStyle = "#b3833e";
       ctx.lineWidth = 2.6;
       ctx.beginPath();
       ctx.moveTo(1224, 265);
       ctx.lineTo(1224, 178);
-      ctx.lineTo(1168, 178);
+      ctx.lineTo(1166, 178);
       ctx.stroke();
+      ctx.strokeStyle = "#6c5230";
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(1176, 178);
+      ctx.lineTo(1176 + hookSway, 206);
+      ctx.stroke();
+      ctx.fillStyle = "#c89242";
+      ctx.fillRect(1168 + hookSway, 206, 16, 6);
       ctx.restore();
 
       // LANDMARK 1: SOUTH ENTRANCE SECURITY GATE & GUARD BOOTH
@@ -2449,9 +2765,17 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       ctx.lineWidth = 1.5;
       ctx.strokeRect(528, 582, 16, 14);
 
-      ctx.fillStyle = "#dc2626";
+      ctx.fillStyle = isGateOpen() ? "#2c6b4f" : "#b83b2a";
       ctx.fillRect(552, 602, 14, 26);
       ctx.strokeRect(552, 602, 14, 26);
+      // Gate Status LED Lamp
+      ctx.fillStyle = isGateOpen() ? "#4ade80" : "#f87171";
+      ctx.beginPath();
+      ctx.arc(559, 597, 4.2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = "#111c16";
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
 
       // Red-and-White Boom Arm (Flashes/vibrates when Officer Rajan blows whistle!)
       ctx.save();
@@ -2472,7 +2796,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
 
       // Officer Rajan Security Guard NPC
       const rajanX = state.guardWhistleTimer > 0 ? 596 : 580;
-      drawCharacter3D(rajanX, 598, "#1e3a8a", false, !clearedIds.has("l0-what-is-an-llm"));
+      drawCharacter3D(rajanX, 598, "#1e3a8a", false, !clearedIds.has("l0-what-is-an-llm"), clearedIds.has("l0-what-is-an-llm"));
 
       // Animated Whistle Alert Rings when Rajan stops Ashwin at the gate!
       if (state.guardWhistleTimer > 0) {{
@@ -2564,6 +2888,28 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
 
     window.addEventListener("keyup", e => {{
       state.keys[e.key.toLowerCase()] = false;
+    }});
+
+    canvas.addEventListener("mousemove", e => {{
+      const rect = canvas.getBoundingClientRect();
+      const cx = (e.clientX - rect.left) * (1280 / rect.width);
+      const cy = (e.clientY - rect.top) * (760 / rect.height);
+      state.hoveredHallLevel = -1;
+      let overInteractive = false;
+      if (state.scene === "campus") {{
+        for (const s of OUTDOOR_LANDMARKS) {{
+          if (Math.hypot(cx - s.x, cy - s.y) < 75) {{ overInteractive = true; break; }}
+        }}
+        for (const h of ACADEMIC_HALLS) {{
+          if (cx >= h.x - h.w / 2 - 15 && cx <= h.x + h.w / 2 + 15 &&
+              cy >= h.y - h.h - h.d / 2 - 20 && cy <= h.y + h.d / 2 + 15) {{
+            state.hoveredHallLevel = h.level;
+            overInteractive = true;
+            break;
+          }}
+        }}
+      }}
+      canvas.style.cursor = overInteractive ? "pointer" : "default";
     }});
 
     canvas.addEventListener("click", e => {{
@@ -2719,7 +3065,9 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
           proxBtn.style.display = "inline-flex";
           proxBtn.style.left = ((state.player.x / 1280) * 100).toFixed(2) + "%";
           proxBtn.style.top = (((state.player.y - 46) / 760) * 100).toFixed(2) + "%";
-          proxBtn.innerText = `👋 Talk to ${{s.npcName}} · Press E`;
+          proxBtn.innerText = clearedIds.has(s.id)
+            ? `✓ Revise with ${{s.npcName}} · Press E`
+            : `👋 Talk to ${{s.npcName}} · Press E`;
         }} else if (state.nearbyHall) {{
           const h = state.nearbyHall;
           const hiddenHallPin = document.querySelector(`.world-pin[data-hall-level="${{h.level}}"]`);
@@ -2801,108 +3149,145 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       document.getElementById("book-modal").classList.remove("open");
     }}
 
+    function updateBookReadingProgress() {{
+      const scroller = document.getElementById("bk-body-scroll");
+      const bar = document.getElementById("bk-progress-bar");
+      if (!scroller || !bar) return;
+      const maxScroll = scroller.scrollHeight - scroller.clientHeight;
+      const pct = maxScroll > 0 ? Math.min(100, Math.max(0, (scroller.scrollTop / maxScroll) * 100)) : 0;
+      bar.style.width = pct.toFixed(1) + "%";
+    }}
+
+    function scrollBookTo(elId) {{
+      const target = document.getElementById(elId);
+      if (target) target.scrollIntoView({{ behavior: "smooth", block: "start" }});
+    }}
+
     function switchBookTab(tabName) {{
       document.querySelectorAll(".book-tab").forEach(b => {{
         b.classList.toggle("active", b.getAttribute("data-tab") === tabName);
       }});
       document.querySelectorAll(".book-pane").forEach(p => p.classList.remove("active"));
       document.getElementById("bk-pane-" + tabName).classList.add("active");
+      const scroller = document.getElementById("bk-body-scroll");
+      if (scroller) scroller.scrollTop = 0;
+      updateBookReadingProgress();
     }}
 
     function formatSimpleMarkdown(text) {{
       if (!text) return "";
-      const paras = text.trim().split(/\\n\\n+/);
-      return paras.map(p => {{
-        let h = p
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-          .replace(/`([^`]+)`/g, "<code>$1</code>")
-          .replace(/\\*\\*([^*]+)\\*\\*/g, "<strong>$1</strong>")
-          .replace(/\\*([^*]+)\\*/g, "<em>$1</em>");
-        return `<p>${{h}}</p>`;
+      const inlineFmt = (s) => s
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/`([^`]+)`/g, "<code>$1</code>")
+        .replace(/\\*\\*([^*]+)\\*\\*/g, "<strong>$1</strong>")
+        .replace(/\\*([^*]+)\\*/g, "<em>$1</em>");
+
+      const blocks = text.trim().split(/\\n\\n+/);
+      return blocks.map(block => {{
+        const lines = block.split("\\n").map(l => l.trim()).filter(Boolean);
+        if (!lines.length) return "";
+        if (lines.every(l => l.startsWith("- "))) {{
+          return `<ul>${{lines.map(l => `<li>${{inlineFmt(l.slice(2))}}</li>`).join("")}}</ul>`;
+        }}
+        if (lines.every(l => /^\\d+\\.\\s/.test(l))) {{
+          return `<ol>${{lines.map(l => `<li>${{inlineFmt(l.replace(/^\\d+\\.\\s*/, ""))}}</li>`).join("")}}</ol>`;
+        }}
+        if (lines.length === 1 && lines[0].startsWith("### ")) {{
+          return `<h4 style="margin:0.9rem 0 0.35rem;font-family:var(--serif);font-size:1.12rem;color:var(--ink);">${{inlineFmt(lines[0].slice(4))}}</h4>`;
+        }}
+        return `<p>${{inlineFmt(lines.join(" "))}}</p>`;
       }}).join("");
     }}
 
     function buildInteractivePlayground(lessonId) {{
       if (lessonId === "l0-what-is-an-llm") {{
         return `
-          <div class="playground-band">
-            <div class="chapter-kicker">🎲 OFFICER RAJAN'S GUARD BOOTH SIMULATOR · TEMPERATURE & THE WEIGHTED DIE</div>
-            <h3 style="margin:0.2rem 0 0.5rem;font-family:var(--serif);font-size:1.35rem;line-height:1.35;">Slide the Temperature Dial & Roll the Next Word</h3>
-            <p style="margin:0 0 0.9rem;font-size:0.95rem;color:var(--ink-soft);">
-              Watch what happens to the scoreboard after <code>"the server"</code> (` + "`crashed=3.2`" + ` vs ` + "`responded=2.9`" + `). Lowering Temperature to <strong>0.2</strong> makes the top word almost guaranteed; raising it to <strong>1.5</strong> flattens the bars so weird words can win!
+          <div class="playground-band" id="bk-playground">
+            <div class="chapter-kicker">🎲 OFFICER RAJAN'S GUARD BOOTH SIMULATOR · TEMPERATURE + TOP-P NUCLEUS</div>
+            <h3 style="margin:0.2rem 0 0.45rem;font-family:var(--serif);font-size:1.35rem;line-height:1.35;">Dial Temperature & Top-P to Watch Tail Pruning Live</h3>
+            <p style="margin:0 0 0.85rem;font-size:0.94rem;color:var(--ink-soft);">
+              Scoreboard after <code>"the server"</code>. Raise Temperature to <strong>1.8</strong> to see <code>"danced"</code> try to sneak onto the die — then slide <strong>Top-P</strong> to <strong>0.90</strong> to chop off the crazy tail! Keep rolling until <code>&lt;|eos|&gt;</code> ends the turn.
             </p>
-            <div style="display:flex;gap:0.85rem;align-items:center;flex-wrap:wrap;margin-bottom:0.9rem;">
-              <label style="font-family:var(--mono);font-size:0.86rem;font-weight:700;">
-                Temperature: <strong id="sim-l0-temp-val" style="color:var(--terracotta);">1.0</strong>
+            <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:0.85rem;">
+              <label style="font-family:var(--mono);font-size:0.82rem;font-weight:700;display:flex;align-items:center;gap:0.45rem;">
+                Temp: <strong id="sim-l0-temp-val" style="color:var(--terracotta);min-width:28px;">1.0</strong>
+                <input id="sim-l0-temp" type="range" min="0" max="2.0" step="0.1" value="1.0" oninput="updateL0Sim()" style="width:135px;accent-color:var(--terracotta);" />
               </label>
-              <input id="sim-l0-temp" type="range" min="0" max="2.0" step="0.1" value="1.0" oninput="updateL0Sim()" style="width:200px;accent-color:var(--terracotta);" />
-              <button class="btn btn-primary" onclick="rollL0NextWord()">🎲 Roll & Glue Next Word →</button>
+              <label style="font-family:var(--mono);font-size:0.82rem;font-weight:700;display:flex;align-items:center;gap:0.45rem;">
+                Top-P: <strong id="sim-l0-topp-val" style="color:var(--meadow);min-width:34px;">0.90</strong>
+                <input id="sim-l0-topp" type="range" min="0.20" max="1.00" step="0.05" value="0.90" oninput="updateL0Sim()" style="width:135px;accent-color:var(--meadow);" />
+              </label>
+              <button class="btn btn-primary" onclick="rollL0NextWord()">🎲 Roll & Glue Word →</button>
               <button class="btn" onclick="resetL0Sim()">↺ Reset</button>
             </div>
-            <div id="sim-l0-bars" style="margin-bottom:0.85rem;"></div>
-            <div style="background:#ffffff;padding:0.75rem 1rem;border-radius:10px;border:2px solid var(--ink);font-family:var(--mono);font-size:0.9rem;">
-              Current Relay Sentence: <strong id="sim-l0-sentence" style="color:var(--terracotta);">the server</strong>
+            <div id="sim-l0-bars" style="margin-bottom:0.8rem;"></div>
+            <div style="background:#ffffff;padding:0.75rem 1rem;border-radius:10px;border:1.5px solid var(--line-strong);font-family:var(--mono);font-size:0.86rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+              <span>Relay Prompt: <strong id="sim-l0-sentence" style="color:var(--terracotta);">the server</strong></span>
+              <span id="sim-l0-status" style="color:var(--meadow);font-weight:700;">Active · Rolling next token</span>
             </div>
           </div>
         `;
       }}
       if (lessonId === "l0-tokens") {{
         return `
-          <div class="playground-band">
-            <div class="chapter-kicker">🅿️ MAYA'S PARKING LOT CHOPPER · BPE BARCODES & THE HINDI TAX</div>
-            <h3 style="margin:0.2rem 0 0.5rem;font-family:var(--serif);font-size:1.35rem;line-height:1.35;">Click Any Phrase to Chop It Into Token Barcodes</h3>
-            <p style="margin:0 0 0.85rem;font-size:0.95rem;color:var(--ink-soft);">
-              See why <code>"strawberry"</code> hides two <code>r</code>'s inside barcode <code>#15717</code>, why adding spaces fixes letter counting immediately, and why Hindi pays a <strong>3.3x token tax</strong>.
+          <div class="playground-band" id="bk-playground">
+            <div class="chapter-kicker">🅿️ MAYA'S PARKING LOT CHOPPER · REGEX PRE-TOKENIZER & BPE BARCODES</div>
+            <h3 style="margin:0.2rem 0 0.45rem;font-family:var(--serif);font-size:1.35rem;line-height:1.35;">Type Any Phrase or Pick a Preset to Inspect Its Barcodes</h3>
+            <p style="margin:0 0 0.8rem;font-size:0.94rem;color:var(--ink-soft);">
+              Try <code>"strawberry"</code> vs spaced <code>"s t r a w b e r r y"</code>, see how regex splits punctuation before BPE, or type Hindi / emojis to watch the fertility multiplier jump.
             </p>
-            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.9rem;">
-              <button class="btn btn-primary" onclick="inspectTokenPreset('strawberry')">🍓 "strawberry"</button>
-              <button class="btn" onclick="inspectTokenPreset('s t r a w b e r r y')">✨ "s t r a w b e r r y" (Spaced Fix)</button>
-              <button class="btn" onclick="inspectTokenPreset('The server responded in 12ms.')">🇬🇧 English Sentence</button>
-              <button class="btn" onclick="inspectTokenPreset('नमस्ते दुनिया')">🇮🇳 Hindi ('नमस्ते दुनिया')</button>
-              <button class="btn" onclick="inspectTokenPreset('🚀🔥🤖')">🚀 Emojis ('🚀🔥🤖')</button>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.7rem;">
+              <input id="sim-tok-input" class="sim-input" type="text" value="strawberry" oninput="inspectCustomTokenText(this.value)" placeholder="Type any word, Hindi text, code, or emoji..." />
+              <button class="btn btn-primary" onclick="inspectTokenPreset('strawberry')">🍓 strawberry</button>
+              <button class="btn" onclick="inspectTokenPreset('s t r a w b e r r y')">✨ Spaced Fix</button>
+              <button class="btn" onclick="inspectTokenPreset('The server responded in 12ms.')">🇬🇧 English</button>
+              <button class="btn" onclick="inspectTokenPreset('नमस्ते दुनिया')">🇮🇳 Hindi (3.3x)</button>
+              <button class="btn" onclick="inspectTokenPreset('🚀🔥🤖')">🚀 Emojis (7.2x)</button>
             </div>
-            <div id="sim-tok-chips" style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.8rem;"></div>
-            <div id="sim-tok-note" style="background:#ffffff;padding:0.75rem 1rem;border-radius:10px;border:2px solid var(--ink);font-family:var(--mono);font-size:0.86rem;"></div>
+            <div id="sim-tok-chips" style="display:flex;gap:0.45rem;flex-wrap:wrap;margin-bottom:0.75rem;"></div>
+            <div id="sim-tok-note" style="background:#ffffff;padding:0.75rem 1rem;border-radius:10px;border:1.5px solid var(--line-strong);font-family:var(--mono);font-size:0.84rem;"></div>
           </div>
         `;
       }}
       if (lessonId === "l0-embeddings") {{
         return `
-          <div class="playground-band">
-            <div class="chapter-kicker">☕ CHEF KABIR'S CAFETERIA MEANING MAP · 4D EMBEDDING GPS</div>
-            <h3 style="margin:0.2rem 0 0.5rem;font-family:var(--serif);font-size:1.35rem;line-height:1.35;">Compare Any Item Against Masala Chai or Run Vector Math</h3>
-            <p style="margin:0 0 0.85rem;font-size:0.95rem;color:var(--ink-soft);">
-              Every item has 4 coordinates: <code>[Hot_Drink, Spicy_Indian, Tech_Code, Royalty]</code>. Click an item to measure its flashlight angle (Cosine Similarity) with <strong>masala_chai</strong>!
+          <div class="playground-band" id="bk-playground">
+            <div class="chapter-kicker">☕ CHEF KABIR'S VECTOR ANGLE COMPASS · 4D CAFETERIA GPS</div>
+            <h3 style="margin:0.2rem 0 0.45rem;font-family:var(--serif);font-size:1.35rem;line-height:1.35;">Measure Flashlight Angles Against Masala Chai (or Run Vector Math)</h3>
+            <p style="margin:0 0 0.8rem;font-size:0.94rem;color:var(--ink-soft);">
+              4D Cafeteria axes: <code>[drink, hot_temp, sweet_or_spiced, computer_tech]</code>. Watch the live angle compass + L2-normalized dot-product proof!
             </p>
-            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.85rem;">
-              <button class="btn btn-primary" onclick="inspectEmbeddingItem('filter_coffee')">☕ filter_coffee</button>
-              <button class="btn" onclick="inspectEmbeddingItem('iced_chai')">🧊 iced_chai (Opposite Trap!)</button>
-              <button class="btn" onclick="inspectEmbeddingItem('samosa')">🥟 samosa</button>
-              <button class="btn" onclick="inspectEmbeddingItem('kubernetes')">☸️ kubernetes</button>
-              <button class="btn btn-meadow" onclick="inspectEmbeddingItem('king_math')">👑 Run king - man + woman</button>
+            <div style="display:flex;gap:0.45rem;flex-wrap:wrap;margin-bottom:0.85rem;">
+              <button class="btn btn-primary" onclick="inspectEmbeddingItem('filter_coffee')">☕ filter_coffee (9.7°)</button>
+              <button class="btn" onclick="inspectEmbeddingItem('iced_chai')">🧊 iced_chai (Antonym Trap!)</button>
+              <button class="btn" onclick="inspectEmbeddingItem('samosa')">🥟 samosa (34.8°)</button>
+              <button class="btn" onclick="inspectEmbeddingItem('kubernetes')">☸️ kubernetes (88.2°)</button>
+              <button class="btn btn-meadow" onclick="inspectEmbeddingItem('king_math')">👑 king - man + woman</button>
             </div>
-            <div id="sim-emb-output" style="background:#ffffff;padding:0.85rem 1rem;border-radius:10px;border:2px solid var(--ink);font-family:var(--mono);font-size:0.86rem;"></div>
+            <canvas id="sim-emb-canvas" width="580" height="196" style="width:100%;max-width:580px;height:auto;display:block;margin:0 auto 0.75rem;background:#ffffff;border:1.5px solid var(--line-strong);border-radius:12px;"></canvas>
+            <div id="sim-emb-output" style="background:#ffffff;padding:0.8rem 1rem;border-radius:10px;border:1.5px solid var(--line-strong);font-family:var(--mono);font-size:0.83rem;white-space:pre-line;"></div>
           </div>
         `;
       }}
       if (lessonId === "l0-context-window") {{
         return `
-          <div class="playground-band">
-            <div class="chapter-kicker">⛲ PROF. MEERA'S QUAD LUNCH TRAY · SLIDING WINDOW & U-CURVE</div>
-            <h3 style="margin:0.2rem 0 0.5rem;font-family:var(--serif);font-size:1.35rem;line-height:1.35;">Watch Turn 1's Secret Code Fall Off the 24-Word Lunch Tray</h3>
-            <p style="margin:0 0 0.85rem;font-size:0.95rem;color:var(--ink-soft);">
-              Click through Turns 1 → 4 on our 24-word tray, or test where to hide the locker code <code>7492</code> on a 10-chunk tray!
+          <div class="playground-band" id="bk-playground">
+            <div class="chapter-kicker">⛲ PROF. MEERA'S LUNCH TRAY · SLIDING WINDOW, KV CACHE & U-CURVE</div>
+            <h3 style="margin:0.2rem 0 0.45rem;font-family:var(--serif);font-size:1.35rem;line-height:1.35;">Watch Code 7492 Slide Off the 24-Word Tray & Compare KV Caching</h3>
+            <p style="margin:0 0 0.8rem;font-size:0.94rem;color:var(--ink-soft);">
+              Step through Turns 1 → 4 on the 24-word tray, inspect the <strong>81.0% KV Prefix Cache</strong> billing discount, or plot the 10-chunk U-curve!
             </p>
-            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.85rem;">
-              <button class="btn btn-primary" onclick="inspectTrayStep(1)">Turn 1 (8/24 words)</button>
-              <button class="btn" onclick="inspectTrayStep(2)">Turn 2 (16/24 words)</button>
-              <button class="btn" onclick="inspectTrayStep(3)">Turn 3 (24/24 FULL!)</button>
-              <button class="btn" onclick="inspectTrayStep(4)">Turn 4 (Overflow! 7492 Dropped)</button>
-              <button class="btn btn-meadow" onclick="inspectTrayStep(5)">📉 Show Lost-in-the-Middle U-Curve</button>
+            <div style="display:flex;gap:0.45rem;flex-wrap:wrap;margin-bottom:0.85rem;">
+              <button class="btn btn-primary" onclick="inspectTrayStep(1)">Turn 1 (8/24)</button>
+              <button class="btn" onclick="inspectTrayStep(2)">Turn 2 (16/24)</button>
+              <button class="btn" onclick="inspectTrayStep(3)">Turn 3 (24/24 FULL)</button>
+              <button class="btn" onclick="inspectTrayStep(4)">Turn 4 (7492 Dropped!)</button>
+              <button class="btn btn-meadow" onclick="inspectTrayStep(5)">⚡ KV Cache (-81%)</button>
+              <button class="btn" onclick="inspectTrayStep(6)">📉 U-Curve Recall</button>
             </div>
-            <div id="sim-ctx-output" style="background:#ffffff;padding:0.85rem 1rem;border-radius:10px;border:2px solid var(--ink);font-family:var(--mono);font-size:0.86rem;"></div>
+            <div id="sim-ctx-output" style="background:#ffffff;padding:0.9rem 1rem;border-radius:10px;border:1.5px solid var(--line-strong);font-family:var(--mono);font-size:0.83rem;"></div>
           </div>
         `;
       }}
@@ -2913,22 +3298,43 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       const figsById = {{}};
       (lesson.figures || []).forEach(f => {{ figsById[f.id] = f; }});
 
+      const tocChips = [
+        `<button class="toc-chip" onclick="scrollBookTo('bk-playground')">⚡ Playground</button>`,
+        ...(lesson.sections || []).map((sec, idx) =>
+          `<button class="toc-chip" onclick="scrollBookTo('bk-sec-${{idx}}')">0${{idx + 1}} · ${{sec.badge || 'Part ' + (idx + 1)}}</button>`
+        ),
+        `<button class="toc-chip" onclick="scrollBookTo('bk-jargon')">📚 Jargon</button>`
+      ].join("");
+
       const chaptersHtml = (lesson.sections || []).map((sec, idx) => {{
         let figHtml = "";
         if (sec.figure_id && figsById[sec.figure_id]) {{
           const f = figsById[sec.figure_id];
           figHtml = `
             <div class="inline-figure">
-              <img src="lessons/${{lesson.id}}/${{f.id}}.svg" alt="${{f.title}}" style="width:100%;height:auto;display:block;" />
+              <img src="lessons/${{lesson.id}}/${{f.id}}.svg" alt="${{f.title}}" style="width:100%;height:auto;display:block;border-radius:8px;" />
               <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);flex-wrap:wrap;gap:0.5rem;">
                 <span><strong>📐 ${{f.title}}:</strong> ${{f.caption}}</span>
-                <a href="lessons/${{lesson.id}}/${{f.id}}.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a>
+                <a href="lessons/${{lesson.id}}/${{f.id}}.excalidraw" download style="font-family:var(--mono);color:var(--terracotta);font-weight:700;">⬇ .excalidraw</a>
               </div>
             </div>
           `;
         }}
+        const expertHtml = sec.expert_note ? `
+          <div class="callout-box callout-expert">
+            <div class="callout-title">⚙️ Under the Hood · Production Depth</div>
+            <div>${{formatSimpleMarkdown(sec.expert_note)}}</div>
+          </div>
+        ` : "";
+        const trapHtml = sec.trap_note ? `
+          <div class="callout-box callout-trap">
+            <div class="callout-title">⚠️ Production Engineering Trap</div>
+            <div>${{formatSimpleMarkdown(sec.trap_note)}}</div>
+          </div>
+        ` : "";
+        const calloutsHtml = (expertHtml || trapHtml) ? `<div class="callout-grid">${{expertHtml}}${{trapHtml}}</div>` : "";
         return `
-          <section class="story-section">
+          <section class="story-section" id="bk-sec-${{idx}}">
             <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
               <span class="chapter-kicker">PART 0${{idx + 1}}</span>
               <span class="tag tag-amber">${{sec.badge || ''}}</span>
@@ -2936,6 +3342,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
             <h3 class="chapter-heading">${{sec.heading}}</h3>
             <div class="chapter-prose">${{formatSimpleMarkdown(sec.body_md)}}</div>
             ${{figHtml}}
+            ${{calloutsHtml}}
           </section>
         `;
       }}).join("");
@@ -2949,28 +3356,30 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       `).join("");
 
       document.getElementById("bk-pane-story").innerHTML = `
-        <div style="border-left:5px solid var(--terracotta);padding:0.4rem 0 0.4rem 1.25rem;margin-bottom:1.75rem;">
-          <div style="font-family:var(--serif);font-size:1.35rem;line-height:1.4;font-style:italic;color:var(--terracotta);margin-bottom:0.35rem;">
+        <div style="border:1.5px solid var(--line-strong);padding:0.85rem 1.15rem;margin-bottom:1.2rem;background:var(--paper);border-radius:12px;">
+          <div style="font-family:var(--serif);font-size:1.3rem;line-height:1.4;font-style:italic;color:var(--terracotta);margin-bottom:0.35rem;">
             “${{lesson.question}}”
           </div>
-          <div style="font-size:1.05rem;color:var(--ink);">
+          <div style="font-size:1.02rem;color:var(--ink);">
             <strong>The Big Picture:</strong> ${{lesson.one_line}}
           </div>
         </div>
+
+        <div class="chapter-toc">${{tocChips}}</div>
 
         ${{buildInteractivePlayground(lesson.id)}}
 
         ${{chaptersHtml}}
 
-        <h3 class="chapter-heading" style="margin-top:2.25rem;">Plain-English Jargon Decoder</h3>
+        <h3 class="chapter-heading" id="bk-jargon" style="margin-top:2.25rem;">Plain-English Jargon Decoder</h3>
         <table class="jargon-table">
           <thead><tr><th>Term</th><th>In Plain Words</th><th>Why You Care</th></tr></thead>
           <tbody>${{jargonRows}}</tbody>
         </table>
 
         <div style="text-align:center;margin-top:2rem;">
-          <button class="btn btn-primary" style="font-size:0.98rem;padding:0.75rem 1.6rem;" onclick="switchBookTab('gate')">
-            🚧 Ready? Take the 3-Question Checkpoint Gate Test →
+          <button class="btn btn-primary" style="font-size:0.96rem;padding:0.75rem 1.6rem;" onclick="switchBookTab('gate')">
+            ${{cleared ? '🔁 Practice the 3-Question Checkpoint Check Again →' : '🚧 Ready? Take the 3-Question Checkpoint Gate Test →'}}
           </button>
         </div>
       `;
@@ -3017,12 +3426,12 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
 
       document.getElementById("bk-pane-gate").innerHTML = `
         <div class="playground-band" style="margin-top:0;">
-          <div class="chapter-kicker">🚧 CAMPUS CHECKPOINT BOSS CHECK</div>
+          <div class="chapter-kicker">${{cleared ? '✓ CHECKPOINT CLEARED · PRACTICE MODE' : '🚧 CAMPUS CHECKPOINT BOSS CHECK'}}</div>
           <h3 style="margin:0.2rem 0 0.35rem;font-family:var(--serif);font-size:1.4rem;line-height:1.35;">
-            Pass All 3 Questions to Unlock the Next Campus Stop
+            ${{cleared ? 'Re-test Your Mastery Anytime (Progress Saved)' : 'Pass All 3 Questions to Unlock the Next Campus Stop'}}
           </h3>
           <p style="margin:0;font-size:0.95rem;color:var(--ink-soft);">
-            Every answer comes straight from the story and the real Python lab output.
+            Every answer comes straight from the story and the verified Python lab output.
           </p>
         </div>
         ${{qHtml}}
@@ -3071,7 +3480,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         <div class="ig-deck">${{igHtml}}</div>
       `;
 
-      if (lesson.id === "l0-what-is-an-llm") updateL0Sim();
+      if (lesson.id === "l0-what-is-an-llm") {{ resetL0Sim(); }}
       if (lesson.id === "l0-tokens") inspectTokenPreset("strawberry");
       if (lesson.id === "l0-embeddings") inspectEmbeddingItem("filter_coffee");
       if (lesson.id === "l0-context-window") inspectTrayStep(1);
@@ -3095,145 +3504,372 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     }}
 
     // =========================================================================
-    // 4 LIVE INTERACTIVE MECHANISM PLAYGROUNDS
+    // 4 LIVE INTERACTIVE MECHANISM PLAYGROUNDS (V6 UPGRADED)
     // =========================================================================
     const L0_LOGITS = {{
       "the server": {{"crashed": 3.2, "responded": 2.9, "timed": 2.4, "melted": 0.4, "danced": -1.5}},
-      "server crashed": {{"because": 3.6, "after": 2.5, "at": 1.8, "quietly": 0.9}},
-      "server responded": {{"in": 3.4, "with": 2.8, "after": 1.7, "slowly": 1.1}},
-      "server timed": {{"out": 4.5, "at": 1.1, "twice": 0.8}}
+      "server crashed": {{"because": 3.6, "after": 2.5, "at": 1.8, "<|eos|>": 1.1}},
+      "server responded": {{"in": 3.4, "with": 2.8, "<|eos|>": 1.6, "slowly": 1.1}},
+      "server timed": {{"out": 4.5, "<|eos|>": 1.2, "twice": 0.8}},
+      "timed out": {{"<|eos|>": 3.9, "after": 2.6, "again": 1.7}},
+      "responded in": {{"12ms": 3.8, "time": 2.4, "seconds": 1.9}},
+      "in 12ms": {{"<|eos|>": 4.2, "with": 2.1, "today": 1.3}},
+      "crashed because": {{"memory": 3.5, "disk": 2.9, "traffic": 2.6}}
     }};
     let simL0Words = ["the", "server"];
+    let simL0Ended = false;
+
+    function computeL0Probs(logits, temp, topP) {{
+      const entries = Object.entries(logits);
+      let rawProbs = {{}};
+      if (temp <= 0.01) {{
+        let best = entries[0][0], bestV = entries[0][1];
+        entries.forEach(([k, v]) => {{ if (v > bestV) {{ best = k; bestV = v; }} }});
+        entries.forEach(([k]) => rawProbs[k] = (k === best ? 1.0 : 0.0));
+      }} else {{
+        const scaled = entries.map(([k, v]) => [k, v / temp]);
+        const maxL = Math.max(...scaled.map(x => x[1]));
+        const exps = scaled.map(([k, v]) => [k, Math.exp(v - maxL)]);
+        const sum = exps.reduce((a, b) => a + b[1], 0);
+        exps.forEach(([k, e]) => rawProbs[k] = e / sum);
+      }}
+      const sorted = Object.entries(rawProbs).sort((a, b) => b[1] - a[1]);
+      let cum = 0;
+      const kept = {{}};
+      const pruned = new Set();
+      for (const [tok, p] of sorted) {{
+        if (Object.keys(kept).length === 0 || cum < topP) {{
+          kept[tok] = p;
+          cum += p;
+        }} else {{
+          pruned.add(tok);
+        }}
+      }}
+      const kSum = Object.values(kept).reduce((a, b) => a + b, 0) || 1;
+      const finalProbs = {{}};
+      sorted.forEach(([tok]) => {{
+        finalProbs[tok] = pruned.has(tok) ? 0 : (kept[tok] / kSum);
+      }});
+      return {{ sorted, rawProbs, finalProbs, pruned }};
+    }}
 
     function updateL0Sim() {{
       const slider = document.getElementById("sim-l0-temp");
-      if (!slider) return;
+      const toppSlider = document.getElementById("sim-l0-topp");
+      if (!slider || !toppSlider) return;
       const temp = parseFloat(slider.value);
+      const topP = parseFloat(toppSlider.value);
       document.getElementById("sim-l0-temp-val").innerText = temp.toFixed(1);
+      document.getElementById("sim-l0-topp-val").innerText = topP.toFixed(2);
       const key = simL0Words.slice(-2).join(" ");
-      const logits = L0_LOGITS[key] || {{"and": 2.2, "then": 2.0, "stopped": 2.6, "recovered": 2.3}};
-      const entries = Object.entries(logits);
-      let probs = {{}};
-      if (temp <= 0.01) {{
-        let best = entries[0][0], bestV = entries[0][1];
-        entries.forEach(([k, v]) => {{ if (v > bestV) {{ best = k; bestV = v; }} }});
-        entries.forEach(([k]) => probs[k] = (k === best ? 1.0 : 0.0));
-      }} else {{
-        const scaled = entries.map(([k, v]) => [k, v / temp]);
-        const maxL = Math.max(...scaled.map(x => x[1]));
-        const exps = scaled.map(([k, v]) => [k, Math.exp(v - maxL)]);
-        const sum = exps.reduce((a, b) => a + b[1], 0);
-        exps.forEach(([k, e]) => probs[k] = e / sum);
-      }}
+      const logits = L0_LOGITS[key] || {{"<|eos|>": 3.4, "and": 2.1, "recovered": 2.4, "cleanly": 1.6}};
+      const {{ sorted, finalProbs, pruned }} = computeL0Probs(logits, temp, topP);
       const barsEl = document.getElementById("sim-l0-bars");
-      barsEl.innerHTML = Object.entries(probs).sort((a, b) => b[1] - a[1]).map(([tok, p]) => {{
-        const pct = (p * 100).toFixed(1);
-        return `<div style="display:grid;grid-template-columns:105px 85px 1fr 62px;gap:0.6rem;align-items:center;font-family:var(--mono);font-size:0.84rem;margin-bottom:0.35rem;">
-          <strong>${{tok}}</strong>
-          <span style="color:var(--muted);">score ${{logits[tok].toFixed(1)}}</span>
-          <div style="background:#ffffff;height:15px;border-radius:6px;overflow:hidden;border:1.5px solid var(--ink);">
-            <div style="background:var(--terracotta);height:100%;width:${{pct}}%;"></div>
+      barsEl.innerHTML = sorted.map(([tok]) => {{
+        const isPruned = pruned.has(tok);
+        const pct = (finalProbs[tok] * 100).toFixed(1);
+        const barColor = isPruned ? "#cbd5e1" : (tok === "<|eos|>" ? "#2c6b4f" : "var(--terracotta)");
+        return `<div style="display:grid;grid-template-columns:108px 78px 1fr 94px;gap:0.55rem;align-items:center;font-family:var(--mono);font-size:0.82rem;margin-bottom:0.35rem;opacity:${{isPruned ? 0.55 : 1}};">
+          <strong>${{tok.replace(/</g, "&lt;").replace(/>/g, "&gt;")}}</strong>
+          <span style="color:var(--muted);">z=${{logits[tok].toFixed(1)}}</span>
+          <div style="background:#ffffff;height:14px;border-radius:6px;overflow:hidden;border:1.5px solid var(--line-strong);">
+            <div style="background:${{barColor}};height:100%;width:${{pct}}%;transition:width 140ms ease-out;"></div>
           </div>
-          <span style="text-align:right;font-weight:700;">${{pct}}%</span>
+          <span style="text-align:right;font-weight:700;color:${{isPruned ? '#64748b' : 'var(--ink)'}};">${{isPruned ? 'PRUNED' : pct + '%'}}</span>
         </div>`;
       }}).join("");
       document.getElementById("sim-l0-sentence").innerText = simL0Words.join(" ");
+      const stEl = document.getElementById("sim-l0-status");
+      if (stEl) {{
+        stEl.innerText = simL0Ended ? "⏹ Stopped on <|eos|> (Click Reset)" : `Nucleus kept: ${{sorted.length - pruned.size}}/${{sorted.length}} tokens`;
+        stEl.style.color = simL0Ended ? "var(--terracotta)" : "var(--meadow)";
+      }}
     }}
 
     function rollL0NextWord() {{
-      const slider = document.getElementById("sim-l0-temp");
-      const temp = parseFloat(slider.value);
+      if (simL0Ended) {{ resetL0Sim(); return; }}
+      const temp = parseFloat(document.getElementById("sim-l0-temp").value);
+      const topP = parseFloat(document.getElementById("sim-l0-topp").value);
       const key = simL0Words.slice(-2).join(" ");
-      const logits = L0_LOGITS[key] || {{"and": 2.2, "then": 2.0, "stopped": 2.6, "recovered": 2.3}};
-      const entries = Object.entries(logits);
-      let probs = {{}};
-      if (temp <= 0.01) {{
-        let best = entries[0][0], bestV = entries[0][1];
-        entries.forEach(([k, v]) => {{ if (v > bestV) {{ best = k; bestV = v; }} }});
-        entries.forEach(([k]) => probs[k] = (k === best ? 1.0 : 0.0));
-      }} else {{
-        const scaled = entries.map(([k, v]) => [k, v / temp]);
-        const maxL = Math.max(...scaled.map(x => x[1]));
-        const exps = scaled.map(([k, v]) => [k, Math.exp(v - maxL)]);
-        const sum = exps.reduce((a, b) => a + b[1], 0);
-        exps.forEach(([k, e]) => probs[k] = e / sum);
-      }}
-      let r = Math.random(), acc = 0, pick = Object.keys(probs)[0];
-      for (const [t, p] of Object.entries(probs)) {{
+      const logits = L0_LOGITS[key] || {{"<|eos|>": 3.4, "and": 2.1, "recovered": 2.4, "cleanly": 1.6}};
+      const {{ finalProbs }} = computeL0Probs(logits, temp, topP);
+      let r = Math.random(), acc = 0, pick = Object.keys(finalProbs)[0];
+      for (const [t, p] of Object.entries(finalProbs)) {{
         acc += p;
-        if (r <= acc) {{ pick = t; break; }}
+        if (r <= acc && p > 0) {{ pick = t; break; }}
       }}
       simL0Words.push(pick);
+      if (pick === "<|eos|>" || simL0Words.length >= 10) simL0Ended = true;
       updateL0Sim();
     }}
 
     function resetL0Sim() {{
       simL0Words = ["the", "server"];
+      simL0Ended = false;
       updateL0Sim();
     }}
 
     const TOKEN_PRESETS = {{
       "strawberry": {{
         pieces: [["str", 496], ["aw", 675], ["berry", 15717]],
-        note: "10 letters → 3 barcodes (0.30 tokens/char). Look at barcode #15717 ('berry'): two 'r' letters are locked inside a single number!"
+        note: "10 chars → 3 barcodes (0.30 tok/char). Barcode #15717 ('berry') seals TWO 'r' letters inside one integer!"
       }},
       "s t r a w b e r r y": {{
         pieces: [["s", 82], [" t", 259], [" r", 436], [" a", 264], [" w", 289], [" b", 293], [" e", 384], [" r", 436], [" r", 436], [" y", 379]],
-        note: "Spaced Trick: Every letter gets its own barcode! Barcode #436 (' r') appears 3 separate times, so the AI counts 3 'r's easily."
+        note: "Spaced Fix: Every letter gets its own barcode! Barcode #436 (' r') appears 3 distinct times, so the model counts 3 'r's cleanly."
       }},
       "The server responded in 12ms.": {{
         pieces: [["The", 791], [" server", 3585], [" responded", 31574], [" in", 304], [" ", 220], ["12", 717], ["ms", 1294], [".", 13]],
-        note: "29 chars → 8 barcodes (0.28 tokens/char · 1.0x baseline cost & speed)."
+        note: "29 chars → 8 barcodes (0.28 tok/char · 1.0x baseline). Notice how regex pre-tokenization isolates '12' and '.' BEFORE BPE!"
       }},
       "नमस्ते दुनिया": {{
         pieces: [["न", 28001], ["म", 44102], ["स", 31902], ["्", 11904], ["त", 29501], ["े", 19822], [" द", 85120], ["ु", 22911], ["न", 28001], ["ि", 18312], ["य", 34112], ["ा", 15209]],
-        note: "13 chars → 12 barcodes (0.92 tokens/char · 3.3x cost and speed penalty compared to English!)."
+        note: "13 chars → 12 barcodes (0.92 tok/char · 3.3x cost & latency tax vs English in cl100k!)."
       }},
       "🚀🔥🤖": {{
         pieces: [["🚀", 9468], ["<0xF0>", 242], ["🔥", 9469], ["<0x9F>", 161], ["🤖", 99812], ["<0x96>", 152]],
-        note: "3 emojis → 6 byte-fallback barcodes (2.00 tokens/char · 7.1x multiplier!)."
+        note: "3 emojis → 6 byte-fallback barcodes (2.00 tok/char · 7.2x fertility multiplier!)."
       }}
     }};
 
-    function inspectTokenPreset(key) {{
-      const preset = TOKEN_PRESETS[key];
-      if (!preset) return;
+    function renderTokenChips(pieces, noteText) {{
       const chipsEl = document.getElementById("sim-tok-chips");
       if (!chipsEl) return;
-      const colors = ["#9a2c13", "#075985", "#14532d", "#6b21a8", "#92400e"];
-      chipsEl.innerHTML = preset.pieces.map(([txt, id], i) => {{
+      const colors = ["#a9492f", "#355f73", "#2c6b4f", "#655670", "#8b6842"];
+      chipsEl.innerHTML = pieces.map(([txt, id], i) => {{
         const c = colors[i % colors.length];
-        return `<div style="background:#ffffff;border:2.5px solid ${{c}};border-radius:10px;padding:0.35rem 0.75rem;font-family:var(--mono);font-size:0.84rem;box-shadow:0 2px 0 ${{c}};">
-          <strong>"${{txt}}"</strong> <span style="color:var(--muted);font-size:0.78rem;">#${{id}}</span>
+        const safe = String(txt).replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        return `<div style="background:#ffffff;border:1.5px solid ${{c}};border-bottom:3px solid ${{c}};border-radius:10px;padding:0.32rem 0.68rem;font-family:var(--mono);font-size:0.82rem;">
+          <strong>"${{safe}}"</strong> <span style="color:var(--muted);font-size:0.76rem;">#${{id}}</span>
         </div>`;
       }}).join("");
-      document.getElementById("sim-tok-note").innerText = preset.note;
+      document.getElementById("sim-tok-note").innerText = noteText;
+    }}
+
+    function inspectTokenPreset(key) {{
+      const inp = document.getElementById("sim-tok-input");
+      if (inp) inp.value = key;
+      const preset = TOKEN_PRESETS[key];
+      if (preset) renderTokenChips(preset.pieces, preset.note);
+    }}
+
+    function inspectCustomTokenText(raw) {{
+      if (!raw) {{
+        renderTokenChips([], "Type any phrase above to inspect regex pre-tokenization + BPE barcode chopping.");
+        return;
+      }}
+      if (TOKEN_PRESETS[raw]) {{
+        renderTokenChips(TOKEN_PRESETS[raw].pieces, TOKEN_PRESETS[raw].note);
+        return;
+      }}
+      const pieces = [];
+      const regex = / ?[A-Za-z]+| ?[0-9]{{1,3}}| ?[^\\sA-Za-z0-9]+|\\s+/g;
+      const chunks = raw.match(regex) || [raw];
+      for (const ch of chunks) {{
+        if (/^ ?[A-Za-z]+$/.test(ch) && ch.length > 7) {{
+          const mid = Math.ceil(ch.length * 0.55);
+          [ch.slice(0, mid), ch.slice(mid)].forEach(sub => {{
+            let h = 256;
+            for (let i = 0; i < sub.length; i++) h = (h * 33 + sub.charCodeAt(i)) % 98000;
+            pieces.push([sub, 256 + h]);
+          }});
+        }} else if (/[^\\x00-\\x7F]/.test(ch)) {{
+          for (const cp of Array.from(ch)) {{
+            const bytes = new TextEncoder().encode(cp);
+            if (bytes.length >= 4) {{
+              pieces.push([cp, 9000 + (cp.codePointAt(0) % 900)]);
+              pieces.push([`<0x${{bytes[1].toString(16).toUpperCase()}}>`, bytes[1]]);
+            }} else {{
+              pieces.push([cp, 15000 + (cp.charCodeAt(0) % 70000)]);
+            }}
+          }}
+        }} else {{
+          let h = 256;
+          for (let i = 0; i < ch.length; i++) h = (h * 31 + ch.charCodeAt(i)) % 95000;
+          pieces.push([ch, 256 + h]);
+        }}
+      }}
+      const ratio = (pieces.length / Math.max(1, Array.from(raw).length));
+      const mult = (ratio / 0.28).toFixed(1);
+      renderTokenChips(
+        pieces,
+        `Custom Input: ${{Array.from(raw).length}} chars → ${{pieces.length}} barcodes (${{ratio.toFixed(2)}} tok/char · ~${{mult}}x vs English baseline). Notice punctuation & 3-digit numbers are split by regex before BPE!`
+      );
+    }}
+
+    function drawEmbeddingCompass(targetLabel, deg, cosVal, accentColor) {{
+      const cv = document.getElementById("sim-emb-canvas");
+      if (!cv) return;
+      const c = cv.getContext("2d");
+      const W = cv.width, H = cv.height;
+      c.clearRect(0, 0, W, H);
+      c.fillStyle = "#fbfaf7";
+      c.fillRect(0, 0, W, H);
+
+      const ox = 86, oy = 162, R = 128;
+      // Subtle polar grid arcs
+      c.strokeStyle = "#e4dfd5";
+      c.lineWidth = 1;
+      [0.45, 0.75, 1.0].forEach(f => {{
+        c.beginPath();
+        c.arc(ox, oy, R * f, -Math.PI * 0.52, 0.04);
+        c.stroke();
+      }});
+      // 0° and 90° axes
+      c.strokeStyle = "#cbd5e1";
+      c.beginPath();
+      c.moveTo(ox, oy); c.lineTo(ox + R + 18, oy);
+      c.moveTo(ox, oy); c.lineTo(ox, oy - R - 14);
+      c.stroke();
+
+      // Angle arc sector
+      const rad = (deg * Math.PI) / 180;
+      c.fillStyle = "rgba(169, 73, 47, 0.12)";
+      c.beginPath();
+      c.moveTo(ox, oy);
+      c.arc(ox, oy, 54, -rad, 0);
+      c.closePath();
+      c.fill();
+      c.strokeStyle = accentColor;
+      c.lineWidth = 1.8;
+      c.beginPath();
+      c.arc(ox, oy, 54, -rad, 0);
+      c.stroke();
+
+      // Base vector (0°): masala_chai (or target queen)
+      const baseLabel = targetLabel === "queen" ? "king - man + woman" : "masala_chai (ref)";
+      c.strokeStyle = "#2c6b4f";
+      c.lineWidth = 3;
+      c.beginPath();
+      c.moveTo(ox, oy); c.lineTo(ox + R, oy);
+      c.stroke();
+      c.fillStyle = "#2c6b4f";
+      c.beginPath(); c.arc(ox + R, oy, 5, 0, Math.PI * 2); c.fill();
+      c.font = "700 12px 'IBM Plex Mono', monospace";
+      c.fillText(baseLabel, ox + R + 10, oy + 4);
+
+      // Compared vector at exact angle
+      const tx = ox + Math.cos(rad) * R;
+      const ty = oy - Math.sin(rad) * R;
+      c.strokeStyle = accentColor;
+      c.lineWidth = 3;
+      c.beginPath();
+      c.moveTo(ox, oy); c.lineTo(tx, ty);
+      c.stroke();
+      c.fillStyle = accentColor;
+      c.beginPath(); c.arc(tx, ty, 5.5, 0, Math.PI * 2); c.fill();
+      c.fillText(`${{targetLabel}} (${{deg.toFixed(1)}}°)`, tx + 10, ty + 4);
+
+      // Score readout box on the right
+      c.fillStyle = "#ffffff";
+      c.strokeStyle = "#d9d2c5";
+      c.lineWidth = 1.5;
+      c.beginPath();
+      c.roundRect(356, 22, 204, 108, 10);
+      c.fill();
+      c.stroke();
+      c.fillStyle = "#64748b";
+      c.font = "700 11px 'IBM Plex Mono', monospace";
+      c.fillText("COSINE SIMILARITY", 372, 46);
+      c.fillStyle = accentColor;
+      c.font = "800 28px 'Bricolage Grotesque', sans-serif";
+      c.fillText(`+${{cosVal.toFixed(4)}}`, 372, 82);
+      c.fillStyle = "#334155";
+      c.font = "600 11.5px 'IBM Plex Mono', monospace";
+      c.fillText(`Angle θ = ${{deg.toFixed(1)}}°`, 372, 104);
+      c.fillText(`L2 dot(û,v̂) = ${{cosVal.toFixed(4)}}`, 372, 120);
     }}
 
     function inspectEmbeddingItem(key) {{
       const el = document.getElementById("sim-emb-output");
       if (!el) return;
-      const notes = {{
-        "filter_coffee": "masala_chai [0.95, 0.90, 0.05, 0.10] vs filter_coffee [0.90, 0.80, 0.05, 0.05]\\n→ Cosine Similarity = +0.9924 (Sitting at the exact same Cafeteria Hot-Drinks table!)",
-        "iced_chai": "masala_chai [0.95, 0.90, 0.05, 0.10] vs iced_chai [0.75, 0.85, 0.05, 0.05]\\n→ Cosine Similarity = +0.9939 (THE TRAP: Even though hot & cold are opposites, they sit at the same Chai table!)",
-        "samosa": "masala_chai [0.95, 0.90, 0.05, 0.10] vs samosa [0.20, 0.95, 0.05, 0.05]\\n→ Cosine Similarity = +0.7995 (Close neighbors on the Spicy Indian Snacks axis).",
-        "kubernetes": "masala_chai [0.95, 0.90, 0.05, 0.10] vs kubernetes [0.05, 0.05, 0.98, 0.05]\\n→ Cosine Similarity = +0.1006 (Pointing 84° away in the Tech & Cloud corner of the cafeteria).",
-        "king_math": "Vector Walk: king [0.10, 0.15, 0.05, 0.95] - man [0.10, 0.10, 0.10, 0.20] + woman [0.15, 0.15, 0.10, 0.25]\\n→ Target Vector = [0.15, 0.20, 0.05, 1.00]\\n→ Closest Neighbor = queen [0.15, 0.20, 0.05, 0.92] with Cosine Similarity +0.9854!"
+      const items = {{
+        "filter_coffee": {{
+          label: "filter_coffee", deg: 9.7, cos: 0.9858, color: "#2c6b4f",
+          text: "masala_chai [0.95, 0.90, 0.85, 0.02] vs filter_coffee [0.95, 0.92, 0.55, 0.02]\\n→ Cosine = +0.9858 (9.7° apart) · L2-normalized dot product = +0.985850!\\n→ Sitting at the exact same Cafeteria Hot-Drinks table."
+        }},
+        "iced_chai": {{
+          label: "iced_chai", deg: 34.6, cos: 0.8234, color: "#a9492f",
+          text: "masala_chai [0.95, 0.90, 0.85, 0.02] vs iced_chai [0.95, 0.05, 0.85, 0.02]\\n→ Cosine = +0.8234 (34.6°) — THE ANTONYM TRAP!\\n→ Hot & Cold are opposites, yet they still score 0.8234 because they share the drink & spice axes!"
+        }},
+        "samosa": {{
+          label: "samosa", deg: 34.8, cos: 0.8216, color: "#8b6842",
+          text: "masala_chai [0.95, 0.90, 0.85, 0.02] vs samosa [0.15, 0.80, 0.85, 0.02]\\n→ Cosine = +0.8216 (34.8°) · Same warm Indian snack table, lower on the drink axis."
+        }},
+        "kubernetes": {{
+          label: "kubernetes", deg: 88.2, cos: 0.0322, color: "#355f73",
+          text: "masala_chai [0.95, 0.90, 0.85, 0.02] vs kubernetes [0.01, 0.01, 0.01, 0.99]\\n→ Cosine = +0.0322 (88.2° — nearly perpendicular!). Completely unrelated cloud-infra table."
+        }},
+        "king_math": {{
+          label: "queen", deg: 0.0, cos: 1.0000, color: "#655670",
+          text: "Vector Walk: king [0.95, 0.95, 0.05, 0.05] - man [0.05, 0.95, 0.05, 0.05] + woman [0.05, 0.05, 0.95, 0.05]\\n→ Target = [0.95, 0.05, 0.95, 0.05] == queen! Cosine = +1.0000 (0.0° exact direction match!)"
+        }}
       }};
-      el.innerText = notes[key] || "";
+      const item = items[key] || items.filter_coffee;
+      drawEmbeddingCompass(item.label, item.deg, item.cos, item.color);
+      el.innerText = item.text;
     }}
 
     function inspectTrayStep(step) {{
       const el = document.getElementById("sim-ctx-output");
       if (!el) return;
-      const steps = {{
-        1: "TURN 1 (8 / 24 words on tray · 0 dropped):\\n[User: Remember secret locker code 7492 for tomorrow.]\\n→ Locker code '7492' on tray? YES ✅",
-        2: "TURN 2 (16 / 24 words on tray · 0 dropped):\\n[User: Remember secret locker code 7492 for tomorrow. AI: Got it, I saved your locker code.]\\n→ Locker code '7492' on tray? YES ✅",
-        3: "TURN 3 (24 / 24 words on tray · TRAY 100% FULL):\\n[User: Remember secret locker code 7492 for tomorrow. AI: Got it, I saved your locker code. User: Also pack two masala dosa boxes please.]\\n→ Locker code '7492' on tray? YES ✅ (Right on the left edge!)",
-        4: "TURN 4 (34 total words → 10 oldest words DROPPED off left edge!):\\nDropped into trash: 'User: Remember secret locker code 7492 for tomorrow. AI: Got'\\nRemaining on tray: [it, I saved your locker code. User: Also pack two masala dosa boxes please. AI: Packed two masala dosa boxes for lunch today!]\\n→ Locker code '7492' on tray? NO ❌ (Vanished!)",
-        5: "LOST-IN-THE-MIDDLE U-CURVE (10-Chunk Tray Recall):\\nChunk 1 (Top edge):    93.0% ███████████████████\\nChunk 3 (Upper-mid):   51.0% ██████████\\nChunk 6 (Dead middle): 38.7% ████████  <-- DANGER ZONE!\\nChunk 10 (Bottom end): 93.0% ███████████████████"
+      const t1 = ["User:", "Remember", "secret", "locker", "code", "7492", "for", "tomorrow."];
+      const t2 = ["AI:", "Got", "it,", "I", "saved", "your", "locker", "code."];
+      const t3 = ["User:", "Also", "pack", "two", "masala", "dosa", "boxes", "please."];
+      const t4 = ["AI:", "Packed", "two", "masala", "dosa", "boxes", "for", "lunch", "today!", "Enjoy!"];
+
+      const renderTray = (kept, dropped, title, statusHtml) => {{
+        const dropHtml = dropped.length ? `
+          <div style="margin-top:0.55rem;font-size:0.78rem;color:#991b1b;font-weight:700;">🗑 DROPPED OFF LEFT EDGE (${{dropped.length}} words):</div>
+          <div class="tray-slot-grid">${{dropped.map(w => `<span class="tray-word dropped">${{w}}</span>`).join("")}}</div>
+        ` : "";
+        const keepHtml = `
+          <div style="margin-top:0.55rem;font-size:0.78rem;color:var(--meadow);font-weight:700;">🍱 ACTIVE ON 24-WORD LUNCH TRAY (${{kept.length}} / 24):</div>
+          <div class="tray-slot-grid">${{kept.map(w => `<span class="tray-word ${{w === '7492' ? 'secret' : ''}}">${{w}}</span>`).join("")}}</div>
+        `;
+        el.innerHTML = `<div style="font-weight:800;margin-bottom:0.35rem;">${{title}}</div>${{statusHtml}}${{dropHtml}}${{keepHtml}}`;
       }};
-      el.innerText = steps[step] || "";
+
+      if (step === 1) {{
+        renderTray(t1, [], "TURN 1 · 8 / 24 words used", `<div style="color:var(--meadow);font-weight:700;">Locker code 7492 on tray? YES ✅</div>`);
+      }} else if (step === 2) {{
+        renderTray([...t1, ...t2], [], "TURN 2 · 16 / 24 words used (entire Turn 1 re-sent!)", `<div style="color:var(--meadow);font-weight:700;">Locker code 7492 on tray? YES ✅</div>`);
+      }} else if (step === 3) {{
+        renderTray([...t1, ...t2, ...t3], [], "TURN 3 · 24 / 24 words (TRAY 100% FULL!)", `<div style="color:#b45309;font-weight:700;">Locker code 7492 on tray? YES ⚠️ (Sitting right on the left cliff!)</div>`);
+      }} else if (step === 4) {{
+        const all = [...t1, ...t2, ...t3, ...t4];
+        renderTray(all.slice(-24), all.slice(0, all.length - 24), "TURN 4 · 34 total words → 10 oldest words evicted!", `<div style="color:#991b1b;font-weight:700;">Locker code 7492 on tray? NO ❌ (Model literally never receives it!)</div>`);
+      }} else if (step === 5) {{
+        el.innerHTML = `
+          <div style="font-weight:800;margin-bottom:0.55rem;">⚡ 10-TURN CHAT BILLING · UNCACHED vs KV PREFIX CACHING (1,000-tok system prompt)</div>
+          <div style="margin-bottom:0.55rem;">
+            <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:0.2rem;"><span>Without KV Prefix Cache (re-billed every turn)</span><strong>19,000 tokens (100%)</strong></div>
+            <div style="background:#f1f5f9;height:16px;border-radius:6px;overflow:hidden;border:1px solid var(--line-strong);"><div style="width:100%;height:100%;background:#a9492f;"></div></div>
+          </div>
+          <div style="margin-bottom:0.65rem;">
+            <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:0.2rem;"><span>With KV Prefix Caching (90% off cached prefix)</span><strong style="color:var(--meadow);">3,610 eff. tokens (-81.0%!)</strong></div>
+            <div style="background:#f1f5f9;height:16px;border-radius:6px;overflow:hidden;border:1px solid var(--line-strong);"><div style="width:19%;height:100%;background:#2c6b4f;"></div></div>
+          </div>
+          <div style="font-size:0.8rem;color:var(--ink-soft);">⚠️ Cache-Invalidation Trap: Putting <code>Current time: 14:32:09</code> on Line 1 breaks the prefix hash on EVERY turn and destroys the 81% discount!</div>
+        `;
+      }} else if (step === 6) {{
+        const pts = [[1,93.0],[2,66.2],[3,51.0],[4,42.7],[5,38.7],[6,38.7],[7,42.7],[8,51.0],[9,66.2],[10,93.0]];
+        el.innerHTML = `
+          <div style="font-weight:800;margin-bottom:0.35rem;">📉 LOST-IN-THE-MIDDLE U-CURVE (Analytical Model of Liu et al., 2023)</div>
+          <div style="display:grid;grid-template-columns:repeat(10, 1fr);gap:0.3rem;align-items:end;height:108px;padding:0.5rem 0.25rem 0.25rem;border-bottom:1.5px solid var(--line-strong);">
+            ${{pts.map(([ch, pct]) => `
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;">
+                <span style="font-size:0.7rem;font-weight:700;color:${{pct < 45 ? '#a9492f' : '#2c6b4f'}};">${{pct.toFixed(0)}}%</span>
+                <div style="width:100%;height:${{Math.round(pct * 0.78)}}px;background:${{pct < 45 ? '#a9492f' : (pct > 80 ? '#2c6b4f' : '#8b6842')}};border-radius:5px 5px 0 0;"></div>
+              </div>
+            `).join("")}}
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(10, 1fr);gap:0.3rem;text-align:center;font-size:0.72rem;color:var(--muted);margin-top:0.25rem;">
+            ${{pts.map(([ch]) => `<span>C${{ch}}</span>`).join("")}}
+          </div>
+          <div style="font-size:0.8rem;color:var(--ink-soft);margin-top:0.5rem;">Put critical instructions at <strong>Chunk 1 (System Prompt)</strong> and the current goal at <strong>Chunk 10 (Bottom)</strong> — never buried in C5/C6!</div>
+        `;
+      }}
     }}
 
     function selectQuizAnswer(qIdx, oIdx) {{
@@ -3340,6 +3976,20 @@ def _render_lesson_page(curriculum: dict, lesson: dict, live_ids: set[str], code
                 f'<a href="{_esc(fid)}.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a>'
                 f'</div></div>'
             )
+        expert_block = ""
+        if sec.get("expert_note"):
+            expert_block = (
+                f'<div style="background:#f2f6f9;border:1.5px solid #b4ccd9;border-radius:12px;padding:0.9rem 1.1rem;margin-top:1rem;font-size:0.94rem;color:#1c2e38;">'
+                f'<div style="font-family:var(--mono);font-size:0.76rem;font-weight:700;color:#264d60;text-transform:uppercase;margin-bottom:0.3rem;">⚙️ Under the Hood · Production Depth</div>'
+                f'{_md_to_html(sec["expert_note"])}</div>'
+            )
+        trap_block = ""
+        if sec.get("trap_note"):
+            trap_block = (
+                f'<div style="background:#fdf4ee;border:1.5px solid #e2baa7;border-radius:12px;padding:0.9rem 1.1rem;margin-top:0.75rem;font-size:0.94rem;color:#3a1d15;">'
+                f'<div style="font-family:var(--mono);font-size:0.76rem;font-weight:700;color:#8c331c;text-transform:uppercase;margin-bottom:0.3rem;">⚠️ Production Engineering Trap</div>'
+                f'{_md_to_html(sec["trap_note"])}</div>'
+            )
         sections_html.append(
             f'<section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);">'
             f'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">'
@@ -3349,6 +3999,8 @@ def _render_lesson_page(curriculum: dict, lesson: dict, live_ids: set[str], code
             f'<h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">{_esc(sec["heading"])}</h2>'
             f'<div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;">{_md_to_html(sec["body_md"])}</div>'
             f'{fig_block}'
+            f'{expert_block}'
+            f'{trap_block}'
             f'</section>'
         )
 

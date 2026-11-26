@@ -1,41 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-28.0 -28.0 988.6 399.0" width="100%" height="auto" class="excalidraw-svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-34.0 -34.0 1000.6 411.0" width="100%" height="auto" class="excalidraw-svg">
 <defs>
+<pattern id="draft-dots" width="22" height="22" patternUnits="userSpaceOnUse">
+<circle cx="11" cy="11" r="1.15" fill="#c7d3cc" opacity="0.65" />
+</pattern>
+<filter id="card-shadow" x="-10%" y="-10%" width="125%" height="130%">
+<feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#141d18" flood-opacity="0.08" />
+</filter>
 <style>
-.excalidraw-text { font-family: "Virgil", "Comic Neue", "Caveat", "Segoe Print", "Bradley Hand", ui-rounded, sans-serif; }
+.ed-title { font-family: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, sans-serif; letter-spacing: -0.015em; }
+.ed-label { font-family: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, sans-serif; }
+.ed-mono  { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace; }
 </style>
 </defs>
-<text x="0.0" y="22.1" font-size="24" font-weight="700" fill="#1e1e1e" class="excalidraw-text">The illusion of chat memory: re-sending the whole script every turn</text>
-<rect x="3.0" y="64.0" width="240.0" height="118.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="60.0" width="240.0" height="118.0" rx="12" fill="#ffc9c9" stroke="#b91c1c" stroke-width="2" />
-<rect x="0.8" y="60.4" width="240.0" height="118.0" rx="13" fill="none" stroke="#b91c1c" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="38.8" y="110.9" font-size="20" font-weight="700" fill="#1e1e1e" class="excalidraw-text">Dropped Turn 1</text>
-<text x="14.4" y="139.4" font-size="14" font-weight="500" fill="#64748b" class="excalidraw-text">locker code 7492 falls off</text>
-<rect x="353.0" y="64.0" width="240.0" height="118.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="350.0" y="60.0" width="240.0" height="118.0" rx="12" fill="#fff3bf" stroke="#d97706" stroke-width="2" />
-<rect x="349.2" y="59.6" width="240.0" height="118.0" rx="13" fill="none" stroke="#d97706" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="400.4" y="110.9" font-size="20" font-weight="700" fill="#1e1e1e" class="excalidraw-text">Context Tray</text>
-<text x="396.9" y="139.4" font-size="14" font-weight="500" fill="#64748b" class="excalidraw-text">holds max 24 words</text>
-<rect x="353.0" y="229.0" width="240.0" height="118.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="350.0" y="225.0" width="240.0" height="118.0" rx="12" fill="#e5dbff" stroke="#6d28d9" stroke-width="2" />
-<rect x="350.8" y="225.5" width="240.0" height="118.0" rx="13" fill="none" stroke="#6d28d9" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="412.0" y="275.9" font-size="20" font-weight="700" fill="#1e1e1e" class="excalidraw-text">Frozen LLM</text>
-<text x="392.9" y="304.4" font-size="14" font-weight="500" fill="#64748b" class="excalidraw-text">only sees what fits</text>
-<rect x="3.0" y="229.0" width="240.0" height="118.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="225.0" width="240.0" height="118.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
-<rect x="-0.9" y="224.5" width="240.0" height="118.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="91.0" y="275.9" font-size="20" font-weight="700" fill="#1e1e1e" class="excalidraw-text">Reply</text>
-<text x="26.6" y="304.4" font-size="14" font-weight="500" fill="#64748b" class="excalidraw-text">forgot the locker code!</text>
-<path d="M 248.0 119.0 Q 296.1 117.5 342.0 119.0" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 5" />
-<path d="M 332.7 124.9 L 342.0 119.0 L 332.7 113.1" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-<text x="264.8" y="105.0" font-size="13" font-weight="500" fill="#64748b" class="excalidraw-text">overflow</text>
-<path d="M 470.0 186.0 Q 468.9 203.0 470.0 217.0" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-<path d="M 464.1 207.7 L 470.0 217.0 L 475.9 207.7" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-<text x="484.0" y="205.5" font-size="13" font-weight="500" fill="#64748b" class="excalidraw-text">send tray</text>
-<path d="M 342.0 284.0 Q 296.2 282.6 248.0 284.0" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-<path d="M 257.3 278.1 L 248.0 284.0 L 257.3 289.9" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-<text x="268.6" y="270.0" font-size="13" font-weight="500" fill="#64748b" class="excalidraw-text">predict</text>
-<text x="680.0" y="110.8" font-size="15" font-weight="600" fill="#c2255c" class="excalidraw-text">once dropped from the</text>
-<text x="680.0" y="132.8" font-size="15" font-weight="600" fill="#c2255c" class="excalidraw-text">tray, it is gone forever</text>
-<path d="M 664.0 119.0 Q 455.4 117.1 250.0 119.0" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 5" />
-<path d="M 259.3 113.1 L 250.0 119.0 L 259.3 124.9" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<rect x="-34.0" y="-34.0" width="1000.6" height="411.0" rx="14" fill="#fbfcfb" />
+<rect x="-34.0" y="-34.0" width="1000.6" height="411.0" rx="14" fill="url(#draft-dots)" />
+<text x="0.0" y="22.1" font-size="24" font-weight="800" fill="#141d18" class="ed-title">The illusion of chat memory: re-sending the whole script every turn</text>
+<rect x="0.0" y="60.0" width="240.0" height="118.0" rx="13" fill="#ffffff" stroke="#a93b1f" stroke-opacity="0.55" stroke-width="1.6" filter="url(#card-shadow)" />
+<path d="M 13.0 60.8 H 227.0 Q 239.2 60.8 239.2 73.0 V 78.0 H 0.8 V 73.0 Q 0.8 60.8 13.0 60.8 Z" fill="#faeae4" />
+<line x1="14.0" y1="78.0" x2="226.0" y2="78.0" stroke="#a93b1f" stroke-opacity="0.28" stroke-width="1" />
+<text x="38.8" y="110.9" font-size="20" font-weight="700" fill="#141d18" class="ed-label">Dropped Turn 1</text>
+<text x="14.4" y="139.4" font-size="14" font-weight="600" fill="#4b5b53" class="ed-mono">locker code 7492 falls off</text>
+<rect x="350.0" y="60.0" width="240.0" height="118.0" rx="13" fill="#ffffff" stroke="#9a6c2a" stroke-opacity="0.55" stroke-width="1.6" filter="url(#card-shadow)" />
+<path d="M 363.0 60.8 H 577.0 Q 589.2 60.8 589.2 73.0 V 78.0 H 350.8 V 73.0 Q 350.8 60.8 363.0 60.8 Z" fill="#f9f3e4" />
+<line x1="364.0" y1="78.0" x2="576.0" y2="78.0" stroke="#9a6c2a" stroke-opacity="0.28" stroke-width="1" />
+<text x="400.4" y="110.9" font-size="20" font-weight="700" fill="#141d18" class="ed-label">Context Tray</text>
+<text x="396.9" y="139.4" font-size="14" font-weight="600" fill="#4b5b53" class="ed-mono">holds max 24 words</text>
+<rect x="350.0" y="225.0" width="240.0" height="118.0" rx="13" fill="#ffffff" stroke="#5c4d6b" stroke-opacity="0.55" stroke-width="1.6" filter="url(#card-shadow)" />
+<path d="M 363.0 225.8 H 577.0 Q 589.2 225.8 589.2 238.0 V 243.0 H 350.8 V 238.0 Q 350.8 225.8 363.0 225.8 Z" fill="#efecf4" />
+<line x1="364.0" y1="243.0" x2="576.0" y2="243.0" stroke="#5c4d6b" stroke-opacity="0.28" stroke-width="1" />
+<text x="412.0" y="275.9" font-size="20" font-weight="700" fill="#141d18" class="ed-label">Frozen LLM</text>
+<text x="392.9" y="304.4" font-size="14" font-weight="600" fill="#4b5b53" class="ed-mono">only sees what fits</text>
+<rect x="0.0" y="225.0" width="240.0" height="118.0" rx="13" fill="#ffffff" stroke="#a93b1f" stroke-opacity="0.55" stroke-width="1.6" filter="url(#card-shadow)" />
+<path d="M 13.0 225.8 H 227.0 Q 239.2 225.8 239.2 238.0 V 243.0 H 0.8 V 238.0 Q 0.8 225.8 13.0 225.8 Z" fill="#faeae4" />
+<line x1="14.0" y1="243.0" x2="226.0" y2="243.0" stroke="#a93b1f" stroke-opacity="0.28" stroke-width="1" />
+<text x="91.0" y="275.9" font-size="20" font-weight="700" fill="#141d18" class="ed-label">Reply</text>
+<text x="26.6" y="304.4" font-size="14" font-weight="600" fill="#4b5b53" class="ed-mono">forgot the locker code!</text>
+<path d="M 248.0 119.0 L 342.0 119.0" fill="none" stroke="#a93b1f" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 5" />
+<polygon points="342.0,119.0 332.8,124.1 332.8,113.9" fill="#a93b1f" />
+<text x="264.8" y="105.0" font-size="13" font-weight="600" fill="#4b5b53" class="ed-mono">overflow</text>
+<path d="M 470.0 186.0 L 470.0 217.0" fill="none" stroke="#3e4c44" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" />
+<polygon points="470.0,217.0 464.9,207.8 475.1,207.8" fill="#3e4c44" />
+<text x="484.0" y="205.5" font-size="13" font-weight="600" fill="#4b5b53" class="ed-mono">send tray</text>
+<path d="M 342.0 284.0 L 248.0 284.0" fill="none" stroke="#3e4c44" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" />
+<polygon points="248.0,284.0 257.2,278.9 257.2,289.1" fill="#3e4c44" />
+<text x="268.6" y="270.0" font-size="13" font-weight="600" fill="#4b5b53" class="ed-mono">predict</text>
+<text x="680.0" y="110.8" font-size="15" font-weight="600" fill="#a93b1f" class="ed-label">once dropped from the</text>
+<text x="680.0" y="132.8" font-size="15" font-weight="600" fill="#a93b1f" class="ed-label">tray, it is gone forever</text>
+<path d="M 664.0 119.0 L 250.0 119.0" fill="none" stroke="#a93b1f" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 5" />
+<polygon points="250.0,119.0 259.2,113.9 259.2,124.1" fill="#a93b1f" />
 </svg>

@@ -4,61 +4,58 @@
 
 ## Explain it like I'm 12: Where do you sit in the Campus Cafeteria?
 
-At the end of Checkpoint 2, the barcode scanner turned our words into numbers like `496` and `15717`. But there is a catch: barcode numbers are just random ID tags. In a grocery store, barcode `501` might be apples and barcode `502` might be motor oil. You cannot do math on barcodes to see if two things taste similar.
+In Lesson 2, the tokenizer handed the brain raw integer IDs (`496`, `15717`). There is a huge problem with raw IDs: they carry **zero meaning**. In a dictionary, barcode `#40,000` (`coffee`) can sit right next to `#40,001` (`coffin`). You cannot subtract `#40,001 - #40,000` and expect sensible math.
 
-Now walk into the **Campus Cafeteria**. Imagine the cafeteria floor has two giant chalk lines painted on it:
-- **East to West:** How *Hot* vs *Cold* something is.
-- **North to South:** How *Sweet* vs *Savory* something is.
+Now picture walking into the **Campus Cafeteria**. Imagine the floor has chalk axes painted across it: East–West measures *Drink vs. Food*, North–South measures *Hot vs. Cold*, and height measures *Spiced/Sweet*. Where do **Masala Chai** and **Filter Coffee** land? Practically at the exact same table (`9.7°` apart!). Where does **Kubernetes** land? Out in the Server Room, nearly `90°` away.
 
-If you place every snack on the floor by its two coordinates, where do **Masala Chai** and **Filter Coffee** end up? Right next to each other in the *Hot & lightly sweet* corner! Where does **Mango Lassi** go? Over in the *Cold & very sweet* corner. Where does a **Kubernetes server** go? Outside the cafeteria building altogether.
+That list of coordinates is an **embedding** in plain words: a dense list of floating-point numbers (a **vector**) that maps a token or sentence to a point in meaning space so semantically similar ideas point in the same direction.
 
-That list of coordinates is an **embedding** in plain words: a list of numbers (called a **vector**) that places a word or sentence on a multi-dimensional map of meaning so similar ideas sit close together.
+**Wait — who scores those sliders?** Nobody hand-types them! During training, the model learns every coordinate automatically using the **distributional hypothesis**: *'You shall know a word by the company it keeps.'* Because `masala chai` and `filter coffee` appear in nearly identical sentences (*'I need a hot cup of ___ before standup'*), gradient descent (and contrastive loss in dedicated embedding models) pulls their arrows together and pushes unrelated sentences apart.
 
 ![The embedding table swaps one integer ID for a list of coordinate numbers (a vector).](fig-01.svg)
 *The embedding table swaps one integer ID for a list of coordinate numbers (a vector).*
 
-## From 2 chalk lines to 1,536 sliders (Dimensions & Vectors)
+## Measuring Meaning with High-School Geometry: Dot Product, Cosine & L2 Norm
 
-On a flat floor, we only have 2 directions (East-West and North-South). Engineers call each direction a **dimension** in plain words: one numbered slider that measures a single trait.
+In our Python lab (`Figure 2`), every cafeteria item lives on 4 axes: `[drink, hot_temp, sweet_or_spiced, computer_tech]`:
+- `masala_chai` → `[0.95, 0.90, 0.72, 0.02]`
+- `filter_coffee` → `[0.94, 0.88, 0.45, 0.05]`
+- `kubernetes` → `[0.01, 0.02, 0.00, 0.98]`
 
-In our Python lab (`Figure 2` above), we built a **4-dimensional** map with four sliders for every item:
-`[warm_drink, sweet_food, computer_tech, morning_energy]`
+How does a GPU check if two 1,536-dimensional ideas match in microseconds? It measures the **angle** between their arrows using **cosine similarity** (`-1.0` opposite, `0.0` unrelated 90°, `+1.0` identical direction):
 
-Look at the coordinates for two items:
-- `masala_chai`   → `[0.95, 0.40, 0.02, 0.88]`
-- `filter_coffee` → `[0.92, 0.25, 0.05, 0.94]`
-- `kubernetes`    → `[0.01, 0.00, 0.98, 0.12]`
+1. **Dot Product (`a · b`):** Multiply matching axes and add them up. Big × Big explodes positively; Big × Tiny (`0.98 × 0.02`) vanishes.
+2. **Divide by Both Magnitudes (`||a|| × ||b||`):** Removes arrow length so long documents don't beat short ones just by having larger numbers.
+3. **Read the exact lab angles:** `cosine(masala_chai, filter_coffee) = 0.9858` (**9.7° apart!**), while `cosine(masala_chai, kubernetes) = 0.0322` (**88.2° apart — nearly perpendicular!**).
 
-Notice how `masala_chai` and `filter_coffee` both have high numbers on slider 1 (`0.95` and `0.92`) and slider 4 (`0.88` and `0.94`), and tiny numbers on slider 3 (`0.02` and `0.05`).
+**Why production vector DBs love L2 Normalization:** In Step 4 of our lab, we divide every vector by its own length (`magnitude = 1.0`, called **L2-normalized**). Once vectors have length `1.0`, `dot_product(u, v)` equals `cosine_similarity(u, v)` to **6 decimal places (`0.985850 == 0.985850`)** — letting vector databases skip expensive square-root divisions at query time!
 
-A real frontier **embedding model** (like OpenAI `text-embedding-3` or BGE) works the exact same way — except instead of 4 sliders, it uses **1,536 sliders** learned automatically during training!
+![Chai and coffee align within 9.7° (0.986); iced_chai scores 0.823 (Antonym Trap!); Kubernetes sits 88.2° away (0.032).](fig-02.svg)
+*Chai and coffee align within 9.7° (0.986); iced_chai scores 0.823 (Antonym Trap!); Kubernetes sits 88.2° away (0.032).*
 
-![Chai and coffee match on warm_drink and morning_energy; Kubernetes sits alone in computer_tech.](fig-02.svg)
-*Chai and coffee match on warm_drink and morning_energy; Kubernetes sits alone in computer_tech.*
+## Directions Are Concepts: Vector Arithmetic (`king - man + woman = queen`)
 
-## How the machine checks if two arrows point the same way (Cosine Similarity)
+Embeddings don't just cluster neighbors — **directions in vector space encode relationships**.
 
-Once you have two lists of 1,536 numbers, how does the computer calculate a single match score between them in a microsecond?
+In Step 3 of our Python lab, we represent royalty and gender along `[royalty, human_adult, feminine_axis, tech]`:
+- `king` = `[0.95, 0.90, 0.05, 0.02]`
+- `man` = `[0.05, 0.90, 0.05, 0.02]`
+- `woman` = `[0.05, 0.90, 0.95, 0.02]`
 
-It draws an arrow from `[0, 0, 0, 0]` to each word's coordinate and measures the angle between the two arrows! Engineers call this **cosine similarity** in plain words: a score from `-1.0` to `+1.0` that measures whether two coordinate arrows point in the exact same direction (`1.0`), at a 90-degree right angle (`0.0`, completely unrelated), or opposite directions (`-1.0`).
+Subtract `man` from `king` (stripping away `'adult male'`, leaving the pure `'royalty'` arrow `[+0.90, 0, 0, 0]`), then add `woman`. You land directly on `[0.95, 0.90, 0.95, 0.02]` — matching **`queen`** with cosine similarity **`1.0000`** (beating `prince` at `0.8403` and `woman` at `0.8311`)!
 
-Here is the entire 3-step recipe from our 25-line Python lab:
-1. **Multiply matching sliders and add them up (Dot Product):**
-   `(0.95 × 0.92) + (0.40 × 0.25) + (0.02 × 0.05) + (0.88 × 0.94) = 1.8022`
-   Notice why this works: when both words have a big number on the same slider, multiplying two big numbers creates a huge boost. When one is `0.98` and the other is `0.02` (`kubernetes` vs `chai`), `0.98 × 0.02` collapses to almost zero!
-2. **Divide by the length of both arrows:** That puts every comparison on a fair scale up to `1.0000`.
-3. **Read the result:** In our lab, `cosine(masala_chai, filter_coffee)` is **`0.9924`** (nearly identical direction!), while `cosine(masala_chai, kubernetes)` is **`0.1006`**.
+Modern mechanistic interpretability research (sparse autoencoders / steering vectors) uses this exact property: adding a learned 'refusal' or 'Golden Gate Bridge' direction vector inside an LLM's residual stream literally steers its personality in real time.
 
 ![Multiply matching traits, add them up, and divide by arrow lengths.](fig-03.svg)
 *Multiply matching traits, add them up, and divide by arrow lengths.*
 
-## What embeddings unlock in real apps — and where they break
+## How to pick an embedding model in production — and the 3 classic traps
 
-Every time you see an AI product that says *'Chat with your PDFs'* or *'Search 10,000 customer tickets by meaning'*, it is running the exact cosine-similarity loop you just learned:
+Every RAG pipeline, semantic search engine, and recommendation system runs on embeddings. Three production rules separate hobby demos from reliable systems:
 
-1. **Semantic search without matching words.** A user types `'hot morning beverage'`. Even though the words `'masala'` and `'chai'` never appear in the query, the query's coordinate vector lands right next to `[0.95, 0.40, 0.02, 0.88]` and retrieves `masala_chai` at the top of the list.
-2. **The Antonym Trap (Why 'I love this' and 'I hate this' sit close together!).** Here is a trap that catches senior engineers: on an embedding map, *opposites* like `'hot'` and `'cold'` or `'love'` and `'hate'` often have high cosine similarity (`0.80+`)! Why? Because they appear in the exact same sentences (*'The tea is too hot/cold'*) and share 95% of the same topic sliders (temperature, drink, feeling). Never trust raw embedding similarity alone to tell `'yes'` from `'no'`.
-3. **Never mix coordinates from two different models.** An embedding from Model A (`1536` sliders) and Model B (`768` sliders) have completely different slider meanings. If you upgrade your embedding model, you must re-embed your entire database.
+1. **The Antonym Trap (`masala_chai` vs `iced_chai` = `0.8234`!):** Look at Step 2 of our lab: *hot* masala chai and *cold* iced chai still score **`0.8234`** (only `34.6°` apart) because they share the drink and spice axes! In real text, `'I love this product'` and `'I hate this product'` often score `0.80+`. Never rely on raw cosine similarity alone for sentiment or strict yes/no filtering — pair vector retrieval with a **cross-encoder reranker** or LLM judge.
+2. **Matryoshka Dimensions (MRL) & Storage Cost:** Modern models (`text-embedding-3-large`, Nomic, BGE-M3) are trained with **Matryoshka Representation Learning**, packing the most important semantic info into the earliest dimensions. You can slice a `3,072`-dim vector down to `512` dims, re-normalize, and save **6× RAM/disk** while keeping ~97% of search quality.
+3. **Never mix models (and respect Query vs. Document prefixes):** Coordinate spaces are incompatible across models — upgrading your embedding model requires re-embedding your entire index. Also check whether your model is *asymmetric* (e.g., E5/BGE expect `'query: ...'` vs `'passage: ...'` prefixes so short questions align with long paragraphs).
 
 ## Jargon Decoder
 
@@ -70,7 +67,10 @@ Every time you see an AI product that says *'Chat with your PDFs'* or *'Search 1
 | **dot product** | Multiplying matching numbers from two vectors and adding the results together. | The single most common math operation in all of AI and GPUs. |
 | **cosine similarity** | The dot product divided by the arrow lengths, scoring how closely two vectors align (-1 to +1). | The standard metric used to rank relevant chunks in vector search and RAG. |
 | **embedding model** | A specialized neural network whose only job is turning text into meaning coordinates. | Much cheaper and faster than a chat LLM; used to index documents for search. |
+| **L2 normalization** | Scaling every vector so its arrow length equals 1.0 without changing its direction. | Makes fast dot product mathematically identical to cosine similarity in vector databases. |
+| **static vs. contextual embedding** | Static gives 'bank' one fixed vector; contextual adjusts 'bank' using surrounding words via attention. | Explains why modern sentence embeddings disambiguate 'river bank' vs 'money bank'. |
+| **Matryoshka Representation (MRL)** | Training embeddings so the first 256 or 512 numbers already capture most of the meaning, like nesting dolls. | Lets you cut vector database RAM bills by 4×–6× with almost zero accuracy loss. |
 
-## Hands-On Lab: Build a 4D Meaning Map & Rank Nearest Neighbors with Cosine Similarity
+## Hands-On Lab: Build a 4D Meaning Map: Cosine Angles, Antonym Trap, Vector Arithmetic & L2 Norm Proof
 
-Implement dot product, vector magnitude, and cosine similarity in pure Python, and prove mathematically why 'masala_chai' matches 'filter_coffee' (0.9924) while rejecting 'kubernetes' (0.1006).
+Compute exact cosine similarities and angles in degrees, observe the Antonym Trap (hot vs iced chai = 0.8234), execute king - man + woman = queen (1.0000), and prove dot_product(L2_norm) == cosine_similarity.

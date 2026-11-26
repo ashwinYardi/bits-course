@@ -4,7 +4,7 @@
   "level_name": "Ground floor",
   "title": "The context window is your whole memory",
   "published_at": "2026-11-24",
-  "read_time_minutes": 9,
+  "read_time_minutes": 12,
   "question": "Where does the model keep what you told it two messages ago?",
   "can": "Budget a prompt and explain why a long document gets ignored in the middle.",
   "one_line": "An AI has zero memory of your previous message; your chat app secretly pastes your entire conversation history onto a fixed-size lunch tray on every single turn — and anything that falls off the tray or sits in the dead middle gets forgotten.",
@@ -23,32 +23,98 @@
       "layout": "flow",
       "caption": "When the tray overflows, the oldest messages at the front get pushed off the edge (truncation).",
       "nodes": [
-        { "id": "t1", "label": "Dropped Turn 1", "note": "locker code 7492 falls off", "color": "red" },
-        { "id": "t2", "label": "Context Tray", "note": "holds max 24 words", "color": "yellow" },
-        { "id": "t3", "label": "Frozen LLM", "note": "only sees what fits", "color": "violet" },
-        { "id": "t4", "label": "Reply", "note": "forgot the locker code!", "color": "orange" }
+        {
+          "id": "t1",
+          "label": "Dropped Turn 1",
+          "note": "locker code 7492 falls off",
+          "color": "red"
+        },
+        {
+          "id": "t2",
+          "label": "Context Tray",
+          "note": "holds max 24 words",
+          "color": "yellow"
+        },
+        {
+          "id": "t3",
+          "label": "Frozen LLM",
+          "note": "only sees what fits",
+          "color": "violet"
+        },
+        {
+          "id": "t4",
+          "label": "Reply",
+          "note": "forgot the locker code!",
+          "color": "orange"
+        }
       ],
       "edges": [
-        { "from": "t1", "to": "t2", "label": "overflow", "dashed": true },
-        { "from": "t2", "to": "t3", "label": "send tray" },
-        { "from": "t3", "to": "t4", "label": "predict" }
+        {
+          "from": "t1",
+          "to": "t2",
+          "label": "overflow",
+          "dashed": true
+        },
+        {
+          "from": "t2",
+          "to": "t3",
+          "label": "send tray"
+        },
+        {
+          "from": "t3",
+          "to": "t4",
+          "label": "predict"
+        }
       ],
       "callouts": [
-        { "at": "t1", "text": "once dropped from the tray, it is gone forever" }
+        {
+          "at": "t1",
+          "text": "once dropped from the tray, it is gone forever"
+        }
       ]
     },
     {
       "id": "fig-02",
-      "title": "The 'Lost in the Middle' U-Curve (Real Lab Output)",
+      "title": "The 'Lost in the Middle' U-Curve (Model of Liu et al., 2023)",
       "layout": "grid",
-      "caption": "Models remember the start (93.0%) and the end (93.0%) of a long prompt, but drop to 38.7% in the dead middle.",
+      "caption": "Illustrative U-curve modeling Liu et al.'s (2023) empirical primacy/recency finding: sharp recall at start/end, trough in the dead middle.",
       "cells": [
-        ["Document Position", "Zone Name", "Recall Accuracy", "Status"],
-        ["Chunk 1 / 10", "START (Primacy)", "*93.0%", "Sharp focus"],
-        ["Chunk 3 / 10", "INNER", "55.0%", "Fading"],
-        ["Chunk 6 / 10", "DEAD MIDDLE", "*38.7%", "Ignored!"],
-        ["Chunk 8 / 10", "INNER", "55.0%", "Recovering"],
-        ["Chunk 10 / 10", "END (Recency)", "*93.0%", "Sharp focus"]
+        [
+          "Document Position",
+          "Zone Name",
+          "Recall Accuracy",
+          "Status"
+        ],
+        [
+          "Chunk 1 / 10",
+          "START (Primacy)",
+          "*93.0%",
+          "Sharp focus"
+        ],
+        [
+          "Chunk 3 / 10",
+          "INNER",
+          "55.0%",
+          "Fading"
+        ],
+        [
+          "Chunk 6 / 10",
+          "DEAD MIDDLE",
+          "*38.7%",
+          "Ignored!"
+        ],
+        [
+          "Chunk 8 / 10",
+          "INNER",
+          "55.0%",
+          "Recovering"
+        ],
+        [
+          "Chunk 10 / 10",
+          "END (Recency)",
+          "*93.0%",
+          "Sharp focus"
+        ]
       ]
     },
     {
@@ -57,39 +123,65 @@
       "layout": "stack",
       "caption": "Put identity and core rules at the very top, reference material in the middle, and the exact question + key facts at the very bottom.",
       "nodes": [
-        { "id": "p1", "label": "Top: System Rules", "note": "high attention zone (93%)", "color": "green" },
-        { "id": "p2", "label": "Middle: Background Docs", "note": "lowest attention zone (39%)", "color": "gray" },
-        { "id": "p3", "label": "Bottom: Top Fact + Task", "note": "highest attention zone (93%)", "color": "amber" }
+        {
+          "id": "p1",
+          "label": "Top: System Rules",
+          "note": "high attention zone (93%)",
+          "color": "green"
+        },
+        {
+          "id": "p2",
+          "label": "Middle: Background Docs",
+          "note": "lowest attention zone (39%)",
+          "color": "gray"
+        },
+        {
+          "id": "p3",
+          "label": "Bottom: Top Fact + Task",
+          "note": "highest attention zone (93%)",
+          "color": "amber"
+        }
       ],
       "edges": [
-        { "from": "p1", "to": "p2", "label": "then" },
-        { "from": "p2", "to": "p3", "label": "finish with" }
+        {
+          "from": "p1",
+          "to": "p2",
+          "label": "then"
+        },
+        {
+          "from": "p2",
+          "to": "p3",
+          "label": "finish with"
+        }
       ]
     }
   ],
   "sections": [
     {
       "heading": "Explain it like I'm 12: The Amnesia Chef and the Fixed-Size Lunch Tray",
-      "badge": "Chapter 1 · The Memory Illusion",
+      "badge": "Chapter 1 · Stateless API Reality",
       "figure_id": "fig-01",
-      "body_md": "Remember from Checkpoint 1 that the AI's brain is a frozen file on a hard drive? Every time it finishes answering you, it gets **100% total amnesia**. It does not store a file on its server called `'Ashwin's Chat'` inside its neural weights.\n\nWait — then how does ChatGPT or Claude know what you said two messages ago when you ask a follow-up question?\n\nBecause your chat app plays a sleight-of-hand trick! Every time you hit **Send**, the app takes your entire chat history from the very first message, glues your new line onto the bottom, and places the whole stack onto a fixed-size tray called the **context window** in plain words: the maximum number of tokens (input prompt + generated reply combined) the model can hold and look at in a single pass.\n\nLook at `Figure 1` from our lab. Our toy tray holds at most **24 words**. In Turn 1, you tell the AI: `'My secret locker code is 7492.'` By Turn 5, after chatting about the cafeteria menu and robotics club, the conversation is 43 words long. To fit the new question onto the 24-word tray, the app silently shoves Turns 1, 2, and 3 off the back of the tray (**truncation**). When Turn 5 asks `'What was my secret locker code?'`, the AI has no idea — because Turn 1 literally isn't on the tray anymore!"
+      "body_md": "Remember from Lesson 1 that the AI's neural weights are frozen on disk? The moment an LLM finishes replying to you, it has **100% amnesia**. The model itself is completely **stateless** — it stores zero memory of your chat inside its weights.\n\nThen how does a chat app remember what you said three turns ago? Because the app pulls off a sleight-of-hand trick: every time you hit **Send**, your client silently packs `System Rules + Turn 1 + Reply 1 + Turn 2 + Reply 2 + Your New Message` into one giant array and sends the entire script from scratch on a fixed-size tray called the **context window**.\n\n**What shares the tray?** Everything! Your system prompt, tool/JSON schemas, retrieved RAG documents, chat history, **the model's visible reply**, *and* any **hidden reasoning/thinking tokens** (used by reasoning models like o3, Claude extended thinking, or DeepSeek-R1) all count against the exact same ceiling.\n\nLook at Step 1 of our lab (`Figure 1`): our toy tray holds at most **24 words**. In Turn 1 you share `'My secret locker code is 7492.'` By Turn 5, the conversation overflows 24 words, so FIFO **truncation** silently shoves Turns 1–3 off the left edge. When Turn 5 asks for the locker code, the model isn't 'being dumb' — Turn 1 literally isn't in the HTTP payload!",
+      "expert_note": "Production memory strategies when chats exceed the tray: (1) **Sliding Window (FIFO)** drops oldest turns — simple, loses early facts; (2) **Rolling Summary** periodically compresses old turns into a concise memory block; (3) **External Vector/Graph Memory (RAG)** stores key user facts in a database and retrieves only relevant ones back onto the tray."
     },
     {
-      "heading": "Why you pay for Message 1 ten times in a 10-turn chat",
-      "badge": "Chapter 2 · The Hidden Cost of Long Chats",
-      "body_md": "Once you see the lunch tray trick, a big billing mystery makes instant sense.\n\nWhen you have a 10-message conversation with an AI API:\n- On Turn 1, you send 100 tokens.\n- On Turn 2, you re-send Turn 1 (100 tokens) + Turn 1's answer (200 tokens) + your new question (100 tokens) = **400 tokens**.\n- By Turn 10, you are re-sending and paying for Message 1 for the **tenth time in a row**!\n\nEvery token on the tray — both the **prompt** (everything you send in) and the **completion** (every new token the model generates back) — shares the same context window budget."
+      "heading": "The Billing Shock — and the KV Prefix Caching Superpower",
+      "badge": "Chapter 2 · O(N²) Attention & Prompt Caching",
+      "body_md": "Re-sending the whole script every turn creates two huge engineering consequences:\n\n1. **You pay for Turn 1 ten times (unless you cache the prefix!):** In Step 2 of our lab, a 10-turn chat with a 400-token system prompt and 150-token messages bills **`19,000` uncached input tokens** — paying for your system prompt and Turn 1 over and over! Modern APIs (Anthropic, OpenAI, Gemini, vLLM) solve this with **Prompt Caching (KV Prefix Caching)**: if the *beginning* of your prompt stays **byte-for-byte identical** across turns, the server reuses its saved Key-Value attention state and discounts those cached prefix tokens by up to **90%**, slashing our 10-turn lab bill from `19,000` down to **`3,610` effective tokens (81.0% cheaper)** — plus cutting Time-to-First-Token latency dramatically!\n2. **Why giant contexts slow down (`O(N²)` self-attention):** Inside a standard Transformer, every new token attends to every earlier token. Look at Step 3 of our lab:\n- `1,000` tokens → **`500,500`** attention pairs\n- `10,000` tokens → **`50,005,000`** pairs (`100×` more!)\n- `100,000` tokens → **`5,000,050,000`** pairs (**5 BILLION pairs!**)\n\nEven with FlashAttention and KV caching, stuffing 100k noisy tokens onto the tray slows every call and increases memory bandwidth cost.",
+      "trap_note": "Common Trap — Breaking Your Own Prompt Cache! Never put a live timestamp (`Current time: 17:05:23`), random request ID, or dynamic user query at the VERY TOP of your system prompt! Changing even 1 token at byte #1 invalidates the entire downstream KV prefix cache on every single turn. Put static rules & tool schemas FIRST, dynamic info LAST."
     },
     {
-      "heading": "Lost in the Middle: Why a giant tray still misses the middle sandwich",
-      "badge": "Chapter 3 · The Stanford U-Curve Discovery",
+      "heading": "Lost in the Middle & Context Rot: Why 1M Advertised ≠ 1M Effective",
+      "badge": "Chapter 3 · Attention U-Curve & Context Rot",
       "figure_id": "fig-02",
-      "body_md": "Modern models brag about giant trays: 128,000 tokens (a whole 300-page book) or even 1,000,000 tokens. So developers thought: *'Awesome! I'll just paste 50 documents into the prompt and the AI will find the needle in the haystack.'*\n\nThen researchers at Stanford (Liu et al., *Lost in the Middle*) tested where the needle actually sat inside the stack of documents. Look at `Figure 2` from our Python lab:\n- When the key fact sat in **Chunk 1/10 (the very beginning)**, recall accuracy was **`93.0%`**.\n- When the exact same fact was moved to **Chunk 6/10 (the dead middle)**, recall crashed to **`38.7%`**!\n- When the fact was moved to **Chunk 10/10 (right at the bottom next to the question)**, recall jumped right back up to **`93.0%`**.\n\nJust like a human cramming a textbook five minutes before class, the model remembers the first page (**primacy**) and the last page it just read (**recency**), while the middle pages blur together."
+      "body_md": "When models began advertising 128k–1M token windows, teams tried dumping 300 pages of messy logs into one prompt. Quality collapsed — even when everything fit comfortably on the tray.\n\nTwo landmark findings explain why:\n1. **Lost in the Middle (Liu et al., Stanford 2023):** Across multi-document QA benchmarks, models recall key facts sharply when placed at the **very beginning (primacy)** or **very end (recency)** of a long context, but accuracy drops into a deep U-shaped trough in the middle. Step 4 of our lab illustrates this U-curve shape analytically (`93.0%` at Chunk 1 & 10 vs `38.7%` in Chunk 6 — explicitly modeled to visualize Liu et al.'s empirical pattern).\n2. **Context Rot (Distractor Interference):** Newer frontier models score ~99% on simple 'find one exact passphrase' Needle-in-a-Haystack tests, *yet* still suffer **Context Rot** on multi-hop reasoning as you pile on loosely related distractor chunks. Every irrelevant paragraph dilutes attention weights and raises hallucination risk.",
+      "expert_note": "Always distinguish **advertised context limit** (the maximum sequence length the positional embeddings/RoPE accept without crashing) from **effective context length** (the length where multi-hop reasoning and instruction-following remain accurate — often a fraction of the advertised ceiling)."
     },
     {
-      "heading": "How to pack your prompt tray so the AI never misses",
-      "badge": "Chapter 4 · Pro Mode",
+      "heading": "The Production Prompt Budget Formula (How to pack the tray like a pro)",
+      "badge": "Chapter 4 · Prompt Architecture",
       "figure_id": "fig-03",
-      "body_md": "Look at `Figure 3`. Knowing the U-curve gives you a concrete layout rule for every production prompt you ever write:\n\n1. **Top of the tray (Chunk 1 — 93% recall):** Put your non-negotiable system role and rules here.\n2. **Middle of the tray (Chunks 3–7 — lower recall):** Put lower-ranked background history or older conversation turns here.\n3. **Bottom of the tray (Chunk 10 — 93% recall):** Put your **#1 highest-ranked retrieved document** and the **exact user question / output format instruction** at the very bottom of the prompt, right before the model starts generating tokens."
+      "body_md": "Before shipping any LLM app, budget your tray explicitly:\n`System + Tool Schemas + Few-Shot Examples + Retrieved Context + Chat History + Reserved Output + Reasoning Budget ≤ Context Limit`\n\nAnd order your blocks from top to bottom (`Figure 3`) to win BOTH **KV Prefix Caching** AND **Primacy/Recency Attention**:\n1. **Top (Static + High Primacy):** Immutable system role, formatting rules, and tool schemas. Because this block never changes between turns, it hits the **90% KV cache discount** every time.\n2. **Middle (Lower Attention):** Older conversation history or secondary background documents.\n3. **Bottom (Highest Recency):** Your `#1` highest-ranked retrieved document, the live timestamp/dynamic variables, and the exact user question right before generation begins."
     }
   ],
   "jargon_decoder": [
@@ -117,11 +209,26 @@
       "term": "lost in the middle",
       "plain_words": "The U-shaped accuracy drop where models recall facts at the very start and very end of a long prompt far better than facts in the middle.",
       "why_you_care": "Tells you to place your top retrieved facts and final instructions at the very start or very bottom of the prompt."
+    },
+    {
+      "term": "prompt caching (KV prefix cache)",
+      "plain_words": "Reusing the model's precomputed attention state for identical prompt beginnings across calls.",
+      "why_you_care": "Cuts multi-turn chat and agent input costs by 50%–90% — if you keep static instructions at the very top."
+    },
+    {
+      "term": "context rot",
+      "plain_words": "Reasoning accuracy steadily degrading as you pack more irrelevant distractor text into a long prompt.",
+      "why_you_care": "Proves that retrieving 5 crisp, relevant chunks beats dumping 50 noisy pages into a 1M window."
+    },
+    {
+      "term": "reasoning tokens",
+      "plain_words": "Hidden scratchpad tokens generated by thinking models before emitting the final visible answer.",
+      "why_you_care": "They share your context window budget AND are billed as output tokens."
     }
   ],
   "lab": {
-    "title": "Simulate Sliding Context Truncation & the 'Lost in the Middle' U-Curve",
-    "goal": "Run a 24-word sliding context window over a 5-turn chat to watch Turn 1's secret locker code ('7492') fall off the tray, then measure the U-shaped recall curve across 10 document positions (93.0% at start/end vs 38.7% in the middle).",
+    "title": "Simulate Sliding Context Truncation, KV Prefix Caching (81% Savings), O(N²) Pairs & U-Curve",
+    "goal": "Watch Turn 1's locker code ('7492') fall off a 24-word sliding tray, calculate the exact 81.0% token savings from KV Prefix Caching across a 10-turn chat, measure O(N²) attention pair explosion, and inspect the Liu et al. U-curve.",
     "steps": [
       "Run `python3 lessons/l0-context-window/lab_main.py` (pure Python 3 stdlib).",
       "Check Step 1: verify which 3 turns get dropped when the 24-word budget overflows and why `'7492'` is no longer visible on Turn 5.",
@@ -129,19 +236,24 @@
     ],
     "acceptance": [
       {
-        "criterion": "Drops the oldest 3 turns when the 24-word budget is exceeded, proving '7492' is invisible to Turn 5.",
+        "criterion": "Drops the oldest 3 turns when the 24-word tray overflows, proving '7492' is invisible on Turn 5.",
         "met": true,
-        "evidence": "Dropped at the door (3 turns): ['Turn 1: My secret locker code is 7492.', ...] | Can the model see '7492'? -> False"
+        "evidence": "Dropped 3 turns | Inside context window (2 turns, 22/24 words) | Can model see '7492'? -> False"
       },
       {
-        "criterion": "Demonstrates the U-shaped recall curve with high accuracy at Chunk 1 (93.0%) and Chunk 10 (93.0%) and a trough at Chunk 6 (38.7%).",
+        "criterion": "Calculates 10-turn input billing without vs with KV Prefix Caching (81.0% cost reduction).",
         "met": true,
-        "evidence": "Chunk 1/10 [START (Primacy)] -> 93.0% | Chunk 6/10 [DEAD MIDDLE] -> 38.7% | Chunk 10/10 [END (Recency)] -> 93.0%"
+        "evidence": "Uncached: 19,000 tokens | With Prefix KV Cache: 3,610 effective tokens (81.0% cheaper!)"
+      },
+      {
+        "criterion": "Computes exact causal O(N^2) attention pair counts at 1k, 10k, and 100k tokens and plots the Liu et al. U-curve model.",
+        "met": true,
+        "evidence": "1k -> 500,500 | 10k -> 50,005,000 | 100k -> 5,000,050,000 pairs | U-curve: 93.0% edges vs 38.7% middle"
       }
     ],
     "code_file": "lab_main.py",
     "walkthrough_md": "### `build_chat_payload(history, max_tokens)`\n- **What it does:** Iterates backward from the newest message (`reversed(history)`), packing turns onto the tray until `used + cost > max_tokens`, and drops everything older.\n- **Why it exists:** Makes the stateless nature of LLM APIs concrete: the server never remembers Turn 1 unless your client code explicitly includes Turn 1 in the array.\n\n### `attention_recall_probability(position_index, total_chunks)`\n- **What it does:** Models the U-shaped primacy/recency curve across a 10-chunk document.\n- **Why it exists:** Shows why ordering your RAG chunks matters: putting the best match at Chunk 1 or Chunk 10 yields `93.0%` recall vs `38.7%` in Chunk 6.",
-    "real_output": "=== STEP 1: Sliding Context Window Budget (Max 24 words) ===\nDropped at the door (3 turns): ['Turn 1: My secret locker code is 7492.', 'Turn 2: Let us discuss the cafeteria menu for Monday.', 'Turn 3: The cafeteria serves masala dosa and filter coffee.']\nInside context window (2 turns): ['Turn 4: On Tuesday the library hosts a robotics club demo.', 'Turn 5: What was my secret locker code from Turn 1?']\nCan the model see '7492'? -> False (Turn 1 fell off the tray!)\n\n=== STEP 2: 'Lost in the Middle' Recall Across a 10-Chunk Document ===\n  Chunk  1/10 [START (Primacy)] -> Recall accuracy:  93.0%\n  Chunk  3/10 [INNER          ] -> Recall accuracy:  55.0%\n  Chunk  6/10 [DEAD MIDDLE    ] -> Recall accuracy:  38.7%\n  Chunk  8/10 [INNER          ] -> Recall accuracy:  55.0%\n  Chunk 10/10 [END (Recency)  ] -> Recall accuracy:  93.0%"
+    "real_output": "=== STEP 1: Sliding Context Window Budget (Max 24 words) ===\nDropped at the door (3 turns): ['Turn 1: My secret locker code is 7492.', 'Turn 2: Let us discuss the cafeteria menu for Monday.', 'Turn 3: The cafeteria serves masala dosa and filter coffee.']\nInside context window (2 turns, 22/24 words): ['Turn 4: On Tuesday the library hosts a robotics club demo.', 'Turn 5: What was my secret locker code from Turn 1?']\nCan the model see '7492'? -> False (Turn 1 fell off the tray!)\n\n=== STEP 2: 10-Turn Chat Billing — Uncached vs KV Prefix Caching ===\n  Uncached total input tokens billed across 10 turns: 19,000\n  With Prefix KV Cache: 17,100 cached (0.1x) + 1,900 fresh = 3,610 eff. tokens (81.0% cheaper!)\n\n=== STEP 3: Quadratic Self-Attention Pairs O(N^2) ===\n  Context N =   1,000 tokens ->       500,500 causal attention pairs\n  Context N =  10,000 tokens ->    50,005,000 causal attention pairs\n  Context N = 100,000 tokens -> 5,000,050,000 causal attention pairs\n\n=== STEP 4: Illustrative U-Curve Model (Liu et al., 2023 'Lost in the Middle') ===\n  Chunk  1/10 [START (Primacy)] -> Modeled recall:  93.0%\n  Chunk  3/10 [INNER          ] -> Modeled recall:  55.0%\n  Chunk  6/10 [DEAD MIDDLE    ] -> Modeled recall:  38.7%\n  Chunk  8/10 [INNER          ] -> Modeled recall:  55.0%\n  Chunk 10/10 [END (Recency)  ] -> Modeled recall:  93.0%"
   },
   "shareable": {
     "notebook_shelf": "Campus Quad Lawn · Checkpoint #04",

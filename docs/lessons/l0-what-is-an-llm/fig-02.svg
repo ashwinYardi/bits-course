@@ -1,128 +1,78 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-28.0 -28.0 974.7 502.0" width="100%" height="auto" class="excalidraw-svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-34.0 -34.0 986.7 514.0" width="100%" height="auto" class="excalidraw-svg">
 <defs>
+<pattern id="draft-dots" width="22" height="22" patternUnits="userSpaceOnUse">
+<circle cx="11" cy="11" r="1.15" fill="#c7d3cc" opacity="0.65" />
+</pattern>
+<filter id="card-shadow" x="-10%" y="-10%" width="125%" height="130%">
+<feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#141d18" flood-opacity="0.08" />
+</filter>
 <style>
-.excalidraw-text { font-family: "Virgil", "Comic Neue", "Caveat", "Segoe Print", "Bradley Hand", ui-rounded, sans-serif; }
+.ed-title { font-family: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, sans-serif; letter-spacing: -0.015em; }
+.ed-label { font-family: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, sans-serif; }
+.ed-mono  { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace; }
 </style>
 </defs>
-<text x="0.0" y="22.1" font-size="24" font-weight="700" fill="#1e1e1e" class="excalidraw-text">What happens after &#x27;the server&#x27; when you turn the temperature dial</text>
-<rect x="3.0" y="64.0" width="111.5" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="60.0" width="111.5" height="56.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
-<rect x="0.8" y="60.4" width="111.5" height="56.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="14.0" y="91.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Next Word</text>
-<rect x="124.5" y="64.0" width="111.5" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="121.5" y="60.0" width="111.5" height="56.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
-<rect x="122.3" y="60.5" width="111.5" height="56.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="135.5" y="91.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Raw Score</text>
-<rect x="246.0" y="64.0" width="102.2" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="243.0" y="60.0" width="102.2" height="56.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
-<rect x="243.9" y="60.5" width="102.2" height="56.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="257.0" y="91.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Temp 0.2</text>
-<rect x="358.3" y="64.0" width="102.2" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="355.3" y="60.0" width="102.2" height="56.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
-<rect x="356.2" y="60.6" width="102.2" height="56.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="369.3" y="91.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Temp 1.0</text>
-<rect x="470.5" y="64.0" width="102.2" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="467.5" y="60.0" width="102.2" height="56.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
-<rect x="468.5" y="60.7" width="102.2" height="56.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="481.5" y="91.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Temp 1.8</text>
-<rect x="3.0" y="130.0" width="111.5" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="126.0" width="111.5" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="1.0" y="126.8" width="111.5" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="23.3" y="157.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">crashed</text>
-<rect x="124.5" y="130.0" width="111.5" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="121.5" y="126.0" width="111.5" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="122.6" y="126.8" width="111.5" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="163.4" y="157.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">3.2</text>
-<rect x="246.0" y="130.0" width="102.2" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="243.0" y="126.0" width="102.2" height="56.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
-<rect x="244.1" y="126.9" width="102.2" height="56.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="271.0" y="157.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">80.6%</text>
-<rect x="358.3" y="130.0" width="102.2" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="355.3" y="126.0" width="102.2" height="56.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
-<rect x="356.4" y="126.9" width="102.2" height="56.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="383.2" y="157.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">44.2%</text>
-<rect x="470.5" y="130.0" width="102.2" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="467.5" y="126.0" width="102.2" height="56.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
-<rect x="468.6" y="127.0" width="102.2" height="56.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="495.4" y="157.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">36.1%</text>
-<rect x="3.0" y="196.0" width="111.5" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="192.0" width="111.5" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="1.1" y="193.0" width="111.5" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="14.0" y="223.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">responded</text>
-<rect x="124.5" y="196.0" width="111.5" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="121.5" y="192.0" width="111.5" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="122.6" y="193.0" width="111.5" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="163.4" y="223.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">2.9</text>
-<rect x="246.0" y="196.0" width="102.2" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="243.0" y="192.0" width="102.2" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="244.1" y="193.1" width="102.2" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="271.0" y="223.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">18.0%</text>
-<rect x="358.3" y="196.0" width="102.2" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="355.3" y="192.0" width="102.2" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="356.3" y="193.1" width="102.2" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="383.2" y="223.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">32.8%</text>
-<rect x="470.5" y="196.0" width="102.2" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="467.5" y="192.0" width="102.2" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="468.6" y="193.1" width="102.2" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="495.4" y="223.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">30.5%</text>
-<rect x="3.0" y="262.0" width="111.5" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="258.0" width="111.5" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="1.0" y="259.1" width="111.5" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="32.6" y="289.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">timed</text>
-<rect x="124.5" y="262.0" width="111.5" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="121.5" y="258.0" width="111.5" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="122.5" y="259.1" width="111.5" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="163.4" y="289.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">2.4</text>
-<rect x="246.0" y="262.0" width="102.2" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="243.0" y="258.0" width="102.2" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="244.0" y="259.1" width="102.2" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="275.6" y="289.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">1.5%</text>
-<rect x="358.3" y="262.0" width="102.2" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="355.3" y="258.0" width="102.2" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="356.1" y="259.1" width="102.2" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="383.2" y="289.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">19.9%</text>
-<rect x="470.5" y="262.0" width="102.2" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="467.5" y="258.0" width="102.2" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="468.3" y="259.0" width="102.2" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="495.4" y="289.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">23.1%</text>
-<rect x="3.0" y="328.0" width="111.5" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="324.0" width="111.5" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="0.7" y="325.0" width="111.5" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="27.9" y="355.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">melted</text>
-<rect x="124.5" y="328.0" width="111.5" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="121.5" y="324.0" width="111.5" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="122.2" y="325.0" width="111.5" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="163.4" y="355.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.4</text>
-<rect x="246.0" y="328.0" width="102.2" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="243.0" y="324.0" width="102.2" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="243.6" y="324.9" width="102.2" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="275.6" y="355.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.0%</text>
-<rect x="358.3" y="328.0" width="102.2" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="355.3" y="324.0" width="102.2" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="355.8" y="324.9" width="102.2" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="387.8" y="355.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">2.7%</text>
-<rect x="470.5" y="328.0" width="102.2" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="467.5" y="324.0" width="102.2" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="468.0" y="324.8" width="102.2" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="500.1" y="355.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">7.6%</text>
-<rect x="3.0" y="394.0" width="111.5" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="390.0" width="111.5" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="0.3" y="390.7" width="111.5" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="27.9" y="421.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">danced</text>
-<rect x="124.5" y="394.0" width="111.5" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="121.5" y="390.0" width="111.5" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="121.8" y="390.7" width="111.5" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="158.7" y="421.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">-1.5</text>
-<rect x="246.0" y="394.0" width="102.2" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="243.0" y="390.0" width="102.2" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="243.2" y="390.6" width="102.2" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="275.6" y="421.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.0%</text>
-<rect x="358.3" y="394.0" width="102.2" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="355.3" y="390.0" width="102.2" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="355.4" y="390.5" width="102.2" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="387.8" y="421.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.4%</text>
-<rect x="470.5" y="394.0" width="102.2" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="467.5" y="390.0" width="102.2" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="467.5" y="390.4" width="102.2" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="500.1" y="421.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">2.6%</text>
+<rect x="-34.0" y="-34.0" width="986.7" height="514.0" rx="14" fill="#fbfcfb" />
+<rect x="-34.0" y="-34.0" width="986.7" height="514.0" rx="14" fill="url(#draft-dots)" />
+<text x="0.0" y="22.1" font-size="24" font-weight="800" fill="#141d18" class="ed-title">What happens after &#x27;the server&#x27; when you turn the temperature dial</text>
+<rect x="0.0" y="60.0" width="111.5" height="56.0" rx="9" fill="#e8f0f4" stroke="#335c73" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="14.0" y="91.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">Next Word</text>
+<rect x="121.5" y="60.0" width="111.5" height="56.0" rx="9" fill="#e8f0f4" stroke="#335c73" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="135.5" y="91.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">Raw Score</text>
+<rect x="243.0" y="60.0" width="102.2" height="56.0" rx="9" fill="#e8f0f4" stroke="#335c73" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="257.0" y="91.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">Temp 0.2</text>
+<rect x="355.3" y="60.0" width="102.2" height="56.0" rx="9" fill="#e8f0f4" stroke="#335c73" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="369.3" y="91.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">Temp 1.0</text>
+<rect x="467.5" y="60.0" width="102.2" height="56.0" rx="9" fill="#e8f0f4" stroke="#335c73" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="481.5" y="91.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">Temp 1.8</text>
+<rect x="0.0" y="126.0" width="111.5" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="23.3" y="157.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">crashed</text>
+<rect x="121.5" y="126.0" width="111.5" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="163.4" y="157.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">3.2</text>
+<rect x="243.0" y="126.0" width="102.2" height="56.0" rx="9" fill="#faeae4" stroke="#a93b1f" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="271.0" y="157.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">80.6%</text>
+<rect x="355.3" y="126.0" width="102.2" height="56.0" rx="9" fill="#faeae4" stroke="#a93b1f" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="383.2" y="157.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">44.2%</text>
+<rect x="467.5" y="126.0" width="102.2" height="56.0" rx="9" fill="#faeae4" stroke="#a93b1f" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="495.4" y="157.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">36.1%</text>
+<rect x="0.0" y="192.0" width="111.5" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="14.0" y="223.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">responded</text>
+<rect x="121.5" y="192.0" width="111.5" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="163.4" y="223.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">2.9</text>
+<rect x="243.0" y="192.0" width="102.2" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="271.0" y="223.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">18.0%</text>
+<rect x="355.3" y="192.0" width="102.2" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="383.2" y="223.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">32.8%</text>
+<rect x="467.5" y="192.0" width="102.2" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="495.4" y="223.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">30.5%</text>
+<rect x="0.0" y="258.0" width="111.5" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="32.6" y="289.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">timed</text>
+<rect x="121.5" y="258.0" width="111.5" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="163.4" y="289.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">2.4</text>
+<rect x="243.0" y="258.0" width="102.2" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="275.6" y="289.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">1.5%</text>
+<rect x="355.3" y="258.0" width="102.2" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="383.2" y="289.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">19.9%</text>
+<rect x="467.5" y="258.0" width="102.2" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="495.4" y="289.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">23.1%</text>
+<rect x="0.0" y="324.0" width="111.5" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="27.9" y="355.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">melted</text>
+<rect x="121.5" y="324.0" width="111.5" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="163.4" y="355.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.4</text>
+<rect x="243.0" y="324.0" width="102.2" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="275.6" y="355.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.0%</text>
+<rect x="355.3" y="324.0" width="102.2" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="387.8" y="355.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">2.7%</text>
+<rect x="467.5" y="324.0" width="102.2" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="500.1" y="355.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">7.6%</text>
+<rect x="0.0" y="390.0" width="111.5" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="27.9" y="421.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">danced</text>
+<rect x="121.5" y="390.0" width="111.5" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="158.7" y="421.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">-1.5</text>
+<rect x="243.0" y="390.0" width="102.2" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="275.6" y="421.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.0%</text>
+<rect x="355.3" y="390.0" width="102.2" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="387.8" y="421.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.4%</text>
+<rect x="467.5" y="390.0" width="102.2" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="500.1" y="421.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">2.6%</text>
 </svg>

@@ -1,112 +1,72 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-28.0 -28.0 765.9 478.0" width="100%" height="auto" class="excalidraw-svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-34.0 -34.0 777.9 490.0" width="100%" height="auto" class="excalidraw-svg">
 <defs>
+<pattern id="draft-dots" width="22" height="22" patternUnits="userSpaceOnUse">
+<circle cx="11" cy="11" r="1.15" fill="#c7d3cc" opacity="0.65" />
+</pattern>
+<filter id="card-shadow" x="-10%" y="-10%" width="125%" height="130%">
+<feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#141d18" flood-opacity="0.08" />
+</filter>
 <style>
-.excalidraw-text { font-family: "Virgil", "Comic Neue", "Caveat", "Segoe Print", "Bradley Hand", ui-rounded, sans-serif; }
+.ed-title { font-family: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, sans-serif; letter-spacing: -0.015em; }
+.ed-label { font-family: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, sans-serif; }
+.ed-mono  { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace; }
 </style>
 </defs>
-<text x="0.0" y="22.1" font-size="24" font-weight="700" fill="#1e1e1e" class="excalidraw-text">Why Hindi and Emojis cost more tickets than English</text>
-<rect x="3.0" y="64.0" width="148.6" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="60.0" width="148.6" height="70.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
-<rect x="0.8" y="60.4" width="148.6" height="70.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="27.9" y="98.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Input Text</text>
-<rect x="161.6" y="64.0" width="93.0" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="158.6" y="60.0" width="93.0" height="70.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
-<rect x="159.5" y="60.5" width="93.0" height="70.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="172.6" y="98.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Letters</text>
-<rect x="264.6" y="64.0" width="83.7" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="261.6" y="60.0" width="83.7" height="70.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
-<rect x="262.5" y="60.5" width="83.7" height="70.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="275.6" y="98.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Tokens</text>
-<rect x="358.3" y="64.0" width="102.2" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="355.3" y="60.0" width="102.2" height="70.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
-<rect x="356.2" y="60.6" width="102.2" height="70.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="369.3" y="87.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Tokens /</text>
-<text x="378.6" y="109.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Letter</text>
-<rect x="470.5" y="64.0" width="120.8" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="467.5" y="60.0" width="120.8" height="70.0" rx="12" fill="#d0ebff" stroke="#1d4ed8" stroke-width="2" />
-<rect x="466.5" y="59.3" width="120.8" height="70.0" rx="13" fill="none" stroke="#1d4ed8" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="509.4" y="87.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Cost</text>
-<text x="481.5" y="109.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">Multiplier</text>
-<rect x="3.0" y="144.0" width="148.6" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="140.0" width="148.6" height="70.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="1.0" y="140.8" width="148.6" height="70.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="27.9" y="167.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">The server</text>
-<text x="18.6" y="189.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">responded...</text>
-<rect x="161.6" y="144.0" width="93.0" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="158.6" y="140.0" width="93.0" height="70.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="157.6" y="139.1" width="93.0" height="70.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="195.8" y="178.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">29</text>
-<rect x="264.6" y="144.0" width="83.7" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="261.6" y="140.0" width="83.7" height="70.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="260.5" y="139.0" width="83.7" height="70.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="298.8" y="178.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">8</text>
-<rect x="358.3" y="144.0" width="102.2" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="355.3" y="140.0" width="102.2" height="70.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="354.2" y="139.0" width="102.2" height="70.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="387.8" y="178.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.28</text>
-<rect x="470.5" y="144.0" width="120.8" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="467.5" y="140.0" width="120.8" height="70.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="466.4" y="139.0" width="120.8" height="70.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="509.4" y="178.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">1.0x</text>
-<rect x="3.0" y="224.0" width="148.6" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="220.0" width="148.6" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="-1.1" y="218.9" width="148.6" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="27.9" y="251.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">strawberry</text>
-<rect x="161.6" y="224.0" width="93.0" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="158.6" y="220.0" width="93.0" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="157.6" y="218.9" width="93.0" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="195.8" y="251.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">10</text>
-<rect x="264.6" y="224.0" width="83.7" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="261.6" y="220.0" width="83.7" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="260.6" y="218.9" width="83.7" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="298.8" y="251.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">3</text>
-<rect x="358.3" y="224.0" width="102.2" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="355.3" y="220.0" width="102.2" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="354.3" y="218.9" width="102.2" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="387.8" y="251.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.30</text>
-<rect x="470.5" y="224.0" width="120.8" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="467.5" y="220.0" width="120.8" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="466.5" y="218.9" width="120.8" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="509.4" y="251.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">1.1x</text>
-<rect x="3.0" y="290.0" width="148.6" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="286.0" width="148.6" height="70.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="-0.9" y="284.9" width="148.6" height="70.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="14.0" y="313.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">नमस्ते दुनिया</text>
-<text x="41.8" y="335.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">(Hindi)</text>
-<rect x="161.6" y="290.0" width="93.0" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="158.6" y="286.0" width="93.0" height="70.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="159.5" y="287.1" width="93.0" height="70.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="195.8" y="324.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">13</text>
-<rect x="264.6" y="290.0" width="83.7" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="261.6" y="286.0" width="83.7" height="70.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
-<rect x="262.4" y="287.0" width="83.7" height="70.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="294.2" y="324.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">12</text>
-<rect x="358.3" y="290.0" width="102.2" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="355.3" y="286.0" width="102.2" height="70.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
-<rect x="356.0" y="287.0" width="102.2" height="70.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="387.8" y="324.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">0.92</text>
-<rect x="470.5" y="290.0" width="120.8" height="70.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="467.5" y="286.0" width="120.8" height="70.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
-<rect x="468.2" y="287.0" width="120.8" height="70.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="509.4" y="324.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">3.3x</text>
-<rect x="3.0" y="370.0" width="148.6" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="0.0" y="366.0" width="148.6" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="0.6" y="366.9" width="148.6" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="18.6" y="397.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">🚀🔥🤖 (Emojis)</text>
-<rect x="161.6" y="370.0" width="93.0" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="158.6" y="366.0" width="93.0" height="56.0" rx="12" fill="#f1f3f5" stroke="#475569" stroke-width="2" />
-<rect x="159.2" y="366.9" width="93.0" height="56.0" rx="13" fill="none" stroke="#475569" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="200.5" y="397.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">3</text>
-<rect x="264.6" y="370.0" width="83.7" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="261.6" y="366.0" width="83.7" height="56.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
-<rect x="262.0" y="366.8" width="83.7" height="56.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="298.8" y="397.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">6</text>
-<rect x="358.3" y="370.0" width="102.2" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="355.3" y="366.0" width="102.2" height="56.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
-<rect x="355.6" y="366.7" width="102.2" height="56.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="387.8" y="397.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">2.00</text>
-<rect x="470.5" y="370.0" width="120.8" height="56.0" rx="12" fill="#0f172a" fill-opacity="0.06" />
-<rect x="467.5" y="366.0" width="120.8" height="56.0" rx="12" fill="#ffd8a8" stroke="#c2410c" stroke-width="2" />
-<rect x="467.8" y="366.7" width="120.8" height="56.0" rx="13" fill="none" stroke="#c2410c" stroke-width="1.1" stroke-opacity="0.55" />
-<text x="509.4" y="397.7" font-size="16" font-weight="500" fill="#1e1e1e" class="excalidraw-text">7.1x</text>
+<rect x="-34.0" y="-34.0" width="777.9" height="490.0" rx="14" fill="#fbfcfb" />
+<rect x="-34.0" y="-34.0" width="777.9" height="490.0" rx="14" fill="url(#draft-dots)" />
+<text x="0.0" y="22.1" font-size="24" font-weight="800" fill="#141d18" class="ed-title">Why Hindi and Emojis cost more tickets than English</text>
+<rect x="0.0" y="60.0" width="148.6" height="70.0" rx="9" fill="#e8f0f4" stroke="#335c73" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="27.9" y="98.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">Input Text</text>
+<rect x="158.6" y="60.0" width="93.0" height="70.0" rx="9" fill="#e8f0f4" stroke="#335c73" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="172.6" y="98.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">Letters</text>
+<rect x="261.6" y="60.0" width="83.7" height="70.0" rx="9" fill="#e8f0f4" stroke="#335c73" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="275.6" y="98.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">Tokens</text>
+<rect x="355.3" y="60.0" width="102.2" height="70.0" rx="9" fill="#e8f0f4" stroke="#335c73" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="369.3" y="87.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">Tokens /</text>
+<text x="378.6" y="109.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">Letter</text>
+<rect x="467.5" y="60.0" width="120.8" height="70.0" rx="9" fill="#e8f0f4" stroke="#335c73" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="509.4" y="87.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">Cost</text>
+<text x="481.5" y="109.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">Multiplier</text>
+<rect x="0.0" y="140.0" width="148.6" height="70.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="27.9" y="167.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">The server</text>
+<text x="18.6" y="189.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">responded...</text>
+<rect x="158.6" y="140.0" width="93.0" height="70.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="195.8" y="178.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">29</text>
+<rect x="261.6" y="140.0" width="83.7" height="70.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="298.8" y="178.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">8</text>
+<rect x="355.3" y="140.0" width="102.2" height="70.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="387.8" y="178.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.28</text>
+<rect x="467.5" y="140.0" width="120.8" height="70.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="509.4" y="178.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">1.0x</text>
+<rect x="0.0" y="220.0" width="148.6" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="27.9" y="251.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">strawberry</text>
+<rect x="158.6" y="220.0" width="93.0" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="195.8" y="251.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">10</text>
+<rect x="261.6" y="220.0" width="83.7" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="298.8" y="251.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">3</text>
+<rect x="355.3" y="220.0" width="102.2" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="387.8" y="251.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.30</text>
+<rect x="467.5" y="220.0" width="120.8" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="509.4" y="251.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">1.1x</text>
+<rect x="0.0" y="286.0" width="148.6" height="70.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="14.0" y="313.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">नमस्ते दुनिया</text>
+<text x="41.8" y="335.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">(Hindi)</text>
+<rect x="158.6" y="286.0" width="93.0" height="70.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="195.8" y="324.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">13</text>
+<rect x="261.6" y="286.0" width="83.7" height="70.0" rx="9" fill="#faeae4" stroke="#a93b1f" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="294.2" y="324.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">12</text>
+<rect x="355.3" y="286.0" width="102.2" height="70.0" rx="9" fill="#faeae4" stroke="#a93b1f" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="387.8" y="324.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">0.92</text>
+<rect x="467.5" y="286.0" width="120.8" height="70.0" rx="9" fill="#faeae4" stroke="#a93b1f" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="509.4" y="324.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">3.3x</text>
+<rect x="0.0" y="366.0" width="148.6" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="18.6" y="397.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">🚀🔥🤖 (Emojis)</text>
+<rect x="158.6" y="366.0" width="93.0" height="56.0" rx="9" fill="#f3f6f4" stroke="#8d9c94" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="200.5" y="397.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">3</text>
+<rect x="261.6" y="366.0" width="83.7" height="56.0" rx="9" fill="#faeae4" stroke="#a93b1f" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="298.8" y="397.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">6</text>
+<rect x="355.3" y="366.0" width="102.2" height="56.0" rx="9" fill="#faeae4" stroke="#a93b1f" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="387.8" y="397.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">2.00</text>
+<rect x="467.5" y="366.0" width="120.8" height="56.0" rx="9" fill="#faeae4" stroke="#a93b1f" stroke-opacity="0.45" stroke-width="1.3" />
+<text x="509.4" y="397.7" font-size="16" font-weight="600" fill="#141d18" class="ed-label">7.2x</text>
 </svg>
