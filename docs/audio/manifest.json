@@ -1,0 +1,135 @@
+{
+  "karpathy_intro": {
+    "file": "audio/karpathy_intro.mp3",
+    "actor": "Andrej Karpathy",
+    "voice": "am_michael",
+    "durationSec": 27.8,
+    "bytes": 222912
+  },
+  "karpathy_arrival": {
+    "file": "audio/karpathy_arrival.mp3",
+    "actor": "Andrej Karpathy",
+    "voice": "am_michael",
+    "durationSec": 7.78,
+    "bytes": 62592
+  },
+  "karpathy_after_l0-what-is-an-llm": {
+    "file": "audio/karpathy_after_l0-what-is-an-llm.mp3",
+    "actor": "Andrej Karpathy",
+    "voice": "am_michael",
+    "durationSec": 18.5,
+    "bytes": 148416
+  },
+  "karpathy_after_l0-tokens": {
+    "file": "audio/karpathy_after_l0-tokens.mp3",
+    "actor": "Andrej Karpathy",
+    "voice": "am_michael",
+    "durationSec": 18.98,
+    "bytes": 152256
+  },
+  "karpathy_after_l0-embeddings": {
+    "file": "audio/karpathy_after_l0-embeddings.mp3",
+    "actor": "Andrej Karpathy",
+    "voice": "am_michael",
+    "durationSec": 18.15,
+    "bytes": 145728
+  },
+  "karpathy_after_l0-context-window": {
+    "file": "audio/karpathy_after_l0-context-window.mp3",
+    "actor": "Andrej Karpathy",
+    "voice": "am_michael",
+    "durationSec": 22.05,
+    "bytes": 176832
+  },
+  "karpathy_manual": {
+    "file": "audio/karpathy_manual.mp3",
+    "actor": "Andrej Karpathy",
+    "voice": "am_michael",
+    "durationSec": 14.5,
+    "bytes": 116544
+  },
+  "npc_l0-what-is-an-llm_0": {
+    "file": "audio/npc_l0-what-is-an-llm_0.mp3",
+    "actor": "Officer Rajan",
+    "voice": "am_fenrir",
+    "durationSec": 17.1,
+    "bytes": 137280
+  },
+  "npc_l0-what-is-an-llm_1": {
+    "file": "audio/npc_l0-what-is-an-llm_1.mp3",
+    "actor": "Officer Rajan",
+    "voice": "am_fenrir",
+    "durationSec": 19.1,
+    "bytes": 153216
+  },
+  "npc_l0-what-is-an-llm_cleared": {
+    "file": "audio/npc_l0-what-is-an-llm_cleared.mp3",
+    "actor": "Officer Rajan",
+    "voice": "am_fenrir",
+    "durationSec": 13.13,
+    "bytes": 105408
+  },
+  "npc_l0-tokens_0": {
+    "file": "audio/npc_l0-tokens_0.mp3",
+    "actor": "Maya",
+    "voice": "af_bella",
+    "durationSec": 20.07,
+    "bytes": 161088
+  },
+  "npc_l0-tokens_1": {
+    "file": "audio/npc_l0-tokens_1.mp3",
+    "actor": "Maya",
+    "voice": "af_bella",
+    "durationSec": 21.57,
+    "bytes": 172992
+  },
+  "npc_l0-tokens_cleared": {
+    "file": "audio/npc_l0-tokens_cleared.mp3",
+    "actor": "Maya",
+    "voice": "af_bella",
+    "durationSec": 15.75,
+    "bytes": 126528
+  },
+  "npc_l0-embeddings_0": {
+    "file": "audio/npc_l0-embeddings_0.mp3",
+    "actor": "Chef Kabir",
+    "voice": "bm_george",
+    "durationSec": 14.8,
+    "bytes": 118848
+  },
+  "npc_l0-embeddings_1": {
+    "file": "audio/npc_l0-embeddings_1.mp3",
+    "actor": "Chef Kabir",
+    "voice": "bm_george",
+    "durationSec": 23.4,
+    "bytes": 187584
+  },
+  "npc_l0-embeddings_cleared": {
+    "file": "audio/npc_l0-embeddings_cleared.mp3",
+    "actor": "Chef Kabir",
+    "voice": "bm_george",
+    "durationSec": 13.05,
+    "bytes": 104832
+  },
+  "npc_l0-context-window_0": {
+    "file": "audio/npc_l0-context-window_0.mp3",
+    "actor": "Prof. Meera",
+    "voice": "bf_emma",
+    "durationSec": 16.3,
+    "bytes": 130944
+  },
+  "npc_l0-context-window_1": {
+    "file": "audio/npc_l0-context-window_1.mp3",
+    "actor": "Prof. Meera",
+    "voice": "bf_emma",
+    "durationSec": 22.85,
+    "bytes": 183360
+  },
+  "npc_l0-context-window_cleared": {
+    "file": "audio/npc_l0-context-window_cleared.mp3",
+    "actor": "Prof. Meera",
+    "voice": "bf_emma",
+    "durationSec": 12.65,
+    "bytes": 101760
+  }
+}

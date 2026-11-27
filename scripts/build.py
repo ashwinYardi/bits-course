@@ -821,6 +821,42 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       padding: 0.14rem 0.58rem;
       border-radius: 999px;
     }}
+    .rpg-speaker-right {{
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }}
+    .voice-pill-btn {{
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--ink);
+      background: var(--paper);
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+      padding: 0.16rem 0.62rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 140ms ease-out, transform 140ms ease-out;
+    }}
+    .voice-pill-btn:hover {{
+      background: var(--amber-soft);
+      transform: translateY(-1px);
+    }}
+    .voice-pill-btn.speaking {{
+      color: var(--meadow);
+      background: var(--meadow-soft);
+      border-color: var(--meadow);
+    }}
+    .voice-pill-btn.needs-tap {{
+      color: #ffffff;
+      background: var(--terracotta);
+      border-color: var(--ink);
+    }}
     .rpg-speech-text {{
       font-size: 1.02rem;
       color: var(--ink);
@@ -1874,7 +1910,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       </div>
       <div class="hud-right-cluster">
         <button class="thin-btn" id="btn-exit-hall" style="display:none;" onclick="switchScene('campus')">← Exit Hall</button>
-        <button class="thin-btn" id="btn-sound-toggle" onclick="toggleSoundMute()">🔊 SFX</button>
+        <button class="thin-btn" id="btn-sound-toggle" onclick="toggleSoundMute()">🔊 Voice</button>
         <button class="thin-btn" onclick="triggerKarpathyCall('manual')">📞 Call Karpathy</button>
         <button class="thin-btn thin-btn-meadow" onclick="walkToCurrentQuest()">🚶 Next Mission →</button>
         <button class="thin-btn" onclick="toggleTeleportDrawer(true)">🗺️ Map (53)</button>
@@ -1893,9 +1929,12 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         <div class="karpathy-call-top">
           <canvas id="karpathy-avatar-canvas" width="104" height="104"></canvas>
           <div style="flex:1;min-width:0;">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:0.35rem;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:0.35rem;flex-wrap:wrap;">
               <span style="font-family:var(--mono);font-size:0.76rem;font-weight:700;color:var(--meadow);" id="karpathy-call-status">📲 INCOMING 3D CALL</span>
-              <div class="call-wave"><span></span><span></span><span></span><span></span></div>
+              <div style="display:flex;align-items:center;gap:0.35rem;">
+                <button class="voice-pill-btn" id="karpathy-toast-voice-btn" style="display:none;" type="button" onclick="replayActiveVoiceover('karpathy-toast-voice-btn')">🔊 Replay</button>
+                <div class="call-wave"><span></span><span></span><span></span><span></span></div>
+              </div>
             </div>
             <div style="font-family:var(--serif);font-weight:800;font-size:1rem;color:var(--ink);line-height:1.35;">Andrej Karpathy</div>
             <div style="font-size:0.76rem;color:var(--muted);font-weight:700;">Founder · Pocket Communicator</div>
@@ -1929,7 +1968,10 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         <div>
           <div class="rpg-speaker-bar">
             <span class="rpg-speaker-name" id="rpg-speaker-name">Officer Rajan</span>
-            <span class="rpg-speaker-role" id="rpg-speaker-role">CHIEF OF CAMPUS SECURITY · SOUTH GATE</span>
+            <div class="rpg-speaker-right">
+              <button class="voice-pill-btn" id="rpg-voice-btn" type="button" onclick="replayActiveVoiceover('rpg-voice-btn')">🔊 Replay</button>
+              <span class="rpg-speaker-role" id="rpg-speaker-role">CHIEF OF CAMPUS SECURITY · SOUTH GATE</span>
+            </div>
           </div>
           <div class="rpg-speech-text" id="rpg-speech-text"></div>
           <div class="rpg-choices" id="rpg-choices"></div>
@@ -1980,14 +2022,17 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
             placeholder="Type your name or handle…"
             onkeydown="if(event.key==='Enter'){{event.preventDefault();handleCinemaAction('next');}}"
           />
-          <p class="cinema-identity-hint" id="cinema-identity-hint">Saved locally in your browser. Karpathy &amp; campus mentors will address you directly.</p>
+          <p class="cinema-identity-hint" id="cinema-identity-hint">Saved locally in your browser for your campus badge and progress tracker.</p>
         </div>
 
         <!-- Live token-streamed Karpathy call transcript (shown after clicking Answer Call) -->
         <div class="cinema-stream-box" id="cinema-stream-box">
           <div class="cinema-stream-meta">
             <span id="cinema-stream-status">● LIVE VOICE STREAM</span>
-            <span id="cinema-stream-tokens">0 tokens</span>
+            <div style="display:flex;align-items:center;gap:0.45rem;">
+              <button class="voice-pill-btn" id="cinema-voice-btn" type="button" onclick="replayActiveVoiceover('cinema-voice-btn')">🔊 Speaking…</button>
+              <span id="cinema-stream-tokens">0 tokens</span>
+            </div>
           </div>
           <p class="cinema-stream-text" id="cinema-stream-text"></p>
         </div>
@@ -2128,18 +2173,149 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       if (el) el.innerText = getPlayerName();
     }}
 
+    // =========================================================================
+    // NEURAL VOICEOVER ENGINE + STUTTER-FREE WEBAUDIO SFX
+    // =========================================================================
+    const voiceAudio = new Audio();
+    voiceAudio.preload = "auto";
+    let activeVoiceClipId = null;
+    let activeVoiceBtnId = null;
+    let voicePlaying = false;
+    let voicePlayToken = 0;
+
+    function unlockAudioOnGesture() {{
+      if (soundMuted) return;
+      try {{
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === "suspended") audioCtx.resume().catch(() => {{}});
+      }} catch (e) {{}}
+    }}
+    window.addEventListener("pointerdown", unlockAudioOnGesture, {{ passive: true }});
+    window.addEventListener("keydown", unlockAudioOnGesture, {{ passive: true }});
+
+    function setVoiceBtnState(btnId, mode) {{
+      if (!btnId) return;
+      const btn = document.getElementById(btnId);
+      if (!btn) return;
+      btn.classList.remove("speaking", "needs-tap");
+      if (mode === "speaking") {{
+        btn.classList.add("speaking");
+        btn.innerText = "🔊 Speaking…";
+      }} else if (mode === "tap") {{
+        btn.classList.add("needs-tap");
+        btn.innerText = "▶ Play Voice";
+      }} else if (mode === "muted") {{
+        btn.innerText = "🔇 Muted";
+      }} else {{
+        btn.innerText = "🔊 Replay";
+      }}
+    }}
+
+    function stopVoiceover() {{
+      voicePlayToken += 1;
+      try {{
+        voiceAudio.pause();
+        voiceAudio.currentTime = 0;
+      }} catch (e) {{}}
+      voicePlaying = false;
+      if (activeVoiceBtnId) {{
+        setVoiceBtnState(activeVoiceBtnId, soundMuted ? "muted" : "replay");
+      }}
+    }}
+
+    function playVoiceover(clipId, btnId, onMetaDuration = null) {{
+      const myToken = ++voicePlayToken;
+      if (activeVoiceBtnId && activeVoiceBtnId !== btnId) {{
+        setVoiceBtnState(activeVoiceBtnId, soundMuted ? "muted" : "replay");
+      }}
+      activeVoiceClipId = clipId;
+      activeVoiceBtnId = btnId;
+      try {{
+        voiceAudio.pause();
+        voiceAudio.currentTime = 0;
+      }} catch (e) {{}}
+      voicePlaying = false;
+
+      if (!clipId) return;
+      if (soundMuted) {{
+        setVoiceBtnState(btnId, "muted");
+        return;
+      }}
+
+      const src = `audio/${{clipId}}.mp3`;
+      voiceAudio.onloadedmetadata = () => {{
+        if (myToken !== voicePlayToken) return;
+        if (onMetaDuration && Number.isFinite(voiceAudio.duration) && voiceAudio.duration > 0.5) {{
+          onMetaDuration(voiceAudio.duration);
+        }}
+      }};
+      voiceAudio.onended = () => {{
+        if (myToken !== voicePlayToken) return;
+        voicePlaying = false;
+        setVoiceBtnState(btnId, "replay");
+      }};
+      voiceAudio.onerror = () => {{
+        if (myToken !== voicePlayToken) return;
+        voicePlaying = false;
+        setVoiceBtnState(btnId, "replay");
+      }};
+
+      if (voiceAudio.getAttribute("data-clip") !== clipId) {{
+        voiceAudio.setAttribute("data-clip", clipId);
+        voiceAudio.src = src;
+        voiceAudio.load();
+      }} else {{
+        voiceAudio.currentTime = 0;
+        if (onMetaDuration && Number.isFinite(voiceAudio.duration) && voiceAudio.duration > 0.5) {{
+          onMetaDuration(voiceAudio.duration);
+        }}
+      }}
+
+      setVoiceBtnState(btnId, "speaking");
+      const playPromise = voiceAudio.play();
+      if (playPromise && typeof playPromise.then === "function") {{
+        playPromise.then(() => {{
+          if (myToken !== voicePlayToken) {{
+            voiceAudio.pause();
+            return;
+          }}
+          voicePlaying = true;
+          setVoiceBtnState(btnId, "speaking");
+        }}).catch(() => {{
+          if (myToken !== voicePlayToken) return;
+          voicePlaying = false;
+          setVoiceBtnState(btnId, "tap");
+        }});
+      }} else {{
+        voicePlaying = true;
+      }}
+    }}
+
+    function replayActiveVoiceover(btnId) {{
+      if (soundMuted) {{
+        soundMuted = false;
+        const hudBtn = document.getElementById("btn-sound-toggle");
+        if (hudBtn) hudBtn.innerText = "🔊 Voice";
+      }}
+      if (activeVoiceClipId) {{
+        playVoiceover(activeVoiceClipId, btnId || activeVoiceBtnId);
+      }}
+    }}
+
     function getAudioCtx() {{
       if (soundMuted) return null;
       try {{
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === "suspended") audioCtx.resume();
+        if (audioCtx.state === "suspended") audioCtx.resume().catch(() => {{}});
         return audioCtx;
       }} catch (e) {{ return null; }}
     }}
 
-    function playTone(freq, dur, startOffset = 0, gainVal = 0.08, type = "sine") {{
+    function playTone(freq, dur, startOffset = 0, gainVal = 0.08, type = "sine", requireRunning = false) {{
       const ac = getAudioCtx();
       if (!ac) return;
+      if (requireRunning && ac.state !== "running") return;
+      if (ac.state !== "running") return;
       const now = ac.currentTime + startOffset;
       const osc = ac.createOscillator();
       const g = ac.createGain();
@@ -2155,8 +2331,8 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     }}
 
     function playPhoneRingBurst() {{
-      if (soundMuted) return;
-      // Dual-chime modern phone ringtone burst (harmonic pair)
+      if (soundMuted || voicePlaying) return;
+      // Dual-chime modern phone ringtone burst (only when AudioContext is unlocked)
       const hits = [
         [784.0, 0.13, 0.00],
         [987.77, 0.13, 0.00],
@@ -2166,14 +2342,14 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         [987.77, 0.13, 0.44],
         [1174.66, 0.22, 0.60]
       ];
-      hits.forEach(([f, d, o]) => playTone(f, d, o, 0.065, "triangle"));
+      hits.forEach(([f, d, o]) => playTone(f, d, o, 0.065, "triangle", true));
     }}
 
     function startRingtoneLoop() {{
       stopRingtoneLoop();
       playPhoneRingBurst();
       ringtoneInterval = setInterval(() => {{
-        if (!soundMuted) playPhoneRingBurst();
+        if (!soundMuted && !voicePlaying) playPhoneRingBurst();
       }}, 2150);
     }}
 
@@ -2189,28 +2365,35 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       if (kind === "ring") {{
         playPhoneRingBurst();
       }} else if (kind === "pickup") {{
-        playTone(587.33, 0.09, 0.00, 0.07, "sine");
-        playTone(880.00, 0.14, 0.07, 0.075, "sine");
+        playTone(587.33, 0.09, 0.00, 0.07, "sine", true);
+        playTone(880.00, 0.14, 0.07, 0.075, "sine", true);
       }} else if (kind === "tok") {{
-        playTone(620 + Math.random() * 140, 0.025, 0.0, 0.015, "sine");
+        // Never clash synthetic beeps with real neural voiceovers or queue when suspended
+        if (voicePlaying) return;
+        playTone(620 + Math.random() * 140, 0.022, 0.0, 0.012, "sine", true);
       }} else if (kind === "whistle") {{
-        playTone(1350, 0.18, 0.0, 0.06, "sine");
-        playTone(1520, 0.24, 0.16, 0.06, "sine");
+        playTone(1350, 0.18, 0.0, 0.06, "sine", true);
+        playTone(1520, 0.24, 0.16, 0.06, "sine", true);
       }} else if (kind === "clear") {{
-        playTone(523.25, 0.18, 0.00, 0.08, "triangle");
-        playTone(659.25, 0.18, 0.12, 0.08, "triangle");
-        playTone(783.99, 0.28, 0.24, 0.09, "triangle");
+        playTone(523.25, 0.18, 0.00, 0.08, "triangle", true);
+        playTone(659.25, 0.18, 0.12, 0.08, "triangle", true);
+        playTone(783.99, 0.28, 0.24, 0.09, "triangle", true);
       }} else if (kind === "surprise") {{
-        playTone(587.33, 0.14, 0.00, 0.07, "sine");
-        playTone(880.00, 0.22, 0.11, 0.08, "sine");
+        playTone(587.33, 0.14, 0.00, 0.07, "sine", true);
+        playTone(880.00, 0.22, 0.11, 0.08, "sine", true);
       }}
     }}
 
     function toggleSoundMute() {{
       soundMuted = !soundMuted;
-      if (soundMuted) stopRingtoneLoop();
+      if (soundMuted) {{
+        stopRingtoneLoop();
+        stopVoiceover();
+      }} else if (activeVoiceBtnId) {{
+        setVoiceBtnState(activeVoiceBtnId, "replay");
+      }}
       const btn = document.getElementById("btn-sound-toggle");
-      if (btn) btn.innerText = soundMuted ? "🔇 Muted" : "🔊 SFX";
+      if (btn) btn.innerText = soundMuted ? "🔇 Muted" : "🔊 Voice";
     }}
 
     function showSurpriseToast(kicker, body) {{
@@ -2269,7 +2452,8 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         headline: "Andrej Karpathy",
         submeta: "FOUNDER · POCKET COMMUNICATOR",
         mode: "incoming_call",
-        streamScript: "“Yo {{PLAYER}} — sorry to hijack your speakers! Look: we built Bits University for one reason. Passive threads and shallow tutorials don't make AI experts — touching the real logits, BPE merges, vector angles, and KV caches yourself does. Finish every checkpoint, steal the copyable Agent Prompts inside each lab to push even further, and remember rule #1 of this campus: having fun is non-negotiable. Now walk up the South Road — Officer Rajan is waiting at the boom gate!”",
+        voiceClip: "karpathy_intro",
+        streamScript: "“Yo — sorry to hijack your speakers! Look: we built Bits University for one reason. Passive threads and shallow tutorials don't make AI experts — touching the real logits, BPE merges, vector angles, and KV caches yourself does. Finish every checkpoint, steal the copyable Agent Prompts inside each lab to push even further, and remember rule #1 of this campus: having fun is non-negotiable. Now walk up the South Road — Officer Rajan is waiting at the boom gate!”",
         buttons: []
       }}
     ];
@@ -2279,6 +2463,9 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
 
     function stopCinemaCallEffects() {{
       stopRingtoneLoop();
+      if (activeVoiceClipId === "karpathy_intro") {{
+        stopVoiceover();
+      }}
       if (karpathyStreamTimer) {{
         clearTimeout(karpathyStreamTimer);
         karpathyStreamTimer = null;
@@ -2349,7 +2536,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         const hint = document.getElementById("cinema-identity-hint");
         input.value = hasPlayerName() ? getPlayerName() : "";
         hint.classList.remove("error");
-        hint.innerText = "Saved locally in your browser. Karpathy & campus mentors will address you directly.";
+        hint.innerText = "Saved locally in your browser for your campus badge and progress tracker.";
         setTimeout(() => input.focus(), 80);
       }}
 
@@ -2437,11 +2624,16 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         <button class="cinema-btn-primary" onclick="handleCinemaAction('start_game')">Walk Up South Road to Officer Rajan →</button>
       `;
 
-      const fullText = personalize(sc.streamScript);
+      const fullText = sc.streamScript;
       const tokens = tokenizeForStream(fullText);
       const startTs = performance.now();
+      let targetDurationMs = 26500;
       let idx = 0;
       let acc = "";
+
+      playVoiceover(sc.voiceClip || "karpathy_intro", "cinema-voice-btn", (durSec) => {{
+        targetDurationMs = Math.max(4000, durSec * 1000 * 0.94);
+      }});
 
       function stepToken() {{
         if (cinemaCallState !== "streaming") return;
@@ -2453,17 +2645,17 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         acc += tok;
         streamTextEl.innerHTML = `${{acc.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}}<span class="stream-caret"></span>`;
         const secs = Math.max(0.15, (performance.now() - startTs) / 1000);
-        const tps = Math.round(idx / secs);
+        const tps = Math.max(1, Math.round(idx / secs));
         streamTokensEl.innerText = `${{idx}} tokens · ${{tps}} tok/s`;
-        if (idx % 4 === 1) playSfx("tok");
 
+        const baseMs = Math.max(55, Math.min(340, targetDurationMs / Math.max(1, tokens.length)));
         const trimmed = tok.trim();
-        let delay = 48 + Math.random() * 34;
-        if (/[.!?]$/.test(trimmed)) delay = 220;
-        else if (/[,:;—]$/.test(trimmed)) delay = 135;
+        let delay = baseMs * 0.9;
+        if (/[.!?]$/.test(trimmed)) delay = baseMs * 1.45;
+        else if (/[,:;—]$/.test(trimmed)) delay = baseMs * 1.15;
         karpathyStreamTimer = setTimeout(stepToken, delay);
       }}
-      karpathyStreamTimer = setTimeout(stepToken, 120);
+      karpathyStreamTimer = setTimeout(stepToken, 140);
     }}
 
     function handleCinemaAction(action) {{
@@ -2563,37 +2755,43 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     const KARPATHY_CALL_SCRIPTS = {{
       "arrival": {{
         status: "📲 INCOMING CALL · ANDREJ KARPATHY",
-        preview: "“Yo {{PLAYER}}! I dropped you the secret pin to our self-expanding AI campus. Walk up the South Road and head inside!”",
+        voiceClip: "karpathy_arrival",
+        preview: "“Yo! I dropped you the secret pin to our self-expanding AI campus. Walk up the South Road and head inside!”",
         btnLabel: "🚶 Walk Up Road to Campus Gate →",
         onAccept: "walkUpToGateAndGetStopped"
       }},
       "after_l0-what-is-an-llm": {{
         status: "📲 INCOMING CALL · GATE CLEARED!",
-        preview: "“Haha, I knew Officer Rajan would ambush you at the boom barrier, {{PLAYER}}! Now you know the secret: an LLM is just a 1-word relay runner rolling a Temperature-weighted die. Head west to Maya's Parking Lot — she'll show you why AI can't count the r's in strawberry!”",
+        voiceClip: "karpathy_after_l0-what-is-an-llm",
+        preview: "“Haha, I knew Officer Rajan would ambush you at the boom barrier! Now you know the secret: an LLM is just a 1-word relay runner rolling a Temperature-weighted die. Head west to Maya's Parking Lot — she'll show you why AI can't count the r's in strawberry!”",
         btnLabel: "🅿️ Walk to Maya's Parking Lot →",
         onAccept: "walkNext"
       }},
       "after_l0-tokens": {{
         status: "📲 INCOMING CALL · BARCODES MASTERED",
-        preview: "“3.6x more tokens for Hindi than English — wild, right, {{PLAYER}}? Every frontier lab is fighting tokenizer efficiency right now. Next stop: grab a cup of chai with Chef Kabir on the Terrace and see how raw barcode IDs turn into 4D Meaning GPS!”",
+        voiceClip: "karpathy_after_l0-tokens",
+        preview: "“3.6x more tokens for Hindi than English — wild, right? Every frontier lab is fighting tokenizer efficiency right now. Next stop: grab a cup of chai with Chef Kabir on the Terrace and see how raw barcode IDs turn into 4D Meaning GPS!”",
         btnLabel: "☕ Walk to Kabir's Chai Terrace →",
         onAccept: "walkNext"
       }},
       "after_l0-embeddings": {{
         status: "📲 INCOMING CALL · VECTORS UNLOCKED",
-        preview: "“king - man + woman = queen! Once words become coordinates in meaning space, {{PLAYER}}, you can search all of human knowledge by flashlight angle. Walk over to Prof. Meera at the Central Quad Fountain — she's running the Amnesia Chef lunch tray experiment!”",
+        voiceClip: "karpathy_after_l0-embeddings",
+        preview: "“king - man + woman = queen! Once words become coordinates in meaning space, you can search all of human knowledge by flashlight angle. Walk over to Prof. Meera at the Central Quad Fountain — she's running the Amnesia Chef lunch tray experiment!”",
         btnLabel: "⛲ Walk to Meera at Quad Fountain →",
         onAccept: "walkNext"
       }},
       "after_l0-context-window": {{
         status: "📲 INCOMING CALL · QUAD CLEARED!",
-        preview: "“You survived the 24-word Lunch Tray and the Lost-in-the-Middle U-curve, {{PLAYER}}! The cranes on the East Lawn just finished all 6 Academic Halls (53 modules — updated for Multimodal, Context Engineering, RLVR/GRPO & Training Stability!). Step inside Hall 0 whenever you're ready!”",
+        voiceClip: "karpathy_after_l0-context-window",
+        preview: "“You survived the 24-word Lunch Tray and the Lost-in-the-Middle U-curve! The cranes on the East Lawn just finished all 6 Academic Halls (53 modules — updated for Multimodal, Context Engineering, RLVR/GRPO & Training Stability!). Step inside Hall 0 whenever you're ready!”",
         btnLabel: "🏛️ Enter Academic Hall 0 →",
         onAccept: "walkNext"
       }},
       "manual": {{
         status: "📲 INCOMING CALL · ANDREJ KARPATHY",
-        preview: "“Hey {{PLAYER}}! Remember: every time a new paper or model architecture drops, our campus cranes construct a new room automatically. Never memorize jargon — test the toy mechanism in pure Python first!”",
+        voiceClip: "karpathy_manual",
+        preview: "“Hey! Remember: every time a new paper or model architecture drops, our campus cranes construct a new room automatically. Never memorize jargon — test the toy mechanism in pure Python first!”",
         btnLabel: "🚶 Continue Active Mission →",
         onAccept: "walkNext"
       }}
@@ -2606,10 +2804,13 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       const script = KARPATHY_CALL_SCRIPTS[callKey] || KARPATHY_CALL_SCRIPTS["manual"];
       currentKarpathyCallKey = callKey;
       karpathyToastAnswered = false;
+      stopVoiceover();
       if (toastStreamTimer) {{
         clearTimeout(toastStreamTimer);
         toastStreamTimer = null;
       }}
+      const voiceBtn = document.getElementById("karpathy-toast-voice-btn");
+      if (voiceBtn) voiceBtn.style.display = "none";
       document.getElementById("karpathy-call-status").innerText = script.status;
       document.getElementById("karpathy-call-preview").innerText = "Ringing on encrypted pocket line…";
       document.getElementById("karpathy-call-action-btn").innerText = "📞 Answer Call";
@@ -2620,10 +2821,13 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
 
     function dismissKarpathyToast() {{
       stopRingtoneLoop();
+      stopVoiceover();
       if (toastStreamTimer) {{
         clearTimeout(toastStreamTimer);
         toastStreamTimer = null;
       }}
+      const voiceBtn = document.getElementById("karpathy-toast-voice-btn");
+      if (voiceBtn) voiceBtn.style.display = "none";
       document.getElementById("karpathy-call-toast").classList.remove("open");
       state.holoRinging = false;
       karpathyToastAnswered = false;
@@ -2635,11 +2839,17 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         karpathyToastAnswered = true;
         stopRingtoneLoop();
         playSfx("pickup");
-        document.getElementById("karpathy-call-status").innerText = "● LIVE STREAM · ANDREJ KARPATHY";
+        document.getElementById("karpathy-call-status").innerText = "● LIVE VOICE · ANDREJ KARPATHY";
         document.getElementById("karpathy-call-action-btn").innerText = script.btnLabel;
+        const voiceBtn = document.getElementById("karpathy-toast-voice-btn");
+        if (voiceBtn) voiceBtn.style.display = "inline-flex";
         const previewEl = document.getElementById("karpathy-call-preview");
-        const fullText = personalize(script.preview);
+        const fullText = script.preview;
         const tokens = tokenizeForStream(fullText);
+        let targetDurationMs = 14000;
+        playVoiceover(script.voiceClip || "karpathy_manual", "karpathy-toast-voice-btn", (durSec) => {{
+          targetDurationMs = Math.max(3000, durSec * 1000 * 0.94);
+        }});
         let i = 0;
         let acc = "";
         previewEl.innerHTML = `<span class="stream-caret"></span>`;
@@ -2651,9 +2861,10 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
           }}
           acc += tokens[i++];
           previewEl.innerHTML = `${{acc.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}}<span class="stream-caret"></span>`;
-          toastStreamTimer = setTimeout(pumpToastToken, 42 + Math.random() * 28);
+          const stepMs = Math.max(50, Math.min(320, targetDurationMs / Math.max(1, tokens.length)));
+          toastStreamTimer = setTimeout(pumpToastToken, stepMs);
         }}
-        toastStreamTimer = setTimeout(pumpToastToken, 60);
+        toastStreamTimer = setTimeout(pumpToastToken, 90);
         return;
       }}
       dismissKarpathyToast();
@@ -2693,7 +2904,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         x: 610, y: 610, interactRadius: 95,
         dialogue: [
           {{
-            text: "“🚨 PEEEEEP! WHOA THERE, {{PLAYER_UPPER}}! Did Karpathy call you and tell you that you could just stroll right through my South Gate?! Not on my watch! Last week I turned away three AI VPs who thought ChatGPT has a tiny philosopher inside. Tell me: what is an LLM actually doing when it replies?”",
+            text: "“🚨 PEEEEEP! WHOA THERE! Did Karpathy call you and tell you that you could just stroll right through my South Gate?! Not on my watch! Last week I turned away three AI VPs who thought ChatGPT has a tiny philosopher inside. Tell me: what is an LLM actually doing when it replies?”",
             choices: [
               {{ label: "🤔 Karpathy didn't warn me! Break it down for me like I'm 12.", next: 1 }},
               {{ label: "😎 It's playing a one-word relay game with a weighted die — show me your trick!", next: 1 }},
@@ -2709,7 +2920,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
           }}
         ],
         clearedDialogue: {{
-          text: "“🫡 Welcome back through the South Gate, {{PLAYER}}! You already passed my Security Boom Check — the barrier stays wide open for you. Want to revise Chapter 1 (Temperature, Top-P & Post-Training), re-run the Python lab, or head straight to your next campus mission?”",
+          text: "“🫡 Welcome back through the South Gate! You already passed my Security Boom Check — the barrier stays wide open for you. Want to revise Chapter 1 (Temperature, Top-P & Post-Training), re-run the Python lab, or head straight to your next campus mission?”",
           choices: [
             {{ label: "📖 Revise Chapter 1 & Temperature/Top-P Playground", action: "openStory" }},
             {{ label: "🧪 Re-open Chapter 1 Runnable Python Lab", action: "openLab" }},
@@ -2730,7 +2941,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         x: 225, y: 445, interactRadius: 95,
         dialogue: [
           {{
-            text: "“Hey {{PLAYER}}! You got Officer Rajan to lift the boom gate! Look at these 3 parked cars in my lot: [str #496], [aw #675], and [berry #15717]. Ever wondered why a billion-dollar AI embarrassed itself counting the letter 'r' in 'strawberry'?”",
+            text: "“Hey! You got Officer Rajan to lift the boom gate! Look at these 3 parked cars in my lot: [str #496], [aw #675], and [berry #15717]. Ever wondered why a billion-dollar AI embarrassed itself counting the letter 'r' in 'strawberry'?”",
             choices: [
               {{ label: "🍓 Wait — why CAN'T it count the three r's in strawberry?", next: 1 }},
               {{ label: "🇮🇳 And why does Hindi cost 3.6x more tokens than English?", next: 1 }},
@@ -2746,7 +2957,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
           }}
         ],
         clearedDialogue: {{
-          text: "“Hey {{PLAYER}}! Your Parking Lot Barcode pass is already stamped ✓. Swing by anytime you want to test custom words in my live BPE Chopper, review regex pre-tokenization & the 3.6x Hindi tax, or walk over to your next stop!”",
+          text: "“Hey! Your Parking Lot Barcode pass is already stamped ✓. Swing by anytime you want to test custom words in my live BPE Chopper, review regex pre-tokenization & the 3.6x Hindi tax, or walk over to your next stop!”",
           choices: [
             {{ label: "📖 Revise Chapter 2 & Live Barcode Chopper", action: "openStory" }},
             {{ label: "🧪 Re-open BPE Python Lab (42 → 14 tokens)", action: "openLab" }},
@@ -2767,7 +2978,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         x: 355, y: 295, interactRadius: 95,
         dialogue: [
           {{
-            text: "“Pull up a chair under the umbrella, {{PLAYER}}! In Maya's dictionary, barcode #40,000 ('coffee') sits right next to #40,001 ('coffin'). Why doesn't the AI accidentally serve you a coffin when you order filter coffee?”",
+            text: "“Pull up a chair under the umbrella! In Maya's dictionary, barcode #40,000 ('coffee') sits right next to #40,001 ('coffin'). Why doesn't the AI accidentally serve you a coffin when you order filter coffee?”",
             choices: [
               {{ label: "☕ Because you trade the barcode for GPS coordinates in the Cafeteria?", next: 1 }},
               {{ label: "👑 Show me how `king - man + woman = queen` actually works in math!", next: 1 }},
@@ -2783,7 +2994,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
           }}
         ],
         clearedDialogue: {{
-          text: "“Fresh cutting chai on the house, {{PLAYER}}! You already cleared the Cafeteria Meaning Map ✓. Want to spin the 2D Vector Angle Compass, revisit the Antonym Trap (+0.8234) & Hybrid Search, or head to your next mission?”",
+          text: "“Fresh cutting chai on the house! You already cleared the Cafeteria Meaning Map ✓. Want to spin the 2D Vector Angle Compass, revisit the Antonym Trap (+0.8234) & Hybrid Search, or head to your next mission?”",
           choices: [
             {{ label: "📖 Revise Chapter 3 & Vector Angle Compass", action: "openStory" }},
             {{ label: "🧪 Re-open 4D Embeddings Python Lab", action: "openLab" }},
@@ -2804,7 +3015,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         x: 610, y: 358, interactRadius: 95,
         dialogue: [
           {{
-            text: "“Listen to the fountain, {{PLAYER}}. People think when they chat with an AI for an hour, the AI is 'getting to know them.' False! The AI is an Amnesia Chef whose brain resets to zero after every single reply. All it ever sees is what fits on a fixed-size lunch tray right now!”",
+            text: "“Listen to the fountain. People think when they chat with an AI for an hour, the AI is 'getting to know them.' False! The AI is an Amnesia Chef whose brain resets to zero after every single reply. All it ever sees is what fits on a fixed-size lunch tray right now!”",
             choices: [
               {{ label: "🍱 What happens when the lunch tray fills up on Turn 4?", next: 1 }},
               {{ label: "📉 Why do facts buried in the middle of a huge prompt get ignored?", next: 1 }},
@@ -2820,7 +3031,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
           }}
         ],
         clearedDialogue: {{
-          text: "“Great to see you back by the Quad Fountain, {{PLAYER}}! You've mastered Context Windows & KV Prefix Caching ✓. Want to revise Chapter 4, inspect the O(N²) lab output, or walk into the Academic Halls?”",
+          text: "“Great to see you back by the Quad Fountain! You've mastered Context Windows & KV Prefix Caching ✓. Want to revise Chapter 4, inspect the O(N²) lab output, or walk into the Academic Halls?”",
           choices: [
             {{ label: "📖 Revise Chapter 4 & Lunch Tray + KV Cache Simulator", action: "openStory" }},
             {{ label: "🧪 Re-open Context Window & KV Cache Python Lab", action: "openLab" }},
@@ -2908,7 +3119,8 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       const cy = h / 2 + 10;
       const bob = Math.sin(tick * 0.12) * 2.5;
       const tilt = Math.sin(tick * 0.07) * 0.04;
-      const talkOpen = Math.abs(Math.sin(tick * 0.22)) * 4.5;
+      const isActivelySpeaking = voicePlaying || !!state.typewriterTimer || cinemaCallState === "streaming";
+      const talkOpen = (style === "player") ? 0.5 : (isActivelySpeaking ? Math.abs(Math.sin(tick * 0.26)) * 5.0 : 0.6);
 
       pCtx.save();
       pCtx.translate(cx, cy + bob);
@@ -3104,7 +3316,9 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       const roleEl = document.getElementById("rpg-speaker-role");
       roleEl.innerText = isCleared ? `✓ CLEARED · REVISION MODE · ${{stop.npcRole}}` : stop.npcRole;
       roleEl.style.color = isCleared ? "var(--meadow)" : "";
-      playTypewriterText("rpg-speech-text", personalize(node.text));
+      const voiceClipId = isCleared ? `npc_${{stopId}}_cleared` : `npc_${{stopId}}_${{nodeIdx}}`;
+      playVoiceover(voiceClipId, "rpg-voice-btn");
+      playTypewriterText("rpg-speech-text", node.text);
 
       const choicesEl = document.getElementById("rpg-choices");
       choicesEl.innerHTML = node.choices.map((c, i) => `
@@ -3145,6 +3359,8 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
 
     function closeRpgDialogue() {{
       if (state.typewriterTimer) clearInterval(state.typewriterTimer);
+      state.typewriterTimer = null;
+      stopVoiceover();
       document.getElementById("rpg-dialogue-backdrop").classList.remove("open");
     }}
 
@@ -4239,6 +4455,8 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     // STORY-FIRST ILLUSTRATED CHAPTER BOOK & INTERACTIVE SIMULATORS
     // =========================================================================
     function openLessonBook(lessonId, initialTab = "story") {{
+      stopRingtoneLoop();
+      stopVoiceover();
       state.activeStopId = lessonId;
       state.quizAnswers = {{}};
       refreshHudAndPins();
@@ -5875,6 +6093,9 @@ def build_site() -> None:
     shutil.copy2(ROOT / "curriculum.json", DIST / "curriculum.json")
     shutil.copy2(ROOT / "lesson.schema.json", DIST / "lesson.schema.json")
     (DIST / ".nojekyll").write_text("")
+    audio_src = ROOT / "audio"
+    if audio_src.exists():
+        shutil.copytree(audio_src, DIST / "audio")
 
     lessons_dir = ROOT / "lessons"
     lessons: dict[str, dict] = {}
