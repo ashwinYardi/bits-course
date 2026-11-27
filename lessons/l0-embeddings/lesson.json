@@ -312,5 +312,101 @@
       }
     ],
     "reel_hook": "Voiceover: 'How does an AI know that masala chai and filter coffee belong together when they share zero letters? I coded a 25-line meaning map in Python, and the secret is just cafeteria seating coordinates.'"
-  }
+  },
+  "hero_image": "hero.jpg",
+  "hero_caption": "Plate III — Meaning as geometry: related concepts cluster at tight compass angles while unrelated domains sit near ninety degrees.",
+  "reading_time": "8 min read",
+  "memory_hook": "Token IDs are meaningless coat-check tickets; embeddings turn every word into GPS coordinates where cosine similarity measures the angle between ideas.",
+  "memes": [
+    {
+      "format": "two_panel",
+      "kicker": "THE ANTONYM TRAP",
+      "title": "Cosine Similarity When You Ask for 'Hot Chai'",
+      "left_label": "HUMAN LOGIC",
+      "left_body": "“Hot masala chai and iced chai are literally opposites. One is steaming, one has ice cubes!”",
+      "right_label": "EMBEDDING SPACE",
+      "right_body": "“Both are drinks, both are spiced, both live in the cafeteria menu → +0.8234 match (34.6°)! Best friends!”",
+      "punchline": "Embeddings measure topical neighborhood, NOT logical agreement — that's why production RAG uses Hybrid Search (BM25 + Vectors) + a Reranker."
+    },
+    {
+      "format": "three_stage",
+      "kicker": "VECTOR GEOMETRY CHEAT SHEET",
+      "title": "Reading Cosine Angles Like a Pilot",
+      "panels": [
+        {
+          "head": "0° to 15° (+0.97 to +1.00)",
+          "sub": "Same Cafeteria Table",
+          "body": "`masala_chai` ↔ `filter_coffee` = +0.9858 (9.7°). Almost identical direction."
+        },
+        {
+          "head": "30° to 40° (+0.76 to +0.86)",
+          "sub": "Same Room (Watch for Traps!)",
+          "body": "`iced_chai` (+0.8234) & `samosa` (+0.8216). Related domain — check if opposite!"
+        },
+        {
+          "head": "~90° (~0.00)",
+          "sub": "Different Universe",
+          "body": "`masala_chai` ↔ `kubernetes` = +0.0322 (88.2°). Perpendicular = orthogonal meaning."
+        }
+      ],
+      "punchline": "Pre-normalize every vector to length 1.0 once at indexing time, and cosine similarity collapses into a single super-fast dot product."
+    }
+  ],
+  "code_walkthrough": [
+    {
+      "step": "01",
+      "title": "Dot Product: Multiplying Aligned Dimensions",
+      "lines": "Lines 39–41",
+      "code_snippet": "def dot_product(a: list[float], b: list[float]) -> float:\n    return sum(x * y for x, y in zip(a, b))",
+      "why_it_matters": "When two vectors are high on the *same* axes (`drink=0.95 * 0.95`, `hot=0.90 * 0.92`), those products add up large. When one is high on `drink` and the other is high on `computer_tech`, each pair multiplies big × tiny ≈ 0.",
+      "what_if_removed": "Without element-wise alignment, you couldn't compare how much two concepts share across thousands of latent features."
+    },
+    {
+      "step": "02",
+      "title": "Cosine Similarity: Dividing Out Vector Length",
+      "lines": "Lines 55–58",
+      "code_snippet": "def cosine_similarity(a: list[float], b: list[float]) -> float:\n    mag = magnitude(a) * magnitude(b)\n    return dot_product(a, b) / mag if mag > 0 else 0.0",
+      "why_it_matters": "Dividing by `magnitude(a) * magnitude(b)` isolates pure **direction** (angle `θ`). A 2-sentence doc and a 20-sentence doc about the same topic point the same way even if one has a larger raw norm.",
+      "what_if_removed": "Using raw unnormalized dot product lets long or high-magnitude vectors unfairly dominate every search result."
+    },
+    {
+      "step": "03",
+      "title": "Vector Arithmetic (`king - man + woman = queen`)",
+      "lines": "Lines 80–87",
+      "code_snippet": "target = [k - m + w for k, m, w in zip(king, man, woman)]\n# Result: [0.95, 0.05, 0.95, 0.05] -> cosine(target, queen) = 1.0000",
+      "why_it_matters": "Because semantic relationships like `gender` or `capital-of` get encoded as consistent directional offsets in vector space, walking `(-man + woman)` translates `king` straight onto `queen`.",
+      "what_if_removed": "With flat discrete token IDs (`#40000`, `#40001`), arithmetic is pure gibberish (`coffee - tea` = random word)."
+    },
+    {
+      "step": "04",
+      "title": "The L2 Normalization Trick Used by Every Vector DB",
+      "lines": "Lines 49–52 & 90–95",
+      "code_snippet": "u = normalize(masala_chai)  # length = 1.0\nv = normalize(filter_coffee)  # length = 1.0\ndot_product(u, v) == cosine_similarity(raw_chai, raw_coffee)  # 0.985850",
+      "why_it_matters": "Vector databases (pgvector, Qdrant, Pinecone, FAISS) normalize every embedding once at write time so every query skips expensive `sqrt()` divisions and runs pure SIMD matrix dot products (`U @ q`).",
+      "what_if_removed": "Recomputing norms on 10 million vectors per query wastes massive CPU/GPU cycles on redundant square roots."
+    }
+  ],
+  "deep_assignments": [
+    {
+      "level": "Builder",
+      "title": "Build a Mini Hybrid Search Engine (BM25 + Vectors + Reciprocal Rank Fusion)",
+      "goal": "Create a 100-line pure-Python search engine over 15 tech support docs (including exact error codes like `ERR-4092` and semantic queries like `'app won't start'`) comparing BM25-only vs Vector-only vs Hybrid RRF.",
+      "what_you_prove": "Why pure vector search fails on exact error codes/SKUs, pure keyword search fails on synonyms, and Reciprocal Rank Fusion (`1 / (60 + rank)`) beats both.",
+      "agent_prompt": "I just completed Lesson 3 (Embeddings, Cosine Similarity, Antonym Trap & Hybrid Search). Help me build `hybrid_search_lab.py` in pure Python 3 (zero external libraries): (1) Create 15 realistic engineering docs including exact error codes (`ERR_OOM_9021`), product names, and conceptual troubleshooting notes. (2) Implement BM25 keyword scoring, a simple bag-of-concept / TF-IDF cosine vector retriever, and Reciprocal Rank Fusion (RRF: `score = sum(1 / (60 + rank))`). (3) Run 5 queries that expose where BM25 wins, where vectors win, and where Hybrid RRF gets top-1 on all 5. Walk me through the math."
+    },
+    {
+      "level": "Deep Dive",
+      "title": "Test Matryoshka (MRL) Dimension Truncation on Real Embeddings",
+      "goal": "Embed 30 sentences with a real MRL model (like OpenAI `text-embedding-3-small` or `nomic-embed-text`), truncate vectors from `1536 -> 512 -> 256 -> 128` dims, re-normalize, and measure Recall@3.",
+      "what_you_prove": "How Matryoshka Representation Learning packs coarse meaning into early dimensions so you can cut RAM/storage by 6x with <2% recall loss.",
+      "agent_prompt": "Let's test Matryoshka Representation Learning (MRL) from Lesson 3 in practice. Write a Python script `mrl_benchmark.py` that embeds 25 diverse sentences (using a local embedding model if installed, OpenAI API if `OPENAI_API_KEY` is set, or a realistic synthetic PCA-ordered fallback so it runs anywhere), truncates each vector to 100%, 50%, 25%, and 12.5% of dimensions, L2-renormalizes, and prints a comparison table of RAM savings vs Top-3 nearest-neighbor agreement."
+    },
+    {
+      "level": "Systems",
+      "title": "Expose & Fix the Antonym Trap with a Two-Stage Reranker",
+      "goal": "Build a small test set of tricky antonym/negation queries (`'flights NOT via Mumbai'`, `'iced chai, no hot drinks'`) and compare Bi-Encoder cosine ranking vs a Cross-Encoder / LLM pairwise reranker.",
+      "what_you_prove": "Why bi-encoders compress query and doc separately (losing cross-word negation), whereas cross-encoder rerankers attend across both simultaneously.",
+      "agent_prompt": "Build a focused mini-experiment `antonym_reranker_demo.py` demonstrating Lesson 3's Antonym Trap. Create 6 query/document pairs involving negation or opposites (e.g. 'cold brew coffee' vs 'hot espresso', 'refund policy excluded items' vs 'eligible items'). Show why bi-encoder cosine similarity ranks opposites dangerously close, and implement a clean Stage-2 cross-attention/rule-or-LLM reranker interface that fixes the ranking. Explain the latency vs accuracy tradeoff of retrieving Top-50 with vectors and reranking Top-5."
+    }
+  ]
 }

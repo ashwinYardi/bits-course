@@ -228,24 +228,23 @@ GATE_CHALLENGES: dict[str, list[dict]] = {
 
 
 SHARED_CSS = """
-@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&display=swap');
 
 :root {
-  /* Better-Colors Primitive Ramps (Neutral Slate-Mist, Terracotta Accent, Pine Status) */
-  --slate-50: #f6f8f7;
-  --slate-100: #ebf0ed;
-  --slate-200: #d8e1dc;
-  --slate-300: #b8c6be;
-  --slate-600: #4b5b53;
-  --slate-700: #2e3b34;
-  --slate-900: #141d18;
-  --clay-100: #faeae4;
-  --clay-600: #a93b1f;
-  --clay-700: #882d16;
-  --pine-100: #e6f4ec;
-  --pine-700: #1f6a44;
+  /* Editorial Alabaster & Ink System (Stripe Press x Distill.pub) */
+  --slate-50: #f6f7f9;
+  --slate-100: #f2eee6;
+  --slate-200: #e5dfd3;
+  --slate-300: #cfc7b8;
+  --slate-600: #59554d;
+  --slate-700: #33302b;
+  --slate-900: #171614;
+  --clay-100: #f9ece7;
+  --clay-600: #9e3c22;
+  --clay-700: #7f2d18;
+  --pine-100: #eaf4ee;
+  --pine-700: #1f5f3f;
 
-  /* Semantic Role Tokens */
   --paper: var(--slate-50);
   --paper-card: #ffffff;
   --paper-warm: var(--slate-100);
@@ -253,8 +252,8 @@ SHARED_CSS = """
   --ink: var(--slate-900);
   --ink-soft: var(--slate-700);
   --muted: var(--slate-600);
-  --line: var(--slate-200);
-  --line-strong: var(--slate-300);
+  --line: rgba(23, 22, 20, 0.10);
+  --line-strong: rgba(23, 22, 20, 0.18);
   --color-accent-solid: var(--clay-600);
   --color-accent-hover: var(--clay-700);
   --color-accent-soft: var(--clay-100);
@@ -266,15 +265,15 @@ SHARED_CSS = """
   --amber-soft: #f7eedc;
   --meadow: var(--color-status-open);
   --meadow-soft: var(--color-status-open-soft);
-  --sky: #335c73;
-  --sky-soft: #e6eff4;
+  --sky: #2d586e;
+  --sky-soft: #edf3f6;
   --berry: #5c4d6b;
-  --berry-soft: #efebf4;
-  --shadow-ring: 0 0 0 1px rgba(20, 29, 24, 0.08), 0 4px 10px -2px rgba(20, 29, 24, 0.10), 0 12px 24px -6px rgba(20, 29, 24, 0.08);
-  --shadow-ring-sm: 0 0 0 1px rgba(20, 29, 24, 0.09), 0 2px 6px -1px rgba(20, 29, 24, 0.08);
-  --sans: 'Atkinson Hyperlegible', -apple-system, BlinkMacSystemFont, sans-serif;
-  --serif: 'Bricolage Grotesque', Georgia, serif;
-  --mono: 'IBM Plex Mono', monospace;
+  --berry-soft: #f1eef5;
+  --shadow-ring: 0 0 0 1px rgba(23, 22, 20, 0.08), 0 4px 12px -2px rgba(23, 22, 20, 0.08), 0 14px 28px -8px rgba(23, 22, 20, 0.07);
+  --shadow-ring-sm: 0 0 0 1px rgba(23, 22, 20, 0.09), 0 2px 6px -1px rgba(23, 22, 20, 0.06);
+  --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --serif: 'Newsreader', Georgia, serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
 }
 
 * { box-sizing: border-box; }
@@ -286,78 +285,12 @@ body {
   font-family: var(--sans);
   line-height: 1.65;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-a { color: var(--terracotta); text-decoration: none; font-weight: 700; }
+a { color: var(--terracotta); text-decoration: none; font-weight: 600; }
 a:hover { text-decoration: underline; }
-
-.top-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.65rem 1.4rem;
-  background: rgba(242, 247, 244, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 2px solid var(--line);
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.brand-cluster {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.crest-badge {
-  background: var(--terracotta);
-  color: #fff;
-  font-family: var(--serif);
-  font-weight: 800;
-  font-size: 0.85rem;
-  padding: 0.32rem 0.75rem;
-  border-radius: 8px;
-  border: 2px solid #7c2d12;
-  box-shadow: 0 2px 0 #7c2d12;
-  letter-spacing: 0.01em;
-}
-
-.brand-title {
-  font-family: var(--serif);
-  font-weight: 800;
-  font-size: 1.15rem;
-  color: var(--ink);
-}
-
-.brand-sub {
-  font-size: 0.78rem;
-  color: var(--muted);
-  font-weight: 700;
-}
-
-.nav-pills {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  flex-wrap: wrap;
-}
-
-.stat-chip {
-  background: var(--paper-card);
-  border: 2px solid var(--line-strong);
-  padding: 0.28rem 0.75rem;
-  border-radius: 999px;
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--ink-soft);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-}
 
 .btn {
   display: inline-flex;
@@ -365,64 +298,62 @@ a:hover { text-decoration: underline; }
   gap: 0.45rem;
   background: var(--paper-card);
   color: var(--ink);
-  border: 2px solid var(--ink);
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  font-size: 0.85rem;
-  font-weight: 700;
+  border: 1px solid var(--line-strong);
+  padding: 0.48rem 0.95rem;
+  border-radius: 8px;
+  font-size: 0.84rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.14s ease;
+  transition: background-color 140ms ease, border-color 140ms ease, transform 120ms ease;
   font-family: var(--sans);
-  box-shadow: 0 2px 0 var(--ink);
 }
 
 .btn:hover {
-  transform: translateY(-1px);
   background: var(--paper-warm);
+  border-color: rgba(23, 22, 20, 0.34);
   text-decoration: none;
 }
 
 .btn-primary {
   background: var(--terracotta);
   color: #ffffff;
-  border-color: #7c2d12;
-  box-shadow: 0 3px 0 #7c2d12;
+  border-color: var(--terracotta);
 }
 
 .btn-primary:hover {
-  background: #7c2d12;
+  background: var(--clay-700);
+  border-color: var(--clay-700);
   color: #ffffff;
 }
 
 .btn-meadow {
   background: var(--meadow);
   color: #ffffff;
-  border-color: #052e16;
-  box-shadow: 0 3px 0 #052e16;
+  border-color: var(--meadow);
 }
 
 .btn-meadow:hover {
-  background: #166534;
+  background: #174930;
+  border-color: #174930;
   color: #ffffff;
 }
 
 .tag {
   font-family: var(--mono);
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 0.2rem 0.65rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 0.24rem 0.62rem;
   border-radius: 999px;
   background: var(--paper-warm);
-  border: 1.5px solid var(--line-strong);
+  border: 1px solid var(--line);
   color: var(--ink-soft);
 }
 
-.tag-terracotta { background: var(--terracotta-soft); color: var(--terracotta); border-color: #fca5a5; }
-.tag-meadow { background: var(--meadow-soft); color: var(--meadow); border-color: #86efac; }
-.tag-sky { background: var(--sky-soft); color: var(--sky); border-color: #7dd3fc; }
-.tag-amber { background: var(--amber-soft); color: #78350f; border-color: #fcd34d; }
+.tag-terracotta { background: var(--terracotta-soft); color: var(--terracotta); border-color: rgba(158, 60, 34, 0.22); }
+.tag-meadow { background: var(--meadow-soft); color: var(--meadow); border-color: rgba(31, 95, 63, 0.22); }
+.tag-sky { background: var(--sky-soft); color: var(--sky); border-color: rgba(45, 88, 110, 0.22); }
+.tag-amber { background: var(--amber-soft); color: #78480e; border-color: rgba(138, 90, 24, 0.22); }
 """
-
 
 def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by_id: dict[str, str]) -> str:
     """Render the Full-Screen 3D Isometric AI University Adventure with Zero Top Navbar, Thin Floating Pills & 3D Karpathy Calls."""
@@ -940,39 +871,237 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       }}
     }}
 
-    /* CLEAN, EDITORIAL STORY BOOK MODAL */
+    /* CINEMATIC FIRST-VISIT PROLOGUE ("MOVIE" OVERLAY) */
+    .cinema-backdrop {{
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: radial-gradient(circle at 50% 35%, rgba(30, 35, 32, 0.94), rgba(14, 16, 15, 0.985));
+      color: #f4f1ea;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }}
+    .cinema-backdrop.open {{
+      display: flex;
+    }}
+    .cinema-frame {{
+      width: 100%;
+      max-width: 720px;
+      background: rgba(24, 26, 25, 0.92);
+      border: 1px solid rgba(244, 241, 234, 0.14);
+      border-radius: 20px;
+      padding: 2.25rem 2.5rem 2rem;
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.55);
+      position: relative;
+      animation: stageEnter 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }}
+    .cinema-frame.ringing {{
+      border-color: rgba(158, 60, 34, 0.72);
+      box-shadow: 0 0 0 1px rgba(158, 60, 34, 0.45), 0 32px 80px rgba(0, 0, 0, 0.65);
+    }}
+    .cinema-top-row {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }}
+    .cinema-step-tag {{
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: #d99b82;
+      font-weight: 600;
+    }}
+    .cinema-skip {{
+      background: transparent;
+      border: 1px solid rgba(244, 241, 234, 0.2);
+      color: rgba(244, 241, 234, 0.78);
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      padding: 0.35rem 0.72rem;
+      border-radius: 999px;
+      cursor: pointer;
+    }}
+    .cinema-skip:hover {{
+      color: #ffffff;
+      border-color: rgba(244, 241, 234, 0.45);
+    }}
+    .cinema-visual-row {{
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }}
+    #cinema-portrait-canvas {{
+      width: 96px;
+      height: 96px;
+      border-radius: 16px;
+      border: 1px solid rgba(244, 241, 234, 0.22);
+      background: #1d2220;
+      flex-shrink: 0;
+    }}
+    .cinema-headline {{
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1.22;
+      margin: 0 0 0.75rem;
+      color: #faf8f4;
+      letter-spacing: -0.015em;
+    }}
+    .cinema-body {{
+      font-family: var(--serif);
+      font-size: 1.18rem;
+      line-height: 1.65;
+      color: rgba(244, 241, 234, 0.86);
+      margin: 0 0 1.65rem;
+    }}
+    .cinema-volume-bar {{
+      display: none;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.65rem 0.95rem;
+      border-radius: 10px;
+      background: rgba(158, 60, 34, 0.18);
+      border: 1px solid rgba(217, 155, 130, 0.4);
+      margin-bottom: 1.1rem;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: #f4d6c8;
+    }}
+    .cinema-volume-bar.active {{
+      display: flex;
+    }}
+    .cinema-eq {{
+      display: inline-flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 16px;
+    }}
+    .cinema-eq span {{
+      width: 3px;
+      background: #e07a5f;
+      border-radius: 2px;
+      animation: eqPulse 620ms ease-in-out infinite alternate;
+    }}
+    .cinema-eq span:nth-child(2) {{ animation-delay: 140ms; }}
+    .cinema-eq span:nth-child(3) {{ animation-delay: 280ms; }}
+    .cinema-eq span:nth-child(4) {{ animation-delay: 90ms; }}
+    @keyframes eqPulse {{
+      from {{ height: 4px; }}
+      to {{ height: 16px; }}
+    }}
+    .cinema-actions {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(244, 241, 234, 0.12);
+    }}
+    .cinema-dots {{
+      display: flex;
+      gap: 0.45rem;
+      align-items: center;
+    }}
+    .cinema-dot {{
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(244, 241, 234, 0.24);
+      transition: width 180ms ease, background-color 180ms ease;
+    }}
+    .cinema-dot.active {{
+      width: 24px;
+      background: #d97757;
+    }}
+    .cinema-btn-primary {{
+      background: #c85a3a;
+      color: #ffffff;
+      border: 1px solid #d97757;
+      padding: 0.62rem 1.3rem;
+      border-radius: 10px;
+      font-family: var(--sans);
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 140ms ease, transform 120ms ease;
+    }}
+    .cinema-btn-primary:hover {{
+      background: #b14a2c;
+      transform: translateY(-1px);
+    }}
+    .cinema-btn-ghost {{
+      background: transparent;
+      color: rgba(244, 241, 234, 0.78);
+      border: 1px solid rgba(244, 241, 234, 0.22);
+      padding: 0.58rem 1rem;
+      border-radius: 10px;
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+    }}
+    .cinema-btn-ghost:hover {{
+      color: #ffffff;
+      border-color: rgba(244, 241, 234, 0.45);
+    }}
+
+    /* SURPRISE DISCOVERY TOAST (BOTTOM-RIGHT) */
+    .surprise-toast {{
+      position: fixed;
+      right: 1.15rem;
+      bottom: 3.8rem;
+      z-index: 120;
+      max-width: 340px;
+      background: #1c1b19;
+      color: #f6f3ec;
+      border: 1px solid rgba(246, 243, 236, 0.16);
+      border-radius: 14px;
+      padding: 0.85rem 1.05rem;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+      display: none;
+      animation: stageEnter 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }}
+    .surprise-toast.open {{ display: block; }}
+
+    /* EDITORIAL PUBLICATION LESSON MODAL (STRIPE PRESS x DISTILL.PUB) */
     .book-modal {{
       position: fixed;
       inset: 0;
       z-index: 200;
-      background: rgba(17, 28, 22, 0.54);
-      backdrop-filter: blur(6px);
+      background: rgba(23, 22, 20, 0.52);
+      backdrop-filter: blur(8px);
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 1.15rem;
+      padding: 1rem;
       overscroll-behavior: contain;
     }}
     .book-modal.open {{
       display: flex;
     }}
     .book-sheet {{
-      background: #ffffff;
-      border: 2.5px solid var(--ink);
-      box-shadow: var(--shadow-ring), 0 24px 60px rgba(20, 29, 24, 0.26);
-      border-radius: 22px;
+      background: var(--paper);
+      border: 1px solid rgba(23, 22, 20, 0.16);
+      box-shadow: 0 28px 80px rgba(15, 14, 12, 0.28);
+      border-radius: 18px;
       width: 100%;
-      max-width: 1020px;
-      height: 90vh;
+      max-width: 1040px;
+      height: 92vh;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      animation: stageEnter 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation: stageEnter 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
     }}
     .book-header {{
-      background: var(--paper);
-      padding: 0.9rem 1.5rem;
-      border-bottom: 2px solid var(--line);
+      background: #ffffff;
+      padding: 0.95rem 1.75rem;
+      border-bottom: 1px solid var(--line);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -981,87 +1110,34 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     }}
     .book-tabs {{
       display: flex;
-      gap: 0.45rem;
-      padding: 0.55rem 1.5rem;
-      background: var(--paper-warm);
-      border-bottom: 2px solid var(--line);
+      gap: 0.25rem;
+      padding: 0.45rem 1.75rem 0;
+      background: #ffffff;
+      border-bottom: 1px solid var(--line);
       overflow-x: auto;
     }}
     .book-tab {{
       background: transparent;
-      border: 2px solid transparent;
-      color: var(--ink-soft);
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--muted);
       font-family: var(--sans);
-      font-size: 0.86rem;
-      font-weight: 700;
-      padding: 0.4rem 0.9rem;
-      border-radius: 10px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      padding: 0.55rem 0.9rem 0.65rem;
       cursor: pointer;
+      white-space: nowrap;
+      transition: color 140ms ease, border-color 140ms ease;
+    }}
+    .book-tab:hover {{
+      color: var(--ink);
     }}
     .book-tab.active {{
-      background: #ffffff;
       color: var(--terracotta);
-      border-color: var(--ink);
-      box-shadow: 0 2px 0 var(--ink);
-    }}
-    .book-body {{
-      flex: 1;
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      padding: 2rem 2.25rem 3.5rem;
-    }}
-    .book-pane {{
-      display: none;
-      max-width: 720px;
-      margin: 0 auto;
-    }}
-    .book-pane.active {{
-      display: block;
-    }}
-    .story-section {{
-      padding: 1.65rem 0;
-      border-bottom: 2px dashed var(--line);
-    }}
-    .story-section:last-of-type {{
-      border-bottom: none;
-    }}
-    .chapter-kicker {{
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--terracotta);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }}
-    .chapter-heading {{
-      font-family: var(--serif);
-      font-size: 1.6rem;
-      font-weight: 800;
-      line-height: 1.35;
-      margin: 0.25rem 0 0.85rem;
-      color: var(--ink);
-      text-wrap: balance;
-    }}
-    .chapter-prose {{
-      font-size: 1.06rem;
-      color: var(--ink-soft);
-      line-height: 1.75;
-      text-wrap: pretty;
-    }}
-    .chapter-prose p {{
-      margin: 0 0 1rem;
-    }}
-    .chapter-prose code {{
-      background: var(--paper);
-      padding: 0.14rem 0.42rem;
-      border-radius: 6px;
-      font-family: var(--mono);
-      font-size: 0.88em;
-      color: var(--terracotta);
-      border: 1px solid var(--line-strong);
+      border-bottom-color: var(--terracotta);
     }}
     .book-progress-track {{
-      height: 4px;
+      height: 2px;
       width: 100%;
       background: var(--paper-warm);
       overflow: hidden;
@@ -1073,88 +1149,279 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       background: var(--terracotta);
       transition: width 80ms linear;
     }}
+    .book-body {{
+      flex: 1;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: 2.2rem 2.25rem 4rem;
+      background: var(--paper);
+    }}
+    .book-pane {{
+      display: none;
+      max-width: 720px;
+      margin: 0 auto;
+    }}
+    .book-pane.active {{
+      display: block;
+    }}
+    .editorial-hero {{
+      margin: 0 0 1.8rem;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(23, 22, 20, 0.04);
+    }}
+    .editorial-hero img {{
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }}
+    .editorial-hero figcaption {{
+      padding: 0.7rem 1.05rem;
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      background: #fcfbf8;
+    }}
+    .memory-hook {{
+      padding: 1.15rem 0;
+      margin: 0 0 1.65rem;
+      border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong);
+    }}
+    .memory-hook-label {{
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.45rem;
+    }}
+    .memory-hook-quote {{
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.24rem;
+      line-height: 1.5;
+      color: var(--ink);
+      margin: 0;
+    }}
     .chapter-toc {{
       display: flex;
-      gap: 0.45rem;
+      gap: 0.4rem;
       flex-wrap: wrap;
-      margin: 0 0 1.4rem;
-      padding: 0.65rem 0.8rem;
-      background: var(--paper);
-      border: 1.5px solid var(--line);
-      border-radius: 12px;
+      margin: 0 0 1.75rem;
       align-items: center;
     }}
     .toc-chip {{
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
-      padding: 0.36rem 0.72rem;
+      padding: 0.36rem 0.74rem;
       border-radius: 999px;
-      border: 1.5px solid var(--line-strong);
+      border: 1px solid var(--line-strong);
       background: #ffffff;
-      color: var(--ink-soft);
+      color: var(--muted);
       font-family: var(--mono);
       font-size: 0.76rem;
-      font-weight: 700;
+      font-weight: 500;
       cursor: pointer;
       text-decoration: none;
-      transition: border-color 120ms ease-out, color 120ms ease-out, background-color 120ms ease-out;
+      transition: border-color 140ms ease, color 140ms ease, background-color 140ms ease;
     }}
     @media (hover: hover) {{
       .toc-chip:hover {{
         border-color: var(--terracotta);
         color: var(--terracotta);
-        background: var(--paper-warm);
+        background: var(--terracotta-soft);
       }}
+    }}
+    .story-section {{
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--line);
+    }}
+    .story-section:last-of-type {{
+      border-bottom: none;
+    }}
+    .chapter-kicker {{
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--terracotta);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }}
+    .chapter-heading {{
+      font-family: var(--serif);
+      font-size: 1.7rem;
+      font-weight: 600;
+      line-height: 1.28;
+      margin: 0.3rem 0 1rem;
+      color: var(--ink);
+      letter-spacing: -0.015em;
+      text-wrap: balance;
+    }}
+    .chapter-prose {{
+      font-family: var(--serif);
+      font-size: 1.12rem;
+      color: var(--ink-soft);
+      line-height: 1.76;
+      text-wrap: pretty;
+    }}
+    .chapter-prose p {{
+      margin: 0 0 1.05rem;
+    }}
+    .chapter-prose ul, .chapter-prose ol {{
+      margin: 0.6rem 0 1.15rem;
+      padding-left: 1.35rem;
+    }}
+    .chapter-prose li {{
+      margin-bottom: 0.45rem;
+    }}
+    .chapter-prose code {{
+      background: var(--paper-warm);
+      padding: 0.12rem 0.38rem;
+      border-radius: 5px;
+      font-family: var(--mono);
+      font-size: 0.82em;
+      color: var(--terracotta);
+      border: 1px solid var(--line);
+    }}
+    .inline-figure {{
+      background: #ffffff;
+      border: 1px solid var(--line);
+      box-shadow: 0 4px 18px rgba(23, 22, 20, 0.04);
+      border-radius: 12px;
+      padding: 1.1rem;
+      margin: 1.5rem 0 0.85rem;
+    }}
+    .playground-band {{
+      background: #ffffff;
+      border: 1px solid var(--line-strong);
+      box-shadow: 0 4px 20px rgba(23, 22, 20, 0.04);
+      border-radius: 14px;
+      padding: 1.4rem 1.55rem;
+      margin: 1.5rem 0 2rem;
     }}
     .callout-grid {{
       display: grid;
       grid-template-columns: 1fr;
-      gap: 0.75rem;
-      margin: 1.15rem 0 0.35rem;
+      gap: 0.8rem;
+      margin: 1.35rem 0 0.25rem;
     }}
     .callout-box {{
-      border-radius: 12px;
-      padding: 0.9rem 1.1rem;
-      font-size: 0.93rem;
+      border-radius: 10px;
+      padding: 1rem 1.15rem;
+      font-family: var(--sans);
+      font-size: 0.92rem;
       line-height: 1.62;
     }}
     .callout-expert {{
-      background: #f2f6f9;
-      border: 1.5px solid #b4ccd9;
+      background: var(--sky-soft);
+      border: 1px solid rgba(45, 88, 110, 0.22);
       color: #1c2e38;
     }}
     .callout-trap {{
-      background: #fdf4ee;
-      border: 1.5px solid #e2baa7;
+      background: var(--terracotta-soft);
+      border: 1px solid rgba(158, 60, 34, 0.22);
       color: #3a1d15;
     }}
     .callout-title {{
       font-family: var(--mono);
       font-size: 0.76rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
+      font-weight: 600;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      margin-bottom: 0.32rem;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
+      margin-bottom: 0.35rem;
     }}
-    .callout-expert .callout-title {{ color: #264d60; }}
+    .callout-expert .callout-title {{ color: #244a5e; }}
     .callout-trap .callout-title {{ color: #8c331c; }}
-    .chapter-prose ul, .chapter-prose ol {{
-      margin: 0.55rem 0 1rem;
-      padding-left: 1.35rem;
+
+    /* EDITORIAL MEME STRIP CARDS */
+    .meme-card {{
+      background: #ffffff;
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      padding: 1.25rem 1.35rem;
+      margin: 1.5rem 0;
+      box-shadow: 0 4px 18px rgba(23, 22, 20, 0.04);
     }}
-    .chapter-prose li {{
-      margin-bottom: 0.42rem;
+    .meme-panels-2 {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 0.85rem;
+      margin: 0.85rem 0;
     }}
+    .meme-panels-3 {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+      gap: 0.75rem;
+      margin: 0.85rem 0;
+    }}
+    .meme-panel {{
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+    }}
+    .meme-panel-highlight {{
+      background: #fcf5f2;
+      border-color: rgba(158, 60, 34, 0.25);
+    }}
+    .meme-label {{
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--terracotta);
+      margin-bottom: 0.35rem;
+    }}
+    .meme-punchline {{
+      margin-top: 0.75rem;
+      padding-top: 0.7rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.88rem;
+      color: var(--ink);
+      font-weight: 600;
+    }}
+
+    /* CORE CODE WALKTHROUGH & AGENT ASSIGNMENT CARDS */
+    .walk-card {{
+      background: #ffffff;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      padding: 1.2rem 1.35rem;
+      margin-bottom: 1rem;
+    }}
+    .assign-card {{
+      background: #ffffff;
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      padding: 1.35rem 1.45rem;
+      margin-bottom: 1.15rem;
+      box-shadow: 0 4px 16px rgba(23, 22, 20, 0.04);
+    }}
+    .agent-prompt-box {{
+      background: #171817;
+      color: #ebe8e1;
+      border-radius: 10px;
+      padding: 0.95rem 1.1rem;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      line-height: 1.58;
+      margin: 0.8rem 0 0.75rem;
+      white-space: pre-wrap;
+    }}
+
     .sim-input {{
       flex: 1;
       min-width: 210px;
       padding: 0.48rem 0.78rem;
-      border-radius: 10px;
-      border: 1.5px solid var(--line-strong);
+      border-radius: 8px;
+      border: 1px solid var(--line-strong);
       background: #ffffff;
       color: var(--ink);
       font-family: var(--mono);
@@ -1174,11 +1441,11 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       display: inline-flex;
       align-items: center;
       padding: 0.24rem 0.5rem;
-      border-radius: 7px;
+      border-radius: 6px;
       font-family: var(--mono);
       font-size: 0.78rem;
-      font-weight: 600;
-      border: 1.5px solid var(--line-strong);
+      font-weight: 500;
+      border: 1px solid var(--line-strong);
       background: #ffffff;
       color: var(--ink);
     }}
@@ -1186,7 +1453,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       background: #fef3c7;
       border-color: #b45309;
       color: #78350f;
-      font-weight: 800;
+      font-weight: 700;
     }}
     .tray-word.dropped {{
       background: #fee2e2;
@@ -1195,36 +1462,20 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       text-decoration: line-through;
       opacity: 0.85;
     }}
-    .inline-figure {{
-      background: #fbfaf7;
-      border: 1.5px solid var(--line-strong);
-      box-shadow: 0 6px 20px rgba(24, 34, 29, 0.06);
-      border-radius: 16px;
-      padding: 1.1rem;
-      margin: 1.35rem 0 0.65rem;
-    }}
-    .playground-band {{
-      background: var(--paper);
-      border: 2px solid var(--ink);
-      box-shadow: 0 3px 0 var(--ink), 0 10px 24px rgba(17, 28, 22, 0.08);
-      border-radius: 18px;
-      padding: 1.35rem 1.5rem;
-      margin: 1.35rem 0 1.85rem;
-    }}
     .quiz-option {{
       display: block;
       width: 100%;
       text-align: left;
-      background: var(--paper);
-      border: 2px solid var(--line-strong);
+      background: #ffffff;
+      border: 1px solid var(--line-strong);
       color: var(--ink);
-      padding: 0.85rem 1.05rem;
-      border-radius: 12px;
-      margin-bottom: 0.6rem;
+      padding: 0.88rem 1.05rem;
+      border-radius: 10px;
+      margin-bottom: 0.55rem;
       cursor: pointer;
       font-family: var(--sans);
-      font-size: 0.95rem;
-      font-weight: 700;
+      font-size: 0.94rem;
+      font-weight: 500;
       transition: border-color 120ms ease-out, background-color 120ms ease-out;
     }}
     @media (hover: hover) {{
@@ -1237,6 +1488,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       border-color: var(--meadow);
       background: var(--meadow-soft);
       color: #14532d;
+      font-weight: 600;
     }}
     .quiz-option.wrong {{
       border-color: #dc2626;
@@ -1244,51 +1496,39 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       color: #7f1d1d;
     }}
     pre {{
-      background: #111c16;
-      color: #f2f7f4;
+      background: #171817;
+      color: #f0ede6;
       padding: 1.15rem 1.3rem;
-      border-radius: 14px;
-      border: 2px solid var(--ink);
+      border-radius: 10px;
+      border: 1px solid rgba(23, 22, 20, 0.14);
       overflow-x: auto;
       font-family: var(--mono);
-      font-size: 0.84rem;
-      line-height: 1.6;
+      font-size: 0.82rem;
+      line-height: 1.62;
     }}
     .jargon-table {{
       width: 100%;
       border-collapse: collapse;
       margin: 1rem 0 2rem;
-      font-size: 0.94rem;
+      font-size: 0.92rem;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
     }}
     .jargon-table th, .jargon-table td {{
-      padding: 0.8rem 0.95rem;
-      border-bottom: 1.5px solid var(--line);
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--line);
       text-align: left;
       vertical-align: top;
     }}
     .jargon-table th {{
-      background: var(--paper);
+      background: var(--paper-warm);
       font-family: var(--mono);
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       text-transform: uppercase;
-      color: var(--ink-soft);
-    }}
-    .ig-deck {{
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }}
-    .ig-slide {{
-      aspect-ratio: 4 / 5;
-      background: var(--paper);
-      border: 2px solid var(--ink);
-      box-shadow: 0 3px 0 var(--ink), 0 8px 20px rgba(17,28,22,0.10);
-      border-radius: 16px;
-      padding: 1.1rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      letter-spacing: 0.05em;
+      color: var(--muted);
     }}
 
     /* SLIDE-OVER SYLLABUS TELEPORTER DRAWER */
@@ -1352,14 +1592,15 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         </span>
         <span class="thin-pill">
           <span>⭐</span>
-          <strong id="hud-cleared-count">0 / 49</strong>
+          <strong id="hud-cleared-count">0 / 52</strong>
         </span>
       </div>
       <div class="hud-right-cluster">
         <button class="thin-btn" id="btn-exit-hall" style="display:none;" onclick="switchScene('campus')">← Exit Hall</button>
-        <button class="thin-btn" onclick="triggerKarpathyCall('manual')">📞 Call Karpathy (3D)</button>
-        <button class="thin-btn thin-btn-meadow" onclick="walkToCurrentQuest()">🚶 Walk to Mission →</button>
-        <button class="thin-btn" onclick="toggleTeleportDrawer(true)">🗺️ Map (49)</button>
+        <button class="thin-btn" id="btn-sound-toggle" onclick="toggleSoundMute()">🔊 SFX</button>
+        <button class="thin-btn" onclick="triggerKarpathyCall('manual')">📞 Call Karpathy</button>
+        <button class="thin-btn thin-btn-meadow" onclick="walkToCurrentQuest()">🚶 Next Mission →</button>
+        <button class="thin-btn" onclick="toggleTeleportDrawer(true)">🗺️ Map (52)</button>
       </div>
     </div>
 
@@ -1420,36 +1661,71 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     </div>
   </div>
 
-  <!-- STORY-FIRST ILLUSTRATED CHAPTER BOOK MODAL -->
+  <!-- CINEMATIC FIRST-VISIT STORY PROLOGUE -->
+  <div class="cinema-backdrop" id="cinema-backdrop">
+    <div class="cinema-frame" id="cinema-frame">
+      <div class="cinema-top-row">
+        <span class="cinema-step-tag" id="cinema-step-tag">PROLOGUE · SCENE 01 / 04</span>
+        <button class="cinema-skip" onclick="finishIntroCinema(false)">Skip intro</button>
+      </div>
+      <div class="cinema-volume-bar" id="cinema-volume-bar">
+        <div class="cinema-eq"><span></span><span></span><span></span><span></span></div>
+        <span>OOPS — WHAT'S THAT VOLUME?! INCOMING ENCRYPTED CALL ON YOUR POCKET COMMUNICATOR...</span>
+      </div>
+      <div class="cinema-visual-row">
+        <canvas id="cinema-portrait-canvas" width="192" height="192"></canvas>
+        <div>
+          <h1 class="cinema-headline" id="cinema-headline">Meet your alter ego.</h1>
+          <div style="font-family:var(--mono);font-size:0.78rem;color:rgba(244,241,234,0.62);" id="cinema-submeta">SOUTH APPROACH ROAD · BITSBYBLOCKS AI UNIVERSITY</div>
+        </div>
+      </div>
+      <p class="cinema-body" id="cinema-body"></p>
+      <div class="cinema-actions">
+        <div class="cinema-dots" id="cinema-dots"></div>
+        <div style="display:flex;gap:0.6rem;align-items:center;" id="cinema-btn-row"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SURPRISE DISCOVERY TOAST -->
+  <div class="surprise-toast" id="surprise-toast">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:0.6rem;margin-bottom:0.35rem;">
+      <span style="font-family:var(--mono);font-size:0.76rem;font-weight:700;color:#e07a5f;" id="surprise-kicker">CAMPUS ANOMALY</span>
+      <button style="background:transparent;border:none;color:#d6d3cb;cursor:pointer;font-size:0.85rem;" onclick="document.getElementById('surprise-toast').classList.remove('open')">✕</button>
+    </div>
+    <div style="font-size:0.86rem;line-height:1.5;color:#f6f3ec;" id="surprise-body"></div>
+  </div>
+
+  <!-- EDITORIAL PUBLICATION LESSON MODAL (ZERO SHARE/SOCIAL CLUTTER) -->
   <div class="book-modal" id="book-modal">
     <div class="book-sheet">
       <div class="book-header">
         <div>
-          <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.2rem;">
+          <div style="display:flex;align-items:center;gap:0.45rem;margin-bottom:0.2rem;flex-wrap:wrap;">
             <span class="tag tag-terracotta" id="bk-location-tag">STOP 01 · SECURITY GATE</span>
-            <span class="tag tag-meadow" id="bk-status-tag">🟢 ACTIVE MISSION</span>
+            <span class="tag tag-meadow" id="bk-status-tag">READY TO CLEAR</span>
           </div>
-          <h2 id="bk-title" style="margin:0;font-family:var(--serif);font-size:1.5rem;line-height:1.35;">What an LLM Actually Is</h2>
+          <h2 id="bk-title" style="margin:0;font-family:var(--serif);font-size:1.5rem;font-weight:600;line-height:1.25;">What an LLM Actually Is</h2>
         </div>
         <div style="display:flex;gap:0.5rem;align-items:center;">
-          <a id="bk-standalone-link" class="thin-btn" href="#" target="_blank">↗ Reader View</a>
-          <button class="thin-btn" onclick="closeBookModal()">✕ Back to 3D World (Esc)</button>
+          <a id="bk-standalone-link" class="btn" href="#" target="_blank" rel="noopener">Open Reader Article ↗</a>
+          <button class="btn" onclick="closeBookModal()">Back to Campus (Esc)</button>
         </div>
       </div>
 
       <div class="book-tabs">
-        <button class="book-tab active" data-tab="story" onclick="switchBookTab('story')">📖 1. Illustrated Story & Playground</button>
-        <button class="book-tab" data-tab="lab" onclick="switchBookTab('lab')">🧪 2. Runnable Python Lab</button>
-        <button class="book-tab" data-tab="gate" onclick="switchBookTab('gate')">🚧 3. Boss Gate Check (3 Questions)</button>
-        <button class="book-tab" data-tab="share" onclick="switchBookTab('share')">🏆 4. Share Studio (X & IG)</button>
+        <button class="book-tab active" data-tab="story" onclick="switchBookTab('story')">01 · Essay &amp; Sandbox</button>
+        <button class="book-tab" data-tab="lab" onclick="switchBookTab('lab')">02 · Code Walkthrough &amp; Lab</button>
+        <button class="book-tab" data-tab="deep" onclick="switchBookTab('deep')">03 · Go Deeper (Agent Prompts)</button>
+        <button class="book-tab" data-tab="gate" onclick="switchBookTab('gate')">04 · Checkpoint (3 Questions)</button>
       </div>
 
       <div class="book-progress-track"><div class="book-progress-bar" id="bk-progress-bar"></div></div>
       <div class="book-body" id="bk-body-scroll" onscroll="updateBookReadingProgress()">
         <div class="book-pane active" id="bk-pane-story"></div>
         <div class="book-pane" id="bk-pane-lab"></div>
+        <div class="book-pane" id="bk-pane-deep"></div>
         <div class="book-pane" id="bk-pane-gate"></div>
-        <div class="book-pane" id="bk-pane-share"></div>
       </div>
     </div>
   </div>
@@ -1465,8 +1741,11 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         <button class="thin-btn" onclick="toggleTeleportDrawer(false)">✕ Close</button>
       </div>
       <p style="margin:0;font-size:0.84rem;color:var(--ink-soft);">
-        This university constructs new rooms and labs automatically as frontier AI papers drop. Click any unlocked stop to walk Ashwin there!
+        This university constructs new rooms and labs automatically as frontier AI papers drop. Click any unlocked stop to walk there.
       </p>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+        <button class="btn" style="flex:1;justify-content:center;" onclick="toggleTeleportDrawer(false);openIntroCinema(0);">▶ Replay Intro Story</button>
+      </div>
       <div id="teleport-list" style="display:flex;flex-direction:column;gap:0.55rem;"></div>
     </aside>
   </div>
@@ -1476,7 +1755,169 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     const SEEDED_LESSONS = {lessons_json};
 
     const STORAGE_KEY = "bits_uni_cleared_v5";
-    const INTRO_SEEN_KEY = "bits_uni_intro_seen_v5";
+    const INTRO_SEEN_KEY = "bits_uni_intro_seen_v6";
+    let soundMuted = false;
+    let audioCtx = null;
+
+    function getAudioCtx() {{
+      if (soundMuted) return null;
+      try {{
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === "suspended") audioCtx.resume();
+        return audioCtx;
+      }} catch (e) {{ return null; }}
+    }}
+
+    function playTone(freq, dur, startOffset = 0, gainVal = 0.08, type = "sine") {{
+      const ac = getAudioCtx();
+      if (!ac) return;
+      const now = ac.currentTime + startOffset;
+      const osc = ac.createOscillator();
+      const g = ac.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, now);
+      g.gain.setValueAtTime(0.0001, now);
+      g.gain.exponentialRampToValueAtTime(gainVal, now + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+      osc.connect(g);
+      g.connect(ac.destination);
+      osc.start(now);
+      osc.stop(now + dur + 0.02);
+    }}
+
+    function playSfx(kind) {{
+      if (soundMuted) return;
+      if (kind === "ring") {{
+        playTone(660, 0.16, 0.00, 0.09, "triangle");
+        playTone(880, 0.16, 0.18, 0.09, "triangle");
+        playTone(660, 0.16, 0.42, 0.09, "triangle");
+        playTone(990, 0.22, 0.60, 0.10, "triangle");
+      }} else if (kind === "whistle") {{
+        playTone(1350, 0.18, 0.0, 0.06, "sine");
+        playTone(1520, 0.24, 0.16, 0.06, "sine");
+      }} else if (kind === "clear") {{
+        playTone(523.25, 0.18, 0.00, 0.08, "triangle");
+        playTone(659.25, 0.18, 0.12, 0.08, "triangle");
+        playTone(783.99, 0.28, 0.24, 0.09, "triangle");
+      }} else if (kind === "surprise") {{
+        playTone(587.33, 0.14, 0.00, 0.07, "sine");
+        playTone(880.00, 0.22, 0.11, 0.08, "sine");
+      }}
+    }}
+
+    function toggleSoundMute() {{
+      soundMuted = !soundMuted;
+      const btn = document.getElementById("btn-sound-toggle");
+      if (btn) btn.innerText = soundMuted ? "🔇 Muted" : "🔊 SFX";
+    }}
+
+    function showSurpriseToast(kicker, body) {{
+      playSfx("surprise");
+      document.getElementById("surprise-kicker").innerText = kicker;
+      document.getElementById("surprise-body").innerText = body;
+      const el = document.getElementById("surprise-toast");
+      el.classList.add("open");
+      clearTimeout(window._surpriseTimer);
+      window._surpriseTimer = setTimeout(() => el.classList.remove("open"), 7500);
+    }}
+
+    // =========================================================================
+    // CINEMATIC FIRST-VISIT STORY PROLOGUE ("MEET YOUR ALTER EGO" + KARPATHY INTERRUPT)
+    // =========================================================================
+    const CINEMA_SCENES = [
+      {{
+        tag: "PROLOGUE · SCENE 01 / 04",
+        portrait: "player",
+        headline: "Meet your alter ego.",
+        submeta: "ASHWIN · SOUTH APPROACH ROAD · BITSBYBLOCKS AI UNIVERSITY",
+        body: "This is you. You use AI every day — maybe you prompt it, wire up APIs, or ship agents with it. From the outside, it feels like pure magic.",
+        ringing: false,
+        buttons: [
+          {{ label: "Continue →", action: "next", primary: true }}
+        ]
+      }},
+      {{
+        tag: "PROLOGUE · SCENE 02 / 04",
+        portrait: "player",
+        headline: "Now be honest for ten seconds.",
+        submeta: "THE APPLICATION LAYER VS. FIRST PRINCIPLES",
+        body: "How deeply do you actually know what runs under the hood? When a model counts two r's in 'strawberry', when Hindi costs 3.3x more tokens, when cosine search returns an antonym, or when an agent silently forgets Turn 1 — do you guess, or do you see the machinery?",
+        ringing: false,
+        buttons: [
+          {{ label: "← Back", action: "prev", primary: false }},
+          {{ label: "Keep going →", action: "next", primary: true }}
+        ]
+      }},
+      {{
+        tag: "PROLOGUE · SCENE 03 / 04",
+        portrait: "player",
+        headline: "Normie at the UI, or builder at the core?",
+        submeta: "CHOOSE YOUR TRACK",
+        body: "If you're happy staying a normie clicking buttons at the application layer, honestly — don't bother. Close the tab and keep prompting. No hard feelings. But if you really, really want to make it in AI — to understand, debug, and build from first principles — step onto the South Road.",
+        ringing: false,
+        buttons: [
+          {{ label: "I'm happy being a normie (just peek around)", action: "skip", primary: false }},
+          {{ label: "I'm in — take me under the hood →", action: "next", primary: true }}
+        ]
+      }},
+      {{
+        tag: "SURPRISE INTERRUPT · SCENE 04 / 04",
+        portrait: "karpathy",
+        headline: "“Yo Ashwin — sorry to hijack your speakers!”",
+        submeta: "ANDREJ KARPATHY · FOUNDER · POCKET COMMUNICATOR",
+        body: "“Oops, caught you mid-scroll! Look: we designed Bits University for one reason. Passive threads and shallow tutorials don't make AI experts — touching the real logits, BPE merges, vector angles, and KV caches yourself does. Finish every checkpoint, steal the copyable Agent Prompts inside each lab to push even further, and remember rule #1 of this campus: having fun is non-negotiable. Now walk up the South Road — Officer Rajan is waiting at the boom gate!”",
+        ringing: true,
+        buttons: [
+          {{ label: "Answer & Walk to Officer Rajan →", action: "start_game", primary: true }}
+        ]
+      }}
+    ];
+
+    let cinemaIdx = 0;
+
+    function openIntroCinema(idx = 0) {{
+      cinemaIdx = idx;
+      const sc = CINEMA_SCENES[cinemaIdx] || CINEMA_SCENES[0];
+      document.getElementById("cinema-step-tag").innerText = sc.tag;
+      document.getElementById("cinema-headline").innerText = sc.headline;
+      document.getElementById("cinema-submeta").innerText = sc.submeta;
+      document.getElementById("cinema-body").innerText = sc.body;
+      document.getElementById("cinema-volume-bar").classList.toggle("active", !!sc.ringing);
+      document.getElementById("cinema-frame").classList.toggle("ringing", !!sc.ringing);
+
+      document.getElementById("cinema-dots").innerHTML = CINEMA_SCENES.map((_, i) =>
+        `<span class="cinema-dot ${{i === cinemaIdx ? 'active' : ''}}"></span>`
+      ).join("");
+
+      document.getElementById("cinema-btn-row").innerHTML = sc.buttons.map(b =>
+        `<button class="${{b.primary ? 'cinema-btn-primary' : 'cinema-btn-ghost'}}" onclick="handleCinemaAction('${{b.action}}')">${{b.label}}</button>`
+      ).join("");
+
+      document.getElementById("cinema-backdrop").classList.add("open");
+      if (sc.ringing) {{
+        playSfx("ring");
+      }}
+    }}
+
+    function handleCinemaAction(action) {{
+      if (action === "next") {{
+        openIntroCinema(Math.min(CINEMA_SCENES.length - 1, cinemaIdx + 1));
+      }} else if (action === "prev") {{
+        openIntroCinema(Math.max(0, cinemaIdx - 1));
+      }} else if (action === "skip") {{
+        finishIntroCinema(false);
+      }} else if (action === "start_game") {{
+        finishIntroCinema(true);
+      }}
+    }}
+
+    function finishIntroCinema(walkToGate) {{
+      localStorage.setItem(INTRO_SEEN_KEY, "1");
+      document.getElementById("cinema-backdrop").classList.remove("open");
+      if (walkToGate && !isGateOpen()) {{
+        startWalkToGateAmbush();
+      }}
+    }}
     let clearedIds = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"));
 
     function saveProgress() {{
@@ -1519,7 +1960,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       }},
       "after_l0-context-window": {{
         status: "📲 KARPATHY CHECK-IN · QUAD CLEARED!",
-        preview: "“You survived the 24-word Lunch Tray and the Lost-in-the-Middle U-curve! The cranes on the East Lawn just finished all 6 Academic Halls (49 modules). Step inside Hall 0 whenever you're ready!”",
+        preview: "“You survived the 24-word Lunch Tray and the Lost-in-the-Middle U-curve! The cranes on the East Lawn just finished all 6 Academic Halls (52 modules — updated for Multimodal, Context Engineering & RLVR/GRPO!). Step inside Hall 0 whenever you're ready!”",
         btnLabel: "🏛️ Enter Academic Hall 0 →",
         onAccept: "walkNext"
       }},
@@ -1541,6 +1982,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       document.getElementById("karpathy-call-action-btn").innerText = script.btnLabel;
       document.getElementById("karpathy-call-toast").classList.add("open");
       state.holoRinging = true;
+      playSfx("ring");
     }}
 
     function dismissKarpathyToast() {{
@@ -1726,23 +2168,24 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     ];
 
     const ACADEMIC_HALLS = [
-      {{ level: 0, code: "HALL 0", name: "Foundations", sub: "Intuition, Eval & First Call", x: 870, y: 590, w: 120, d: 64, h: 48, roof: "#a9492f", wallL: "#faf8f4", wallR: "#e9e3d8" }},
-      {{ level: 1, code: "HALL 1", name: "RAG & Search", sub: "Vectors, Chunking & Search", x: 1120, y: 590, w: 120, d: 64, h: 48, roof: "#4a6477", wallL: "#faf8f4", wallR: "#e9e3d8" }},
-      {{ level: 2, code: "HALL 2", name: "Attention", sub: "Transformers & KV Cache", x: 870, y: 432, w: 120, d: 64, h: 48, roof: "#496b59", wallL: "#faf8f4", wallR: "#e9e3d8" }},
-      {{ level: 3, code: "HALL 3", name: "Agents Wing", sub: "Tool Loops, MCP & Memory", x: 1120, y: 432, w: 120, d: 64, h: 48, roof: "#655670", wallL: "#faf8f4", wallR: "#e9e3d8" }},
-      {{ level: 4, code: "HALL 4", name: "Fine-Tuning", sub: "LoRA, DPO & GRPO", x: 870, y: 274, w: 120, d: 64, h: 48, roof: "#8b6842", wallL: "#faf8f4", wallR: "#e9e3d8" }},
-      {{ level: 5, code: "HALL 5", name: "Frontier Lab", sub: "MoE, Speculative & Prod", x: 1120, y: 274, w: 120, d: 64, h: 48, roof: "#7d4850", wallL: "#faf8f4", wallR: "#e9e3d8" }}
+      {{ level: 0, code: "HALL 0", name: "Ground Floor", sub: "LLMs, Tokens, Embeddings & Context", x: 870, y: 590, w: 120, d: 64, h: 48, roof: "#a9492f", wallL: "#faf8f4", wallR: "#e9e3d8" }},
+      {{ level: 1, code: "HALL 1", name: "Inside the Box", sub: "Attention, RoPE, KV & Multimodal", x: 1120, y: 590, w: 120, d: 64, h: 48, roof: "#4a6477", wallL: "#faf8f4", wallR: "#e9e3d8" }},
+      {{ level: 2, code: "HALL 2", name: "AI Engineer", sub: "Evals, Hybrid RAG, MCP & Context Eng", x: 870, y: 432, w: 120, d: 64, h: 48, roof: "#496b59", wallL: "#faf8f4", wallR: "#e9e3d8" }},
+      {{ level: 3, code: "HALL 3", name: "Adapter Wing", sub: "SFT, LoRA, DPO, RLVR & GRPO", x: 1120, y: 432, w: 120, d: 64, h: 48, roof: "#655670", wallL: "#faf8f4", wallR: "#e9e3d8" }},
+      {{ level: 4, code: "HALL 4", name: "Operator Wing", sub: "vLLM, FP8/FP4, Prefix Cache & Security", x: 870, y: 274, w: 120, d: 64, h: 48, roof: "#8b6842", wallL: "#faf8f4", wallR: "#e9e3d8" }},
+      {{ level: 5, code: "HALL 5", name: "Builder Lab", sub: "FlashAttention, MoE & Reasoning", x: 1120, y: 274, w: 120, d: 64, h: 48, roof: "#7d4850", wallL: "#faf8f4", wallR: "#e9e3d8" }}
     ];
 
     const HALL_ROOMS = [
-      {{ idx: 0, x: 95,  y: 110, w: 240, h: 185 }},
-      {{ idx: 1, x: 375, y: 110, w: 240, h: 185 }},
-      {{ idx: 2, x: 655, y: 110, w: 240, h: 185 }},
-      {{ idx: 3, x: 935, y: 110, w: 240, h: 185 }},
-      {{ idx: 4, x: 95,  y: 465, w: 240, h: 185 }},
-      {{ idx: 5, x: 375, y: 465, w: 240, h: 185 }},
-      {{ idx: 6, x: 655, y: 465, w: 240, h: 185 }},
-      {{ idx: 7, x: 935, y: 465, w: 240, h: 185 }}
+      {{ idx: 0, x: 64,  y: 110, w: 214, h: 185 }},
+      {{ idx: 1, x: 298, y: 110, w: 214, h: 185 }},
+      {{ idx: 2, x: 532, y: 110, w: 214, h: 185 }},
+      {{ idx: 3, x: 766, y: 110, w: 214, h: 185 }},
+      {{ idx: 4, x: 1000,y: 110, w: 214, h: 185 }},
+      {{ idx: 5, x: 140, y: 465, w: 230, h: 185 }},
+      {{ idx: 6, x: 400, y: 465, w: 230, h: 185 }},
+      {{ idx: 7, x: 660, y: 465, w: 230, h: 185 }},
+      {{ idx: 8, x: 920, y: 465, w: 230, h: 185 }}
     ];
 
     const state = {{
@@ -1905,6 +2348,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       }} else {{
         // 3D Caricature for Officer Rajan, Maya, Chef Kabir, or Prof. Meera
         const colors = {{
+          player: {{ bg: "#292524", coat: "#9e3c22", hat: "#1c1917", badge: "#d97757" }},
           guard: {{ bg: "#fef3c7", coat: "#1e3a8a", hat: "#1e3a8a", badge: "#facc15" }},
           engineer: {{ bg: "#e0f2fe", coat: "#0284c7", hat: "#eab308", badge: "#38bdf8" }},
           chef: {{ bg: "#ffedd5", coat: "#ea580c", hat: "#ffffff", badge: "#fed7aa" }},
@@ -2924,6 +3368,15 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
             return;
           }}
         }}
+        // Hidden Campus Easter Eggs (Construction Crane & Chai Terrace Chimney)
+        if (Math.hypot(cx - 1200, cy - 205) < 42) {{
+          showSurpriseToast("EASTER EGG · SELF-EXPANDING CRANE", "This crane is currently assembling Hall 5's FlashAttention & RLVR wings. Every time a major paper shifts the frontier, a new classroom drops in.");
+          return;
+        }}
+        if (Math.hypot(cx - 298, cy - 202) < 30) {{
+          showSurpriseToast("EASTER EGG · CHEF KABIR'S SECRET", "Secret formula from the Chai Terrace: normalize every embedding to L2 norm = 1.0 once at write time, and cosine search becomes a single SIMD dot product.");
+          return;
+        }}
         for (const h of ACADEMIC_HALLS) {{
           if (cx >= h.x - h.w / 2 - 15 && cx <= h.x + h.w / 2 + 15 &&
               cy >= h.y - h.h - h.d / 2 - 20 && cy <= h.y + h.d / 2 + 15) {{
@@ -3034,6 +3487,13 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       }}
       if (document.getElementById("rpg-dialogue-backdrop").classList.contains("open")) {{
         draw3DCaricaturePortrait(rpgPortraitCtx, 192, 192, state.activePortraitStyle, state.tick);
+      }}
+      if (document.getElementById("cinema-backdrop").classList.contains("open")) {{
+        const cCanv = document.getElementById("cinema-portrait-canvas");
+        if (cCanv) {{
+          const sc = CINEMA_SCENES[cinemaIdx] || CINEMA_SCENES[0];
+          draw3DCaricaturePortrait(cCanv.getContext("2d"), 192, 192, sc.portrait, state.tick);
+        }}
       }}
 
       const proxBtn = document.getElementById("proximity-btn");
@@ -3294,120 +3754,259 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       return "";
     }}
 
+    function renderMemeCardsHtml(memes) {{
+      if (!memes || !memes.length) return "";
+      return memes.map(m => {{
+        let inner = "";
+        if (m.format === "two_panel") {{
+          inner = `
+            <div class="meme-panels-2">
+              <div class="meme-panel">
+                <div class="meme-label" style="color:var(--muted);">${{m.left_label}}</div>
+                <div style="font-size:0.9rem;line-height:1.55;color:var(--ink-soft);white-space:pre-line;">${{m.left_body}}</div>
+              </div>
+              <div class="meme-panel meme-panel-highlight">
+                <div class="meme-label">${{m.right_label}}</div>
+                <div style="font-size:0.9rem;line-height:1.55;color:var(--ink);white-space:pre-line;">${{m.right_body}}</div>
+              </div>
+            </div>
+          `;
+        }} else if (m.panels) {{
+          inner = `
+            <div class="meme-panels-3">
+              ${{m.panels.map((p, idx) => `
+                <div class="meme-panel ${{idx === 1 ? 'meme-panel-highlight' : ''}}">
+                  <div class="meme-label">${{p.head}}</div>
+                  <div style="font-weight:700;font-size:0.86rem;color:var(--ink);margin-bottom:0.3rem;">${{p.sub}}</div>
+                  <div style="font-size:0.85rem;line-height:1.5;color:var(--ink-soft);">${{p.body}}</div>
+                </div>
+              `).join("")}}
+            </div>
+          `;
+        }}
+        return `
+          <div class="meme-card">
+            <div class="chapter-kicker">${{m.kicker}}</div>
+            <div style="font-family:var(--serif);font-size:1.22rem;font-weight:600;margin-top:0.2rem;color:var(--ink);">${{m.title}}</div>
+            ${{inner}}
+            <div class="meme-punchline">${{m.punchline}}</div>
+          </div>
+        `;
+      }}).join("");
+    }}
+
+    function copyAgentPrompt(btnEl, promptIdx) {{
+      const lesson = SEEDED_LESSONS[state.activeStopId];
+      if (!lesson || !lesson.deep_assignments || !lesson.deep_assignments[promptIdx]) return;
+      const text = lesson.deep_assignments[promptIdx].agent_prompt;
+      const flash = () => {{
+        const orig = btnEl.innerText;
+        btnEl.innerText = "✓ Prompt Copied for Your Agent";
+        btnEl.classList.add("btn-meadow");
+        setTimeout(() => {{
+          btnEl.innerText = orig;
+          btnEl.classList.remove("btn-meadow");
+        }}, 2200);
+      }};
+      const fallback = () => {{
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try {{ document.execCommand("copy"); }} catch (e) {{}}
+        document.body.removeChild(ta);
+        flash();
+      }};
+      if (navigator.clipboard && navigator.clipboard.writeText) {{
+        navigator.clipboard.writeText(text).then(flash).catch(fallback);
+      }} else {{
+        fallback();
+      }}
+    }}
+
     function renderSeededLessonBook(mod, lesson, stop, unlocked, cleared) {{
       const figsById = {{}};
       (lesson.figures || []).forEach(f => {{ figsById[f.id] = f; }});
 
+      const heroHtml = lesson.hero_image ? `
+        <figure class="editorial-hero">
+          <img src="lessons/${{lesson.id}}/${{lesson.hero_image}}" alt="${{lesson.title}}" />
+          <figcaption>${{lesson.hero_caption || lesson.title}} · ${{lesson.reading_time || '7 min read'}}</figcaption>
+        </figure>
+      ` : "";
+
+      const hookHtml = `
+        <div class="memory-hook">
+          <div class="memory-hook-label">The Core Intuition · Remember This Six Months From Now</div>
+          <p class="memory-hook-quote">“${{lesson.memory_hook || lesson.one_line}}”</p>
+        </div>
+      `;
+
       const tocChips = [
-        `<button class="toc-chip" onclick="scrollBookTo('bk-playground')">⚡ Playground</button>`,
+        `<button class="toc-chip" onclick="scrollBookTo('bk-playground')">Interactive Sandbox</button>`,
         ...(lesson.sections || []).map((sec, idx) =>
           `<button class="toc-chip" onclick="scrollBookTo('bk-sec-${{idx}}')">0${{idx + 1}} · ${{sec.badge || 'Part ' + (idx + 1)}}</button>`
         ),
-        `<button class="toc-chip" onclick="scrollBookTo('bk-jargon')">📚 Jargon</button>`
+        `<button class="toc-chip" onclick="scrollBookTo('bk-jargon')">Jargon Decoder</button>`
       ].join("");
 
+      const memes = lesson.memes || [];
       const chaptersHtml = (lesson.sections || []).map((sec, idx) => {{
         let figHtml = "";
         if (sec.figure_id && figsById[sec.figure_id]) {{
           const f = figsById[sec.figure_id];
           figHtml = `
             <div class="inline-figure">
-              <img src="lessons/${{lesson.id}}/${{f.id}}.svg" alt="${{f.title}}" style="width:100%;height:auto;display:block;border-radius:8px;" />
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);flex-wrap:wrap;gap:0.5rem;">
-                <span><strong>📐 ${{f.title}}:</strong> ${{f.caption}}</span>
-                <a href="lessons/${{lesson.id}}/${{f.id}}.excalidraw" download style="font-family:var(--mono);color:var(--terracotta);font-weight:700;">⬇ .excalidraw</a>
+              <img src="lessons/${{lesson.id}}/${{f.id}}.svg" alt="${{f.title}}" style="width:100%;height:auto;display:block;border-radius:6px;" />
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.7rem;padding-top:0.55rem;border-top:1px solid var(--line);font-size:0.8rem;color:var(--muted);flex-wrap:wrap;gap:0.5rem;">
+                <span><strong>Figure:</strong> ${{f.caption}}</span>
+                <a href="lessons/${{lesson.id}}/${{f.id}}.excalidraw" download style="font-family:var(--mono);font-size:0.76rem;">Download .excalidraw</a>
               </div>
             </div>
           `;
         }}
         const expertHtml = sec.expert_note ? `
           <div class="callout-box callout-expert">
-            <div class="callout-title">⚙️ Under the Hood · Production Depth</div>
+            <div class="callout-title">Under the Hood · Production Depth</div>
             <div>${{formatSimpleMarkdown(sec.expert_note)}}</div>
           </div>
         ` : "";
         const trapHtml = sec.trap_note ? `
           <div class="callout-box callout-trap">
-            <div class="callout-title">⚠️ Production Engineering Trap</div>
+            <div class="callout-title">Production Trap</div>
             <div>${{formatSimpleMarkdown(sec.trap_note)}}</div>
           </div>
         ` : "";
         const calloutsHtml = (expertHtml || trapHtml) ? `<div class="callout-grid">${{expertHtml}}${{trapHtml}}</div>` : "";
+        // Weave meme 0 after section 1 and meme 1 after section 3 for natural rhythm!
+        const inlineMeme = (idx === 0 && memes[0]) ? renderMemeCardsHtml([memes[0]]) : ((idx === 2 && memes[1]) ? renderMemeCardsHtml([memes[1]]) : "");
         return `
           <section class="story-section" id="bk-sec-${{idx}}">
             <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
-              <span class="chapter-kicker">PART 0${{idx + 1}}</span>
-              <span class="tag tag-amber">${{sec.badge || ''}}</span>
+              <span class="chapter-kicker">Part 0${{idx + 1}}</span>
+              <span class="tag">${{sec.badge || ''}}</span>
             </div>
             <h3 class="chapter-heading">${{sec.heading}}</h3>
             <div class="chapter-prose">${{formatSimpleMarkdown(sec.body_md)}}</div>
             ${{figHtml}}
             ${{calloutsHtml}}
+            ${{inlineMeme}}
           </section>
         `;
       }}).join("");
 
       const jargonRows = (lesson.jargon_decoder || []).map(j => `
         <tr>
-          <td><strong style="color:var(--terracotta);font-family:var(--serif);font-size:1.05rem;">${{j.term}}</strong></td>
+          <td><strong style="color:var(--terracotta);font-family:var(--serif);font-size:1.02rem;">${{j.term}}</strong></td>
           <td>${{j.plain_words}}</td>
           <td style="color:var(--muted);">${{j.why_you_care}}</td>
         </tr>
       `).join("");
 
       document.getElementById("bk-pane-story").innerHTML = `
-        <div style="border:1.5px solid var(--line-strong);padding:0.85rem 1.15rem;margin-bottom:1.2rem;background:var(--paper);border-radius:12px;">
-          <div style="font-family:var(--serif);font-size:1.3rem;line-height:1.4;font-style:italic;color:var(--terracotta);margin-bottom:0.35rem;">
-            “${{lesson.question}}”
-          </div>
-          <div style="font-size:1.02rem;color:var(--ink);">
-            <strong>The Big Picture:</strong> ${{lesson.one_line}}
-          </div>
-        </div>
-
+        <p style="font-family:var(--serif);font-style:italic;font-size:1.26rem;color:var(--muted);margin:0 0 1.25rem;line-height:1.45;">
+          ${{lesson.question}}
+        </p>
+        ${{heroHtml}}
+        ${{hookHtml}}
         <div class="chapter-toc">${{tocChips}}</div>
-
         ${{buildInteractivePlayground(lesson.id)}}
-
         ${{chaptersHtml}}
 
-        <h3 class="chapter-heading" id="bk-jargon" style="margin-top:2.25rem;">Plain-English Jargon Decoder</h3>
+        <h3 class="chapter-heading" id="bk-jargon" style="margin-top:2.2rem;">Plain-English Jargon Decoder</h3>
         <table class="jargon-table">
           <thead><tr><th>Term</th><th>In Plain Words</th><th>Why You Care</th></tr></thead>
           <tbody>${{jargonRows}}</tbody>
         </table>
 
-        <div style="text-align:center;margin-top:2rem;">
-          <button class="btn btn-primary" style="font-size:0.96rem;padding:0.75rem 1.6rem;" onclick="switchBookTab('gate')">
-            ${{cleared ? '🔁 Practice the 3-Question Checkpoint Check Again →' : '🚧 Ready? Take the 3-Question Checkpoint Gate Test →'}}
+        <div style="display:flex;justify-content:center;gap:0.75rem;flex-wrap:wrap;margin-top:2.2rem;">
+          <button class="btn" onclick="switchBookTab('lab')">Read Core Code Walkthrough →</button>
+          <button class="btn btn-primary" onclick="switchBookTab('gate')">
+            ${{cleared ? 'Practice Checkpoint Questions →' : 'Take 3-Question Checkpoint →'}}
           </button>
         </div>
       `;
 
+      // TAB 02: CODE WALKTHROUGH & RUNNABLE LAB
       const lab = lesson.lab;
+      const walkHtml = (lesson.code_walkthrough || []).map(w => `
+        <div class="walk-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:0.5rem;margin-bottom:0.35rem;">
+            <span class="chapter-kicker">Step ${{w.step}} · ${{w.lines}}</span>
+            <span class="tag tag-sky">Core Mechanism</span>
+          </div>
+          <h4 style="margin:0.15rem 0 0.65rem;font-family:var(--serif);font-size:1.22rem;font-weight:600;color:var(--ink);">${{w.title}}</h4>
+          <pre style="margin:0 0 0.8rem;"><code>${{w.code_snippet.replace(/</g, "&lt;")}}</code></pre>
+          <p style="margin:0 0 0.55rem;font-size:0.93rem;color:var(--ink-soft);"><strong>Why this code exists:</strong> ${{w.why_it_matters}}</p>
+          <div style="font-size:0.88rem;color:#7f2d18;background:var(--terracotta-soft);border:1px solid rgba(158,60,34,0.18);border-radius:8px;padding:0.6rem 0.8rem;">
+            <strong>What breaks if you remove it:</strong> ${{w.what_if_removed}}
+          </div>
+        </div>
+      `).join("");
+
       const accList = (lab.acceptance || []).map(a => `
         <li style="margin-bottom:0.5rem;">
           <strong>${{a.criterion}}</strong>
-          <div style="font-family:var(--mono);font-size:0.78rem;color:var(--meadow);">✓ Verified proof: ${{a.evidence}}</div>
+          <div style="font-family:var(--mono);font-size:0.78rem;color:var(--meadow);">✓ Verified: ${{a.evidence}}</div>
         </li>
       `).join("");
 
       document.getElementById("bk-pane-lab").innerHTML = `
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;margin-bottom:1rem;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.25rem;">
           <div>
-            <div class="chapter-kicker">PURE PYTHON HANDS-ON LAB (ZERO API KEYS)</div>
-            <h3 class="chapter-heading" style="margin:0.2rem 0;">${{lab.title}}</h3>
+            <div class="chapter-kicker">Pure Python 3 · Zero API Keys Required</div>
+            <h3 class="chapter-heading" style="margin:0.2rem 0 0.35rem;">${{lab.title}}</h3>
+            <p style="margin:0;font-size:0.95rem;color:var(--muted);">${{lab.goal}}</p>
           </div>
-          <a class="btn btn-primary" href="lessons/${{lesson.id}}/${{lab.code_file}}" download>⬇ Download ${{lab.code_file}}</a>
+          <a class="btn btn-primary" href="lessons/${{lesson.id}}/${{lab.code_file}}" download>Download ${{lab.code_file}}</a>
         </div>
-        <p style="font-size:1rem;color:var(--ink-soft);">${{lab.goal}}</p>
-        <ul style="padding-left:1.25rem;margin-bottom:1.5rem;">${{accList}}</ul>
-        <h4 style="font-family:var(--mono);font-size:0.82rem;color:var(--meadow);margin-top:1.5rem;">REAL VERIFIED TERMINAL OUTPUT (EXIT CODE 0)</h4>
+
+        <h4 style="font-family:var(--mono);font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink);margin:1.5rem 0 0.75rem;">Line-by-Line Core Code Walkthrough</h4>
+        ${{walkHtml}}
+
+        <h4 style="font-family:var(--mono);font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--meadow);margin:1.75rem 0 0.5rem;">Verified Terminal Output (Exit Code 0)</h4>
         <pre><code>${{lab.real_output}}</code></pre>
-        <h4 style="font-family:var(--mono);font-size:0.82rem;color:var(--terracotta);margin-top:1.5rem;">COMPLETE SOURCE CODE (${{lab.code_file}})</h4>
-        <pre><code>${{(lesson.code_text || "").replace(/</g, "&lt;")}}</code></pre>
+
+        <h4 style="font-family:var(--mono);font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink);margin:1.6rem 0 0.5rem;">Acceptance Proof</h4>
+        <ul style="padding-left:1.25rem;margin-bottom:1.5rem;font-size:0.93rem;">${{accList}}</ul>
+
+        <details style="margin-top:1.25rem;">
+          <summary style="cursor:pointer;font-family:var(--mono);font-size:0.82rem;font-weight:600;color:var(--terracotta);padding:0.5rem 0;">Inspect Complete Source Code (${{lab.code_file}})</summary>
+          <pre style="margin-top:0.65rem;"><code>${{(lesson.code_text || "").replace(/</g, "&lt;")}}</code></pre>
+        </details>
       `;
 
+      // TAB 03: OPTIONAL IN-DEPTH ASSIGNMENTS + COPYABLE AGENT PROMPTS
+      const assigns = lesson.deep_assignments || [];
+      const assignsHtml = assigns.map((a, idx) => `
+        <div class="assign-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.35rem;">
+            <span class="chapter-kicker">Optional Assignment 0${{idx + 1}}</span>
+            <span class="tag ${{a.level === 'Systems' ? 'tag-terracotta' : (a.level === 'Deep Dive' ? 'tag-sky' : 'tag-meadow')}}">${{a.level}}</span>
+          </div>
+          <h4 style="margin:0.15rem 0 0.5rem;font-family:var(--serif);font-size:1.3rem;font-weight:600;color:var(--ink);">${{a.title}}</h4>
+          <p style="margin:0 0 0.5rem;font-size:0.94rem;color:var(--ink-soft);">${{a.goal}}</p>
+          <p style="margin:0 0 0.7rem;font-size:0.86rem;color:var(--meadow);"><strong>What you will prove:</strong> ${{a.what_you_prove}}</p>
+          <div style="font-family:var(--mono);font-size:0.76rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;">Ready-to-Paste Prompt for Your Coding Agent</div>
+          <div class="agent-prompt-box">${{a.agent_prompt.replace(/</g, "&lt;")}}</div>
+          <button class="btn btn-primary" onclick="copyAgentPrompt(this, ${{idx}})">Copy Prompt for Your Agent</button>
+        </div>
+      `).join("");
+
+      document.getElementById("bk-pane-deep").innerHTML = `
+        <div class="playground-band" style="margin-top:0;">
+          <div class="chapter-kicker">Go Beyond Reading · Learn By Building</div>
+          <h3 style="margin:0.2rem 0 0.4rem;font-family:var(--serif);font-size:1.45rem;font-weight:600;">Optional In-Depth Assignments &amp; Agent Prompts</h3>
+          <p style="margin:0;font-size:0.94rem;color:var(--ink-soft);">
+            Want to lock this concept into permanent engineering muscle memory? Pick any assignment below, copy the prompt, and hand it directly to your coding agent to build, benchmark, and debate the results together.
+          </p>
+        </div>
+        ${{assignsHtml}}
+      `;
+
+      // TAB 04: 3-QUESTION CHECKPOINT GATE
       const questions = lesson.gate_challenge || [];
       const qHtml = questions.map((qObj, qIdx) => {{
         const opts = qObj.options.map((opt, oIdx) => `
@@ -3417,67 +4016,25 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         `).join("");
         return `
           <div class="story-section" style="padding:1.25rem 0;">
-            <div style="font-weight:800;font-size:1.04rem;margin-bottom:0.85rem;">${{qObj.q}}</div>
+            <div style="font-weight:600;font-size:1.02rem;margin-bottom:0.85rem;color:var(--ink);">${{qObj.q}}</div>
             ${{opts}}
-            <div id="q-${{qIdx}}-feedback" style="display:none;margin-top:0.55rem;font-size:0.9rem;font-weight:700;padding:0.65rem 0.9rem;border-radius:10px;"></div>
+            <div id="q-${{qIdx}}-feedback" style="display:none;margin-top:0.55rem;font-size:0.89rem;font-weight:600;padding:0.65rem 0.9rem;border-radius:8px;"></div>
           </div>
         `;
       }}).join("");
 
       document.getElementById("bk-pane-gate").innerHTML = `
         <div class="playground-band" style="margin-top:0;">
-          <div class="chapter-kicker">${{cleared ? '✓ CHECKPOINT CLEARED · PRACTICE MODE' : '🚧 CAMPUS CHECKPOINT BOSS CHECK'}}</div>
-          <h3 style="margin:0.2rem 0 0.35rem;font-family:var(--serif);font-size:1.4rem;line-height:1.35;">
-            ${{cleared ? 'Re-test Your Mastery Anytime (Progress Saved)' : 'Pass All 3 Questions to Unlock the Next Campus Stop'}}
+          <div class="chapter-kicker">${{cleared ? 'Checkpoint Cleared · Practice Mode' : 'Campus Checkpoint Verification'}}</div>
+          <h3 style="margin:0.2rem 0 0.35rem;font-family:var(--serif);font-size:1.42rem;font-weight:600;">
+            ${{cleared ? 'Re-test Your Understanding Anytime (Progress Saved)' : 'Answer All 3 Questions to Unlock the Next Stop'}}
           </h3>
-          <p style="margin:0;font-size:0.95rem;color:var(--ink-soft);">
-            Every answer comes straight from the story and the verified Python lab output.
+          <p style="margin:0;font-size:0.94rem;color:var(--muted);">
+            Every question tests real intuition and verified Python numbers from this chapter.
           </p>
         </div>
         ${{qHtml}}
         <div id="gate-success-banner"></div>
-      `;
-
-      const sh = lesson.shareable;
-      const tweetsHtml = (sh.x_thread || []).map(t => `
-        <div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;">
-          <div style="white-space:pre-line;font-size:0.95rem;">${{t}}</div>
-          <button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button>
-        </div>
-      `).join("");
-
-      const igHtml = (sh.instagram_carousel || []).map(s => `
-        <div class="ig-slide">
-          <div style="font-family:var(--mono);font-size:0.78rem;font-weight:700;color:var(--terracotta);">SLIDE 0${{s.slide}} · ${{sh.notebook_shelf}}</div>
-          <div>
-            <h4 style="font-family:var(--serif);font-size:1.18rem;line-height:1.35;margin:0.35rem 0;color:var(--ink);">${{s.headline}}</h4>
-            <p style="font-size:0.86rem;color:var(--ink-soft);margin:0;white-space:pre-line;">${{s.body}}</p>
-          </div>
-          <div style="font-family:var(--mono);font-size:0.76rem;color:var(--muted);border-top:1.5px solid var(--line-strong);padding-top:0.4rem;display:flex;justify-content:space-between;">
-            <span>@ashwinYardi</span><span>Bits University</span>
-          </div>
-        </div>
-      `).join("");
-
-      document.getElementById("bk-pane-share").innerHTML = `
-        <div class="playground-band" style="margin-top:0;">
-          <div class="chapter-kicker">🏆 SHAREABLE FIELD NOTE · ${{sh.notebook_shelf}}</div>
-          <h3 style="font-family:var(--serif);font-size:1.5rem;line-height:1.35;margin:0.25rem 0;">${{lesson.title}}</h3>
-          <p style="font-family:var(--serif);font-style:italic;font-size:1.18rem;line-height:1.4;color:var(--terracotta);margin:0.5rem 0 0.85rem;">
-            “${{sh.the_turn}}”
-          </p>
-          <div style="font-size:0.92rem;color:var(--ink-soft);margin-bottom:0.95rem;">
-            <strong>60-Second Reel / Short Hook:</strong> ${{sh.reel_hook}}
-          </div>
-          <div style="display:flex;gap:0.65rem;flex-wrap:wrap;">
-            <button class="btn btn-primary" onclick="copyFullXThread()">📋 Copy Complete X Thread (${{sh.x_thread.length}} posts)</button>
-            <button class="btn" onclick="copyTurnQuote()">📋 Copy 'The Turn' Quote</button>
-          </div>
-        </div>
-        <h3 class="chapter-heading">Ready-to-Post X Thread</h3>
-        ${{tweetsHtml}}
-        <h3 class="chapter-heading" style="margin-top:2rem;">4:5 Instagram Carousel Deck</h3>
-        <div class="ig-deck">${{igHtml}}</div>
       `;
 
       if (lesson.id === "l0-what-is-an-llm") {{ resetL0Sim(); }}
@@ -3490,17 +4047,17 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       if (!mod) return;
       document.getElementById("bk-pane-story").innerHTML = `
         <section class="story-section">
-          <div class="chapter-kicker">SELF-EXPANDING UNIVERSITY BLUEPRINT · HALL ${{mod.level}}</div>
+          <div class="chapter-kicker">Self-Expanding University Blueprint · Hall ${{mod.level}}</div>
           <h3 class="chapter-heading">${{mod.title}}</h3>
-          <p style="font-family:var(--serif);font-style:italic;font-size:1.2rem;line-height:1.4;color:var(--terracotta);">“${{mod.question}}”</p>
-          <p><strong>What you can build after clearing this lab:</strong> ${{mod.can}}</p>
-          <p><strong>Hands-on Python Lab Specification:</strong> ${{mod.exercise}}</p>
-          <p style="font-family:var(--mono);font-size:0.84rem;color:var(--muted);">Jargon decoded in this room: ${{(mod.jargon || []).join(", ")}}</p>
+          <p style="font-family:var(--serif);font-style:italic;font-size:1.2rem;line-height:1.45;color:var(--terracotta);">“${{mod.question}}”</p>
+          <p class="chapter-prose"><strong>What you can build after clearing this lab:</strong> ${{mod.can}}</p>
+          <p class="chapter-prose"><strong>Hands-on Lab Specification:</strong> ${{mod.exercise}}</p>
+          <p style="font-family:var(--mono);font-size:0.82rem;color:var(--muted);">Key terms: ${{(mod.jargon || []).join(", ")}}</p>
         </section>
       `;
-      document.getElementById("bk-pane-lab").innerHTML = `<p>Lab specification: ${{mod.exercise}}</p>`;
-      document.getElementById("bk-pane-gate").innerHTML = `<p>Clear the 4 outdoor Rung 0 campus checkpoints first so the University cranes unlock this hall classroom!</p>`;
-      document.getElementById("bk-pane-share").innerHTML = `<p>Share cards mint as soon as this classroom's lab is completed.</p>`;
+      document.getElementById("bk-pane-lab").innerHTML = `<p class="chapter-prose">Lab specification: ${{mod.exercise}}</p>`;
+      document.getElementById("bk-pane-deep").innerHTML = `<p class="chapter-prose">Optional agent assignments unlock once this module is built.</p>`;
+      document.getElementById("bk-pane-gate").innerHTML = `<p class="chapter-prose">Clear the first 4 Ground Floor checkpoints to progress into the Academic Halls.</p>`;
     }}
 
     // =========================================================================
@@ -3891,11 +4448,11 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       if (oIdx === qObj.correct) {{
         fb.style.background = "var(--meadow-soft)";
         fb.style.color = "#14532d";
-        fb.innerText = "✓ Spot on! " + qObj.explain;
+        fb.innerText = "✓ Spot on — " + qObj.explain;
       }} else {{
         fb.style.background = "#fee2e2";
         fb.style.color = "#7f1d1d";
-        fb.innerText = "✗ Not quite — check the story or lab output and try another choice!";
+        fb.innerText = "✗ Not quite — check the essay or lab output and try another choice.";
       }}
 
       const allCorrect = lesson.gate_challenge.every((q, idx) => state.quizAnswers[idx] === q.correct);
@@ -3903,50 +4460,38 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       if (allCorrect) {{
         clearedIds.add(lesson.id);
         saveProgress();
+        playSfx("clear");
         document.getElementById("bk-status-tag").innerText = "✓ CHECKPOINT CLEARED";
         document.getElementById("bk-status-tag").className = "tag tag-meadow";
 
         const isFirstGate = lesson.id === "l0-what-is-an-llm";
         banner.innerHTML = `
-          <div class="playground-band" style="background:var(--meadow-soft);border-color:var(--meadow);margin-top:1rem;">
-            <div class="chapter-kicker" style="color:var(--meadow);">🎉 CHECKPOINT PASSED!</div>
-            <h3 style="margin:0.2rem 0 0.4rem;font-family:var(--serif);font-size:1.45rem;line-height:1.35;color:#14532d;">
-              ${{isFirstGate ? "🚧 Officer Rajan Salutes & Lifts the Campus Boom Barrier!" : "★ You Cleared " + lesson.title + "!"}}
+          <div class="playground-band" style="background:var(--meadow-soft);border-color:rgba(31,95,63,0.28);margin-top:1.1rem;">
+            <div class="chapter-kicker" style="color:var(--meadow);">Checkpoint Cleared</div>
+            <h3 style="margin:0.2rem 0 0.45rem;font-family:var(--serif);font-size:1.45rem;font-weight:600;color:#14532d;">
+              ${{isFirstGate ? "Officer Rajan salutes and lifts the South Gate barrier." : "Mastery unlocked: " + lesson.title}}
             </h3>
-            <p style="margin:0 0 0.9rem;font-size:0.95rem;color:#14532d;">
+            <p style="margin:0 0 0.95rem;font-size:0.94rem;color:#14532d;">
               ${{isFirstGate
-                ? "The South Entrance Boom Gate is wide open — and your pocket communicator is ringing with a follow-up call from Andrej Karpathy!"
-                : "Your badge is minted — and Andrej Karpathy is calling in on your pocket communicator with the next tip!"}}
+                ? "The campus gate is open — and Andrej Karpathy is buzzing your communicator with your next stop."
+                : "Progress saved to local storage. Want to take Karpathy's next call or grab an optional Agent Assignment to push deeper?"}}
             </p>
             <div style="display:flex;gap:0.65rem;flex-wrap:wrap;">
-              <button class="btn btn-meadow" onclick="closeBookModal();triggerKarpathyCall('after_${{lesson.id}}');walkToCurrentQuest()">📞 Return to Campus & Take Karpathy's Call →</button>
-              <button class="btn" onclick="switchBookTab('share')">🏆 Grab Shareable X Thread & IG Carousel</button>
+              <button class="btn btn-meadow" onclick="closeBookModal();triggerKarpathyCall('after_${{lesson.id}}');walkToCurrentQuest()">Return to Campus &amp; Next Mission →</button>
+              <button class="btn" onclick="switchBookTab('deep')">Go Deeper (Copy Agent Prompts)</button>
             </div>
           </div>
         `;
       }}
     }}
 
-    function copyFullXThread() {{
-      const lesson = SEEDED_LESSONS[state.activeStopId];
-      if (!lesson) return;
-      navigator.clipboard.writeText((lesson.shareable.x_thread || []).join("\\n\\n"));
-      alert("Complete X Thread copied to clipboard!");
-    }}
-
-    function copyTurnQuote() {{
-      const lesson = SEEDED_LESSONS[state.activeStopId];
-      if (!lesson) return;
-      const txt = `${{lesson.title}} (${{lesson.shareable.notebook_shelf}})\\n\\n"${{lesson.shareable.the_turn}}"\\n\\nhttps://ashwinyardi.github.io/bits-course/`;
-      navigator.clipboard.writeText(txt);
-      alert("The Turn copied to clipboard!");
-    }}
-
     refreshHudAndPins();
     requestAnimationFrame(loop);
 
-    // As Ashwin walks up the South Approach Road on load, his pocket communicator rings with a 3D call from Karpathy!
-    if (!isGateOpen()) {{
+    // First-visit cinematic prologue (saved to localStorage) + Karpathy surprise call!
+    if (!localStorage.getItem(INTRO_SEEN_KEY)) {{
+      setTimeout(() => openIntroCinema(0), 220);
+    }} else if (!isGateOpen()) {{
       setTimeout(() => triggerKarpathyCall("arrival"), 450);
     }}
   </script>
@@ -3954,69 +4499,143 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
 </html>
 """
 
-
 def _render_lesson_page(curriculum: dict, lesson: dict, live_ids: set[str], code_text: str) -> str:
-    """Render standalone editorial Field Guide page at lessons/<id>/index.html."""
+    """Render bespoke Stripe Press x Distill.pub standalone Reader Article at lessons/<id>/index.html."""
     lid = lesson["id"]
-    sh = lesson["shareable"]
     lab = lesson["lab"]
-
     figs_by_id = {f["id"]: f for f in lesson.get("figures", [])}
+    memes = lesson.get("memes", [])
+
+    # Determine prev / next live essays for seamless reading flow
+    ordered_live = [m for m in curriculum["modules"] if m["id"] in live_ids]
+    cur_idx = next((i for i, m in enumerate(ordered_live) if m["id"] == lid), 0)
+    prev_mod = ordered_live[cur_idx - 1] if cur_idx > 0 else None
+    next_mod = ordered_live[cur_idx + 1] if cur_idx + 1 < len(ordered_live) else None
+
+    def render_meme(m: dict) -> str:
+        if m.get("format") == "two_panel":
+            body = (
+                f'<div class="meme-panels-2">'
+                f'<div class="meme-panel"><div class="meme-label muted-lbl">{_esc(m["left_label"])}</div>'
+                f'<div class="meme-copy">{_esc(m["left_body"])}</div></div>'
+                f'<div class="meme-panel meme-panel-accent"><div class="meme-label">{_esc(m["right_label"])}</div>'
+                f'<div class="meme-copy">{_esc(m["right_body"])}</div></div>'
+                f'</div>'
+            )
+        else:
+            cards = "".join(
+                f'<div class="meme-panel {"meme-panel-accent" if i == 1 else ""}">'
+                f'<div class="meme-label">{_esc(p["head"])}</div>'
+                f'<div class="meme-sub">{_esc(p["sub"])}</div>'
+                f'<div class="meme-copy">{_esc(p["body"])}</div></div>'
+                for i, p in enumerate(m.get("panels", []))
+            )
+            body = f'<div class="meme-panels-3">{cards}</div>'
+        return (
+            f'<aside class="meme-card">'
+            f'<div class="eyebrow">{_esc(m["kicker"])}</div>'
+            f'<h3 class="meme-title">{_esc(m["title"])}</h3>'
+            f'{body}'
+            f'<div class="meme-punchline">{_esc(m["punchline"])}</div>'
+            f'</aside>'
+        )
+
+    toc_links = []
     sections_html = []
     for idx, sec in enumerate(lesson.get("sections", []), 1):
+        sec_id = f"part-{idx:02d}"
+        toc_links.append(f'<a class="rail-link" href="#{sec_id}"><span>0{idx}</span> {_esc(sec.get("badge") or sec["heading"])}</a>')
         fig_block = ""
         fid = sec.get("figure_id")
         if fid and fid in figs_by_id:
             fobj = figs_by_id[fid]
             fig_block = (
-                f'<div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;">'
-                f'<img src="{_esc(fid)}.svg" alt="{_esc(fobj["title"])}" style="width:100%;height:auto;display:block;" />'
-                f'<div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);">'
-                f'<span><strong>📐 {_esc(fobj["title"])}:</strong> {_esc(fobj["caption"])}</span>'
-                f'<a href="{_esc(fid)}.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a>'
-                f'</div></div>'
+                f'<figure class="article-plate">'
+                f'<img src="{_esc(fid)}.svg" alt="{_esc(fobj["title"])}" />'
+                f'<figcaption><span><strong>Figure {idx}.</strong> {_esc(fobj["caption"])}</span>'
+                f'<a href="{_esc(fid)}.excalidraw" download>Download .excalidraw</a></figcaption>'
+                f'</figure>'
             )
         expert_block = ""
         if sec.get("expert_note"):
             expert_block = (
-                f'<div style="background:#f2f6f9;border:1.5px solid #b4ccd9;border-radius:12px;padding:0.9rem 1.1rem;margin-top:1rem;font-size:0.94rem;color:#1c2e38;">'
-                f'<div style="font-family:var(--mono);font-size:0.76rem;font-weight:700;color:#264d60;text-transform:uppercase;margin-bottom:0.3rem;">⚙️ Under the Hood · Production Depth</div>'
+                f'<div class="note-box note-expert">'
+                f'<div class="note-kicker">Under the Hood · Production Depth</div>'
                 f'{_md_to_html(sec["expert_note"])}</div>'
             )
         trap_block = ""
         if sec.get("trap_note"):
             trap_block = (
-                f'<div style="background:#fdf4ee;border:1.5px solid #e2baa7;border-radius:12px;padding:0.9rem 1.1rem;margin-top:0.75rem;font-size:0.94rem;color:#3a1d15;">'
-                f'<div style="font-family:var(--mono);font-size:0.76rem;font-weight:700;color:#8c331c;text-transform:uppercase;margin-bottom:0.3rem;">⚠️ Production Engineering Trap</div>'
+                f'<div class="note-box note-trap">'
+                f'<div class="note-kicker">Production Trap</div>'
                 f'{_md_to_html(sec["trap_note"])}</div>'
             )
+        meme_block = ""
+        if idx == 1 and len(memes) >= 1:
+            meme_block = render_meme(memes[0])
+        elif idx == 3 and len(memes) >= 2:
+            meme_block = render_meme(memes[1])
+
         sections_html.append(
-            f'<section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);">'
-            f'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">'
-            f'<span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 0{idx}</span>'
-            f'<span class="tag tag-amber">{_esc(sec.get("badge", ""))}</span>'
-            f'</div>'
-            f'<h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">{_esc(sec["heading"])}</h2>'
-            f'<div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;">{_md_to_html(sec["body_md"])}</div>'
-            f'{fig_block}'
-            f'{expert_block}'
-            f'{trap_block}'
+            f'<section class="essay-sec" id="{sec_id}">'
+            f'<div class="sec-meta"><span class="eyebrow">Part 0{idx}</span><span class="pill">{_esc(sec.get("badge", ""))}</span></div>'
+            f'<h2>{_esc(sec["heading"])}</h2>'
+            f'<div class="prose">{_md_to_html(sec["body_md"])}</div>'
+            f'{fig_block}{expert_block}{trap_block}{meme_block}'
             f'</section>'
         )
 
+    walk_cards = "".join(
+        f'<div class="walk-card">'
+        f'<div class="sec-meta"><span class="eyebrow">Step {_esc(w["step"])} · {_esc(w["lines"])}</span><span class="pill">Core Mechanism</span></div>'
+        f'<h3>{_esc(w["title"])}</h3>'
+        f'<pre><code>{_esc(w["code_snippet"])}</code></pre>'
+        f'<p class="walk-why"><strong>Why this exists:</strong> {_esc(w["why_it_matters"])}</p>'
+        f'<div class="walk-break"><strong>What breaks if removed:</strong> {_esc(w["what_if_removed"])}</div>'
+        f'</div>'
+        for w in lesson.get("code_walkthrough", [])
+    )
+
+    assign_cards = "".join(
+        f'<div class="assign-card">'
+        f'<div class="sec-meta"><span class="eyebrow">Optional Assignment 0{i}</span><span class="pill">{_esc(a["level"])}</span></div>'
+        f'<h3>{_esc(a["title"])}</h3>'
+        f'<p class="assign-goal">{_esc(a["goal"])}</p>'
+        f'<p class="assign-prove"><strong>What you prove:</strong> {_esc(a["what_you_prove"])}</p>'
+        f'<div class="eyebrow" style="color:var(--muted);margin-top:0.8rem;">Prompt for Your Coding Agent</div>'
+        f'<pre class="agent-pre" id="agent-prompt-{i}"><code>{_esc(a["agent_prompt"])}</code></pre>'
+        f'<button class="btn btn-primary" onclick="copyReaderPrompt(this, \'agent-prompt-{i}\')">Copy Prompt for Your Agent</button>'
+        f'</div>'
+        for i, a in enumerate(lesson.get("deep_assignments", []), 1)
+    )
+
     jargon_rows = "".join(
-        f'<tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>{_esc(r["term"])}</strong></td>'
-        f'<td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">{_esc(r["plain_words"])}</td>'
-        f'<td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">{_esc(r["why_you_care"])}</td></tr>'
+        f'<tr><td><strong>{_esc(r["term"])}</strong></td>'
+        f'<td>{_esc(r["plain_words"])}</td>'
+        f'<td class="muted-cell">{_esc(r["why_you_care"])}</td></tr>'
         for r in lesson.get("jargon_decoder", [])
     )
 
-    tweets_html = "".join(
-        f'<div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;">'
-        f'<div style="white-space:pre-line;">{_esc(t)}</div>'
-        f'<button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText=\'Copied!\'">Copy</button>'
-        f'</div>'
-        for t in sh.get("x_thread", [])
+    hero_block = ""
+    if lesson.get("hero_image"):
+        hero_block = (
+            f'<figure class="hero-plate">'
+            f'<img src="{_esc(lesson["hero_image"])}" alt="{_esc(lesson["title"])}" />'
+            f'<figcaption>{_esc(lesson.get("hero_caption") or lesson["title"])}</figcaption>'
+            f'</figure>'
+        )
+
+    nav_prev = (
+        f'<a class="pager-card" href="../{_esc(prev_mod["id"])}/index.html">'
+        f'<span class="eyebrow">← Previous Essay</span><strong>{_esc(prev_mod["title"])}</strong></a>'
+        if prev_mod else '<div></div>'
+    )
+    nav_next = (
+        f'<a class="pager-card pager-next" href="../{_esc(next_mod["id"])}/index.html">'
+        f'<span class="eyebrow">Next Essay →</span><strong>{_esc(next_mod["title"])}</strong></a>'
+        if next_mod else
+        f'<a class="pager-card pager-next" href="../../index.html">'
+        f'<span class="eyebrow">Return to Campus →</span><strong>Enter the 3D University World</strong></a>'
     )
 
     return f"""<!doctype html>
@@ -4024,57 +4643,550 @@ def _render_lesson_page(curriculum: dict, lesson: dict, live_ids: set[str], code
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{_esc(lesson["title"])} · Bits University Field Guide</title>
-  <style>{SHARED_CSS}</style>
+  <title>{_esc(lesson["title"])} — BitsByBlocks Field Guide</title>
+  <style>
+    {SHARED_CSS}
+    body {{
+      background: #ffffff;
+      color: #171614;
+    }}
+    .reader-bar {{
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }}
+    .reader-bar-inner {{
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0.72rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }}
+    .reader-brand {{
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+    }}
+    .reader-progress {{
+      height: 2px;
+      width: 0%;
+      background: var(--terracotta);
+      transition: width 70ms linear;
+    }}
+    .article-header {{
+      max-width: 780px;
+      margin: 3.2rem auto 2.2rem;
+      padding: 0 1.5rem;
+      text-align: left;
+    }}
+    .article-meta {{
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }}
+    .article-header h1 {{
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4.5vw, 3.15rem);
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin: 0 0 1rem;
+      color: var(--ink);
+      text-wrap: balance;
+    }}
+    .article-dek {{
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.32rem;
+      line-height: 1.48;
+      color: var(--muted);
+      margin: 0;
+    }}
+    .hero-wrap {{
+      max-width: 980px;
+      margin: 0 auto 2.8rem;
+      padding: 0 1.5rem;
+    }}
+    .hero-plate {{
+      margin: 0;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 12px 36px rgba(23, 22, 20, 0.06);
+    }}
+    .hero-plate img {{
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }}
+    .hero-plate figcaption {{
+      padding: 0.78rem 1.2rem;
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      background: #fcfbf8;
+    }}
+    .editorial-grid {{
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5.5rem;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 680px);
+      gap: 3.25rem;
+      align-items: start;
+      justify-content: center;
+    }}
+    .toc-rail {{
+      position: sticky;
+      top: 5.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.32rem;
+      padding-top: 0.4rem;
+    }}
+    .rail-head {{
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.45rem;
+    }}
+    .rail-link {{
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 0.34rem 0;
+      border-bottom: 1px solid transparent;
+      transition: color 140ms ease;
+    }}
+    .rail-link span {{
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      color: var(--terracotta);
+      margin-right: 0.35rem;
+    }}
+    .rail-link:hover {{
+      color: var(--ink);
+      text-decoration: none;
+    }}
+    .memory-pull {{
+      padding: 1.35rem 0;
+      margin: 0 0 2rem;
+      border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong);
+    }}
+    .eyebrow {{
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+    }}
+    .memory-pull blockquote {{
+      margin: 0.5rem 0 0;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.32rem;
+      line-height: 1.5;
+      color: var(--ink);
+    }}
+    .essay-sec {{
+      padding: 2.2rem 0;
+      border-bottom: 1px solid var(--line);
+    }}
+    .sec-meta {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.4rem;
+    }}
+    .pill {{
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      padding: 0.24rem 0.6rem;
+      border-radius: 999px;
+      background: var(--paper-warm);
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }}
+    .essay-sec h2, .section-h2 {{
+      font-family: var(--serif);
+      font-size: 1.85rem;
+      font-weight: 600;
+      line-height: 1.24;
+      letter-spacing: -0.015em;
+      margin: 0.2rem 0 1.05rem;
+      color: var(--ink);
+    }}
+    .prose {{
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      line-height: 1.78;
+      color: var(--ink-soft);
+    }}
+    .prose p {{ margin: 0 0 1.15rem; }}
+    .prose ul, .prose ol {{ margin: 0.6rem 0 1.2rem; padding-left: 1.35rem; }}
+    .prose li {{ margin-bottom: 0.45rem; }}
+    .prose code {{
+      background: var(--paper-warm);
+      border: 1px solid var(--line);
+      padding: 0.12rem 0.38rem;
+      border-radius: 5px;
+      font-family: var(--mono);
+      font-size: 0.8em;
+      color: var(--terracotta);
+    }}
+    .article-plate {{
+      margin: 1.65rem 0 1.1rem;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1.15rem;
+      box-shadow: 0 4px 18px rgba(23, 22, 20, 0.04);
+    }}
+    .article-plate img {{
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+    }}
+    .article-plate figcaption {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 0.75rem;
+      padding-top: 0.6rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.82rem;
+      color: var(--muted);
+    }}
+    .note-box {{
+      border-radius: 10px;
+      padding: 1.05rem 1.2rem;
+      margin-top: 1rem;
+      font-size: 0.94rem;
+      line-height: 1.64;
+    }}
+    .note-expert {{
+      background: var(--sky-soft);
+      border: 1px solid rgba(45, 88, 110, 0.22);
+      color: #1c2e38;
+    }}
+    .note-trap {{
+      background: var(--terracotta-soft);
+      border: 1px solid rgba(158, 60, 34, 0.22);
+      color: #3a1d15;
+    }}
+    .note-kicker {{
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.35rem;
+    }}
+    .note-expert .note-kicker {{ color: #244a5e; }}
+    .note-trap .note-kicker {{ color: #8c331c; }}
+    .meme-card {{
+      background: #ffffff;
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      padding: 1.3rem 1.4rem;
+      margin: 1.75rem 0 0.5rem;
+      box-shadow: 0 4px 18px rgba(23, 22, 20, 0.04);
+    }}
+    .meme-title {{
+      font-family: var(--serif);
+      font-size: 1.28rem;
+      font-weight: 600;
+      margin: 0.25rem 0 0.85rem;
+      color: var(--ink);
+    }}
+    .meme-panels-2 {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 0.85rem;
+    }}
+    .meme-panels-3 {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+    }}
+    .meme-panel {{
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.95rem 1.05rem;
+    }}
+    .meme-panel-accent {{
+      background: #fcf5f2;
+      border-color: rgba(158, 60, 34, 0.25);
+    }}
+    .meme-label {{
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--terracotta);
+      margin-bottom: 0.3rem;
+    }}
+    .muted-lbl {{ color: var(--muted); }}
+    .meme-sub {{ font-weight: 700; font-size: 0.86rem; margin-bottom: 0.28rem; color: var(--ink); }}
+    .meme-copy {{ font-size: 0.88rem; line-height: 1.54; color: var(--ink-soft); white-space: pre-line; }}
+    .meme-punchline {{
+      margin-top: 0.85rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink);
+    }}
+    .walk-card, .assign-card {{
+      background: #ffffff;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      padding: 1.3rem 1.4rem;
+      margin-bottom: 1.05rem;
+      box-shadow: 0 3px 14px rgba(23, 22, 20, 0.03);
+    }}
+    .walk-card h3, .assign-card h3 {{
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0.2rem 0 0.7rem;
+      color: var(--ink);
+    }}
+    .walk-why {{ font-size: 0.94rem; color: var(--ink-soft); margin: 0.75rem 0 0.55rem; }}
+    .walk-break {{
+      font-size: 0.88rem;
+      color: #7f2d18;
+      background: var(--terracotta-soft);
+      border: 1px solid rgba(158, 60, 34, 0.18);
+      border-radius: 8px;
+      padding: 0.62rem 0.85rem;
+    }}
+    .assign-goal {{ font-size: 0.95rem; color: var(--ink-soft); margin: 0 0 0.45rem; }}
+    .assign-prove {{ font-size: 0.88rem; color: var(--meadow); margin: 0 0 0.75rem; }}
+    pre {{
+      background: #171817;
+      color: #f0ede6;
+      padding: 1.05rem 1.2rem;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      line-height: 1.62;
+    }}
+    .agent-pre {{
+      white-space: pre-wrap;
+      margin: 0.45rem 0 0.85rem;
+    }}
+    .jargon-table {{
+      width: 100%;
+      border-collapse: collapse;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 0.92rem;
+      margin-top: 0.85rem;
+    }}
+    .jargon-table th, .jargon-table td {{
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }}
+    .jargon-table th {{
+      background: var(--paper-warm);
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      color: var(--muted);
+    }}
+    .muted-cell {{ color: var(--muted); }}
+    .pager-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--line-strong);
+    }}
+    .pager-card {{
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      padding: 1.1rem 1.25rem;
+      background: #ffffff;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      color: var(--ink);
+    }}
+    .pager-card:hover {{
+      border-color: var(--terracotta);
+      text-decoration: none;
+    }}
+    .pager-next {{ text-align: right; }}
+    @media (max-width: 920px) {{
+      .editorial-grid {{ grid-template-columns: 1fr; gap: 1.5rem; }}
+      .toc-rail {{ position: static; flex-direction: row; flex-wrap: wrap; gap: 0.65rem; border-bottom: 1px solid var(--line); padding-bottom: 1rem; }}
+      .rail-head {{ width: 100%; margin-bottom: 0.1rem; }}
+    }}
+  </style>
 </head>
 <body>
-  <header class="top-nav">
-    <div class="brand-cluster">
-      <a class="crest-badge" href="../../index.html">← 3D CAMPUS RPG</a>
-      <div>
-        <div class="brand-title">{_esc(lesson["title"])}</div>
-        <div class="brand-sub">BitsByBlocks AI University · Rung {lesson["level"]}: {_esc(lesson["level_name"])}</div>
+  <header class="reader-bar">
+    <div class="reader-bar-inner">
+      <div class="reader-brand">
+        <a href="../../index.html" style="color:var(--ink);">← BitsByBlocks Campus</a>
+        <span>/</span>
+        <span>Hall {lesson["level"]} · {_esc(lesson["level_name"])}</span>
+      </div>
+      <div style="display:flex;gap:0.55rem;align-items:center;">
+        <a class="btn" href="{_esc(lab["code_file"])}" download>Download {_esc(lab["code_file"])}</a>
+        <a class="btn btn-primary" href="../../index.html">Open 3D Campus</a>
       </div>
     </div>
-    <div style="display:flex;gap:0.6rem;">
-      <a class="btn" href="lesson.json" target="_blank">lesson.json</a>
-      <a class="btn btn-primary" href="../../index.html">🎮 Enter 3D Campus & Talk to Characters</a>
-    </div>
+    <div class="reader-progress" id="reader-progress"></div>
   </header>
 
-  <main style="max-width:780px;margin:0 auto;padding:2.5rem 1.5rem 5rem;">
-    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem;">
-      <span class="tag tag-terracotta">{_esc(sh["notebook_shelf"])}</span>
-      <span class="tag tag-sky">Hall {lesson["level"]}: {_esc(lesson["level_name"])}</span>
-      <span class="tag tag-meadow">✓ Python Lab Verified</span>
+  <header class="article-header">
+    <div class="article-meta">
+      <span style="color:var(--terracotta);font-weight:700;">Hall {lesson["level"]} · Essay 0{cur_idx + 1}</span>
+      <span>·</span>
+      <span>{_esc(lesson.get("reading_time", "8 min read"))}</span>
+      <span>·</span>
+      <span>Python 3 Verified</span>
     </div>
-    <h1 style="font-family:var(--serif);font-size:2.4rem;line-height:1.35;margin:0.2rem 0 0.5rem;">{_esc(lesson["title"])}</h1>
-    <div style="font-family:var(--serif);font-style:italic;font-size:1.25rem;line-height:1.45;color:var(--terracotta);margin-bottom:1.25rem;">“{_esc(lesson["question"])}”</div>
-    <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--ink), 0 8px 20px rgba(17,28,22,0.10);padding:1rem 1.35rem;border-radius:14px;margin-bottom:2rem;">
-      <strong>In One Line:</strong> {_esc(lesson["one_line"])}
-    </div>
+    <h1>{_esc(lesson["title"])}</h1>
+    <p class="article-dek">{_esc(lesson["question"])}</p>
+  </header>
 
-    {"".join(sections_html)}
+  <div class="hero-wrap">{hero_block}</div>
 
-    <h2 style="font-family:var(--serif);line-height:1.35;margin-top:2.5rem;">Plain-English Jargon Decoder</h2>
-    <table style="width:100%;border-collapse:collapse;background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;overflow:hidden;font-size:0.94rem;">
-      <thead><tr style="background:var(--paper-warm);text-align:left;"><th style="padding:0.8rem;">Term</th><th style="padding:0.8rem;">In Plain Words</th><th style="padding:0.8rem;">Why You Care</th></tr></thead>
-      <tbody>{jargon_rows}</tbody>
-    </table>
+  <div class="editorial-grid">
+    <aside class="toc-rail">
+      <div class="rail-head">Contents</div>
+      {"".join(toc_links)}
+      <a class="rail-link" href="#jargon"><span>05</span> Jargon Decoder</a>
+      <a class="rail-link" href="#code-walkthrough"><span>06</span> Code Walkthrough</a>
+      <a class="rail-link" href="#go-deeper"><span>07</span> Agent Assignments</a>
+    </aside>
 
-    <h2 style="font-family:var(--serif);line-height:1.35;margin-top:2.5rem;">Hands-On Python Lab: {_esc(lab["title"])}</h2>
-    <p>{_esc(lab["goal"])}</p>
-    <pre style="background:#111c16;color:#f2f7f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;"><code>{_esc(lab["real_output"])}</code></pre>
-    <pre style="background:#111c16;color:#f2f7f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;margin-top:1rem;"><code>{_esc(code_text)}</code></pre>
+    <article>
+      <div class="memory-pull">
+        <div class="eyebrow">The Memory Hook</div>
+        <blockquote>“{_esc(lesson.get("memory_hook") or lesson["one_line"])}”</blockquote>
+      </div>
 
-    <h2 style="font-family:var(--serif);line-height:1.35;margin-top:2.5rem;">Share Studio · The Turn & X Thread</h2>
-    <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--ink), 0 8px 20px rgba(17,28,22,0.10);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;">
-      <div style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">THE NOTEBOOK TURN</div>
-      <div style="font-family:var(--serif);font-size:1.3rem;line-height:1.45;margin:0.35rem 0;">“{_esc(sh["the_turn"])}”</div>
-      <div style="font-size:0.88rem;color:var(--ink-soft);"><strong>Reel Hook:</strong> {_esc(sh["reel_hook"])}</div>
-    </div>
-    {tweets_html}
-  </main>
+      {"".join(sections_html)}
+
+      <section class="essay-sec" id="jargon">
+        <span class="eyebrow">Reference</span>
+        <h2 class="section-h2">Plain-English Jargon Decoder</h2>
+        <table class="jargon-table">
+          <thead><tr><th>Term</th><th>In Plain Words</th><th>Why You Care</th></tr></thead>
+          <tbody>{jargon_rows}</tbody>
+        </table>
+      </section>
+
+      <section class="essay-sec" id="code-walkthrough">
+        <div class="sec-meta">
+          <span class="eyebrow">Pure Python 3 Lab</span>
+          <a class="btn" href="{_esc(lab["code_file"])}" download>Download {_esc(lab["code_file"])}</a>
+        </div>
+        <h2 class="section-h2">Core Code Walkthrough: {_esc(lab["title"])}</h2>
+        <p class="prose" style="margin-bottom:1.35rem;">{_esc(lab["goal"])}</p>
+        {walk_cards}
+        <h3 style="font-family:var(--mono);font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--meadow);margin:1.75rem 0 0.5rem;">Verified Terminal Output (Exit Code 0)</h3>
+        <pre><code>{_esc(lab["real_output"])}</code></pre>
+        <details style="margin-top:1.15rem;">
+          <summary style="cursor:pointer;font-family:var(--mono);font-size:0.82rem;font-weight:600;color:var(--terracotta);padding:0.45rem 0;">View Complete Source Code ({_esc(lab["code_file"])})</summary>
+          <pre style="margin-top:0.65rem;"><code>{_esc(code_text)}</code></pre>
+        </details>
+      </section>
+
+      <section class="essay-sec" id="go-deeper" style="border-bottom:none;">
+        <span class="eyebrow">Go Beyond Reading</span>
+        <h2 class="section-h2">Optional In-Depth Assignments &amp; Agent Prompts</h2>
+        <p class="prose" style="margin-bottom:1.35rem;">Copy any prompt below and hand it directly to your coding agent to build, benchmark, and verify the deeper engineering mechanics yourself.</p>
+        {assign_cards}
+      </section>
+
+      <nav class="pager-grid">
+        {nav_prev}
+        {nav_next}
+      </nav>
+    </article>
+  </div>
+
+  <script>
+    window.addEventListener("scroll", () => {{
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      const pct = max > 0 ? Math.min(100, Math.max(0, (h.scrollTop / max) * 100)) : 0;
+      const bar = document.getElementById("reader-progress");
+      if (bar) bar.style.width = pct.toFixed(1) + "%";
+    }});
+    function copyReaderPrompt(btn, preId) {{
+      const el = document.getElementById(preId);
+      if (!el) return;
+      const text = el.innerText;
+      const flash = () => {{
+        const orig = btn.innerText;
+        btn.innerText = "✓ Prompt Copied for Your Agent";
+        btn.classList.add("btn-meadow");
+        setTimeout(() => {{
+          btn.innerText = orig;
+          btn.classList.remove("btn-meadow");
+        }}, 2200);
+      }};
+      const fallback = () => {{
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try {{ document.execCommand("copy"); }} catch (e) {{}}
+        document.body.removeChild(ta);
+        flash();
+      }};
+      if (navigator.clipboard && navigator.clipboard.writeText) {{
+        navigator.clipboard.writeText(text).then(flash).catch(fallback);
+      }} else {{
+        fallback();
+      }}
+    }}
+  </script>
 </body>
 </html>
 """
@@ -4105,6 +5217,9 @@ def build_site() -> None:
         out_dir = DIST / "lessons" / lid
         out_dir.mkdir(parents=True, exist_ok=True)
         shutil.copy2(lfile, out_dir / "lesson.json")
+        hero_src = ldir / lesson.get("hero_image", "hero.jpg")
+        if hero_src.exists():
+            shutil.copy2(hero_src, out_dir / hero_src.name)
 
         code_file = lesson.get("lab", {}).get("code_file", "lab_main.py")
         code_path = ldir / code_file

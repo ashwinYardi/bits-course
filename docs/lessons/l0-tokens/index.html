@@ -3,26 +3,26 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tokens: how your text becomes numbers · Bits University Field Guide</title>
+  <title>Tokens: how your text becomes numbers — BitsByBlocks Field Guide</title>
   <style>
-@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;600;700&display=swap');
+    
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&display=swap');
 
 :root {
-  /* Better-Colors Primitive Ramps (Neutral Slate-Mist, Terracotta Accent, Pine Status) */
-  --slate-50: #f6f8f7;
-  --slate-100: #ebf0ed;
-  --slate-200: #d8e1dc;
-  --slate-300: #b8c6be;
-  --slate-600: #4b5b53;
-  --slate-700: #2e3b34;
-  --slate-900: #141d18;
-  --clay-100: #faeae4;
-  --clay-600: #a93b1f;
-  --clay-700: #882d16;
-  --pine-100: #e6f4ec;
-  --pine-700: #1f6a44;
+  /* Editorial Alabaster & Ink System (Stripe Press x Distill.pub) */
+  --slate-50: #f6f7f9;
+  --slate-100: #f2eee6;
+  --slate-200: #e5dfd3;
+  --slate-300: #cfc7b8;
+  --slate-600: #59554d;
+  --slate-700: #33302b;
+  --slate-900: #171614;
+  --clay-100: #f9ece7;
+  --clay-600: #9e3c22;
+  --clay-700: #7f2d18;
+  --pine-100: #eaf4ee;
+  --pine-700: #1f5f3f;
 
-  /* Semantic Role Tokens */
   --paper: var(--slate-50);
   --paper-card: #ffffff;
   --paper-warm: var(--slate-100);
@@ -30,8 +30,8 @@
   --ink: var(--slate-900);
   --ink-soft: var(--slate-700);
   --muted: var(--slate-600);
-  --line: var(--slate-200);
-  --line-strong: var(--slate-300);
+  --line: rgba(23, 22, 20, 0.10);
+  --line-strong: rgba(23, 22, 20, 0.18);
   --color-accent-solid: var(--clay-600);
   --color-accent-hover: var(--clay-700);
   --color-accent-soft: var(--clay-100);
@@ -43,15 +43,15 @@
   --amber-soft: #f7eedc;
   --meadow: var(--color-status-open);
   --meadow-soft: var(--color-status-open-soft);
-  --sky: #335c73;
-  --sky-soft: #e6eff4;
+  --sky: #2d586e;
+  --sky-soft: #edf3f6;
   --berry: #5c4d6b;
-  --berry-soft: #efebf4;
-  --shadow-ring: 0 0 0 1px rgba(20, 29, 24, 0.08), 0 4px 10px -2px rgba(20, 29, 24, 0.10), 0 12px 24px -6px rgba(20, 29, 24, 0.08);
-  --shadow-ring-sm: 0 0 0 1px rgba(20, 29, 24, 0.09), 0 2px 6px -1px rgba(20, 29, 24, 0.08);
-  --sans: 'Atkinson Hyperlegible', -apple-system, BlinkMacSystemFont, sans-serif;
-  --serif: 'Bricolage Grotesque', Georgia, serif;
-  --mono: 'IBM Plex Mono', monospace;
+  --berry-soft: #f1eef5;
+  --shadow-ring: 0 0 0 1px rgba(23, 22, 20, 0.08), 0 4px 12px -2px rgba(23, 22, 20, 0.08), 0 14px 28px -8px rgba(23, 22, 20, 0.07);
+  --shadow-ring-sm: 0 0 0 1px rgba(23, 22, 20, 0.09), 0 2px 6px -1px rgba(23, 22, 20, 0.06);
+  --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --serif: 'Newsreader', Georgia, serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
 }
 
 * { box-sizing: border-box; }
@@ -63,78 +63,12 @@ body {
   font-family: var(--sans);
   line-height: 1.65;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-a { color: var(--terracotta); text-decoration: none; font-weight: 700; }
+a { color: var(--terracotta); text-decoration: none; font-weight: 600; }
 a:hover { text-decoration: underline; }
-
-.top-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.65rem 1.4rem;
-  background: rgba(242, 247, 244, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 2px solid var(--line);
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.brand-cluster {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.crest-badge {
-  background: var(--terracotta);
-  color: #fff;
-  font-family: var(--serif);
-  font-weight: 800;
-  font-size: 0.85rem;
-  padding: 0.32rem 0.75rem;
-  border-radius: 8px;
-  border: 2px solid #7c2d12;
-  box-shadow: 0 2px 0 #7c2d12;
-  letter-spacing: 0.01em;
-}
-
-.brand-title {
-  font-family: var(--serif);
-  font-weight: 800;
-  font-size: 1.15rem;
-  color: var(--ink);
-}
-
-.brand-sub {
-  font-size: 0.78rem;
-  color: var(--muted);
-  font-weight: 700;
-}
-
-.nav-pills {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  flex-wrap: wrap;
-}
-
-.stat-chip {
-  background: var(--paper-card);
-  border: 2px solid var(--line-strong);
-  padding: 0.28rem 0.75rem;
-  border-radius: 999px;
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--ink-soft);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-}
 
 .btn {
   display: inline-flex;
@@ -142,111 +76,570 @@ a:hover { text-decoration: underline; }
   gap: 0.45rem;
   background: var(--paper-card);
   color: var(--ink);
-  border: 2px solid var(--ink);
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  font-size: 0.85rem;
-  font-weight: 700;
+  border: 1px solid var(--line-strong);
+  padding: 0.48rem 0.95rem;
+  border-radius: 8px;
+  font-size: 0.84rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.14s ease;
+  transition: background-color 140ms ease, border-color 140ms ease, transform 120ms ease;
   font-family: var(--sans);
-  box-shadow: 0 2px 0 var(--ink);
 }
 
 .btn:hover {
-  transform: translateY(-1px);
   background: var(--paper-warm);
+  border-color: rgba(23, 22, 20, 0.34);
   text-decoration: none;
 }
 
 .btn-primary {
   background: var(--terracotta);
   color: #ffffff;
-  border-color: #7c2d12;
-  box-shadow: 0 3px 0 #7c2d12;
+  border-color: var(--terracotta);
 }
 
 .btn-primary:hover {
-  background: #7c2d12;
+  background: var(--clay-700);
+  border-color: var(--clay-700);
   color: #ffffff;
 }
 
 .btn-meadow {
   background: var(--meadow);
   color: #ffffff;
-  border-color: #052e16;
-  box-shadow: 0 3px 0 #052e16;
+  border-color: var(--meadow);
 }
 
 .btn-meadow:hover {
-  background: #166534;
+  background: #174930;
+  border-color: #174930;
   color: #ffffff;
 }
 
 .tag {
   font-family: var(--mono);
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 0.2rem 0.65rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 0.24rem 0.62rem;
   border-radius: 999px;
   background: var(--paper-warm);
-  border: 1.5px solid var(--line-strong);
+  border: 1px solid var(--line);
   color: var(--ink-soft);
 }
 
-.tag-terracotta { background: var(--terracotta-soft); color: var(--terracotta); border-color: #fca5a5; }
-.tag-meadow { background: var(--meadow-soft); color: var(--meadow); border-color: #86efac; }
-.tag-sky { background: var(--sky-soft); color: var(--sky); border-color: #7dd3fc; }
-.tag-amber { background: var(--amber-soft); color: #78350f; border-color: #fcd34d; }
-</style>
+.tag-terracotta { background: var(--terracotta-soft); color: var(--terracotta); border-color: rgba(158, 60, 34, 0.22); }
+.tag-meadow { background: var(--meadow-soft); color: var(--meadow); border-color: rgba(31, 95, 63, 0.22); }
+.tag-sky { background: var(--sky-soft); color: var(--sky); border-color: rgba(45, 88, 110, 0.22); }
+.tag-amber { background: var(--amber-soft); color: #78480e; border-color: rgba(138, 90, 24, 0.22); }
+
+    body {
+      background: #ffffff;
+      color: #171614;
+    }
+    .reader-bar {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .reader-bar-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0.72rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .reader-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .reader-progress {
+      height: 2px;
+      width: 0%;
+      background: var(--terracotta);
+      transition: width 70ms linear;
+    }
+    .article-header {
+      max-width: 780px;
+      margin: 3.2rem auto 2.2rem;
+      padding: 0 1.5rem;
+      text-align: left;
+    }
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .article-header h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4.5vw, 3.15rem);
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin: 0 0 1rem;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+    .article-dek {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.32rem;
+      line-height: 1.48;
+      color: var(--muted);
+      margin: 0;
+    }
+    .hero-wrap {
+      max-width: 980px;
+      margin: 0 auto 2.8rem;
+      padding: 0 1.5rem;
+    }
+    .hero-plate {
+      margin: 0;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 12px 36px rgba(23, 22, 20, 0.06);
+    }
+    .hero-plate img {
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+    .hero-plate figcaption {
+      padding: 0.78rem 1.2rem;
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      background: #fcfbf8;
+    }
+    .editorial-grid {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5.5rem;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 680px);
+      gap: 3.25rem;
+      align-items: start;
+      justify-content: center;
+    }
+    .toc-rail {
+      position: sticky;
+      top: 5.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.32rem;
+      padding-top: 0.4rem;
+    }
+    .rail-head {
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.45rem;
+    }
+    .rail-link {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 0.34rem 0;
+      border-bottom: 1px solid transparent;
+      transition: color 140ms ease;
+    }
+    .rail-link span {
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      color: var(--terracotta);
+      margin-right: 0.35rem;
+    }
+    .rail-link:hover {
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .memory-pull {
+      padding: 1.35rem 0;
+      margin: 0 0 2rem;
+      border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+    }
+    .memory-pull blockquote {
+      margin: 0.5rem 0 0;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.32rem;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+    .essay-sec {
+      padding: 2.2rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .sec-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.4rem;
+    }
+    .pill {
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      padding: 0.24rem 0.6rem;
+      border-radius: 999px;
+      background: var(--paper-warm);
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .essay-sec h2, .section-h2 {
+      font-family: var(--serif);
+      font-size: 1.85rem;
+      font-weight: 600;
+      line-height: 1.24;
+      letter-spacing: -0.015em;
+      margin: 0.2rem 0 1.05rem;
+      color: var(--ink);
+    }
+    .prose {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      line-height: 1.78;
+      color: var(--ink-soft);
+    }
+    .prose p { margin: 0 0 1.15rem; }
+    .prose ul, .prose ol { margin: 0.6rem 0 1.2rem; padding-left: 1.35rem; }
+    .prose li { margin-bottom: 0.45rem; }
+    .prose code {
+      background: var(--paper-warm);
+      border: 1px solid var(--line);
+      padding: 0.12rem 0.38rem;
+      border-radius: 5px;
+      font-family: var(--mono);
+      font-size: 0.8em;
+      color: var(--terracotta);
+    }
+    .article-plate {
+      margin: 1.65rem 0 1.1rem;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1.15rem;
+      box-shadow: 0 4px 18px rgba(23, 22, 20, 0.04);
+    }
+    .article-plate img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+    }
+    .article-plate figcaption {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 0.75rem;
+      padding-top: 0.6rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .note-box {
+      border-radius: 10px;
+      padding: 1.05rem 1.2rem;
+      margin-top: 1rem;
+      font-size: 0.94rem;
+      line-height: 1.64;
+    }
+    .note-expert {
+      background: var(--sky-soft);
+      border: 1px solid rgba(45, 88, 110, 0.22);
+      color: #1c2e38;
+    }
+    .note-trap {
+      background: var(--terracotta-soft);
+      border: 1px solid rgba(158, 60, 34, 0.22);
+      color: #3a1d15;
+    }
+    .note-kicker {
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.35rem;
+    }
+    .note-expert .note-kicker { color: #244a5e; }
+    .note-trap .note-kicker { color: #8c331c; }
+    .meme-card {
+      background: #ffffff;
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      padding: 1.3rem 1.4rem;
+      margin: 1.75rem 0 0.5rem;
+      box-shadow: 0 4px 18px rgba(23, 22, 20, 0.04);
+    }
+    .meme-title {
+      font-family: var(--serif);
+      font-size: 1.28rem;
+      font-weight: 600;
+      margin: 0.25rem 0 0.85rem;
+      color: var(--ink);
+    }
+    .meme-panels-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 0.85rem;
+    }
+    .meme-panels-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+    }
+    .meme-panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.95rem 1.05rem;
+    }
+    .meme-panel-accent {
+      background: #fcf5f2;
+      border-color: rgba(158, 60, 34, 0.25);
+    }
+    .meme-label {
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--terracotta);
+      margin-bottom: 0.3rem;
+    }
+    .muted-lbl { color: var(--muted); }
+    .meme-sub { font-weight: 700; font-size: 0.86rem; margin-bottom: 0.28rem; color: var(--ink); }
+    .meme-copy { font-size: 0.88rem; line-height: 1.54; color: var(--ink-soft); white-space: pre-line; }
+    .meme-punchline {
+      margin-top: 0.85rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .walk-card, .assign-card {
+      background: #ffffff;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      padding: 1.3rem 1.4rem;
+      margin-bottom: 1.05rem;
+      box-shadow: 0 3px 14px rgba(23, 22, 20, 0.03);
+    }
+    .walk-card h3, .assign-card h3 {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0.2rem 0 0.7rem;
+      color: var(--ink);
+    }
+    .walk-why { font-size: 0.94rem; color: var(--ink-soft); margin: 0.75rem 0 0.55rem; }
+    .walk-break {
+      font-size: 0.88rem;
+      color: #7f2d18;
+      background: var(--terracotta-soft);
+      border: 1px solid rgba(158, 60, 34, 0.18);
+      border-radius: 8px;
+      padding: 0.62rem 0.85rem;
+    }
+    .assign-goal { font-size: 0.95rem; color: var(--ink-soft); margin: 0 0 0.45rem; }
+    .assign-prove { font-size: 0.88rem; color: var(--meadow); margin: 0 0 0.75rem; }
+    pre {
+      background: #171817;
+      color: #f0ede6;
+      padding: 1.05rem 1.2rem;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      line-height: 1.62;
+    }
+    .agent-pre {
+      white-space: pre-wrap;
+      margin: 0.45rem 0 0.85rem;
+    }
+    .jargon-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 0.92rem;
+      margin-top: 0.85rem;
+    }
+    .jargon-table th, .jargon-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    .jargon-table th {
+      background: var(--paper-warm);
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .muted-cell { color: var(--muted); }
+    .pager-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--line-strong);
+    }
+    .pager-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      padding: 1.1rem 1.25rem;
+      background: #ffffff;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      color: var(--ink);
+    }
+    .pager-card:hover {
+      border-color: var(--terracotta);
+      text-decoration: none;
+    }
+    .pager-next { text-align: right; }
+    @media (max-width: 920px) {
+      .editorial-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .toc-rail { position: static; flex-direction: row; flex-wrap: wrap; gap: 0.65rem; border-bottom: 1px solid var(--line); padding-bottom: 1rem; }
+      .rail-head { width: 100%; margin-bottom: 0.1rem; }
+    }
+  </style>
 </head>
 <body>
-  <header class="top-nav">
-    <div class="brand-cluster">
-      <a class="crest-badge" href="../../index.html">← 3D CAMPUS RPG</a>
-      <div>
-        <div class="brand-title">Tokens: how your text becomes numbers</div>
-        <div class="brand-sub">BitsByBlocks AI University · Rung 0: Ground floor</div>
+  <header class="reader-bar">
+    <div class="reader-bar-inner">
+      <div class="reader-brand">
+        <a href="../../index.html" style="color:var(--ink);">← BitsByBlocks Campus</a>
+        <span>/</span>
+        <span>Hall 0 · Ground floor</span>
+      </div>
+      <div style="display:flex;gap:0.55rem;align-items:center;">
+        <a class="btn" href="lab_main.py" download>Download lab_main.py</a>
+        <a class="btn btn-primary" href="../../index.html">Open 3D Campus</a>
       </div>
     </div>
-    <div style="display:flex;gap:0.6rem;">
-      <a class="btn" href="lesson.json" target="_blank">lesson.json</a>
-      <a class="btn btn-primary" href="../../index.html">🎮 Enter 3D Campus & Talk to Characters</a>
-    </div>
+    <div class="reader-progress" id="reader-progress"></div>
   </header>
 
-  <main style="max-width:780px;margin:0 auto;padding:2.5rem 1.5rem 5rem;">
-    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem;">
-      <span class="tag tag-terracotta">Parking Lot · Checkpoint #02</span>
-      <span class="tag tag-sky">Hall 0: Ground floor</span>
-      <span class="tag tag-meadow">✓ Python Lab Verified</span>
+  <header class="article-header">
+    <div class="article-meta">
+      <span style="color:var(--terracotta);font-weight:700;">Hall 0 · Essay 02</span>
+      <span>·</span>
+      <span>8 min read</span>
+      <span>·</span>
+      <span>Python 3 Verified</span>
     </div>
-    <h1 style="font-family:var(--serif);font-size:2.4rem;line-height:1.35;margin:0.2rem 0 0.5rem;">Tokens: how your text becomes numbers</h1>
-    <div style="font-family:var(--serif);font-style:italic;font-size:1.25rem;line-height:1.45;color:var(--terracotta);margin-bottom:1.25rem;">“Why does the model see &#x27;strawberry&#x27; as pieces and miscount its letters?”</div>
-    <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--ink), 0 8px 20px rgba(17,28,22,0.10);padding:1rem 1.35rem;border-radius:14px;margin-bottom:2rem;">
-      <strong>In One Line:</strong> An AI never sees letters or words; a chopper at the front door slices your text into common puzzle pieces and swaps each piece for a barcode number before the brain ever wakes up.
-    </div>
+    <h1>Tokens: how your text becomes numbers</h1>
+    <p class="article-dek">Why does the model see &#x27;strawberry&#x27; as pieces and miscount its letters?</p>
+  </header>
 
-    <section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 01</span><span class="tag tag-amber">Chapter 1 · The Strawberry Mystery</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">Explain it like I&#x27;m 12: Why you can&#x27;t count bricks behind a painted wall</h2><div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;"><p>Here is a riddle that stumped the whole tech world: a frontier AI can write a working compiler in ten seconds, yet when you ask <code>&#x27;How many R&#x27;s are in strawberry?&#x27;</code>, it often replies <code>&#x27;Two!&#x27;</code> with total confidence.</p>
+  <div class="hero-wrap"><figure class="hero-plate"><img src="hero.jpg" alt="Tokens: how your text becomes numbers" /><figcaption>Plate II — Byte-Pair Encoding slices &#x27;strawberry&#x27; into three opaque integer blocks before the transformer ever sees a single character.</figcaption></figure></div>
+
+  <div class="editorial-grid">
+    <aside class="toc-rail">
+      <div class="rail-head">Contents</div>
+      <a class="rail-link" href="#part-01"><span>01</span> Chapter 1 · The Strawberry Mystery</a><a class="rail-link" href="#part-02"><span>02</span> Chapter 2 · Inside tiktoken &amp; BPE</a><a class="rail-link" href="#part-03"><span>03</span> Chapter 3 · Real Lab Benchmarks</a><a class="rail-link" href="#part-04"><span>04</span> Chapter 4 · Production Craft</a>
+      <a class="rail-link" href="#jargon"><span>05</span> Jargon Decoder</a>
+      <a class="rail-link" href="#code-walkthrough"><span>06</span> Code Walkthrough</a>
+      <a class="rail-link" href="#go-deeper"><span>07</span> Agent Assignments</a>
+    </aside>
+
+    <article>
+      <div class="memory-pull">
+        <div class="eyebrow">The Memory Hook</div>
+        <blockquote>“An LLM never reads letters — it reads sealed integer barcode IDs built by regex splitting + greedy Byte-Pair Encoding.”</blockquote>
+      </div>
+
+      <section class="essay-sec" id="part-01"><div class="sec-meta"><span class="eyebrow">Part 01</span><span class="pill">Chapter 1 · The Strawberry Mystery</span></div><h2>Explain it like I&#x27;m 12: Why you can&#x27;t count bricks behind a painted wall</h2><div class="prose"><p>Here is a riddle that stumped the whole tech world: a frontier AI can write a working compiler in ten seconds, yet when you ask <code>&#x27;How many R&#x27;s are in strawberry?&#x27;</code>, it often replies <code>&#x27;Two!&#x27;</code> with total confidence.</p>
 <p>How can a super-genius fail a second-grade spelling check?</p>
 <p>Because neural networks are giant matrix calculators — they <strong>cannot read letters</strong>. Before your message ever reaches Layer 1 of the model, a separate deterministic front-door program called a <strong>tokenizer</strong> slices your text into common puzzle pieces (<strong>tokens</strong>) and replaces each piece with an integer barcode (<strong>token ID</strong>).</p>
 <p>Look at <code>Figure 1</code>: under a GPT-4 class tokenizer (<code>cl100k_base</code>), <code>&#x27;strawberry&#x27;</code> enters the brain as just three sealed integers: - <code>&#x27;str&#x27;</code> → barcode <code>496</code> - <code>&#x27;aw&#x27;</code> → barcode <code>675</code> - <code>&#x27;berry&#x27;</code> → barcode <code>15717</code></p>
-<p>The model never receives the 10 characters <code>s-t-r-a-w-b-e-r-r-y</code>. Two of the <code>&#x27;r&#x27;</code>s are sealed inside integer <code>15717</code>. Unless the model memorized spelling facts during training, asking it to count letters inside a single atomic ID is like asking you how many bricks sit behind painted drywall.</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-01.svg" alt="The barcode chopper at the front door" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 The barcode chopper at the front door:</strong> The neural network only ever receives the final green list of barcode numbers.</span><a href="fig-01.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div><div style="background:#f2f6f9;border:1.5px solid #b4ccd9;border-radius:12px;padding:0.9rem 1.1rem;margin-top:1rem;font-size:0.94rem;color:#1c2e38;"><div style="font-family:var(--mono);font-size:0.76rem;font-weight:700;color:#264d60;text-transform:uppercase;margin-bottom:0.3rem;">⚙️ Under the Hood · Production Depth</div><p>Modern reasoning models (like o3 or Claude with extended thinking) solve &#x27;strawberry&#x27; reliably NOT because they switched to character-level input, but because they spend scratchpad tokens spelling out <code>s-t-r-a-w-b-e-r-r-y</code> one letter per token first — turning an invisible sub-token property into visible separate tokens.</p></div></section><section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 02</span><span class="tag tag-amber">Chapter 2 · Inside tiktoken &amp; BPE</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">How real tokenizers work: Regex Pre-Tokenization + Byte-Level BPE</h2><div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;"><p>Why not use 256 single bytes (too long — a short essay explodes to 5,000 tokens) or whole dictionary words (millions of entries, crashes on typos and code)? Modern LLMs use a two-step compression pipeline:</p>
+<p>The model never receives the 10 characters <code>s-t-r-a-w-b-e-r-r-y</code>. Two of the <code>&#x27;r&#x27;</code>s are sealed inside integer <code>15717</code>. Unless the model memorized spelling facts during training, asking it to count letters inside a single atomic ID is like asking you how many bricks sit behind painted drywall.</p></div><figure class="article-plate"><img src="fig-01.svg" alt="The barcode chopper at the front door" /><figcaption><span><strong>Figure 1.</strong> The neural network only ever receives the final green list of barcode numbers.</span><a href="fig-01.excalidraw" download>Download .excalidraw</a></figcaption></figure><div class="note-box note-expert"><div class="note-kicker">Under the Hood · Production Depth</div><p>Modern reasoning models (like o3 or Claude with extended thinking) solve &#x27;strawberry&#x27; reliably NOT because they switched to character-level input, but because they spend scratchpad tokens spelling out <code>s-t-r-a-w-b-e-r-r-y</code> one letter per token first — turning an invisible sub-token property into visible separate tokens.</p></div><aside class="meme-card"><div class="eyebrow">THE CLASSIC STRAWBERRY BUG</div><h3 class="meme-title">Why a $100M Model Can&#x27;t Count to Three</h3><div class="meme-panels-2"><div class="meme-panel"><div class="meme-label muted-lbl">WHAT YOU TYPED</div><div class="meme-copy">s - t - r - a - w - b - e - r - r - y
+“Clearly 3 r&#x27;s. A 6-year-old can count them.”</div></div><div class="meme-panel meme-panel-accent"><div class="meme-label">WHAT THE MODEL RECEIVED</div><div class="meme-copy">[ 496, 675, 15717 ]
+“You handed me three sealed shipping crates and asked how many nails are inside crate #15717.”</div></div></div><div class="meme-punchline">Spaces (`s t r a w b e r r y`) crack the crates open into individual character barcodes — suddenly it counts 3/3.</div></aside></section><section class="essay-sec" id="part-02"><div class="sec-meta"><span class="eyebrow">Part 02</span><span class="pill">Chapter 2 · Inside tiktoken &amp; BPE</span></div><h2>How real tokenizers work: Regex Pre-Tokenization + Byte-Level BPE</h2><div class="prose"><p>Why not use 256 single bytes (too long — a short essay explodes to 5,000 tokens) or whole dictionary words (millions of entries, crashes on typos and code)? Modern LLMs use a two-step compression pipeline:</p>
 <ol><li><strong>Step A — Regex Pre-Tokenization:</strong> Before counting pairs, the tokenizer splits text with a regex pattern so letters, numbers, and punctuation stay in separate buckets (<code>[&#x27;strawberry&#x27;, &#x27;,&#x27;, &#x27; berry&#x27;, &#x27;!&#x27;, ...]</code>). Why? Without pre-tokenization, BPE would waste precious vocabulary slots minting <code>&#x27;dog.&#x27;</code>, <code>&#x27;dog!&#x27;</code>, <code>&#x27;dog,&#x27;</code>, and <code>&#x27;dog?&#x27;</code> as four different tokens! Notice also how the regex attaches <strong>leading spaces</strong> to the word (<code>&#x27; berry&#x27;</code>), which means <code>&#x27;server&#x27;</code> and <code>&#x27; server&#x27;</code> get completely different IDs.</li><li><strong>Step B — Byte-Level BPE (The Lego Glue Game):</strong> Start with the 256 raw UTF-8 bytes (<code>0–255</code>) — guaranteeing <strong>zero unknown-character crashes</strong> on any Unicode script or emoji on Earth (<strong>byte fallback</strong>). Repeatedly scan the training corpus, find the most frequent adjacent pair inside pre-token boundaries, and glue it into a new barcode (<code>256</code>, <code>257</code>, ...).</li></ol>
-<p>In our Python lab, watch the exact 8-step merge trace: <code>&#x27;b&#x27;+&#x27;e&#x27; -&gt; &#x27;be&#x27; (256)</code> ... <code>&#x27;berr&#x27;+&#x27;y&#x27; -&gt; &#x27;berry&#x27; (259)</code> ... <code>&#x27;stra&#x27;+&#x27;w&#x27; -&gt; &#x27;straw&#x27; (263)</code>, shrinking <strong>42 raw UTF-8 bytes down to 14 tokens (33.3% of original)</strong> while keeping <code>,</code>, <code>!</code>, and <code>.</code> cleanly isolated!</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-03.svg" alt="How Byte Pair Encoding (BPE) invents puzzle pieces" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 How Byte Pair Encoding (BPE) invents puzzle pieces:</strong> Start with 256 single-byte crumbs and repeatedly glue the most common neighbors together.</span><a href="fig-03.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div><div style="background:#f2f6f9;border:1.5px solid #b4ccd9;border-radius:12px;padding:0.9rem 1.1rem;margin-top:1rem;font-size:0.94rem;color:#1c2e38;"><div style="font-family:var(--mono);font-size:0.76rem;font-weight:700;color:#264d60;text-transform:uppercase;margin-bottom:0.3rem;">⚙️ Under the Hood · Production Depth</div><p>Production vocabulary sizes have doubled specifically to fix multilingual fairness: GPT-4&#x27;s <code>cl100k_base</code> had ~100k tokens, Llama 3 jumped to 128k, and GPT-4o&#x27;s <code>o200k_base</code> jumped to ~200k tokens. Bigger vocabularies shrink sequence lengths (faster inference!) at the cost of a slightly larger input embedding + output unembedding matrix (<code>vocab_size × d_model</code>).</p></div></section><section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 03</span><span class="tag tag-amber">Chapter 3 · Real Lab Benchmarks</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">The 3.3x Hindi Tax: Token Fertility &amp; Real API Economics</h2><div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;"><p>Because BPE learns merges strictly by frequency in its training data, whatever languages dominate that corpus get long, cheap single-token chunks. Underrepresented scripts get shattered into tiny UTF-8 byte crumbs.</p>
+<p>In our Python lab, watch the exact 8-step merge trace: <code>&#x27;b&#x27;+&#x27;e&#x27; -&gt; &#x27;be&#x27; (256)</code> ... <code>&#x27;berr&#x27;+&#x27;y&#x27; -&gt; &#x27;berry&#x27; (259)</code> ... <code>&#x27;stra&#x27;+&#x27;w&#x27; -&gt; &#x27;straw&#x27; (263)</code>, shrinking <strong>42 raw UTF-8 bytes down to 14 tokens (33.3% of original)</strong> while keeping <code>,</code>, <code>!</code>, and <code>.</code> cleanly isolated!</p></div><figure class="article-plate"><img src="fig-03.svg" alt="How Byte Pair Encoding (BPE) invents puzzle pieces" /><figcaption><span><strong>Figure 2.</strong> Start with 256 single-byte crumbs and repeatedly glue the most common neighbors together.</span><a href="fig-03.excalidraw" download>Download .excalidraw</a></figcaption></figure><div class="note-box note-expert"><div class="note-kicker">Under the Hood · Production Depth</div><p>Production vocabulary sizes have doubled specifically to fix multilingual fairness: GPT-4&#x27;s <code>cl100k_base</code> had ~100k tokens, Llama 3 jumped to 128k, and GPT-4o&#x27;s <code>o200k_base</code> jumped to ~200k tokens. Bigger vocabularies shrink sequence lengths (faster inference!) at the cost of a slightly larger input embedding + output unembedding matrix (<code>vocab_size × d_model</code>).</p></div></section><section class="essay-sec" id="part-03"><div class="sec-meta"><span class="eyebrow">Part 03</span><span class="pill">Chapter 3 · Real Lab Benchmarks</span></div><h2>The 3.3x Hindi Tax: Token Fertility &amp; Real API Economics</h2><div class="prose"><p>Because BPE learns merges strictly by frequency in its training data, whatever languages dominate that corpus get long, cheap single-token chunks. Underrepresented scripts get shattered into tiny UTF-8 byte crumbs.</p>
 <p>Look at <code>Figure 2</code> from our lab output (<code>cl100k_base</code>): - <strong>English (<code>&#x27;The server responded in 12ms.&#x27;</code>):</strong> 29 chars → <strong>8 tokens</strong> (<code>0.28</code> tok/char · <strong><code>1.0×</code></strong> baseline). - <strong>Hindi (<code>&#x27;नमस्ते दुनिया&#x27;</code>):</strong> 13 chars → <strong>12 tokens</strong> (<code>0.92</code> tok/char · <strong><code>3.3×</code> cost &amp; latency tax!</strong>). - <strong>Emojis (<code>&#x27;🚀🔥🤖&#x27;</code>):</strong> 3 chars → <strong>6 tokens</strong> (<code>2.00</code> tok/char · <strong><code>7.2×</code></strong> multiplier via UTF-8 byte fallback!).</p>
-<p>Engineers call this <strong>token fertility</strong>. Remember Lesson 1: the model generates <strong>one token per forward pass</strong>. A <code>3.3×</code> fertility penalty doesn&#x27;t just triple a Hindi user&#x27;s API bill — it also makes streaming <strong>3.3× slower</strong> AND shrinks their effective memory window by <strong>3.3×</strong>! Switching from a 100k vocab (<code>cl100k</code>) to a 200k multilingual vocab (<code>o200k</code>) cuts Hindi fertility nearly in half.</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-02.svg" alt="Why Hindi and Emojis cost more tickets than English" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 Why Hindi and Emojis cost more tickets than English:</strong> Real measurements from our lab: Hindi takes 3.3x more tokens per character than English.</span><a href="fig-02.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div><div style="background:#f2f6f9;border:1.5px solid #b4ccd9;border-radius:12px;padding:0.9rem 1.1rem;margin-top:1rem;font-size:0.94rem;color:#1c2e38;"><div style="font-family:var(--mono);font-size:0.76rem;font-weight:700;color:#264d60;text-transform:uppercase;margin-bottom:0.3rem;">⚙️ Under the Hood · Production Depth</div><p>Rule of thumb for English prose: ~1 token ≈ 0.75 words (or ~4 characters). For dense JSON/code with heavy indentation, or Indic/CJK scripts on older tokenizers, always measure with the exact model tokenizer (<code>tiktoken</code> or provider <code>count_tokens</code> endpoint) instead of guessing by word count.</p></div></section><section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 04</span><span class="tag tag-amber">Chapter 4 · Production Craft</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">Four production tokenizer bugs every AI engineer catches immediately</h2><div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;"><p>Understanding the front-door chopper immediately lets you debug four notorious production failures:</p>
-<ol><li><strong>The Trailing-Space Bug:</strong> Never end a prompt template with a trailing space (<code>&#x27;Answer: &#x27;</code>). Because BPE expects spaces <em>attached to the start of the next word</em> (<code>&#x27; Yes&#x27;</code>), a dangling space forces an awkward standalone space token (<code>220</code>) followed by a rare space-less <code>&#x27;Yes&#x27;</code> token — measurably degrading accuracy.</li><li><strong>Digit Splitting &amp; Math:</strong> Older BPE tokenizers glued <code>123</code> into one token but chopped <code>1234</code> into <code>12</code> + <code>34</code>, breaking place-value alignment. Modern frontier tokenizers (Llama 3, DeepSeek, GPT-4o) restrict number merges in their pre-tokenization regex to 1–3 digits (or single digits <code>0–9</code>) so arithmetic lines up cleanly.</li><li><strong>Special Tokens &amp; Prompt Injection:</strong> Control markers like <code>&lt;|im_start|&gt;</code>, <code>&lt;|im_end|&gt;</code>, and <code>&lt;|endoftext|&gt;</code> are reserved integer IDs injected by the chat template. Never pass untrusted user input with <code>allowed_special=&#x27;all&#x27;</code>, or a user can literally type <code>&lt;|im_end|&gt;&lt;|im_start|&gt;system</code> and hijack the model&#x27;s role!</li><li><strong>Fixing Character Tasks Instantly:</strong> Whenever an app needs exact spelling, letter counting, or string reversal, either call a Python tool (best!) or instruct the model to space-separate characters (<code>s t r a w b e r r y</code>) before counting.</li></ol></div><div style="background:#fdf4ee;border:1.5px solid #e2baa7;border-radius:12px;padding:0.9rem 1.1rem;margin-top:0.75rem;font-size:0.94rem;color:#3a1d15;"><div style="font-family:var(--mono);font-size:0.76rem;font-weight:700;color:#8c331c;text-transform:uppercase;margin-bottom:0.3rem;">⚠️ Production Engineering Trap</div><p>Common Trap: Estimating API costs or context limits using <code>len(text.split())</code>! For Hindi, Tamil, dense JSON, or minified code, word count can under-estimate true token count by 3×–6× and trigger silent truncation or surprise bills.</p></div></section>
+<p>Engineers call this <strong>token fertility</strong>. Remember Lesson 1: the model generates <strong>one token per forward pass</strong>. A <code>3.3×</code> fertility penalty doesn&#x27;t just triple a Hindi user&#x27;s API bill — it also makes streaming <strong>3.3× slower</strong> AND shrinks their effective memory window by <strong>3.3×</strong>! Switching from a 100k vocab (<code>cl100k</code>) to a 200k multilingual vocab (<code>o200k</code>) cuts Hindi fertility nearly in half.</p></div><figure class="article-plate"><img src="fig-02.svg" alt="Why Hindi and Emojis cost more tickets than English" /><figcaption><span><strong>Figure 3.</strong> Real measurements from our lab: Hindi takes 3.3x more tokens per character than English.</span><a href="fig-02.excalidraw" download>Download .excalidraw</a></figcaption></figure><div class="note-box note-expert"><div class="note-kicker">Under the Hood · Production Depth</div><p>Rule of thumb for English prose: ~1 token ≈ 0.75 words (or ~4 characters). For dense JSON/code with heavy indentation, or Indic/CJK scripts on older tokenizers, always measure with the exact model tokenizer (<code>tiktoken</code> or provider <code>count_tokens</code> endpoint) instead of guessing by word count.</p></div><aside class="meme-card"><div class="eyebrow">THE FERTILITY TAX</div><h3 class="meme-title">Same Meaning, Wildly Different Token Bills</h3><div class="meme-panels-3"><div class="meme-panel "><div class="meme-label">English</div><div class="meme-sub">0.28 tokens / char (1.0x)</div><div class="meme-copy">VIP lane. Whole words like ` responded` compress into one single barcode.</div></div><div class="meme-panel meme-panel-accent"><div class="meme-label">Hindi (Devanagari)</div><div class="meme-sub">0.92 tokens / char (3.3x)</div><div class="meme-copy">3.3x slower decode, 3.3x higher API bill, and 3.3x less effective context window in `cl100k`.</div></div><div class="meme-panel "><div class="meme-label">Emojis (🚀🔥🤖)</div><div class="meme-sub">2.00 tokens / char (7.2x)</div><div class="meme-copy">Split into multi-byte UTF-8 fallback crumbs (`&lt;0xF0&gt;`, `&lt;0x9F&gt;`). Tiny icons, giant token tax.</div></div></div><div class="meme-punchline">Always measure token fertility on YOUR users&#x27; real languages and JSON payloads before estimating API costs.</div></aside></section><section class="essay-sec" id="part-04"><div class="sec-meta"><span class="eyebrow">Part 04</span><span class="pill">Chapter 4 · Production Craft</span></div><h2>Four production tokenizer bugs every AI engineer catches immediately</h2><div class="prose"><p>Understanding the front-door chopper immediately lets you debug four notorious production failures:</p>
+<ol><li><strong>The Trailing-Space Bug:</strong> Never end a prompt template with a trailing space (<code>&#x27;Answer: &#x27;</code>). Because BPE expects spaces <em>attached to the start of the next word</em> (<code>&#x27; Yes&#x27;</code>), a dangling space forces an awkward standalone space token (<code>220</code>) followed by a rare space-less <code>&#x27;Yes&#x27;</code> token — measurably degrading accuracy.</li><li><strong>Digit Splitting &amp; Math:</strong> Older BPE tokenizers glued <code>123</code> into one token but chopped <code>1234</code> into <code>12</code> + <code>34</code>, breaking place-value alignment. Modern frontier tokenizers (Llama 3, DeepSeek, GPT-4o) restrict number merges in their pre-tokenization regex to 1–3 digits (or single digits <code>0–9</code>) so arithmetic lines up cleanly.</li><li><strong>Special Tokens &amp; Prompt Injection:</strong> Control markers like <code>&lt;|im_start|&gt;</code>, <code>&lt;|im_end|&gt;</code>, and <code>&lt;|endoftext|&gt;</code> are reserved integer IDs injected by the chat template. Never pass untrusted user input with <code>allowed_special=&#x27;all&#x27;</code>, or a user can literally type <code>&lt;|im_end|&gt;&lt;|im_start|&gt;system</code> and hijack the model&#x27;s role!</li><li><strong>Fixing Character Tasks Instantly:</strong> Whenever an app needs exact spelling, letter counting, or string reversal, either call a Python tool (best!) or instruct the model to space-separate characters (<code>s t r a w b e r r y</code>) before counting.</li></ol></div><div class="note-box note-trap"><div class="note-kicker">Production Trap</div><p>Common Trap: Estimating API costs or context limits using <code>len(text.split())</code>! For Hindi, Tamil, dense JSON, or minified code, word count can under-estimate true token count by 3×–6× and trigger silent truncation or surprise bills.</p></div></section>
 
-    <h2 style="font-family:var(--serif);line-height:1.35;margin-top:2.5rem;">Plain-English Jargon Decoder</h2>
-    <table style="width:100%;border-collapse:collapse;background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;overflow:hidden;font-size:0.94rem;">
-      <thead><tr style="background:var(--paper-warm);text-align:left;"><th style="padding:0.8rem;">Term</th><th style="padding:0.8rem;">In Plain Words</th><th style="padding:0.8rem;">Why You Care</th></tr></thead>
-      <tbody><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>token</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">One puzzle piece of text (a word, part of a word, or a single byte) that gets one barcode number.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Your API bill, memory limit, and streaming speed are all measured in tokens, not words.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>tokenizer</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">The front-door program that chops text into tokens and swaps them for integer IDs.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Runs before the neural network; tokenizer blind spots cannot be fixed by &#x27;thinking harder&#x27;.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>byte pair encoding (BPE)</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">Starting with 256 raw bytes and repeatedly gluing the most common adjacent pair into a new token.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">The compression algorithm used by GPT-4, Claude, Llama, and DeepSeek.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>vocabulary</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">The full dictionary of all 100,000+ puzzle pieces the tokenizer knows.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Bigger vocabularies compress non-English languages better.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>token ID</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">The barcode integer (like 15717 for &#x27;berry&#x27;) handed to the model.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">The only representation of your text the model ever actually receives.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>token fertility</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">How many tokens it takes to represent one word or character in a language.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Directly multiplies your cloud bill and response time for Hindi, Indic scripts, and dense JSON.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>byte fallback</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">Breaking unfamiliar characters (like rare emojis) down into raw UTF-8 byte tokens (0–255).</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Prevents unknown-character crashes, at the cost of up to 4 tokens per character.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>special token</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">Reserved control barcodes like &lt;|im_start|&gt; or &lt;|endoftext|&gt;.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Marks where the user stops talking and the assistant starts.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>pre-tokenization</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">A regex split run BEFORE BPE so words, numbers, and punctuation don&#x27;t get glued together into duplicate tokens.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Explains why leading spaces attach to words (&#x27; server&#x27;) and why trailing spaces in prompts degrade completions.</td></tr></tbody>
-    </table>
+      <section class="essay-sec" id="jargon">
+        <span class="eyebrow">Reference</span>
+        <h2 class="section-h2">Plain-English Jargon Decoder</h2>
+        <table class="jargon-table">
+          <thead><tr><th>Term</th><th>In Plain Words</th><th>Why You Care</th></tr></thead>
+          <tbody><tr><td><strong>token</strong></td><td>One puzzle piece of text (a word, part of a word, or a single byte) that gets one barcode number.</td><td class="muted-cell">Your API bill, memory limit, and streaming speed are all measured in tokens, not words.</td></tr><tr><td><strong>tokenizer</strong></td><td>The front-door program that chops text into tokens and swaps them for integer IDs.</td><td class="muted-cell">Runs before the neural network; tokenizer blind spots cannot be fixed by &#x27;thinking harder&#x27;.</td></tr><tr><td><strong>byte pair encoding (BPE)</strong></td><td>Starting with 256 raw bytes and repeatedly gluing the most common adjacent pair into a new token.</td><td class="muted-cell">The compression algorithm used by GPT-4, Claude, Llama, and DeepSeek.</td></tr><tr><td><strong>vocabulary</strong></td><td>The full dictionary of all 100,000+ puzzle pieces the tokenizer knows.</td><td class="muted-cell">Bigger vocabularies compress non-English languages better.</td></tr><tr><td><strong>token ID</strong></td><td>The barcode integer (like 15717 for &#x27;berry&#x27;) handed to the model.</td><td class="muted-cell">The only representation of your text the model ever actually receives.</td></tr><tr><td><strong>token fertility</strong></td><td>How many tokens it takes to represent one word or character in a language.</td><td class="muted-cell">Directly multiplies your cloud bill and response time for Hindi, Indic scripts, and dense JSON.</td></tr><tr><td><strong>byte fallback</strong></td><td>Breaking unfamiliar characters (like rare emojis) down into raw UTF-8 byte tokens (0–255).</td><td class="muted-cell">Prevents unknown-character crashes, at the cost of up to 4 tokens per character.</td></tr><tr><td><strong>special token</strong></td><td>Reserved control barcodes like &lt;|im_start|&gt; or &lt;|endoftext|&gt;.</td><td class="muted-cell">Marks where the user stops talking and the assistant starts.</td></tr><tr><td><strong>pre-tokenization</strong></td><td>A regex split run BEFORE BPE so words, numbers, and punctuation don&#x27;t get glued together into duplicate tokens.</td><td class="muted-cell">Explains why leading spaces attach to words (&#x27; server&#x27;) and why trailing spaces in prompts degrade completions.</td></tr></tbody>
+        </table>
+      </section>
 
-    <h2 style="font-family:var(--serif);line-height:1.35;margin-top:2.5rem;">Hands-On Python Lab: Build Regex Pre-Tokenization + Byte-Level BPE &amp; Measure Multilingual Fertility</h2>
-    <p>Implement regex pre-tokenization + byte-level BPE from raw UTF-8 bytes, inspect every single merge step (#1–#8), and measure exact token fertility multipliers across English (1.0x), Hindi (3.3x), and Emojis (7.2x).</p>
-    <pre style="background:#111c16;color:#f2f7f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;"><code>=== STEP 1: Regex Pre-Tokenization (Isolates Punctuation Before BPE) ===
+      <section class="essay-sec" id="code-walkthrough">
+        <div class="sec-meta">
+          <span class="eyebrow">Pure Python 3 Lab</span>
+          <a class="btn" href="lab_main.py" download>Download lab_main.py</a>
+        </div>
+        <h2 class="section-h2">Core Code Walkthrough: Build Regex Pre-Tokenization + Byte-Level BPE &amp; Measure Multilingual Fertility</h2>
+        <p class="prose" style="margin-bottom:1.35rem;">Implement regex pre-tokenization + byte-level BPE from raw UTF-8 bytes, inspect every single merge step (#1–#8), and measure exact token fertility multipliers across English (1.0x), Hindi (3.3x), and Emojis (7.2x).</p>
+        <div class="walk-card"><div class="sec-meta"><span class="eyebrow">Step 01 · Lines 18–25</span><span class="pill">Core Mechanism</span></div><h3>Regex Pre-Tokenization (The Guardrail Before BPE)</h3><pre><code>PRE_TOKEN_RE = re.compile(r&quot; ?[A-Za-z]+| ?[0-9]{1,3}| ?[^\sA-Za-z0-9]+|\s+&quot;)
+def pre_tokenize(text: str) -&gt; list[str]:
+    return PRE_TOKEN_RE.findall(text)</code></pre><p class="walk-why"><strong>Why this exists:</strong> GPT-4 (`cl100k` / `o200k`) never runs raw BPE across the whole document. First it slices text along word, punctuation, and 1–3 digit boundaries so `berry.` and `berry!` don&#x27;t waste precious vocabulary slots as separate tokens.</p><div class="walk-break"><strong>What breaks if removed:</strong> Without regex pre-tokenization, BPE glues punctuation onto words (`dog.`, `dog!`, `dog?`), bloating the vocabulary and hurting generalization on arithmetic and code.</div></div><div class="walk-card"><div class="sec-meta"><span class="eyebrow">Step 02 · Lines 27–32</span><span class="pill">Core Mechanism</span></div><h3>Counting Adjacent Pairs Strictly Inside Boundaries</h3><pre><code>def get_pair_counts(chunks: list[list[int]]) -&gt; Counter[tuple[int, int]]:
+    counts = Counter()
+    for seq in chunks:
+        counts.update(zip(seq, seq[1:]))
+    return counts</code></pre><p class="walk-why"><strong>Why this exists:</strong> By iterating `for seq in chunks` instead of flattening the corpus, pairs can NEVER merge across a pre-token boundary (like across a comma or space-punct boundary).</p><div class="walk-break"><strong>What breaks if removed:</strong> If you flattened the corpus first, BPE would happily merge the end of one word with the start of the next punctuation mark.</div></div><div class="walk-card"><div class="sec-meta"><span class="eyebrow">Step 03 · Lines 35–46</span><span class="pill">Core Mechanism</span></div><h3>The Greedy Merge Pass (`merge_pair`)</h3><pre><code>while i &lt; len(seq):
+    if i + 1 &lt; len(seq) and seq[i] == pair[0] and seq[i + 1] == pair[1]:
+        out.append(new_id)
+        i += 2
+    else:
+        out.append(seq[i]); i += 1</code></pre><p class="walk-why"><strong>Why this exists:</strong> Every occurrence of the winning pair `(a, b)` is swapped left-to-right for one brand-new integer ID (`256`, `257`, ...). Notice `i += 2` prevents double-merging overlapping runs like `aaa`.</p><div class="walk-break"><strong>What breaks if removed:</strong> Incrementing `i += 1` on a match would corrupt overlapping byte pairs like `rrr` and invent ghost tokens that can&#x27;t decode back to the original UTF-8 bytes.</div></div><div class="walk-card"><div class="sec-meta"><span class="eyebrow">Step 04 · Lines 49–73</span><span class="pill">Core Mechanism</span></div><h3>Training From 256 Raw UTF-8 Bytes Upward</h3><pre><code>vocab = {i: bytes([i]) for i in range(256)}
+for step in range(1, num_merges + 1):
+    best_pair, freq = counts.most_common(1)[0]
+    chunks = [merge_pair(c, best_pair, next_id) for c in chunks]
+    vocab[next_id] = vocab[best_pair[0]] + vocab[best_pair[1]]</code></pre><p class="walk-why"><strong>Why this exists:</strong> Starting with all 256 raw byte values (`0..255`) guarantees **zero `&lt;UNK&gt;` (unknown) tokens** ever — any language, code symbol, or emoji on Earth can always fall back to raw UTF-8 bytes.</p><div class="walk-break"><strong>What breaks if removed:</strong> Character-level vocabularies break with `&lt;UNK&gt;` the moment a user pastes a rare Unicode symbol or unseen script.</div></div>
+        <h3 style="font-family:var(--mono);font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--meadow);margin:1.75rem 0 0.5rem;">Verified Terminal Output (Exit Code 0)</h3>
+        <pre><code>=== STEP 1: Regex Pre-Tokenization (Isolates Punctuation Before BPE) ===
 Pre-tokens: [&#x27;strawberry&#x27;, &#x27;,&#x27;, &#x27; berry&#x27;, &#x27;!&#x27;, &#x27; straw&#x27;, &#x27; berry&#x27;, &#x27; strawberry&#x27;, &#x27;.&#x27;]
 
 === STEP 2: Byte-Level BPE Training (8 Merges) ===
@@ -272,7 +665,9 @@ Notice: Leading spaces also get glued! &#x27;server&#x27; != &#x27; server&#x27;
   &#x27;नमस्ते दुनिया&#x27;                  -&gt; 13 chars | 12 tokens | 0.92 tok/char (3.3x vs EN)
   &#x27;🚀🔥🤖&#x27;                            -&gt;  3 chars |  6 tokens | 2.00 tok/char (7.2x vs EN)
   Note: Doubling vocab from 100k (cl100k) -&gt; 200k (o200k) cuts Hindi tokens roughly in half (~6 tokens)!</code></pre>
-    <pre style="background:#111c16;color:#f2f7f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;margin-top:1rem;"><code>&quot;&quot;&quot;Pure-Python Regex Pre-Tokenization, BPE &amp; Multilingual Fertility Lab (l0-tokens).
+        <details style="margin-top:1.15rem;">
+          <summary style="cursor:pointer;font-family:var(--mono);font-size:0.82rem;font-weight:600;color:var(--terracotta);padding:0.45rem 0;">View Complete Source Code (lab_main.py)</summary>
+          <pre style="margin-top:0.65rem;"><code>&quot;&quot;&quot;Pure-Python Regex Pre-Tokenization, BPE &amp; Multilingual Fertility Lab (l0-tokens).
 
 Demonstrates:
 1. Regex pre-tokenization (why real tokenizers split words/punctuation BEFORE BPE).
@@ -399,20 +794,61 @@ def main() -&gt; None:
 if __name__ == &quot;__main__&quot;:
     main()
 </code></pre>
+        </details>
+      </section>
 
-    <h2 style="font-family:var(--serif);line-height:1.35;margin-top:2.5rem;">Share Studio · The Turn & X Thread</h2>
-    <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--ink), 0 8px 20px rgba(17,28,22,0.10);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;">
-      <div style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">THE NOTEBOOK TURN</div>
-      <div style="font-family:var(--serif);font-size:1.3rem;line-height:1.45;margin:0.35rem 0;">“When I wrote the 30-line BPE chopper from raw UTF-8 bytes, I stopped thinking of &#x27;strawberry&#x27; as a reasoning failure — you cannot count letters that were compressed into a single barcode before you even opened your eyes.”</div>
-      <div style="font-size:0.88rem;color:var(--ink-soft);"><strong>Reel Hook:</strong> Voiceover: &#x27;Everyone laughed when ChatGPT couldn&#x27;t count the three R&#x27;s in strawberry. Then I wrote a 30-line tokenizer in Python and saw what the model actually receives: three barcode numbers — 496, 675, and 15717.&#x27;</div>
-    </div>
-    <div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">1/ Why can an AI write a working compiler in seconds, yet fail to count the three &#x27;r&#x27;s in &#x27;strawberry&#x27;? Because it never sees the word &#x27;strawberry&#x27;. It gets handed three barcode numbers: [496, 675, 15717].</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">2/ For Checkpoint 02 of my AI Engineering University, I coded a Byte Pair Encoding (BPE) tokenizer from scratch in 30 lines of Python to watch how text gets sliced at the front door.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">3/ Every string starts as raw UTF-8 bytes (0-255). BPE scans the books, finds the two neighbors sitting next to each other most often, glues them into barcode 256, and repeats 100,000 times.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">4/ On my test string, just 8 BPE glue rounds compressed 39 raw bytes down to 11 puzzle pieces (28.2% of original length): &#x27;straw&#x27; | &#x27;berry&#x27; | ...</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">5/ Under a GPT-4 class tokenizer, &#x27;strawberry&#x27; becomes:
-- &#x27;str&#x27; -&gt; 496
-- &#x27;aw&#x27; -&gt; 675
-- &#x27;berry&#x27; -&gt; 15717
-Two of the three &#x27;r&#x27; letters are locked inside barcode 15717. Asking the model to count them without spelling the word out is like asking you to count bricks behind a painted wall.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">6/ Even wilder is the hidden tax on non-English languages (token fertility). Look at the tokens-per-character ratio from the lab output:</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">7/ • English (&#x27;The server responded in 12ms.&#x27;): 29 chars -&gt; 8 tokens (0.28 tok/char)
-• Hindi (&#x27;नमस्ते दुनिया&#x27;): 13 chars -&gt; 12 tokens (0.92 tok/char — 3.3x cost &amp; latency!)
-• Emojis (&#x27;🚀🔥🤖&#x27;): 3 chars -&gt; 6 tokens (2.00 tok/char — 7.1x!)</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">8/ Because the AI generates one token per loop, 3.3x more tokens means a Hindi user pays 3.3x more and waits 3.3x longer. Next campus stop: the Cafeteria — how barcode numbers turn into GPS coordinates of meaning (Embeddings).</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div>
-  </main>
+      <section class="essay-sec" id="go-deeper" style="border-bottom:none;">
+        <span class="eyebrow">Go Beyond Reading</span>
+        <h2 class="section-h2">Optional In-Depth Assignments &amp; Agent Prompts</h2>
+        <p class="prose" style="margin-bottom:1.35rem;">Copy any prompt below and hand it directly to your coding agent to build, benchmark, and verify the deeper engineering mechanics yourself.</p>
+        <div class="assign-card"><div class="sec-meta"><span class="eyebrow">Optional Assignment 01</span><span class="pill">Builder</span></div><h3>Add `encode()` and `decode()` Round-Trip Verification to Your BPE Tokenizer</h3><p class="assign-goal">Upgrade `lessons/l0-tokens/lab_main.py` into a full reversible `MiniBPE` class that saves its learned merge table, encodes brand-new unseen strings in strict merge-priority order, and asserts `decode(encode(text)) == text`.</p><p class="assign-prove"><strong>What you prove:</strong> Why encoding new text MUST apply merges in the exact order they were learned (lowest merge rank first), not greedily by local frequency.</p><div class="eyebrow" style="color:var(--muted);margin-top:0.8rem;">Prompt for Your Coding Agent</div><pre class="agent-pre" id="agent-prompt-1"><code>I just completed Lesson 2 (Byte-Pair Encoding &amp; Regex Pre-Tokenization) using `lessons/l0-tokens/lab_main.py`. Help me turn it into a complete reversible `MiniBPE` class in `mini_bpe.py` (pure Python 3 stdlib) with: `train(text, vocab_size)`, `encode(text)` (applying learned merges strictly by lowest merge-rank priority!), `decode(ids)` (handling invalid partial UTF-8 safely with `errors=&#x27;replace&#x27;`), and a test suite asserting 100% lossless round-trip on English, Hindi, Python code, and emojis. Explain the subtle bug if you apply merges out of order.</code></pre><button class="btn btn-primary" onclick="copyReaderPrompt(this, 'agent-prompt-1')">Copy Prompt for Your Agent</button></div><div class="assign-card"><div class="sec-meta"><span class="eyebrow">Optional Assignment 02</span><span class="pill">Deep Dive</span></div><h3>Audit `cl100k_base` vs `o200k_base` Fertility Across 6 Real Payloads</h3><p class="assign-goal">Benchmark OpenAI&#x27;s `tiktoken` (`cl100k_base` vs `o200k_base`) on English prose, Hindi, Python code, minified JSON, pretty-printed JSON with 4-space indents, and UUIDs.</p><p class="assign-prove"><strong>What you prove:</strong> Exactly how much money switching JSON indentation or upgrading from 100k to 200k vocab saves per million API requests.</p><div class="eyebrow" style="color:var(--muted);margin-top:0.8rem;">Prompt for Your Coding Agent</div><pre class="agent-pre" id="agent-prompt-2"><code>Let&#x27;s build a real tokenizer cost &amp; fertility benchmark script `tokenizer_audit.py` using `tiktoken` (or install it in a temp venv if missing). Compare `cl100k_base` (GPT-4) vs `o200k_base` (GPT-4o) across 6 realistic engineering payloads: (1) English tech doc, (2) Hindi support chat, (3) Python code with 4-space indentation, (4) pretty JSON vs minified JSON, (5) 20 random UUIDs, and (6) trailing-space trap strings like `&#x27;The answer is &#x27;` vs `&#x27;The answer is&#x27;`. Print a clean markdown table with tokens/char, relative cost multiplier, and 3 concrete takeaways for cutting production LLM bills.</code></pre><button class="btn btn-primary" onclick="copyReaderPrompt(this, 'agent-prompt-2')">Copy Prompt for Your Agent</button></div><div class="assign-card"><div class="sec-meta"><span class="eyebrow">Optional Assignment 03</span><span class="pill">Systems</span></div><h3>Reproduce &amp; Defend Against Special-Token Injection</h3><p class="assign-goal">Demonstrate how raw user text containing `&lt;|endoftext|&gt;` or `&lt;|im_start|&gt;system` behaves when `allowed_special=&#x27;all&#x27;` vs `disallowed_special=()` and build a sanitizer test.</p><p class="assign-prove"><strong>What you prove:</strong> Why production inference servers treat control tokens as out-of-band structural delimiters rather than plain text.</p><div class="eyebrow" style="color:var(--muted);margin-top:0.8rem;">Prompt for Your Coding Agent</div><pre class="agent-pre" id="agent-prompt-3"><code>Walk me through a hands-on security mini-lab for Lesson 2: write a Python script `special_token_safety.py` demonstrating how special control tokens (`&lt;|endoftext|&gt;`, `&lt;|im_start|&gt;`, `&lt;|eot_id|&gt;`) are encoded differently when parsed as literal text vs allowed special tokens, why accidental `allowed_special=&#x27;all&#x27;` lets user input forge a fake system turn, and how real chat-template renderers defend against it.</code></pre><button class="btn btn-primary" onclick="copyReaderPrompt(this, 'agent-prompt-3')">Copy Prompt for Your Agent</button></div>
+      </section>
+
+      <nav class="pager-grid">
+        <a class="pager-card" href="../l0-what-is-an-llm/index.html"><span class="eyebrow">← Previous Essay</span><strong>What an LLM actually is</strong></a>
+        <a class="pager-card pager-next" href="../l0-embeddings/index.html"><span class="eyebrow">Next Essay →</span><strong>Embeddings: meaning as coordinates</strong></a>
+      </nav>
+    </article>
+  </div>
+
+  <script>
+    window.addEventListener("scroll", () => {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      const pct = max > 0 ? Math.min(100, Math.max(0, (h.scrollTop / max) * 100)) : 0;
+      const bar = document.getElementById("reader-progress");
+      if (bar) bar.style.width = pct.toFixed(1) + "%";
+    });
+    function copyReaderPrompt(btn, preId) {
+      const el = document.getElementById(preId);
+      if (!el) return;
+      const text = el.innerText;
+      const flash = () => {
+        const orig = btn.innerText;
+        btn.innerText = "✓ Prompt Copied for Your Agent";
+        btn.classList.add("btn-meadow");
+        setTimeout(() => {
+          btn.innerText = orig;
+          btn.classList.remove("btn-meadow");
+        }, 2200);
+      };
+      const fallback = () => {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand("copy"); } catch (e) {}
+        document.body.removeChild(ta);
+        flash();
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(flash).catch(fallback);
+      } else {
+        fallback();
+      }
+    }
+  </script>
 </body>
 </html>

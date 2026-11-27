@@ -3,26 +3,26 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Embeddings: meaning as coordinates · Bits University Field Guide</title>
+  <title>Embeddings: meaning as coordinates — BitsByBlocks Field Guide</title>
   <style>
-@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;600;700&display=swap');
+    
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&display=swap');
 
 :root {
-  /* Better-Colors Primitive Ramps (Neutral Slate-Mist, Terracotta Accent, Pine Status) */
-  --slate-50: #f6f8f7;
-  --slate-100: #ebf0ed;
-  --slate-200: #d8e1dc;
-  --slate-300: #b8c6be;
-  --slate-600: #4b5b53;
-  --slate-700: #2e3b34;
-  --slate-900: #141d18;
-  --clay-100: #faeae4;
-  --clay-600: #a93b1f;
-  --clay-700: #882d16;
-  --pine-100: #e6f4ec;
-  --pine-700: #1f6a44;
+  /* Editorial Alabaster & Ink System (Stripe Press x Distill.pub) */
+  --slate-50: #f6f7f9;
+  --slate-100: #f2eee6;
+  --slate-200: #e5dfd3;
+  --slate-300: #cfc7b8;
+  --slate-600: #59554d;
+  --slate-700: #33302b;
+  --slate-900: #171614;
+  --clay-100: #f9ece7;
+  --clay-600: #9e3c22;
+  --clay-700: #7f2d18;
+  --pine-100: #eaf4ee;
+  --pine-700: #1f5f3f;
 
-  /* Semantic Role Tokens */
   --paper: var(--slate-50);
   --paper-card: #ffffff;
   --paper-warm: var(--slate-100);
@@ -30,8 +30,8 @@
   --ink: var(--slate-900);
   --ink-soft: var(--slate-700);
   --muted: var(--slate-600);
-  --line: var(--slate-200);
-  --line-strong: var(--slate-300);
+  --line: rgba(23, 22, 20, 0.10);
+  --line-strong: rgba(23, 22, 20, 0.18);
   --color-accent-solid: var(--clay-600);
   --color-accent-hover: var(--clay-700);
   --color-accent-soft: var(--clay-100);
@@ -43,15 +43,15 @@
   --amber-soft: #f7eedc;
   --meadow: var(--color-status-open);
   --meadow-soft: var(--color-status-open-soft);
-  --sky: #335c73;
-  --sky-soft: #e6eff4;
+  --sky: #2d586e;
+  --sky-soft: #edf3f6;
   --berry: #5c4d6b;
-  --berry-soft: #efebf4;
-  --shadow-ring: 0 0 0 1px rgba(20, 29, 24, 0.08), 0 4px 10px -2px rgba(20, 29, 24, 0.10), 0 12px 24px -6px rgba(20, 29, 24, 0.08);
-  --shadow-ring-sm: 0 0 0 1px rgba(20, 29, 24, 0.09), 0 2px 6px -1px rgba(20, 29, 24, 0.08);
-  --sans: 'Atkinson Hyperlegible', -apple-system, BlinkMacSystemFont, sans-serif;
-  --serif: 'Bricolage Grotesque', Georgia, serif;
-  --mono: 'IBM Plex Mono', monospace;
+  --berry-soft: #f1eef5;
+  --shadow-ring: 0 0 0 1px rgba(23, 22, 20, 0.08), 0 4px 12px -2px rgba(23, 22, 20, 0.08), 0 14px 28px -8px rgba(23, 22, 20, 0.07);
+  --shadow-ring-sm: 0 0 0 1px rgba(23, 22, 20, 0.09), 0 2px 6px -1px rgba(23, 22, 20, 0.06);
+  --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --serif: 'Newsreader', Georgia, serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
 }
 
 * { box-sizing: border-box; }
@@ -63,78 +63,12 @@ body {
   font-family: var(--sans);
   line-height: 1.65;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-a { color: var(--terracotta); text-decoration: none; font-weight: 700; }
+a { color: var(--terracotta); text-decoration: none; font-weight: 600; }
 a:hover { text-decoration: underline; }
-
-.top-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.65rem 1.4rem;
-  background: rgba(242, 247, 244, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 2px solid var(--line);
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.brand-cluster {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.crest-badge {
-  background: var(--terracotta);
-  color: #fff;
-  font-family: var(--serif);
-  font-weight: 800;
-  font-size: 0.85rem;
-  padding: 0.32rem 0.75rem;
-  border-radius: 8px;
-  border: 2px solid #7c2d12;
-  box-shadow: 0 2px 0 #7c2d12;
-  letter-spacing: 0.01em;
-}
-
-.brand-title {
-  font-family: var(--serif);
-  font-weight: 800;
-  font-size: 1.15rem;
-  color: var(--ink);
-}
-
-.brand-sub {
-  font-size: 0.78rem;
-  color: var(--muted);
-  font-weight: 700;
-}
-
-.nav-pills {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  flex-wrap: wrap;
-}
-
-.stat-chip {
-  background: var(--paper-card);
-  border: 2px solid var(--line-strong);
-  padding: 0.28rem 0.75rem;
-  border-radius: 999px;
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--ink-soft);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-}
 
 .btn {
   display: inline-flex;
@@ -142,112 +76,560 @@ a:hover { text-decoration: underline; }
   gap: 0.45rem;
   background: var(--paper-card);
   color: var(--ink);
-  border: 2px solid var(--ink);
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  font-size: 0.85rem;
-  font-weight: 700;
+  border: 1px solid var(--line-strong);
+  padding: 0.48rem 0.95rem;
+  border-radius: 8px;
+  font-size: 0.84rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.14s ease;
+  transition: background-color 140ms ease, border-color 140ms ease, transform 120ms ease;
   font-family: var(--sans);
-  box-shadow: 0 2px 0 var(--ink);
 }
 
 .btn:hover {
-  transform: translateY(-1px);
   background: var(--paper-warm);
+  border-color: rgba(23, 22, 20, 0.34);
   text-decoration: none;
 }
 
 .btn-primary {
   background: var(--terracotta);
   color: #ffffff;
-  border-color: #7c2d12;
-  box-shadow: 0 3px 0 #7c2d12;
+  border-color: var(--terracotta);
 }
 
 .btn-primary:hover {
-  background: #7c2d12;
+  background: var(--clay-700);
+  border-color: var(--clay-700);
   color: #ffffff;
 }
 
 .btn-meadow {
   background: var(--meadow);
   color: #ffffff;
-  border-color: #052e16;
-  box-shadow: 0 3px 0 #052e16;
+  border-color: var(--meadow);
 }
 
 .btn-meadow:hover {
-  background: #166534;
+  background: #174930;
+  border-color: #174930;
   color: #ffffff;
 }
 
 .tag {
   font-family: var(--mono);
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 0.2rem 0.65rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 0.24rem 0.62rem;
   border-radius: 999px;
   background: var(--paper-warm);
-  border: 1.5px solid var(--line-strong);
+  border: 1px solid var(--line);
   color: var(--ink-soft);
 }
 
-.tag-terracotta { background: var(--terracotta-soft); color: var(--terracotta); border-color: #fca5a5; }
-.tag-meadow { background: var(--meadow-soft); color: var(--meadow); border-color: #86efac; }
-.tag-sky { background: var(--sky-soft); color: var(--sky); border-color: #7dd3fc; }
-.tag-amber { background: var(--amber-soft); color: #78350f; border-color: #fcd34d; }
-</style>
+.tag-terracotta { background: var(--terracotta-soft); color: var(--terracotta); border-color: rgba(158, 60, 34, 0.22); }
+.tag-meadow { background: var(--meadow-soft); color: var(--meadow); border-color: rgba(31, 95, 63, 0.22); }
+.tag-sky { background: var(--sky-soft); color: var(--sky); border-color: rgba(45, 88, 110, 0.22); }
+.tag-amber { background: var(--amber-soft); color: #78480e; border-color: rgba(138, 90, 24, 0.22); }
+
+    body {
+      background: #ffffff;
+      color: #171614;
+    }
+    .reader-bar {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .reader-bar-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0.72rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .reader-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .reader-progress {
+      height: 2px;
+      width: 0%;
+      background: var(--terracotta);
+      transition: width 70ms linear;
+    }
+    .article-header {
+      max-width: 780px;
+      margin: 3.2rem auto 2.2rem;
+      padding: 0 1.5rem;
+      text-align: left;
+    }
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .article-header h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4.5vw, 3.15rem);
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin: 0 0 1rem;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+    .article-dek {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.32rem;
+      line-height: 1.48;
+      color: var(--muted);
+      margin: 0;
+    }
+    .hero-wrap {
+      max-width: 980px;
+      margin: 0 auto 2.8rem;
+      padding: 0 1.5rem;
+    }
+    .hero-plate {
+      margin: 0;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 12px 36px rgba(23, 22, 20, 0.06);
+    }
+    .hero-plate img {
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+    .hero-plate figcaption {
+      padding: 0.78rem 1.2rem;
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      background: #fcfbf8;
+    }
+    .editorial-grid {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5.5rem;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 680px);
+      gap: 3.25rem;
+      align-items: start;
+      justify-content: center;
+    }
+    .toc-rail {
+      position: sticky;
+      top: 5.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.32rem;
+      padding-top: 0.4rem;
+    }
+    .rail-head {
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.45rem;
+    }
+    .rail-link {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 0.34rem 0;
+      border-bottom: 1px solid transparent;
+      transition: color 140ms ease;
+    }
+    .rail-link span {
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      color: var(--terracotta);
+      margin-right: 0.35rem;
+    }
+    .rail-link:hover {
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .memory-pull {
+      padding: 1.35rem 0;
+      margin: 0 0 2rem;
+      border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+    }
+    .memory-pull blockquote {
+      margin: 0.5rem 0 0;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.32rem;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+    .essay-sec {
+      padding: 2.2rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .sec-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.4rem;
+    }
+    .pill {
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      padding: 0.24rem 0.6rem;
+      border-radius: 999px;
+      background: var(--paper-warm);
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .essay-sec h2, .section-h2 {
+      font-family: var(--serif);
+      font-size: 1.85rem;
+      font-weight: 600;
+      line-height: 1.24;
+      letter-spacing: -0.015em;
+      margin: 0.2rem 0 1.05rem;
+      color: var(--ink);
+    }
+    .prose {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      line-height: 1.78;
+      color: var(--ink-soft);
+    }
+    .prose p { margin: 0 0 1.15rem; }
+    .prose ul, .prose ol { margin: 0.6rem 0 1.2rem; padding-left: 1.35rem; }
+    .prose li { margin-bottom: 0.45rem; }
+    .prose code {
+      background: var(--paper-warm);
+      border: 1px solid var(--line);
+      padding: 0.12rem 0.38rem;
+      border-radius: 5px;
+      font-family: var(--mono);
+      font-size: 0.8em;
+      color: var(--terracotta);
+    }
+    .article-plate {
+      margin: 1.65rem 0 1.1rem;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1.15rem;
+      box-shadow: 0 4px 18px rgba(23, 22, 20, 0.04);
+    }
+    .article-plate img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+    }
+    .article-plate figcaption {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 0.75rem;
+      padding-top: 0.6rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .note-box {
+      border-radius: 10px;
+      padding: 1.05rem 1.2rem;
+      margin-top: 1rem;
+      font-size: 0.94rem;
+      line-height: 1.64;
+    }
+    .note-expert {
+      background: var(--sky-soft);
+      border: 1px solid rgba(45, 88, 110, 0.22);
+      color: #1c2e38;
+    }
+    .note-trap {
+      background: var(--terracotta-soft);
+      border: 1px solid rgba(158, 60, 34, 0.22);
+      color: #3a1d15;
+    }
+    .note-kicker {
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.35rem;
+    }
+    .note-expert .note-kicker { color: #244a5e; }
+    .note-trap .note-kicker { color: #8c331c; }
+    .meme-card {
+      background: #ffffff;
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      padding: 1.3rem 1.4rem;
+      margin: 1.75rem 0 0.5rem;
+      box-shadow: 0 4px 18px rgba(23, 22, 20, 0.04);
+    }
+    .meme-title {
+      font-family: var(--serif);
+      font-size: 1.28rem;
+      font-weight: 600;
+      margin: 0.25rem 0 0.85rem;
+      color: var(--ink);
+    }
+    .meme-panels-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 0.85rem;
+    }
+    .meme-panels-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+    }
+    .meme-panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.95rem 1.05rem;
+    }
+    .meme-panel-accent {
+      background: #fcf5f2;
+      border-color: rgba(158, 60, 34, 0.25);
+    }
+    .meme-label {
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--terracotta);
+      margin-bottom: 0.3rem;
+    }
+    .muted-lbl { color: var(--muted); }
+    .meme-sub { font-weight: 700; font-size: 0.86rem; margin-bottom: 0.28rem; color: var(--ink); }
+    .meme-copy { font-size: 0.88rem; line-height: 1.54; color: var(--ink-soft); white-space: pre-line; }
+    .meme-punchline {
+      margin-top: 0.85rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .walk-card, .assign-card {
+      background: #ffffff;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      padding: 1.3rem 1.4rem;
+      margin-bottom: 1.05rem;
+      box-shadow: 0 3px 14px rgba(23, 22, 20, 0.03);
+    }
+    .walk-card h3, .assign-card h3 {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0.2rem 0 0.7rem;
+      color: var(--ink);
+    }
+    .walk-why { font-size: 0.94rem; color: var(--ink-soft); margin: 0.75rem 0 0.55rem; }
+    .walk-break {
+      font-size: 0.88rem;
+      color: #7f2d18;
+      background: var(--terracotta-soft);
+      border: 1px solid rgba(158, 60, 34, 0.18);
+      border-radius: 8px;
+      padding: 0.62rem 0.85rem;
+    }
+    .assign-goal { font-size: 0.95rem; color: var(--ink-soft); margin: 0 0 0.45rem; }
+    .assign-prove { font-size: 0.88rem; color: var(--meadow); margin: 0 0 0.75rem; }
+    pre {
+      background: #171817;
+      color: #f0ede6;
+      padding: 1.05rem 1.2rem;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      line-height: 1.62;
+    }
+    .agent-pre {
+      white-space: pre-wrap;
+      margin: 0.45rem 0 0.85rem;
+    }
+    .jargon-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 0.92rem;
+      margin-top: 0.85rem;
+    }
+    .jargon-table th, .jargon-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    .jargon-table th {
+      background: var(--paper-warm);
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .muted-cell { color: var(--muted); }
+    .pager-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--line-strong);
+    }
+    .pager-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      padding: 1.1rem 1.25rem;
+      background: #ffffff;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      color: var(--ink);
+    }
+    .pager-card:hover {
+      border-color: var(--terracotta);
+      text-decoration: none;
+    }
+    .pager-next { text-align: right; }
+    @media (max-width: 920px) {
+      .editorial-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .toc-rail { position: static; flex-direction: row; flex-wrap: wrap; gap: 0.65rem; border-bottom: 1px solid var(--line); padding-bottom: 1rem; }
+      .rail-head { width: 100%; margin-bottom: 0.1rem; }
+    }
+  </style>
 </head>
 <body>
-  <header class="top-nav">
-    <div class="brand-cluster">
-      <a class="crest-badge" href="../../index.html">← 3D CAMPUS RPG</a>
-      <div>
-        <div class="brand-title">Embeddings: meaning as coordinates</div>
-        <div class="brand-sub">BitsByBlocks AI University · Rung 0: Ground floor</div>
+  <header class="reader-bar">
+    <div class="reader-bar-inner">
+      <div class="reader-brand">
+        <a href="../../index.html" style="color:var(--ink);">← BitsByBlocks Campus</a>
+        <span>/</span>
+        <span>Hall 0 · Ground floor</span>
+      </div>
+      <div style="display:flex;gap:0.55rem;align-items:center;">
+        <a class="btn" href="lab_main.py" download>Download lab_main.py</a>
+        <a class="btn btn-primary" href="../../index.html">Open 3D Campus</a>
       </div>
     </div>
-    <div style="display:flex;gap:0.6rem;">
-      <a class="btn" href="lesson.json" target="_blank">lesson.json</a>
-      <a class="btn btn-primary" href="../../index.html">🎮 Enter 3D Campus & Talk to Characters</a>
-    </div>
+    <div class="reader-progress" id="reader-progress"></div>
   </header>
 
-  <main style="max-width:780px;margin:0 auto;padding:2.5rem 1.5rem 5rem;">
-    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem;">
-      <span class="tag tag-terracotta">Campus Cafeteria · Checkpoint #03</span>
-      <span class="tag tag-sky">Hall 0: Ground floor</span>
-      <span class="tag tag-meadow">✓ Python Lab Verified</span>
+  <header class="article-header">
+    <div class="article-meta">
+      <span style="color:var(--terracotta);font-weight:700;">Hall 0 · Essay 03</span>
+      <span>·</span>
+      <span>8 min read</span>
+      <span>·</span>
+      <span>Python 3 Verified</span>
     </div>
-    <h1 style="font-family:var(--serif);font-size:2.4rem;line-height:1.35;margin:0.2rem 0 0.5rem;">Embeddings: meaning as coordinates</h1>
-    <div style="font-family:var(--serif);font-style:italic;font-size:1.25rem;line-height:1.45;color:var(--terracotta);margin-bottom:1.25rem;">“How can a machine tell that &#x27;masala chai&#x27; and &#x27;filter coffee&#x27; are neighbors?”</div>
-    <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--ink), 0 8px 20px rgba(17,28,22,0.10);padding:1rem 1.35rem;border-radius:14px;margin-bottom:2rem;">
-      <strong>In One Line:</strong> An embedding turns a dead barcode number into a GPS coordinate on a giant meaning map, so words that mean similar things sit at nearly the same angle.
-    </div>
+    <h1>Embeddings: meaning as coordinates</h1>
+    <p class="article-dek">How can a machine tell that &#x27;masala chai&#x27; and &#x27;filter coffee&#x27; are neighbors?</p>
+  </header>
 
-    <section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 01</span><span class="tag tag-amber">Chapter 1 · From Barcodes to GPS</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">Explain it like I&#x27;m 12: Where do you sit in the Campus Cafeteria?</h2><div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;"><p>In Lesson 2, the tokenizer handed the brain raw integer IDs (<code>496</code>, <code>15717</code>). There is a huge problem with raw IDs: they carry <strong>zero meaning</strong>. In a dictionary, barcode <code>#40,000</code> (<code>coffee</code>) can sit right next to <code>#40,001</code> (<code>coffin</code>). You cannot subtract <code>#40,001 - #40,000</code> and expect sensible math.</p>
+  <div class="hero-wrap"><figure class="hero-plate"><img src="hero.jpg" alt="Embeddings: meaning as coordinates" /><figcaption>Plate III — Meaning as geometry: related concepts cluster at tight compass angles while unrelated domains sit near ninety degrees.</figcaption></figure></div>
+
+  <div class="editorial-grid">
+    <aside class="toc-rail">
+      <div class="rail-head">Contents</div>
+      <a class="rail-link" href="#part-01"><span>01</span> Chapter 1 · From Barcodes to GPS</a><a class="rail-link" href="#part-02"><span>02</span> Chapter 2 · Exact Vector Math</a><a class="rail-link" href="#part-03"><span>03</span> Chapter 3 · Linear Semantic Directions</a><a class="rail-link" href="#part-04"><span>04</span> Chapter 4 · Engineering Mastery</a>
+      <a class="rail-link" href="#jargon"><span>05</span> Jargon Decoder</a>
+      <a class="rail-link" href="#code-walkthrough"><span>06</span> Code Walkthrough</a>
+      <a class="rail-link" href="#go-deeper"><span>07</span> Agent Assignments</a>
+    </aside>
+
+    <article>
+      <div class="memory-pull">
+        <div class="eyebrow">The Memory Hook</div>
+        <blockquote>“Token IDs are meaningless coat-check tickets; embeddings turn every word into GPS coordinates where cosine similarity measures the angle between ideas.”</blockquote>
+      </div>
+
+      <section class="essay-sec" id="part-01"><div class="sec-meta"><span class="eyebrow">Part 01</span><span class="pill">Chapter 1 · From Barcodes to GPS</span></div><h2>Explain it like I&#x27;m 12: Where do you sit in the Campus Cafeteria?</h2><div class="prose"><p>In Lesson 2, the tokenizer handed the brain raw integer IDs (<code>496</code>, <code>15717</code>). There is a huge problem with raw IDs: they carry <strong>zero meaning</strong>. In a dictionary, barcode <code>#40,000</code> (<code>coffee</code>) can sit right next to <code>#40,001</code> (<code>coffin</code>). You cannot subtract <code>#40,001 - #40,000</code> and expect sensible math.</p>
 <p>Now picture walking into the <strong>Campus Cafeteria</strong>. Imagine the floor has chalk axes painted across it: East–West measures <em>Drink vs. Food</em>, North–South measures <em>Hot vs. Cold</em>, and height measures <em>Spiced/Sweet</em>. Where do <strong>Masala Chai</strong> and <strong>Filter Coffee</strong> land? Practically at the exact same table (<code>9.7°</code> apart!). Where does <strong>Kubernetes</strong> land? Out in the Server Room, nearly <code>90°</code> away.</p>
 <p>That list of coordinates is an <strong>embedding</strong> in plain words: a dense list of floating-point numbers (a <strong>vector</strong>) that maps a token or sentence to a point in meaning space so semantically similar ideas point in the same direction.</p>
-<p><strong>Wait — who scores those sliders?</strong> Nobody hand-types them! During training, the model learns every coordinate automatically using the <strong>distributional hypothesis</strong>: <em>&#x27;You shall know a word by the company it keeps.&#x27;</em> Because <code>masala chai</code> and <code>filter coffee</code> appear in nearly identical sentences (<em>&#x27;I need a hot cup of ___ before standup&#x27;</em>), gradient descent (and contrastive loss in dedicated embedding models) pulls their arrows together and pushes unrelated sentences apart.</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-01.svg" alt="From a dead barcode to a GPS coordinate of meaning" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 From a dead barcode to a GPS coordinate of meaning:</strong> The embedding table swaps one integer ID for a list of coordinate numbers (a vector).</span><a href="fig-01.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div><div style="background:#f2f6f9;border:1.5px solid #b4ccd9;border-radius:12px;padding:0.9rem 1.1rem;margin-top:1rem;font-size:0.94rem;color:#1c2e38;"><div style="font-family:var(--mono);font-size:0.76rem;font-weight:700;color:#264d60;text-transform:uppercase;margin-bottom:0.3rem;">⚙️ Under the Hood · Production Depth</div><p>Crucial distinction: a raw token&#x27;s lookup row in the LLM&#x27;s <code>W_E</code> matrix is a <strong>static embedding</strong> (one fixed vector per token ID, so <code>&#x27;bank&#x27;</code> gets one starting coordinate). As it passes through Transformer self-attention layers, neighboring words bend it into a <strong>contextual embedding</strong> (river bank ≠ financial bank). Dedicated search embedding models (like <code>text-embedding-3</code>, <code>BGE</code>, <code>E5</code>) encode an entire sentence through all layers and pool the output into one sentence vector.</p></div></section><section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 02</span><span class="tag tag-amber">Chapter 2 · Exact Vector Math</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">Measuring Meaning with High-School Geometry: Dot Product, Cosine &amp; L2 Norm</h2><div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;"><p>In our Python lab (<code>Figure 2</code>), every cafeteria item lives on 4 axes: <code>[drink, hot_temp, sweet_or_spiced, computer_tech]</code>: - <code>masala_chai</code> → <code>[0.95, 0.90, 0.72, 0.02]</code> - <code>filter_coffee</code> → <code>[0.94, 0.88, 0.45, 0.05]</code> - <code>kubernetes</code> → <code>[0.01, 0.02, 0.00, 0.98]</code></p>
+<p><strong>Wait — who scores those sliders?</strong> Nobody hand-types them! During training, the model learns every coordinate automatically using the <strong>distributional hypothesis</strong>: <em>&#x27;You shall know a word by the company it keeps.&#x27;</em> Because <code>masala chai</code> and <code>filter coffee</code> appear in nearly identical sentences (<em>&#x27;I need a hot cup of ___ before standup&#x27;</em>), gradient descent (and contrastive loss in dedicated embedding models) pulls their arrows together and pushes unrelated sentences apart.</p></div><figure class="article-plate"><img src="fig-01.svg" alt="From a dead barcode to a GPS coordinate of meaning" /><figcaption><span><strong>Figure 1.</strong> The embedding table swaps one integer ID for a list of coordinate numbers (a vector).</span><a href="fig-01.excalidraw" download>Download .excalidraw</a></figcaption></figure><div class="note-box note-expert"><div class="note-kicker">Under the Hood · Production Depth</div><p>Crucial distinction: a raw token&#x27;s lookup row in the LLM&#x27;s <code>W_E</code> matrix is a <strong>static embedding</strong> (one fixed vector per token ID, so <code>&#x27;bank&#x27;</code> gets one starting coordinate). As it passes through Transformer self-attention layers, neighboring words bend it into a <strong>contextual embedding</strong> (river bank ≠ financial bank). Dedicated search embedding models (like <code>text-embedding-3</code>, <code>BGE</code>, <code>E5</code>) encode an entire sentence through all layers and pool the output into one sentence vector.</p></div><aside class="meme-card"><div class="eyebrow">THE ANTONYM TRAP</div><h3 class="meme-title">Cosine Similarity When You Ask for &#x27;Hot Chai&#x27;</h3><div class="meme-panels-2"><div class="meme-panel"><div class="meme-label muted-lbl">HUMAN LOGIC</div><div class="meme-copy">“Hot masala chai and iced chai are literally opposites. One is steaming, one has ice cubes!”</div></div><div class="meme-panel meme-panel-accent"><div class="meme-label">EMBEDDING SPACE</div><div class="meme-copy">“Both are drinks, both are spiced, both live in the cafeteria menu → +0.8234 match (34.6°)! Best friends!”</div></div></div><div class="meme-punchline">Embeddings measure topical neighborhood, NOT logical agreement — that&#x27;s why production RAG uses Hybrid Search (BM25 + Vectors) + a Reranker.</div></aside></section><section class="essay-sec" id="part-02"><div class="sec-meta"><span class="eyebrow">Part 02</span><span class="pill">Chapter 2 · Exact Vector Math</span></div><h2>Measuring Meaning with High-School Geometry: Dot Product, Cosine &amp; L2 Norm</h2><div class="prose"><p>In our Python lab (<code>Figure 2</code>), every cafeteria item lives on 4 axes: <code>[drink, hot_temp, sweet_or_spiced, computer_tech]</code>: - <code>masala_chai</code> → <code>[0.95, 0.90, 0.72, 0.02]</code> - <code>filter_coffee</code> → <code>[0.94, 0.88, 0.45, 0.05]</code> - <code>kubernetes</code> → <code>[0.01, 0.02, 0.00, 0.98]</code></p>
 <p>How does a GPU check if two 1,536-dimensional ideas match in microseconds? It measures the <strong>angle</strong> between their arrows using <strong>cosine similarity</strong> (<code>-1.0</code> opposite, <code>0.0</code> unrelated 90°, <code>+1.0</code> identical direction):</p>
 <ol><li><strong>Dot Product (<code>a · b</code>):</strong> Multiply matching axes and add them up. Big × Big explodes positively; Big × Tiny (<code>0.98 × 0.02</code>) vanishes.</li><li><strong>Divide by Both Magnitudes (<code>||a|| × ||b||</code>):</strong> Removes arrow length so long documents don&#x27;t beat short ones just by having larger numbers.</li><li><strong>Read the exact lab angles:</strong> <code>cosine(masala_chai, filter_coffee) = 0.9858</code> (<strong>9.7° apart!</strong>), while <code>cosine(masala_chai, kubernetes) = 0.0322</code> (<strong>88.2° apart — nearly perpendicular!</strong>).</li></ol>
-<p><strong>Why production vector DBs love L2 Normalization:</strong> In Step 4 of our lab, we divide every vector by its own length (<code>magnitude = 1.0</code>, called <strong>L2-normalized</strong>). Once vectors have length <code>1.0</code>, <code>dot_product(u, v)</code> equals <code>cosine_similarity(u, v)</code> to <strong>6 decimal places (<code>0.985850 == 0.985850</code>)</strong> — letting vector databases skip expensive square-root divisions at query time!</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-02.svg" alt="The Cafeteria 4D Meaning Map (Exact Lab Coordinates)" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 The Cafeteria 4D Meaning Map (Exact Lab Coordinates):</strong> Chai and coffee align within 9.7° (0.986); iced_chai scores 0.823 (Antonym Trap!); Kubernetes sits 88.2° away (0.032).</span><a href="fig-02.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div><div style="background:#f2f6f9;border:1.5px solid #b4ccd9;border-radius:12px;padding:0.9rem 1.1rem;margin-top:1rem;font-size:0.94rem;color:#1c2e38;"><div style="font-family:var(--mono);font-size:0.76rem;font-weight:700;color:#264d60;text-transform:uppercase;margin-bottom:0.3rem;">⚙️ Under the Hood · Production Depth</div><p>Cosine vs. Dot Product vs. Euclidean (L2) Distance: When vectors are L2-normalized (standard for OpenAI <code>text-embedding-3</code>, Cohere, Voyage, and BGE), all three metrics produce the <strong>exact same nearest-neighbor ranking</strong>! Only when magnitudes encode extra signal (like frequency or confidence) do dot product and cosine diverge.</p></div></section><section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 03</span><span class="tag tag-amber">Chapter 3 · Linear Semantic Directions</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">Directions Are Concepts: Vector Arithmetic (`king - man + woman = queen`)</h2><div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;"><p>Embeddings don&#x27;t just cluster neighbors — <strong>directions in vector space encode relationships</strong>.</p>
+<p><strong>Why production vector DBs love L2 Normalization:</strong> In Step 4 of our lab, we divide every vector by its own length (<code>magnitude = 1.0</code>, called <strong>L2-normalized</strong>). Once vectors have length <code>1.0</code>, <code>dot_product(u, v)</code> equals <code>cosine_similarity(u, v)</code> to <strong>6 decimal places (<code>0.985850 == 0.985850</code>)</strong> — letting vector databases skip expensive square-root divisions at query time!</p></div><figure class="article-plate"><img src="fig-02.svg" alt="The Cafeteria 4D Meaning Map (Exact Lab Coordinates)" /><figcaption><span><strong>Figure 2.</strong> Chai and coffee align within 9.7° (0.986); iced_chai scores 0.823 (Antonym Trap!); Kubernetes sits 88.2° away (0.032).</span><a href="fig-02.excalidraw" download>Download .excalidraw</a></figcaption></figure><div class="note-box note-expert"><div class="note-kicker">Under the Hood · Production Depth</div><p>Cosine vs. Dot Product vs. Euclidean (L2) Distance: When vectors are L2-normalized (standard for OpenAI <code>text-embedding-3</code>, Cohere, Voyage, and BGE), all three metrics produce the <strong>exact same nearest-neighbor ranking</strong>! Only when magnitudes encode extra signal (like frequency or confidence) do dot product and cosine diverge.</p></div></section><section class="essay-sec" id="part-03"><div class="sec-meta"><span class="eyebrow">Part 03</span><span class="pill">Chapter 3 · Linear Semantic Directions</span></div><h2>Directions Are Concepts: Vector Arithmetic (`king - man + woman = queen`)</h2><div class="prose"><p>Embeddings don&#x27;t just cluster neighbors — <strong>directions in vector space encode relationships</strong>.</p>
 <p>In Step 3 of our Python lab, we represent royalty and gender along <code>[royalty, human_adult, feminine_axis, tech]</code>: - <code>king</code> = <code>[0.95, 0.90, 0.05, 0.02]</code> - <code>man</code> = <code>[0.05, 0.90, 0.05, 0.02]</code> - <code>woman</code> = <code>[0.05, 0.90, 0.95, 0.02]</code></p>
 <p>Subtract <code>man</code> from <code>king</code> (stripping away <code>&#x27;adult male&#x27;</code>, leaving the pure <code>&#x27;royalty&#x27;</code> arrow <code>[+0.90, 0, 0, 0]</code>), then add <code>woman</code>. You land directly on <code>[0.95, 0.90, 0.95, 0.02]</code> — matching <strong><code>queen</code></strong> with cosine similarity <strong><code>1.0000</code></strong> (beating <code>prince</code> at <code>0.8403</code> and <code>woman</code> at <code>0.8311</code>)!</p>
-<p>Modern mechanistic interpretability research (sparse autoencoders / steering vectors) uses this exact property: adding a learned &#x27;refusal&#x27; or &#x27;Golden Gate Bridge&#x27; direction vector inside an LLM&#x27;s residual stream literally steers its personality in real time.</p></div><div style="background:#fff;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--line-strong), 0 8px 20px rgba(17,28,22,0.08);padding:1.15rem;border-radius:14px;margin:1.35rem 0 0.4rem;"><img src="fig-03.svg" alt="How Cosine Similarity measures the angle between two arrows" style="width:100%;height:auto;display:block;" /><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.65rem;padding-top:0.5rem;border-top:1.5px dashed var(--line-strong);font-size:0.82rem;color:var(--ink-soft);"><span><strong>📐 How Cosine Similarity measures the angle between two arrows:</strong> Multiply matching traits, add them up, and divide by arrow lengths.</span><a href="fig-03.excalidraw" download style="font-family:var(--mono);">⬇ .excalidraw</a></div></div></section><section style="padding:1.75rem 0;border-bottom:2px dashed var(--line);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;"><span style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">PART 04</span><span class="tag tag-amber">Chapter 4 · Engineering Mastery</span></div><h2 style="margin:0.1rem 0 0.85rem;font-family:var(--serif);font-size:1.55rem;line-height:1.35;">How to pick an embedding model in production — and the 3 classic traps</h2><div style="font-size:1.06rem;color:var(--ink-soft);line-height:1.78;"><p>Every RAG pipeline, semantic search engine, and recommendation system runs on embeddings. Three production rules separate hobby demos from reliable systems:</p>
-<ol><li><strong>The Antonym Trap (<code>masala_chai</code> vs <code>iced_chai</code> = <code>0.8234</code>!):</strong> Look at Step 2 of our lab: <em>hot</em> masala chai and <em>cold</em> iced chai still score <strong><code>0.8234</code></strong> (only <code>34.6°</code> apart) because they share the drink and spice axes! In real text, <code>&#x27;I love this product&#x27;</code> and <code>&#x27;I hate this product&#x27;</code> often score <code>0.80+</code>. Never rely on raw cosine similarity alone for sentiment or strict yes/no filtering — pair vector retrieval with a <strong>cross-encoder reranker</strong> or LLM judge.</li><li><strong>Matryoshka Dimensions (MRL) &amp; Storage Cost:</strong> Modern models (<code>text-embedding-3-large</code>, Nomic, BGE-M3) are trained with <strong>Matryoshka Representation Learning</strong>, packing the most important semantic info into the earliest dimensions. You can slice a <code>3,072</code>-dim vector down to <code>512</code> dims, re-normalize, and save <strong>6× RAM/disk</strong> while keeping ~97% of search quality.</li><li><strong>Never mix models (and respect Query vs. Document prefixes):</strong> Coordinate spaces are incompatible across models — upgrading your embedding model requires re-embedding your entire index. Also check whether your model is <em>asymmetric</em> (e.g., E5/BGE expect <code>&#x27;query: ...&#x27;</code> vs <code>&#x27;passage: ...&#x27;</code> prefixes so short questions align with long paragraphs).</li></ol></div><div style="background:#fdf4ee;border:1.5px solid #e2baa7;border-radius:12px;padding:0.9rem 1.1rem;margin-top:0.75rem;font-size:0.94rem;color:#3a1d15;"><div style="font-family:var(--mono);font-size:0.76rem;font-weight:700;color:#8c331c;text-transform:uppercase;margin-bottom:0.3rem;">⚠️ Production Engineering Trap</div><p>Common Trap: Thinking embeddings replace keyword search! Embeddings shine at synonyms (&#x27;morning hot drink&#x27; → &#x27;masala chai&#x27;) but struggle with exact part numbers, SKUs, error codes (<code>ERR_4092</code>), and rare names. Production RAG combines <strong>Hybrid Search</strong> (BM25 keywords + Cosine vectors).</p></div></section>
+<p>Modern mechanistic interpretability research (sparse autoencoders / steering vectors) uses this exact property: adding a learned &#x27;refusal&#x27; or &#x27;Golden Gate Bridge&#x27; direction vector inside an LLM&#x27;s residual stream literally steers its personality in real time.</p></div><figure class="article-plate"><img src="fig-03.svg" alt="How Cosine Similarity measures the angle between two arrows" /><figcaption><span><strong>Figure 3.</strong> Multiply matching traits, add them up, and divide by arrow lengths.</span><a href="fig-03.excalidraw" download>Download .excalidraw</a></figcaption></figure><aside class="meme-card"><div class="eyebrow">VECTOR GEOMETRY CHEAT SHEET</div><h3 class="meme-title">Reading Cosine Angles Like a Pilot</h3><div class="meme-panels-3"><div class="meme-panel "><div class="meme-label">0° to 15° (+0.97 to +1.00)</div><div class="meme-sub">Same Cafeteria Table</div><div class="meme-copy">`masala_chai` ↔ `filter_coffee` = +0.9858 (9.7°). Almost identical direction.</div></div><div class="meme-panel meme-panel-accent"><div class="meme-label">30° to 40° (+0.76 to +0.86)</div><div class="meme-sub">Same Room (Watch for Traps!)</div><div class="meme-copy">`iced_chai` (+0.8234) &amp; `samosa` (+0.8216). Related domain — check if opposite!</div></div><div class="meme-panel "><div class="meme-label">~90° (~0.00)</div><div class="meme-sub">Different Universe</div><div class="meme-copy">`masala_chai` ↔ `kubernetes` = +0.0322 (88.2°). Perpendicular = orthogonal meaning.</div></div></div><div class="meme-punchline">Pre-normalize every vector to length 1.0 once at indexing time, and cosine similarity collapses into a single super-fast dot product.</div></aside></section><section class="essay-sec" id="part-04"><div class="sec-meta"><span class="eyebrow">Part 04</span><span class="pill">Chapter 4 · Engineering Mastery</span></div><h2>How to pick an embedding model in production — and the 3 classic traps</h2><div class="prose"><p>Every RAG pipeline, semantic search engine, and recommendation system runs on embeddings. Three production rules separate hobby demos from reliable systems:</p>
+<ol><li><strong>The Antonym Trap (<code>masala_chai</code> vs <code>iced_chai</code> = <code>0.8234</code>!):</strong> Look at Step 2 of our lab: <em>hot</em> masala chai and <em>cold</em> iced chai still score <strong><code>0.8234</code></strong> (only <code>34.6°</code> apart) because they share the drink and spice axes! In real text, <code>&#x27;I love this product&#x27;</code> and <code>&#x27;I hate this product&#x27;</code> often score <code>0.80+</code>. Never rely on raw cosine similarity alone for sentiment or strict yes/no filtering — pair vector retrieval with a <strong>cross-encoder reranker</strong> or LLM judge.</li><li><strong>Matryoshka Dimensions (MRL) &amp; Storage Cost:</strong> Modern models (<code>text-embedding-3-large</code>, Nomic, BGE-M3) are trained with <strong>Matryoshka Representation Learning</strong>, packing the most important semantic info into the earliest dimensions. You can slice a <code>3,072</code>-dim vector down to <code>512</code> dims, re-normalize, and save <strong>6× RAM/disk</strong> while keeping ~97% of search quality.</li><li><strong>Never mix models (and respect Query vs. Document prefixes):</strong> Coordinate spaces are incompatible across models — upgrading your embedding model requires re-embedding your entire index. Also check whether your model is <em>asymmetric</em> (e.g., E5/BGE expect <code>&#x27;query: ...&#x27;</code> vs <code>&#x27;passage: ...&#x27;</code> prefixes so short questions align with long paragraphs).</li></ol></div><div class="note-box note-trap"><div class="note-kicker">Production Trap</div><p>Common Trap: Thinking embeddings replace keyword search! Embeddings shine at synonyms (&#x27;morning hot drink&#x27; → &#x27;masala chai&#x27;) but struggle with exact part numbers, SKUs, error codes (<code>ERR_4092</code>), and rare names. Production RAG combines <strong>Hybrid Search</strong> (BM25 keywords + Cosine vectors).</p></div></section>
 
-    <h2 style="font-family:var(--serif);line-height:1.35;margin-top:2.5rem;">Plain-English Jargon Decoder</h2>
-    <table style="width:100%;border-collapse:collapse;background:var(--paper-card);border:2px solid var(--line-strong);border-radius:12px;overflow:hidden;font-size:0.94rem;">
-      <thead><tr style="background:var(--paper-warm);text-align:left;"><th style="padding:0.8rem;">Term</th><th style="padding:0.8rem;">In Plain Words</th><th style="padding:0.8rem;">Why You Care</th></tr></thead>
-      <tbody><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>embedding</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">A list of numbers that acts as a GPS coordinate for a word or sentence&#x27;s meaning.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Lets code compare the meaning of two texts using simple multiplication.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>vector</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">An ordered list of numbers, like [0.95, 0.40, 0.02, 0.88], representing an arrow in space.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Every token inside an LLM travels through every layer as a vector.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>dimension</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">One number slot (slider) inside a vector that captures a feature or trait.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">More dimensions (768 vs 1536 vs 3072) store finer meaning distinctions but take more RAM.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>dot product</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">Multiplying matching numbers from two vectors and adding the results together.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">The single most common math operation in all of AI and GPUs.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>cosine similarity</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">The dot product divided by the arrow lengths, scoring how closely two vectors align (-1 to +1).</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">The standard metric used to rank relevant chunks in vector search and RAG.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>embedding model</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">A specialized neural network whose only job is turning text into meaning coordinates.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Much cheaper and faster than a chat LLM; used to index documents for search.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>L2 normalization</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">Scaling every vector so its arrow length equals 1.0 without changing its direction.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Makes fast dot product mathematically identical to cosine similarity in vector databases.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>static vs. contextual embedding</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">Static gives &#x27;bank&#x27; one fixed vector; contextual adjusts &#x27;bank&#x27; using surrounding words via attention.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Explains why modern sentence embeddings disambiguate &#x27;river bank&#x27; vs &#x27;money bank&#x27;.</td></tr><tr><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);"><strong>Matryoshka Representation (MRL)</strong></td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);">Training embeddings so the first 256 or 512 numbers already capture most of the meaning, like nesting dolls.</td><td style="padding:0.8rem;border-bottom:1.5px solid var(--line);color:var(--muted);">Lets you cut vector database RAM bills by 4×–6× with almost zero accuracy loss.</td></tr></tbody>
-    </table>
+      <section class="essay-sec" id="jargon">
+        <span class="eyebrow">Reference</span>
+        <h2 class="section-h2">Plain-English Jargon Decoder</h2>
+        <table class="jargon-table">
+          <thead><tr><th>Term</th><th>In Plain Words</th><th>Why You Care</th></tr></thead>
+          <tbody><tr><td><strong>embedding</strong></td><td>A list of numbers that acts as a GPS coordinate for a word or sentence&#x27;s meaning.</td><td class="muted-cell">Lets code compare the meaning of two texts using simple multiplication.</td></tr><tr><td><strong>vector</strong></td><td>An ordered list of numbers, like [0.95, 0.40, 0.02, 0.88], representing an arrow in space.</td><td class="muted-cell">Every token inside an LLM travels through every layer as a vector.</td></tr><tr><td><strong>dimension</strong></td><td>One number slot (slider) inside a vector that captures a feature or trait.</td><td class="muted-cell">More dimensions (768 vs 1536 vs 3072) store finer meaning distinctions but take more RAM.</td></tr><tr><td><strong>dot product</strong></td><td>Multiplying matching numbers from two vectors and adding the results together.</td><td class="muted-cell">The single most common math operation in all of AI and GPUs.</td></tr><tr><td><strong>cosine similarity</strong></td><td>The dot product divided by the arrow lengths, scoring how closely two vectors align (-1 to +1).</td><td class="muted-cell">The standard metric used to rank relevant chunks in vector search and RAG.</td></tr><tr><td><strong>embedding model</strong></td><td>A specialized neural network whose only job is turning text into meaning coordinates.</td><td class="muted-cell">Much cheaper and faster than a chat LLM; used to index documents for search.</td></tr><tr><td><strong>L2 normalization</strong></td><td>Scaling every vector so its arrow length equals 1.0 without changing its direction.</td><td class="muted-cell">Makes fast dot product mathematically identical to cosine similarity in vector databases.</td></tr><tr><td><strong>static vs. contextual embedding</strong></td><td>Static gives &#x27;bank&#x27; one fixed vector; contextual adjusts &#x27;bank&#x27; using surrounding words via attention.</td><td class="muted-cell">Explains why modern sentence embeddings disambiguate &#x27;river bank&#x27; vs &#x27;money bank&#x27;.</td></tr><tr><td><strong>Matryoshka Representation (MRL)</strong></td><td>Training embeddings so the first 256 or 512 numbers already capture most of the meaning, like nesting dolls.</td><td class="muted-cell">Lets you cut vector database RAM bills by 4×–6× with almost zero accuracy loss.</td></tr></tbody>
+        </table>
+      </section>
 
-    <h2 style="font-family:var(--serif);line-height:1.35;margin-top:2.5rem;">Hands-On Python Lab: Build a 4D Meaning Map: Cosine Angles, Antonym Trap, Vector Arithmetic &amp; L2 Norm Proof</h2>
-    <p>Compute exact cosine similarities and angles in degrees, observe the Antonym Trap (hot vs iced chai = 0.8234), execute king - man + woman = queen (1.0000), and prove dot_product(L2_norm) == cosine_similarity.</p>
-    <pre style="background:#111c16;color:#f2f7f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;"><code>=== STEP 1: Cafeteria Nearest Neighbors to &#x27;masala_chai&#x27; ===
+      <section class="essay-sec" id="code-walkthrough">
+        <div class="sec-meta">
+          <span class="eyebrow">Pure Python 3 Lab</span>
+          <a class="btn" href="lab_main.py" download>Download lab_main.py</a>
+        </div>
+        <h2 class="section-h2">Core Code Walkthrough: Build a 4D Meaning Map: Cosine Angles, Antonym Trap, Vector Arithmetic &amp; L2 Norm Proof</h2>
+        <p class="prose" style="margin-bottom:1.35rem;">Compute exact cosine similarities and angles in degrees, observe the Antonym Trap (hot vs iced chai = 0.8234), execute king - man + woman = queen (1.0000), and prove dot_product(L2_norm) == cosine_similarity.</p>
+        <div class="walk-card"><div class="sec-meta"><span class="eyebrow">Step 01 · Lines 39–41</span><span class="pill">Core Mechanism</span></div><h3>Dot Product: Multiplying Aligned Dimensions</h3><pre><code>def dot_product(a: list[float], b: list[float]) -&gt; float:
+    return sum(x * y for x, y in zip(a, b))</code></pre><p class="walk-why"><strong>Why this exists:</strong> When two vectors are high on the *same* axes (`drink=0.95 * 0.95`, `hot=0.90 * 0.92`), those products add up large. When one is high on `drink` and the other is high on `computer_tech`, each pair multiplies big × tiny ≈ 0.</p><div class="walk-break"><strong>What breaks if removed:</strong> Without element-wise alignment, you couldn&#x27;t compare how much two concepts share across thousands of latent features.</div></div><div class="walk-card"><div class="sec-meta"><span class="eyebrow">Step 02 · Lines 55–58</span><span class="pill">Core Mechanism</span></div><h3>Cosine Similarity: Dividing Out Vector Length</h3><pre><code>def cosine_similarity(a: list[float], b: list[float]) -&gt; float:
+    mag = magnitude(a) * magnitude(b)
+    return dot_product(a, b) / mag if mag &gt; 0 else 0.0</code></pre><p class="walk-why"><strong>Why this exists:</strong> Dividing by `magnitude(a) * magnitude(b)` isolates pure **direction** (angle `θ`). A 2-sentence doc and a 20-sentence doc about the same topic point the same way even if one has a larger raw norm.</p><div class="walk-break"><strong>What breaks if removed:</strong> Using raw unnormalized dot product lets long or high-magnitude vectors unfairly dominate every search result.</div></div><div class="walk-card"><div class="sec-meta"><span class="eyebrow">Step 03 · Lines 80–87</span><span class="pill">Core Mechanism</span></div><h3>Vector Arithmetic (`king - man + woman = queen`)</h3><pre><code>target = [k - m + w for k, m, w in zip(king, man, woman)]
+# Result: [0.95, 0.05, 0.95, 0.05] -&gt; cosine(target, queen) = 1.0000</code></pre><p class="walk-why"><strong>Why this exists:</strong> Because semantic relationships like `gender` or `capital-of` get encoded as consistent directional offsets in vector space, walking `(-man + woman)` translates `king` straight onto `queen`.</p><div class="walk-break"><strong>What breaks if removed:</strong> With flat discrete token IDs (`#40000`, `#40001`), arithmetic is pure gibberish (`coffee - tea` = random word).</div></div><div class="walk-card"><div class="sec-meta"><span class="eyebrow">Step 04 · Lines 49–52 &amp; 90–95</span><span class="pill">Core Mechanism</span></div><h3>The L2 Normalization Trick Used by Every Vector DB</h3><pre><code>u = normalize(masala_chai)  # length = 1.0
+v = normalize(filter_coffee)  # length = 1.0
+dot_product(u, v) == cosine_similarity(raw_chai, raw_coffee)  # 0.985850</code></pre><p class="walk-why"><strong>Why this exists:</strong> Vector databases (pgvector, Qdrant, Pinecone, FAISS) normalize every embedding once at write time so every query skips expensive `sqrt()` divisions and runs pure SIMD matrix dot products (`U @ q`).</p><div class="walk-break"><strong>What breaks if removed:</strong> Recomputing norms on 10 million vectors per query wastes massive CPU/GPU cycles on redundant square roots.</div></div>
+        <h3 style="font-family:var(--mono);font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--meadow);margin:1.75rem 0 0.5rem;">Verified Terminal Output (Exit Code 0)</h3>
+        <pre><code>=== STEP 1: Cafeteria Nearest Neighbors to &#x27;masala_chai&#x27; ===
 Axes: [drink, hot_temp, sweet_or_spiced, computer_tech]
   cosine(masala_chai, filter_coffee ) = 0.9858  (angle =  9.7 deg)
   cosine(masala_chai, iced_chai     ) = 0.8234  (angle = 34.6 deg)
@@ -271,7 +653,9 @@ Axes: [drink, hot_temp, sweet_or_spiced, computer_tech]
   cosine(raw chai, raw coffee)       = 0.985850
   dot_product(norm chai, norm coffee)= 0.985850
   Because OpenAI/Cohere/BGE embeddings are L2-normalized, vector DBs just run fast dot products!</code></pre>
-    <pre style="background:#111c16;color:#f2f7f4;padding:1.1rem;border-radius:12px;border:2px solid var(--ink);overflow-x:auto;margin-top:1rem;"><code>&quot;&quot;&quot;Pure-Python Embeddings, Cosine Similarity, Vector Arithmetic &amp; L2-Norm Lab (l0-embeddings).
+        <details style="margin-top:1.15rem;">
+          <summary style="cursor:pointer;font-family:var(--mono);font-size:0.82rem;font-weight:600;color:var(--terracotta);padding:0.45rem 0;">View Complete Source Code (lab_main.py)</summary>
+          <pre style="margin-top:0.65rem;"><code>&quot;&quot;&quot;Pure-Python Embeddings, Cosine Similarity, Vector Arithmetic &amp; L2-Norm Lab (l0-embeddings).
 
 Demonstrates:
 1. 4D Semantic Vectors: [warm_drink, sweet_or_spicy_food, computer_tech, morning_or_royalty]
@@ -372,20 +756,61 @@ def main() -&gt; None:
 if __name__ == &quot;__main__&quot;:
     main()
 </code></pre>
+        </details>
+      </section>
 
-    <h2 style="font-family:var(--serif);line-height:1.35;margin-top:2.5rem;">Share Studio · The Turn & X Thread</h2>
-    <div style="background:var(--paper-warm);border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--ink), 0 8px 20px rgba(17,28,22,0.10);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;">
-      <div style="font-family:var(--mono);font-size:0.78rem;font-weight:800;color:var(--terracotta);">THE NOTEBOOK TURN</div>
-      <div style="font-family:var(--serif);font-size:1.3rem;line-height:1.45;margin:0.35rem 0;">“I used to think &#x27;vector databases&#x27; and &#x27;high-dimensional embeddings&#x27; were arcane PhD math; writing cosine similarity in 10 lines of Python showed me it is literally just placing items on a cafeteria floor map and checking which arrows point to the same corner.”</div>
-      <div style="font-size:0.88rem;color:var(--ink-soft);"><strong>Reel Hook:</strong> Voiceover: &#x27;How does an AI know that masala chai and filter coffee belong together when they share zero letters? I coded a 25-line meaning map in Python, and the secret is just cafeteria seating coordinates.&#x27;</div>
-    </div>
-    <div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">1/ How does an AI know that &#x27;masala chai&#x27; and &#x27;filter coffee&#x27; are close neighbors, even though they share zero words? Because before thinking, it converts every token barcode into a GPS coordinate on a map of meaning.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">2/ For Checkpoint 03 at the Campus Cafeteria of my AI University, I built a 4-dimensional embedding map and vector search engine in 25 lines of pure Python (zero libraries).</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">3/ Imagine rating every item on 4 sliders: [warm_drink, sweet_food, computer_tech, morning_energy].
-• masala_chai -&gt; [0.95, 0.40, 0.02, 0.88]
-• filter_coffee -&gt; [0.92, 0.25, 0.05, 0.94]
-• kubernetes -&gt; [0.01, 0.00, 0.98, 0.12]</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">4/ To check if two ideas match, the computer doesn&#x27;t read a dictionary. It multiplies matching sliders together (dot product) and divides by arrow length (cosine similarity) to measure the angle between them.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">5/ When both items have high numbers on the same sliders, multiplying them explodes the score:
-• cosine(masala_chai, filter_coffee) = 0.9924 (almost identical angle!)
-• cosine(masala_chai, croissant) = 0.7368
-• cosine(masala_chai, kubernetes) = 0.1006</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">6/ A production embedding model (like text-embedding-3) is the exact same multiplication loop — just across 1,536 learned sliders instead of 4.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">7/ The #1 production trap this reveals: opposites (&#x27;I love this&#x27; vs &#x27;I hate this&#x27;, or &#x27;hot&#x27; vs &#x27;cold&#x27;) share 95% of the same topic sliders, so they score high cosine similarity! Never trust raw vector similarity alone to tell YES from NO.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div><div style="padding:1rem 0;border-bottom:1.5px solid var(--line);display:flex;justify-content:space-between;gap:1rem;"><div style="white-space:pre-line;">8/ Cafeteria checkpoint cleared. Next stop on the Campus Quad Lawn: the Context Window — why your AI has a fixed-size lunch tray for memory, and why it ignores facts buried in the middle.</div><button class="btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText);this.innerText='Copied!'">Copy</button></div>
-  </main>
+      <section class="essay-sec" id="go-deeper" style="border-bottom:none;">
+        <span class="eyebrow">Go Beyond Reading</span>
+        <h2 class="section-h2">Optional In-Depth Assignments &amp; Agent Prompts</h2>
+        <p class="prose" style="margin-bottom:1.35rem;">Copy any prompt below and hand it directly to your coding agent to build, benchmark, and verify the deeper engineering mechanics yourself.</p>
+        <div class="assign-card"><div class="sec-meta"><span class="eyebrow">Optional Assignment 01</span><span class="pill">Builder</span></div><h3>Build a Mini Hybrid Search Engine (BM25 + Vectors + Reciprocal Rank Fusion)</h3><p class="assign-goal">Create a 100-line pure-Python search engine over 15 tech support docs (including exact error codes like `ERR-4092` and semantic queries like `&#x27;app won&#x27;t start&#x27;`) comparing BM25-only vs Vector-only vs Hybrid RRF.</p><p class="assign-prove"><strong>What you prove:</strong> Why pure vector search fails on exact error codes/SKUs, pure keyword search fails on synonyms, and Reciprocal Rank Fusion (`1 / (60 + rank)`) beats both.</p><div class="eyebrow" style="color:var(--muted);margin-top:0.8rem;">Prompt for Your Coding Agent</div><pre class="agent-pre" id="agent-prompt-1"><code>I just completed Lesson 3 (Embeddings, Cosine Similarity, Antonym Trap &amp; Hybrid Search). Help me build `hybrid_search_lab.py` in pure Python 3 (zero external libraries): (1) Create 15 realistic engineering docs including exact error codes (`ERR_OOM_9021`), product names, and conceptual troubleshooting notes. (2) Implement BM25 keyword scoring, a simple bag-of-concept / TF-IDF cosine vector retriever, and Reciprocal Rank Fusion (RRF: `score = sum(1 / (60 + rank))`). (3) Run 5 queries that expose where BM25 wins, where vectors win, and where Hybrid RRF gets top-1 on all 5. Walk me through the math.</code></pre><button class="btn btn-primary" onclick="copyReaderPrompt(this, 'agent-prompt-1')">Copy Prompt for Your Agent</button></div><div class="assign-card"><div class="sec-meta"><span class="eyebrow">Optional Assignment 02</span><span class="pill">Deep Dive</span></div><h3>Test Matryoshka (MRL) Dimension Truncation on Real Embeddings</h3><p class="assign-goal">Embed 30 sentences with a real MRL model (like OpenAI `text-embedding-3-small` or `nomic-embed-text`), truncate vectors from `1536 -&gt; 512 -&gt; 256 -&gt; 128` dims, re-normalize, and measure Recall@3.</p><p class="assign-prove"><strong>What you prove:</strong> How Matryoshka Representation Learning packs coarse meaning into early dimensions so you can cut RAM/storage by 6x with &lt;2% recall loss.</p><div class="eyebrow" style="color:var(--muted);margin-top:0.8rem;">Prompt for Your Coding Agent</div><pre class="agent-pre" id="agent-prompt-2"><code>Let&#x27;s test Matryoshka Representation Learning (MRL) from Lesson 3 in practice. Write a Python script `mrl_benchmark.py` that embeds 25 diverse sentences (using a local embedding model if installed, OpenAI API if `OPENAI_API_KEY` is set, or a realistic synthetic PCA-ordered fallback so it runs anywhere), truncates each vector to 100%, 50%, 25%, and 12.5% of dimensions, L2-renormalizes, and prints a comparison table of RAM savings vs Top-3 nearest-neighbor agreement.</code></pre><button class="btn btn-primary" onclick="copyReaderPrompt(this, 'agent-prompt-2')">Copy Prompt for Your Agent</button></div><div class="assign-card"><div class="sec-meta"><span class="eyebrow">Optional Assignment 03</span><span class="pill">Systems</span></div><h3>Expose &amp; Fix the Antonym Trap with a Two-Stage Reranker</h3><p class="assign-goal">Build a small test set of tricky antonym/negation queries (`&#x27;flights NOT via Mumbai&#x27;`, `&#x27;iced chai, no hot drinks&#x27;`) and compare Bi-Encoder cosine ranking vs a Cross-Encoder / LLM pairwise reranker.</p><p class="assign-prove"><strong>What you prove:</strong> Why bi-encoders compress query and doc separately (losing cross-word negation), whereas cross-encoder rerankers attend across both simultaneously.</p><div class="eyebrow" style="color:var(--muted);margin-top:0.8rem;">Prompt for Your Coding Agent</div><pre class="agent-pre" id="agent-prompt-3"><code>Build a focused mini-experiment `antonym_reranker_demo.py` demonstrating Lesson 3&#x27;s Antonym Trap. Create 6 query/document pairs involving negation or opposites (e.g. &#x27;cold brew coffee&#x27; vs &#x27;hot espresso&#x27;, &#x27;refund policy excluded items&#x27; vs &#x27;eligible items&#x27;). Show why bi-encoder cosine similarity ranks opposites dangerously close, and implement a clean Stage-2 cross-attention/rule-or-LLM reranker interface that fixes the ranking. Explain the latency vs accuracy tradeoff of retrieving Top-50 with vectors and reranking Top-5.</code></pre><button class="btn btn-primary" onclick="copyReaderPrompt(this, 'agent-prompt-3')">Copy Prompt for Your Agent</button></div>
+      </section>
+
+      <nav class="pager-grid">
+        <a class="pager-card" href="../l0-tokens/index.html"><span class="eyebrow">← Previous Essay</span><strong>Tokens: how your text becomes numbers</strong></a>
+        <a class="pager-card pager-next" href="../l0-context-window/index.html"><span class="eyebrow">Next Essay →</span><strong>The context window is your whole memory</strong></a>
+      </nav>
+    </article>
+  </div>
+
+  <script>
+    window.addEventListener("scroll", () => {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      const pct = max > 0 ? Math.min(100, Math.max(0, (h.scrollTop / max) * 100)) : 0;
+      const bar = document.getElementById("reader-progress");
+      if (bar) bar.style.width = pct.toFixed(1) + "%";
+    });
+    function copyReaderPrompt(btn, preId) {
+      const el = document.getElementById(preId);
+      if (!el) return;
+      const text = el.innerText;
+      const flash = () => {
+        const orig = btn.innerText;
+        btn.innerText = "✓ Prompt Copied for Your Agent";
+        btn.classList.add("btn-meadow");
+        setTimeout(() => {
+          btn.innerText = orig;
+          btn.classList.remove("btn-meadow");
+        }, 2200);
+      };
+      const fallback = () => {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand("copy"); } catch (e) {}
+        document.body.removeChild(ta);
+        flash();
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(flash).catch(fallback);
+      } else {
+        fallback();
+      }
+    }
+  </script>
 </body>
 </html>

@@ -296,5 +296,101 @@
       }
     ],
     "reel_hook": "Voiceover: 'ChatGPT doesn't actually remember what you told it thirty seconds ago. Every time you hit send, the app secretly pastes your entire conversation onto a fixed-size lunch tray — and here's what happens when that tray gets full.'"
-  }
+  },
+  "hero_image": "hero.jpg",
+  "hero_caption": "Plate IV — The finite context tray: oldest tokens slip off the left edge while attention peaks sharply at the opening and closing edges.",
+  "reading_time": "8 min read",
+  "memory_hook": "An LLM has total amnesia between turns — your chat app re-sends the whole tray every turn, KV Prefix Caching saves 81% when the top stays frozen, and the middle of a giant tray is a recall dead zone.",
+  "memes": [
+    {
+      "format": "two_panel",
+      "kicker": "THE AMNESIA CHEF",
+      "title": "How You Think Chat Memory Works vs. What the API Sends",
+      "left_label": "WHAT IT FEELS LIKE",
+      "left_body": "“We've been talking for 20 minutes — it totally remembers my name, my codebase, and Turn 1!”",
+      "right_label": "ACTUAL HTTP PAYLOAD ON TURN 10",
+      "right_body": "POST /messages { messages: [Turn1, Reply1, Turn2, Reply2, ... Turn9, Reply9, Turn10] }\n“Who are you? Let me speed-read this entire script from line 1 again.”",
+      "punchline": "The model is 100% stateless. Every single turn re-sends the entire conversation history (which is why KV Prefix Caching is a superpower)."
+    },
+    {
+      "format": "three_stage",
+      "kicker": "KV CACHE HORROR STORY",
+      "title": "One Line of Code That 5x'd Your OpenAI/Anthropic Bill",
+      "panels": [
+        {
+          "head": "Line 1 of System Prompt",
+          "sub": "The Innocent Mistake",
+          "body": "`Current timestamp: 2026-11-27 11:24:09` placed at the very top of your system prompt."
+        },
+        {
+          "head": "What Happens to KV Cache",
+          "sub": "0% Cache Hit Rate",
+          "body": "Because byte #20 changes every second, the prefix hash mismatches on EVERY turn. Full recompute!"
+        },
+        {
+          "head": "The 1-Line Fix",
+          "sub": "81.0% Cheaper Instantly",
+          "body": "Freeze static rules + tools at the top; move live timestamps to the final user message."
+        }
+      ],
+      "punchline": "Prefix caching only works from Token 0 until the FIRST changed token. Freeze the top, put dynamic state at the bottom."
+    }
+  ],
+  "code_walkthrough": [
+    {
+      "step": "01",
+      "title": "FIFO Sliding Window Truncation (Why `7492` Vanishes)",
+      "lines": "Lines 16–30",
+      "code_snippet": "for msg in reversed(history):\n    cost = len(msg.split())\n    if used + cost <= max_words:\n        kept.append(msg); used += cost\n    else:\n        dropped.append(msg)",
+      "why_it_matters": "Walking backward from the newest turn packs the most recent messages onto the tray first. The instant `used + cost > max_words`, older messages (including Turn 1's locker code `7492`) are silently evicted — the model never even receives them.",
+      "what_if_removed": "Without budget management, your API call fails with `400 context_length_exceeded` the moment a long chat crosses the model's window limit."
+    },
+    {
+      "step": "02",
+      "title": "Multi-Turn Billing & The 81% KV Prefix Cache Discount",
+      "lines": "Lines 33–50",
+      "code_snippet": "if t == 1:\n    fresh_tokens += system_tokens + new_msg\nelse:\n    cached_prefix_tokens += prefix_so_far\n    fresh_tokens += new_msg",
+      "why_it_matters": "Across 10 turns, uncached chat bills `19,000` input tokens because Turn 1 is re-billed 10 times (`O(T^2)` total tokens!). With KV Prefix Caching (`0.1x` cost on cached prefix), the exact same 10-turn chat drops to `3,610` effective tokens (`81.0%` cheaper).",
+      "what_if_removed": "Mutating *anything* near the top of `prefix_so_far` (like a live clock or random ID) forces `cached_prefix_tokens = 0` on every turn."
+    },
+    {
+      "step": "03",
+      "title": "Quadratic Causal Attention Scaling `O(N^2)`",
+      "lines": "Lines 88–91",
+      "code_snippet": "for n in (1_000, 10_000, 100_000):\n    pairs = n * (n + 1) // 2",
+      "why_it_matters": "In causal self-attention, token `k` attends to all `k` tokens before it (`1 + 2 + ... + N = N(N+1)/2`). Scaling context 10x from `10k -> 100k` tokens multiplies attention pairs by **100x** (`50M -> 5.0B` pairs), driving up Time-To-First-Token (TTFT).",
+      "what_if_removed": "Treating a 1M context window as 'free unlimited RAM' causes 30-second prefill stalls and severe Context Rot."
+    },
+    {
+      "step": "04",
+      "title": "The Primacy/Recency U-Curve Placement Rule",
+      "lines": "Lines 53–61",
+      "code_snippet": "x = position_index / max(total_chunks - 1, 1)\nrecall = 0.38 + 2.2 * ((x - 0.5) ** 2)",
+      "why_it_matters": "This analytical curve reproduces Liu et al. (2023)'s empirical discovery: recall stays high (`~93%`) at the opening and closing edges (`x = 0` and `x = 1`) and sags sharply (`~38.7%`) in the middle (`x = 0.5`).",
+      "what_if_removed": "Dumping 40 retrieved RAG chunks in arbitrary order buries the single gold-nugget paragraph right in the middle dead zone."
+    }
+  ],
+  "deep_assignments": [
+    {
+      "level": "Builder",
+      "title": "Build a Smart Context Compactor (Instead of Blind FIFO Truncation)",
+      "goal": "Replace naive FIFO dropping in `lab_main.py` with a pinned-facts + rolling-summary compactor so Turn 1's `7492` survives a 20-turn conversation inside a strict 40-word budget.",
+      "what_you_prove": "How real production coding agents (Claude Code, Codex, OpenMausBot) stay coherent over 100-turn sessions without overflowing context.",
+      "agent_prompt": "I just completed Lesson 4 (Context Window, KV Prefix Caching & Lost-in-the-Middle) in `lessons/l0-context-window/lab_main.py`. Help me build `context_compactor.py` in pure Python 3 that upgrades naive FIFO truncation into a 3-tier memory harness: (1) Frozen Prefix (immutable system rules + pinned key-value facts), (2) Rolling Summary block (triggered when utilization crosses 75%), and (3) Active Recent Window. Run a 15-turn stress test with 3 critical facts planted in Turns 1–3 and verify 100% fact survival AND compute the KV prefix cache hit rate before vs after compaction."
+    },
+    {
+      "level": "Deep Dive",
+      "title": "Simulate the Timestamp Cache-Busting Disaster on a 50-Turn Agent",
+      "goal": "Extend `simulate_multiturn_billing` to model realistic Anthropic/OpenAI pricing (`$3/M` fresh, `$0.30/M` cached, `$3.75/M` cache write, `$15/M` output) with vs without a dynamic timestamp on Line 1.",
+      "what_you_prove": "The exact dollar difference per 1,000 agent runs caused by one single mutable line at the top of a system prompt.",
+      "agent_prompt": "Let's build a production LLM cost simulator `kv_cache_roi.py` for Lesson 4. Model a 30-turn coding agent with a 4,000-token system prompt + tool schemas and 500 tokens added per turn. Calculate exact USD spend across 1,000 sessions under 3 designs: (A) No prompt caching, (B) Prefix caching broken by a dynamic timestamp on Line 1, and (C) Properly ordered immutable prefix + dynamic state at the bottom (using realistic cache-write 1.25x and cache-read 0.1x pricing). Print a clean comparison table."
+    },
+    {
+      "level": "Systems",
+      "title": "Design a Prompt Budget Calculator for Reasoning Models",
+      "goal": "Build a CLI calculator that takes `model_context_limit`, `system_tokens`, `rag_tokens`, `expected_reasoning_tokens`, and `visible_output_tokens`, and warns when you risk silent truncation or Context Rot (>50% fill).",
+      "what_you_prove": "Why modern reasoning models burn hidden `<think>` tokens inside your context + `max_tokens` ceiling — and how to budget for them cleanly.",
+      "agent_prompt": "Help me create `prompt_budget_cli.py` (pure Python 3) based on Lesson 4's production budget formula: `Max_Window >= System + Tools + History + RAG + Reasoning_Tokens + Visible_Output`. Add preset profiles for 128k and 200k windows, warn when effective fill crosses 50% (Context Rot risk zone) or when `max_output_tokens` leaves <20% room after reasoning tokens, and include a U-curve optimal ordering formatter that puts critical rules at Top, retrieved docs in the middle ranked edges-out, and the active task at the very Bottom."
+    }
+  ]
 }

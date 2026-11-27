@@ -1,7 +1,7 @@
 {
   "course": {
-    "title": "BitsByBlocks \u00b7 AI Engineering Notebook",
-    "subtitle": "From zero to building and training real models \u2014 one hands-on lab, one honest Turn, and one shareable story at a time.",
+    "title": "BitsByBlocks · AI Engineering Field Guide",
+    "subtitle": "From zero to building, post-training, and operating real frontier AI systems — hands-on, first-principles, and genuinely fun.",
     "author": "Ashwin Yardi",
     "brand": "BitsByBlocks",
     "url": "https://bitsbyblocks.com"
@@ -667,6 +667,41 @@
       ]
     },
     {
+      "id": "l1-multimodal",
+      "level": 1,
+      "title": "Vision & audio tokens: how models see and hear",
+      "question": "How does a text transformer process a screenshot or a spoken sentence natively?",
+      "can": "Explain patch embeddings (ViT/SigLIP), audio codecs, and multimodal token budgets.",
+      "jargon": [
+        "vision encoder",
+        "image patch",
+        "SigLIP",
+        "audio tokenizer",
+        "native multimodal"
+      ],
+      "sources": [
+        {
+          "name": "Dosovitskiy et al., An Image is Worth 16x16 Words",
+          "url": "https://arxiv.org/abs/2010.11929"
+        },
+        {
+          "name": "Zhai et al., SigLIP",
+          "url": "https://arxiv.org/abs/2303.15343"
+        }
+      ],
+      "proof": [
+        "Frontier multimodal architecture",
+        "CS336 systems"
+      ],
+      "exercise": "Slice a 1024x1024 image into 16x16 patches, compute the exact token cost, and compare against a text description.",
+      "figures": [
+        "flow: image pixels to patches to shared transformer stream"
+      ],
+      "prereqs": [
+        "l1-transformer-block"
+      ]
+    },
+    {
       "id": "l2-prompting",
       "level": 2,
       "title": "Prompting that survives production",
@@ -908,7 +943,7 @@
     {
       "id": "l2-tools",
       "level": 2,
-      "title": "Tool calling: letting the model touch your system",
+      "title": "Tool calling, MCP & sandboxed execution",
       "question": "How does a text model end up running your function?",
       "can": "Design tool schemas and handle the model getting arguments wrong.",
       "jargon": [
@@ -916,7 +951,10 @@
         "function calling",
         "JSON schema",
         "tool result",
-        "parallel tool calls"
+        "parallel tool calls",
+        "MCP (Model Context Protocol)",
+        "structured outputs",
+        "sandboxed execution"
       ],
       "sources": [
         {
@@ -985,6 +1023,41 @@
       "prereqs": [
         "l2-tools",
         "l2-your-evals"
+      ]
+    },
+    {
+      "id": "l2-context-engineering",
+      "level": 2,
+      "title": "Context engineering: memory, compaction & harness design",
+      "question": "Why do two agents using the exact same model perform worlds apart on long tasks?",
+      "can": "Design agent context harnesses with prefix caching, tool-result pruning, compaction, and subagent isolation.",
+      "jargon": [
+        "context engineering",
+        "compaction",
+        "scratchpad memory",
+        "subagent isolation",
+        "context rot"
+      ],
+      "sources": [
+        {
+          "name": "Anthropic, Effective Context Engineering for AI Agents",
+          "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"
+        },
+        {
+          "name": "Karpathy, Context Engineering",
+          "url": "https://x.com/karpathy"
+        }
+      ],
+      "proof": [
+        "2025-2026 production agent architecture"
+      ],
+      "exercise": "Build a 20-turn coding agent harness and benchmark task accuracy before and after adding tool-output compaction.",
+      "figures": [
+        "flow: context budget allocation across system, tools, memory, and scratchpad"
+      ],
+      "prereqs": [
+        "l2-agents",
+        "l0-context-window"
       ]
     },
     {
@@ -1220,6 +1293,40 @@
       ]
     },
     {
+      "id": "l3-rlvr-grpo",
+      "level": 3,
+      "title": "RLVR & GRPO: training models with verifiable rewards",
+      "question": "How did models learn to reason, backtrack, and self-correct without human-labeled step-by-step traces?",
+      "can": "Explain Group Relative Policy Optimization (GRPO) and build a verifiable reward loop on math or unit-tested code.",
+      "jargon": [
+        "RLVR",
+        "GRPO",
+        "verifiable reward",
+        "group advantage",
+        "KL penalty"
+      ],
+      "sources": [
+        {
+          "name": "DeepSeek-R1 Technical Report",
+          "url": "https://arxiv.org/abs/2501.12948"
+        },
+        {
+          "name": "Shao et al., DeepSeekMath (GRPO)",
+          "url": "https://arxiv.org/abs/2402.03300"
+        }
+      ],
+      "proof": [
+        "2025-2026 post-training standard"
+      ],
+      "exercise": "Implement the GRPO group-normalized advantage formula in 25 lines of Python over 8 candidate rollouts scored by unit tests.",
+      "figures": [
+        "flow: prompt to K rollouts to unit-test verifier to group advantage update"
+      ],
+      "prereqs": [
+        "l3-dpo"
+      ]
+    },
+    {
       "id": "l3-reward-hacking",
       "level": 3,
       "title": "Reward hacking: when the metric becomes the target",
@@ -1384,7 +1491,9 @@
         "GGUF",
         "AWQ",
         "GPTQ",
-        "perplexity"
+        "perplexity",
+        "FP8",
+        "NVFP4"
       ],
       "sources": [
         {

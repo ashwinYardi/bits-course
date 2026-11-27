@@ -311,5 +311,101 @@
       }
     ],
     "reel_hook": "Voiceover: 'Everyone laughed when ChatGPT couldn't count the three R's in strawberry. Then I wrote a 30-line tokenizer in Python and saw what the model actually receives: three barcode numbers — 496, 675, and 15717.'"
-  }
+  },
+  "hero_image": "hero.jpg",
+  "hero_caption": "Plate II — Byte-Pair Encoding slices 'strawberry' into three opaque integer blocks before the transformer ever sees a single character.",
+  "reading_time": "8 min read",
+  "memory_hook": "An LLM never reads letters — it reads sealed integer barcode IDs built by regex splitting + greedy Byte-Pair Encoding.",
+  "memes": [
+    {
+      "format": "two_panel",
+      "kicker": "THE CLASSIC STRAWBERRY BUG",
+      "title": "Why a $100M Model Can't Count to Three",
+      "left_label": "WHAT YOU TYPED",
+      "left_body": "s - t - r - a - w - b - e - r - r - y\n“Clearly 3 r's. A 6-year-old can count them.”",
+      "right_label": "WHAT THE MODEL RECEIVED",
+      "right_body": "[ 496, 675, 15717 ]\n“You handed me three sealed shipping crates and asked how many nails are inside crate #15717.”",
+      "punchline": "Spaces (`s t r a w b e r r y`) crack the crates open into individual character barcodes — suddenly it counts 3/3."
+    },
+    {
+      "format": "three_stage",
+      "kicker": "THE FERTILITY TAX",
+      "title": "Same Meaning, Wildly Different Token Bills",
+      "panels": [
+        {
+          "head": "English",
+          "sub": "0.28 tokens / char (1.0x)",
+          "body": "VIP lane. Whole words like ` responded` compress into one single barcode."
+        },
+        {
+          "head": "Hindi (Devanagari)",
+          "sub": "0.92 tokens / char (3.3x)",
+          "body": "3.3x slower decode, 3.3x higher API bill, and 3.3x less effective context window in `cl100k`."
+        },
+        {
+          "head": "Emojis (🚀🔥🤖)",
+          "sub": "2.00 tokens / char (7.2x)",
+          "body": "Split into multi-byte UTF-8 fallback crumbs (`<0xF0>`, `<0x9F>`). Tiny icons, giant token tax."
+        }
+      ],
+      "punchline": "Always measure token fertility on YOUR users' real languages and JSON payloads before estimating API costs."
+    }
+  ],
+  "code_walkthrough": [
+    {
+      "step": "01",
+      "title": "Regex Pre-Tokenization (The Guardrail Before BPE)",
+      "lines": "Lines 18–25",
+      "code_snippet": "PRE_TOKEN_RE = re.compile(r\" ?[A-Za-z]+| ?[0-9]{1,3}| ?[^\\sA-Za-z0-9]+|\\s+\")\ndef pre_tokenize(text: str) -> list[str]:\n    return PRE_TOKEN_RE.findall(text)",
+      "why_it_matters": "GPT-4 (`cl100k` / `o200k`) never runs raw BPE across the whole document. First it slices text along word, punctuation, and 1–3 digit boundaries so `berry.` and `berry!` don't waste precious vocabulary slots as separate tokens.",
+      "what_if_removed": "Without regex pre-tokenization, BPE glues punctuation onto words (`dog.`, `dog!`, `dog?`), bloating the vocabulary and hurting generalization on arithmetic and code."
+    },
+    {
+      "step": "02",
+      "title": "Counting Adjacent Pairs Strictly Inside Boundaries",
+      "lines": "Lines 27–32",
+      "code_snippet": "def get_pair_counts(chunks: list[list[int]]) -> Counter[tuple[int, int]]:\n    counts = Counter()\n    for seq in chunks:\n        counts.update(zip(seq, seq[1:]))\n    return counts",
+      "why_it_matters": "By iterating `for seq in chunks` instead of flattening the corpus, pairs can NEVER merge across a pre-token boundary (like across a comma or space-punct boundary).",
+      "what_if_removed": "If you flattened the corpus first, BPE would happily merge the end of one word with the start of the next punctuation mark."
+    },
+    {
+      "step": "03",
+      "title": "The Greedy Merge Pass (`merge_pair`)",
+      "lines": "Lines 35–46",
+      "code_snippet": "while i < len(seq):\n    if i + 1 < len(seq) and seq[i] == pair[0] and seq[i + 1] == pair[1]:\n        out.append(new_id)\n        i += 2\n    else:\n        out.append(seq[i]); i += 1",
+      "why_it_matters": "Every occurrence of the winning pair `(a, b)` is swapped left-to-right for one brand-new integer ID (`256`, `257`, ...). Notice `i += 2` prevents double-merging overlapping runs like `aaa`.",
+      "what_if_removed": "Incrementing `i += 1` on a match would corrupt overlapping byte pairs like `rrr` and invent ghost tokens that can't decode back to the original UTF-8 bytes."
+    },
+    {
+      "step": "04",
+      "title": "Training From 256 Raw UTF-8 Bytes Upward",
+      "lines": "Lines 49–73",
+      "code_snippet": "vocab = {i: bytes([i]) for i in range(256)}\nfor step in range(1, num_merges + 1):\n    best_pair, freq = counts.most_common(1)[0]\n    chunks = [merge_pair(c, best_pair, next_id) for c in chunks]\n    vocab[next_id] = vocab[best_pair[0]] + vocab[best_pair[1]]",
+      "why_it_matters": "Starting with all 256 raw byte values (`0..255`) guarantees **zero `<UNK>` (unknown) tokens** ever — any language, code symbol, or emoji on Earth can always fall back to raw UTF-8 bytes.",
+      "what_if_removed": "Character-level vocabularies break with `<UNK>` the moment a user pastes a rare Unicode symbol or unseen script."
+    }
+  ],
+  "deep_assignments": [
+    {
+      "level": "Builder",
+      "title": "Add `encode()` and `decode()` Round-Trip Verification to Your BPE Tokenizer",
+      "goal": "Upgrade `lessons/l0-tokens/lab_main.py` into a full reversible `MiniBPE` class that saves its learned merge table, encodes brand-new unseen strings in strict merge-priority order, and asserts `decode(encode(text)) == text`.",
+      "what_you_prove": "Why encoding new text MUST apply merges in the exact order they were learned (lowest merge rank first), not greedily by local frequency.",
+      "agent_prompt": "I just completed Lesson 2 (Byte-Pair Encoding & Regex Pre-Tokenization) using `lessons/l0-tokens/lab_main.py`. Help me turn it into a complete reversible `MiniBPE` class in `mini_bpe.py` (pure Python 3 stdlib) with: `train(text, vocab_size)`, `encode(text)` (applying learned merges strictly by lowest merge-rank priority!), `decode(ids)` (handling invalid partial UTF-8 safely with `errors='replace'`), and a test suite asserting 100% lossless round-trip on English, Hindi, Python code, and emojis. Explain the subtle bug if you apply merges out of order."
+    },
+    {
+      "level": "Deep Dive",
+      "title": "Audit `cl100k_base` vs `o200k_base` Fertility Across 6 Real Payloads",
+      "goal": "Benchmark OpenAI's `tiktoken` (`cl100k_base` vs `o200k_base`) on English prose, Hindi, Python code, minified JSON, pretty-printed JSON with 4-space indents, and UUIDs.",
+      "what_you_prove": "Exactly how much money switching JSON indentation or upgrading from 100k to 200k vocab saves per million API requests.",
+      "agent_prompt": "Let's build a real tokenizer cost & fertility benchmark script `tokenizer_audit.py` using `tiktoken` (or install it in a temp venv if missing). Compare `cl100k_base` (GPT-4) vs `o200k_base` (GPT-4o) across 6 realistic engineering payloads: (1) English tech doc, (2) Hindi support chat, (3) Python code with 4-space indentation, (4) pretty JSON vs minified JSON, (5) 20 random UUIDs, and (6) trailing-space trap strings like `'The answer is '` vs `'The answer is'`. Print a clean markdown table with tokens/char, relative cost multiplier, and 3 concrete takeaways for cutting production LLM bills."
+    },
+    {
+      "level": "Systems",
+      "title": "Reproduce & Defend Against Special-Token Injection",
+      "goal": "Demonstrate how raw user text containing `<|endoftext|>` or `<|im_start|>system` behaves when `allowed_special='all'` vs `disallowed_special=()` and build a sanitizer test.",
+      "what_you_prove": "Why production inference servers treat control tokens as out-of-band structural delimiters rather than plain text.",
+      "agent_prompt": "Walk me through a hands-on security mini-lab for Lesson 2: write a Python script `special_token_safety.py` demonstrating how special control tokens (`<|endoftext|>`, `<|im_start|>`, `<|eot_id|>`) are encoded differently when parsed as literal text vs allowed special tokens, why accidental `allowed_special='all'` lets user input forge a fake system turn, and how real chat-template renderers defend against it."
+    }
+  ]
 }

@@ -334,5 +334,101 @@
       }
     ],
     "reel_hook": "Voiceover: 'When you ask an AI a question, it has no idea how its sentence is going to end when it types the first word. And once I coded the 40-line loop myself, I realized how often we do the exact same thing.'"
-  }
+  },
+  "hero_image": "hero.jpg",
+  "hero_caption": "Plate I — Autoregressive generation as a brass probability dial: every token is scored, sampled, appended, and fed right back through the gate.",
+  "reading_time": "7 min read",
+  "memory_hook": "An LLM has no outline and no backspace key — it scores the entire dictionary, rolls one weighted die, tapes that word to the prompt, and starts over until it rolls <|eos|>.",
+  "memes": [
+    {
+      "format": "two_panel",
+      "kicker": "MENTAL MODEL CHECK",
+      "title": "What People Think vs. What Actually Runs on the GPU",
+      "left_label": "NORMIE ASSUMPTION",
+      "left_body": "“Hold on, let me carefully plan my entire 4-paragraph argument, check my facts against reality, and verify the conclusion before typing word #1.”",
+      "right_label": "ACTUAL GPU LOOP",
+      "right_body": "“Prompt ended with 'the server'. `crashed` is 44.2%, `responded` is 32.8%. Rolling die... boom, `crashed`. Now let me invent a reason why it crashed.”",
+      "punchline": "If you force a JSON `verdict` field BEFORE `reasoning`, the model rolls the verdict first and hallucinates an excuse afterward."
+    },
+    {
+      "format": "three_stage",
+      "kicker": "THERMOSTAT RULE OF THUMB",
+      "title": "The Temperature Dial in Real Life",
+      "panels": [
+        {
+          "head": "Temp = 0.0",
+          "sub": "The Pedantic Accountant",
+          "body": "Always picks #1 (`crashed`). Zero surprises, zero creativity. Ideal for SQL & JSON extraction."
+        },
+        {
+          "head": "Temp = 0.7 + Top-P 0.9",
+          "sub": "The Sharp Collaborator",
+          "body": "Picks among smart runners-up while Top-P slices off the weird tail (`danced` = 0%)."
+        },
+        {
+          "head": "Temp = 1.8 (No Top-P)",
+          "sub": "3 AM Fever Dream",
+          "body": "Flattens the scoreboard so `the server danced` suddenly becomes a real possibility."
+        }
+      ],
+      "punchline": "Remember: Temperature reshapes the probabilities; Top-P chops off the garbage tail."
+    }
+  ],
+  "code_walkthrough": [
+    {
+      "step": "01",
+      "title": "Numerically Stable Softmax (Why we subtract max_logit)",
+      "lines": "Lines 43–54",
+      "code_snippet": "scaled = {k: v / temperature for k, v in logits.items()}\nmax_logit = max(scaled.values())\nexps = {k: math.exp(v - max_logit) for k, v in scaled.items()}\ntotal = sum(exps.values())\nreturn {k: v / total for k, v in exps.items()}",
+      "why_it_matters": "Dividing logits by `temperature` before exponentiating stretches (low T) or flattens (high T) the gaps between candidate words. Subtracting `max_logit` guarantees the largest exponent is `exp(0) = 1.0`, which mathematically cancels out in the ratio while preventing `OverflowError` on huge logits.",
+      "what_if_removed": "Drop `v - max_logit` and test `temperature = 0.001`: `3.2 / 0.001 = 3200`, and `math.exp(3200)` instantly crashes Python (and turns into `NaN` on real GPUs)."
+    },
+    {
+      "step": "02",
+      "title": "Top-P (Nucleus) Tail Pruning",
+      "lines": "Lines 57–70",
+      "code_snippet": "ranked = sorted(probs.items(), key=lambda kv: -kv[1])\nfor tok, p in ranked:\n    kept[tok] = p\n    cum += p\n    if cum >= top_p: break\ntotal = sum(kept.values())\nreturn {k: v / total for k, v in kept.items()}",
+      "why_it_matters": "Instead of fixing a rigid count (`top_k = 50`), Top-P dynamically adapts to model confidence: when the model is 95% sure of one word, the nucleus shrinks to 1–2 tokens; when many continuations make sense, the nucleus widens — while still banning low-probability nonsense like `danced`.",
+      "what_if_removed": "At `temperature = 1.8`, low-logit junk tokens keep non-zero probability mass across a 100k vocabulary, causing random off-topic glitches mid-sentence."
+    },
+    {
+      "step": "03",
+      "title": "Inverse-CDF Weighted Die Roll",
+      "lines": "Lines 73–81",
+      "code_snippet": "r = rng.random()\ncumulative = 0.0\nfor token, p in probs.items():\n    cumulative += p\n    if r <= cumulative:\n        return token",
+      "why_it_matters": "This 6-line loop is literally how `torch.multinomial` samples a token on a GPU: line every candidate's probability bar up along `[0.0, 1.0]` and drop a uniform dart `r`. Bigger probability bars catch the dart more often.",
+      "what_if_removed": "Without sampling (just taking `max`), the model is permanently stuck in greedy decoding — repetitive and blind to better multi-token paths."
+    },
+    {
+      "step": "04",
+      "title": "The Autoregressive Loop & <|eos|> Stop Token",
+      "lines": "Lines 84–99",
+      "code_snippet": "for _ in range(max_steps):\n    logits = LOGIT_TABLE.get((tokens[-2], tokens[-1]), DEFAULT_LOGITS)\n    probs = apply_top_p(softmax(logits, temperature), top_p)\n    nxt = sample_token(probs, rng)\n    if nxt == EOS: break\n    tokens.append(nxt)",
+      "why_it_matters": "Every real LLM — from a 1B phone model to a trillion-parameter frontier model — runs this exact loop. Crucially, the model does NOT know how long its reply will be; it just keeps predicting until the special `<|eos|>` token wins the roll (or `max_tokens` cuts it off).",
+      "what_if_removed": "Remove the `EOS` break and the model babbles forever until your API `max_tokens` billing limit forcibly terminates it."
+    }
+  ],
+  "deep_assignments": [
+    {
+      "level": "Builder",
+      "title": "Add Min-P & Repetition Penalty to the Sampler",
+      "goal": "Extend `lab_main.py` with modern `min_p` sampling (used heavily in local llama.cpp / vLLM setups) and a repetition penalty, then compare output diversity across 50 rollouts at `T = 1.4`.",
+      "what_you_prove": "Why `min_p` (thresholding relative to the top token's probability, e.g. `p >= min_p * p_max`) often beats Top-P at high temperatures.",
+      "agent_prompt": "I just finished Lesson 1 (Next-Token Prediction, Softmax, Temperature & Top-P) in `lessons/l0-what-is-an-llm/lab_main.py`. Help me build an extended sampler script `sampler_lab.py` (pure Python 3 stdlib) that adds: (1) `apply_min_p(probs, min_p=0.1)` which filters tokens with probability `< min_p * max(probs)`, (2) a `repetition_penalty` that divides logits of already-generated tokens by `1.2`, and (3) a benchmark table comparing Greedy vs Top-P (0.9) vs Min-P (0.1) across 30 seeded rollouts at Temperature 1.5. Walk me through each math line before running it and show me the real output."
+    },
+    {
+      "level": "Deep Dive",
+      "title": "Prove the Snowball / Verdict-First Trap with Real Logprobs",
+      "goal": "Write a small script (or test against a local Ollama / OpenAI-compatible API) that asks 10 tricky logic questions in two formats: `verdict_first` vs `reasoning_first`, and logs the accuracy delta.",
+      "what_you_prove": "Empirically measure why letting an autoregressive model emit intermediate reasoning tokens before committing to a verdict acts as working memory.",
+      "agent_prompt": "Let's run a hands-on experiment proving the autoregressive 'Verdict-First Snowball Trap' from Lesson 1. Create a Python script `verdict_trap_eval.py` with 10 tricky multi-step logic/arithmetic questions (where gut instinct is wrong, like bat-and-ball or tricky string counting). Compare two structured JSON schemas: Schema A `{verdict, reasoning}` vs Schema B `{reasoning, verdict}`. Support running with any OpenAI-compatible or Ollama endpoint via env var, plus a `--dry-run` mode showing the exact prompt diffs and why token order changes conditional probabilities P(verdict | reasoning) vs P(reasoning | verdict)."
+    },
+    {
+      "level": "Systems",
+      "title": "Build a Tiny N-Gram + Neural Logit Visualizer in the Terminal",
+      "goal": "Train a real trigram + smoothed probability table on a 50KB text file of your choice (e.g., Paul Graham essays or your own notes) and watch how entropy spikes at sentence boundaries vs mid-word.",
+      "what_you_prove": "Feel the exact link between Shannon entropy (bits of surprise), perplexity (`2^entropy`), and next-token probability distributions.",
+      "agent_prompt": "Help me go deeper on Lesson 1 by building `entropy_explorer.py` in pure Python 3. Train a smoothed character/word trigram model on a sample corpus (generate a rich 20KB built-in sample text or accept a file path), then compute per-token Shannon entropy H = -sum(p * log2(p)) and perplexity 2^H as it reads a new sentence. Print an ASCII heatmap highlighting high-surprise tokens (hard to predict) vs low-surprise tokens (nearly deterministic), and explain how this exact cross-entropy loss is what trains real LLMs."
+    }
+  ]
 }
