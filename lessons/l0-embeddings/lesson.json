@@ -12,7 +12,7 @@
     "surprise": "To a computer, barcode 496 ('str') and barcode 15717 ('berry') have zero connection — just like house number 10 is no more similar to house number 11 than to house number 900. To understand meaning, the AI replaces every barcode with a list of GPS coordinates (a vector) so similar ideas literally point in the same direction.",
     "broken": "Searching documents with Ctrl+F exact keyword matching, or thinking an LLM understands words through dictionary definitions. When a user searches for 'hot morning drink' and your app misses an article about 'masala chai', keyword search fails because zero letters overlap.",
     "question": "How do you turn a word's meaning into a list of numbers, and how does simple high-school multiplication (dot product / cosine similarity) measure whether two ideas match?",
-    "turn": "Building the 4D meaning map in Python — scoring six items across [warm_drink, sweet_food, computer_tech, morning_energy] — made vector math feel like arranging tables in a school cafeteria: once every word has coordinates, 'similarity' is just measuring the angle between two arrows.",
+    "turn": "Building the 4D meaning map in Python — scoring cafeteria items across [drink, hot_temp, sweet_or_spiced, computer_tech] — made vector math feel like arranging tables in a school cafeteria: once every word has coordinates, 'similarity' is just measuring the angle between two arrows.",
     "payoff": "You can build semantic search over your own notes, understand how RAG vector databases work under the hood, and know when two embeddings will collide.",
     "honest_limit": "A single word's embedding is static on the map — the word 'bank' gets one home coordinate even though a river bank and a money bank mean totally different things. To blend meanings based on neighboring words, we need the Context Window (Checkpoint 04) and Attention (Hall 1)."
   },
@@ -186,7 +186,8 @@
       "heading": "Directions Are Concepts: Vector Arithmetic (`king - man + woman = queen`)",
       "badge": "Chapter 3 · Linear Semantic Directions",
       "figure_id": "fig-03",
-      "body_md": "Embeddings don't just cluster neighbors — **directions in vector space encode relationships**.\n\nIn Step 3 of our Python lab, we represent royalty and gender along `[royalty, human_adult, feminine_axis, tech]`:\n- `king` = `[0.95, 0.90, 0.05, 0.02]`\n- `man` = `[0.05, 0.90, 0.05, 0.02]`\n- `woman` = `[0.05, 0.90, 0.95, 0.02]`\n\nSubtract `man` from `king` (stripping away `'adult male'`, leaving the pure `'royalty'` arrow `[+0.90, 0, 0, 0]`), then add `woman`. You land directly on `[0.95, 0.90, 0.95, 0.02]` — matching **`queen`** with cosine similarity **`1.0000`** (beating `prince` at `0.8403` and `woman` at `0.8311`)!\n\nModern mechanistic interpretability research (sparse autoencoders / steering vectors) uses this exact property: adding a learned 'refusal' or 'Golden Gate Bridge' direction vector inside an LLM's residual stream literally steers its personality in real time."
+      "body_md": "Embeddings don't just cluster neighbors — **directions in vector space encode relationships**.\n\nIn Step 3 of our Python lab, we represent royalty and gender along `[royalty, human_adult, feminine_axis, tech]`:\n- `king` = `[0.95, 0.90, 0.05, 0.02]`\n- `man` = `[0.05, 0.90, 0.05, 0.02]`\n- `woman` = `[0.05, 0.90, 0.95, 0.02]`\n\nSubtract `man` from `king` (stripping away `'adult male'`, leaving the pure `'royalty'` arrow `[+0.90, 0, 0, 0]`), then add `woman`. You land directly on `[0.95, 0.90, 0.95, 0.02]` — matching **`queen`** with cosine similarity **`1.0000`** (beating `prince` at `0.8403` and `woman` at `0.8311`)!\n\nModern mechanistic interpretability research (sparse autoencoders / steering vectors) uses this exact property: adding a learned 'refusal' or 'Golden Gate Bridge' direction vector inside an LLM's residual stream literally steers its personality in real time.",
+      "expert_note": "Honest lab note: `ANALOGY_VECTORS` in our lab is a hand-crafted 4D geometric toy so the math lands cleanly at `1.0000`. In real trained Word2Vec or GloVe embeddings (300 dimensions), `king - man + woman` lands closest to `king` itself unless you exclude the 3 input words — once excluded, `queen` emerges as the #1 nearest neighbor at roughly `0.73–0.78` cosine similarity (imperfect, noisy, yet astonishingly linear across hundreds of semantic relationships)."
     },
     {
       "heading": "How to pick an embedding model in production — and the 3 classic traps",
@@ -247,8 +248,8 @@
     "goal": "Compute exact cosine similarities and angles in degrees, observe the Antonym Trap (hot vs iced chai = 0.8234), execute king - man + woman = queen (1.0000), and prove dot_product(L2_norm) == cosine_similarity.",
     "steps": [
       "Run `python3 lessons/l0-embeddings/lab_main.py` (pure Python 3 stdlib).",
-      "Inspect Step 2: check the cosine similarity scores from `masala_chai` to every other item in the cafeteria.",
-      "Inspect Step 3: verify the closest pair across the whole dataset (`kubernetes <-> postgres_db` at `0.9997`) and farthest pair (`mango_lassi <-> kubernetes` at `0.0542`)."
+      "Inspect Step 1 & Step 2: check cosine similarity and angles from `masala_chai` to `filter_coffee` (`0.9858`, `9.7°`), the Antonym Trap `iced_chai` (`0.8234`, `34.6°`), and `kubernetes` (`0.0322`, `88.2°`).",
+      "Inspect Step 3 & Step 4: verify `king - man + woman -> queen` (`1.0000`) and prove `cosine(raw) == dot_product(L2_norm)` (`0.985850`)."
     ],
     "acceptance": [
       {
@@ -276,12 +277,12 @@
     "the_turn": "I used to think 'vector databases' and 'high-dimensional embeddings' were arcane PhD math; writing cosine similarity in 10 lines of Python showed me it is literally just placing items on a cafeteria floor map and checking which arrows point to the same corner.",
     "x_thread": [
       "1/ How does an AI know that 'masala chai' and 'filter coffee' are close neighbors, even though they share zero words? Because before thinking, it converts every token barcode into a GPS coordinate on a map of meaning.",
-      "2/ For Checkpoint 03 at the Campus Cafeteria of my AI University, I built a 4-dimensional embedding map and vector search engine in 25 lines of pure Python (zero libraries).",
-      "3/ Imagine rating every item on 4 sliders: [warm_drink, sweet_food, computer_tech, morning_energy].\n• masala_chai -> [0.95, 0.40, 0.02, 0.88]\n• filter_coffee -> [0.92, 0.25, 0.05, 0.94]\n• kubernetes -> [0.01, 0.00, 0.98, 0.12]",
+      "2/ For Checkpoint 03 at the Campus Cafeteria of my AI University, I built a 4-dimensional embedding map and vector search engine in pure Python (zero libraries).",
+      "3/ Imagine rating every item on 4 sliders: [drink, hot_temp, sweet_or_spiced, computer_tech].\n• masala_chai -> [0.95, 0.90, 0.72, 0.02]\n• filter_coffee -> [0.94, 0.88, 0.45, 0.05]\n• kubernetes -> [0.01, 0.02, 0.00, 0.98]",
       "4/ To check if two ideas match, the computer doesn't read a dictionary. It multiplies matching sliders together (dot product) and divides by arrow length (cosine similarity) to measure the angle between them.",
-      "5/ When both items have high numbers on the same sliders, multiplying them explodes the score:\n• cosine(masala_chai, filter_coffee) = 0.9924 (almost identical angle!)\n• cosine(masala_chai, croissant) = 0.7368\n• cosine(masala_chai, kubernetes) = 0.1006",
-      "6/ A production embedding model (like text-embedding-3) is the exact same multiplication loop — just across 1,536 learned sliders instead of 4.",
-      "7/ The #1 production trap this reveals: opposites ('I love this' vs 'I hate this', or 'hot' vs 'cold') share 95% of the same topic sliders, so they score high cosine similarity! Never trust raw vector similarity alone to tell YES from NO.",
+      "5/ When both items have high numbers on the same sliders, multiplying them explodes the score:\n• cosine(masala_chai, filter_coffee) = 0.9858 (9.7° apart!)\n• cosine(masala_chai, iced_chai) = 0.8234 (34.6°)\n• cosine(masala_chai, kubernetes) = 0.0322 (88.2°)",
+      "6/ A production embedding model (like text-embedding-3) is the exact same multiplication loop — just across 1,536 learned sliders (L2-normalized so dot product == cosine similarity!).",
+      "7/ The #1 production trap this reveals: opposites ('masala_chai' vs 'iced_chai' = 0.8234, or 'I love this' vs 'I hate this') share the same topic sliders, so they score high cosine similarity! Pair vectors with Hybrid BM25 + a reranker.",
       "8/ Cafeteria checkpoint cleared. Next stop on the Campus Quad Lawn: the Context Window — why your AI has a fixed-size lunch tray for memory, and why it ignores facts buried in the middle."
     ],
     "instagram_carousel": [
@@ -293,12 +294,12 @@
       {
         "slide": 2,
         "headline": "The 4-Slider Meaning Map",
-        "body": "Rate items on [warm_drink, sweet, tech, morning]:\n• Masala Chai: [0.95, 0.40, 0.02, 0.88]\n• Filter Coffee: [0.92, 0.25, 0.05, 0.94]\n• Kubernetes: [0.01, 0.00, 0.98, 0.12]"
+        "body": "Rate items on [drink, hot_temp, sweet/spiced, tech]:\n• Masala Chai: [0.95, 0.90, 0.72, 0.02]\n• Filter Coffee: [0.94, 0.88, 0.45, 0.05]\n• Kubernetes: [0.01, 0.02, 0.00, 0.98]"
       },
       {
         "slide": 3,
         "headline": "Meaning = The Angle Between Arrows",
-        "body": "Multiply matching sliders and divide by length (Cosine Similarity):\n• Chai <-> Coffee: 0.9924\n• Chai <-> Croissant: 0.7368\n• Chai <-> Kubernetes: 0.1006"
+        "body": "Multiply matching sliders and divide by length (Cosine Similarity):\n• Chai <-> Coffee: 0.9858 (9.7°)\n• Chai <-> Iced Chai: 0.8234 (34.6° — Antonym Trap!)\n• Chai <-> Kubernetes: 0.0322 (88.2°)"
       },
       {
         "slide": 4,
@@ -358,7 +359,7 @@
       "title": "Dot Product: Multiplying Aligned Dimensions",
       "lines": "Lines 39–41",
       "code_snippet": "def dot_product(a: list[float], b: list[float]) -> float:\n    return sum(x * y for x, y in zip(a, b))",
-      "why_it_matters": "When two vectors are high on the *same* axes (`drink=0.95 * 0.95`, `hot=0.90 * 0.92`), those products add up large. When one is high on `drink` and the other is high on `computer_tech`, each pair multiplies big × tiny ≈ 0.",
+      "why_it_matters": "When two vectors are high on the *same* axes (`drink=0.95 * 0.94`, `hot=0.90 * 0.88`), those products add up large. When one is high on `drink` and the other is high on `computer_tech`, each pair multiplies big × tiny ≈ 0.",
       "what_if_removed": "Without element-wise alignment, you couldn't compare how much two concepts share across thousands of latent features."
     },
     {
@@ -373,7 +374,7 @@
       "step": "03",
       "title": "Vector Arithmetic (`king - man + woman = queen`)",
       "lines": "Lines 80–87",
-      "code_snippet": "target = [k - m + w for k, m, w in zip(king, man, woman)]\n# Result: [0.95, 0.05, 0.95, 0.05] -> cosine(target, queen) = 1.0000",
+      "code_snippet": "target = [k - m + w for k, m, w in zip(king, man, woman)]\n# Result: [0.95, 0.9, 0.95, 0.02] -> cosine(target, queen) = 1.0000",
       "why_it_matters": "Because semantic relationships like `gender` or `capital-of` get encoded as consistent directional offsets in vector space, walking `(-man + woman)` translates `king` straight onto `queen`.",
       "what_if_removed": "With flat discrete token IDs (`#40000`, `#40001`), arithmetic is pure gibberish (`coffee - tea` = random word)."
     },

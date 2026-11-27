@@ -10,12 +10,12 @@ How can a super-genius fail a second-grade spelling check?
 
 Because neural networks are giant matrix calculators — they **cannot read letters**. Before your message ever reaches Layer 1 of the model, a separate deterministic front-door program called a **tokenizer** slices your text into common puzzle pieces (**tokens**) and replaces each piece with an integer barcode (**token ID**).
 
-Look at `Figure 1`: under a GPT-4 class tokenizer (`cl100k_base`), `'strawberry'` enters the brain as just three sealed integers:
+Look at `Figure 1`: under a GPT-4 class tokenizer (`cl100k_base`), standalone `'strawberry'` enters the brain as just three sealed integers:
 - `'str'` → barcode `496`
 - `'aw'` → barcode `675`
 - `'berry'` → barcode `15717`
 
-The model never receives the 10 characters `s-t-r-a-w-b-e-r-r-y`. Two of the `'r'`s are sealed inside integer `15717`. Unless the model memorized spelling facts during training, asking it to count letters inside a single atomic ID is like asking you how many bricks sit behind painted drywall.
+Even wilder: put a single leading space in front of it (`' strawberry'`, the way it actually appears inside a sentence like `'Count the r's in strawberry'`) and `cl100k_base` merges all 11 characters into **one single barcode (`73700`)**! The model never receives the 10 characters `s-t-r-a-w-b-e-r-r-y`. Asking it to count letters inside a single atomic integer ID is like asking you how many bricks sit behind painted drywall.
 
 ![The neural network only ever receives the final green list of barcode numbers.](fig-01.svg)
 *The neural network only ever receives the final green list of barcode numbers.*
@@ -32,19 +32,19 @@ In our Python lab, watch the exact 8-step merge trace: `'b'+'e' -> 'be' (256)` .
 ![Start with 256 single-byte crumbs and repeatedly glue the most common neighbors together.](fig-03.svg)
 *Start with 256 single-byte crumbs and repeatedly glue the most common neighbors together.*
 
-## The 3.3x Hindi Tax: Token Fertility & Real API Economics
+## The 3.6x Hindi Tax: Token Fertility & Real API Economics
 
-Because BPE learns merges strictly by frequency in its training data, whatever languages dominate that corpus get long, cheap single-token chunks. Underrepresented scripts get shattered into tiny UTF-8 byte crumbs.
+Because BPE learns merges strictly by frequency in its training data, whatever languages dominate that corpus get long, cheap single-token chunks. Underrepresented scripts get shattered into tiny UTF-8 byte crumbs — sometimes even splitting a single Devanagari letter mid-UTF-8 byte sequence!
 
-Look at `Figure 2` from our lab output (`cl100k_base`):
+Look at `Figure 2` from our verified `cl100k_base` (GPT-4) lab measurements:
 - **English (`'The server responded in 12ms.'`):** 29 chars → **8 tokens** (`0.28` tok/char · **`1.0×`** baseline).
-- **Hindi (`'नमस्ते दुनिया'`):** 13 chars → **12 tokens** (`0.92` tok/char · **`3.3×` cost & latency tax!**).
-- **Emojis (`'🚀🔥🤖'`):** 3 chars → **6 tokens** (`2.00` tok/char · **`7.2×`** multiplier via UTF-8 byte fallback!).
+- **Hindi (`'नमस्ते दुनिया'`):** 13 chars → **13 tokens** (`1.00` tok/char · **`3.6×` cost & latency tax!**).
+- **Emojis (`'🚀🔥🤖'`):** 3 chars (12 UTF-8 bytes) → **9 tokens** — 3 raw UTF-8 byte tokens *per emoji* (`3.00` tok/char · **`10.9×`** multiplier!).
 
-Engineers call this **token fertility**. Remember Lesson 1: the model generates **one token per forward pass**. A `3.3×` fertility penalty doesn't just triple a Hindi user's API bill — it also makes streaming **3.3× slower** AND shrinks their effective memory window by **3.3×**! Switching from a 100k vocab (`cl100k`) to a 200k multilingual vocab (`o200k`) cuts Hindi fertility nearly in half.
+Engineers call this **token fertility**. Remember Lesson 1: the model generates **one token per forward pass**. A `3.6×` fertility penalty doesn't just multiply a Hindi user's API bill by 3.6× — it also makes streaming **3.6× slower** AND shrinks their effective memory window by **3.6×**! Upgrading from a 100k vocab (`cl100k_base`) to a 200k multilingual vocab (`o200k_base`) collapses `'नमस्ते दुनिया'` from **13 tokens down to 5 tokens (`-61.5%`)**, turning the entire word `' दुनिया'` into a single token (`#64593`).
 
-![Real measurements from our lab: Hindi takes 3.3x more tokens per character than English.](fig-02.svg)
-*Real measurements from our lab: Hindi takes 3.3x more tokens per character than English.*
+![Verified cl100k_base (GPT-4) vs o200k_base (GPT-4o): Hindi takes 3.6x more tokens/char than English in cl100k — and drops 61.5% in o200k!](fig-02.svg)
+*Verified cl100k_base (GPT-4) vs o200k_base (GPT-4o): Hindi takes 3.6x more tokens/char than English in cl100k — and drops 61.5% in o200k!*
 
 ## Four production tokenizer bugs every AI engineer catches immediately
 
@@ -71,4 +71,4 @@ Understanding the front-door chopper immediately lets you debug four notorious p
 
 ## Hands-On Lab: Build Regex Pre-Tokenization + Byte-Level BPE & Measure Multilingual Fertility
 
-Implement regex pre-tokenization + byte-level BPE from raw UTF-8 bytes, inspect every single merge step (#1–#8), and measure exact token fertility multipliers across English (1.0x), Hindi (3.3x), and Emojis (7.2x).
+Implement regex pre-tokenization + byte-level BPE from raw UTF-8 bytes, inspect every merge step (#1–#8), and measure verified cl100k_base vs o200k_base token fertility across English (1.0x), Hindi (3.6x -> -61.5% in o200k), and Emojis (10.9x -> -44.4% in o200k).

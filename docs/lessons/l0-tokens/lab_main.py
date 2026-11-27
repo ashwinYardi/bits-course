@@ -3,8 +3,9 @@
 Demonstrates:
 1. Regex pre-tokenization (why real tokenizers split words/punctuation BEFORE BPE).
 2. Byte-level BPE training from raw UTF-8 bytes (0-255) with full merge trace.
-3. Why 'strawberry' splits into [496, 675, 15717] hiding two 'r's inside 'berry'.
-4. Multilingual token fertility across English, Hindi (cl100k vs o200k), and Emojis.
+3. Why 'strawberry' splits into [496, 675, 15717] hiding two 'r's inside 'berry'
+   (and why leading-space ' strawberry' collapses to ONE token [73700]!).
+4. Verified cl100k_base vs o200k_base multilingual token fertility (English, Hindi, Emojis).
 
 Zero external dependencies (Python 3 stdlib only).
 """
@@ -73,19 +74,30 @@ def train_byte_bpe(corpus: str, num_merges: int = 8) -> tuple[list[int], dict[in
     return flat_ids, vocab, merge_log
 
 
-# Real-world reference splits (cl100k_base = 100k vocab vs o200k_base = 200k vocab)
+# Verified exact tiktoken splits (cl100k_base = 100k vocab, GPT-4; o200k_base = 200k vocab, GPT-4o)
 CL100K_SPLITS: dict[str, list[tuple[str, int]]] = {
     "strawberry": [("str", 496), ("aw", 675), ("berry", 15717)],
     "The server responded in 12ms.": [
-        ("The", 791), (" server", 3585), (" responded", 31574), (" in", 304), (" ", 220), ("12", 717), ("ms", 1294), (".", 13)
+        ("The", 791), (" server", 3622), (" responded", 16846), (" in", 304),
+        (" ", 220), ("12", 717), ("ms", 1026), (".", 13),
     ],
     "नमस्ते दुनिया": [
-        ("न", 28001), ("म", 44102), ("स", 31902), ("्", 11904), ("त", 29501), ("े", 19822),
-        (" द", 85120), ("ु", 22911), ("न", 28001), ("ि", 18312), ("य", 34112), ("ा", 15209)
+        ("न", 61196), ("म", 88344), ("स", 79468), ("्+0xE0A4", 31584), ("<0xA4>", 97),
+        ("े", 35470), (" +0xE0A4", 15272), ("<0xA6>", 99), ("ु", 73753),
+        ("न", 61196), ("ि+0xE0A4", 43411), ("<0xAF>", 107), ("ा", 24810),
     ],
     "🚀🔥🤖": [
-        ("🚀", 9468), ("<0xF0>", 242), ("🔥", 9469), ("<0x9F>", 161), ("🤖", 99812), ("<0x96>", 152)
+        ("<0xF0 0x9F>", 9468), ("<0x9A>", 248), ("<0x80>", 222),
+        ("<0xF0 0x9F>", 9468), ("<0x94>", 242), ("<0xA5>", 98),
+        ("<0xF0 0x9F>", 9468), ("<0xA4>", 97), ("<0x96>", 244),
     ],
+}
+
+O200K_COUNTS: dict[str, int] = {
+    "strawberry": 3,                    # [('st', 302), ('raw', 1618), ('berry', 19772)]
+    "The server responded in 12ms.": 8, # [('The', 976), ..., ('.', 13)]
+    "नमस्ते दुनिया": 5,                 # [('न', 998), ('म', 1637), ('स्त', 14681), ('े', 628), (' दुनिया', 64593)]
+    "🚀🔥🤖": 5,                          # 2 + 1 ('🔥'=96606) + 2
 }
 
 
@@ -109,17 +121,20 @@ def main() -> None:
     print("\n=== STEP 3: Why 'strawberry' Hides Two 'r's Inside Barcode #15717 ===")
     straw_tokens = CL100K_SPLITS["strawberry"]
     print("Model input for 'strawberry':", [f"{txt} (id={tid})" for txt, tid in straw_tokens])
-    print("Notice: Leading spaces also get glued! 'server' != ' server' in the vocabulary.")
+    print("Leading-space twist: ' strawberry' (inside a sentence) collapses to 1 token: [' strawberry (id=73700)']!")
 
-    print("\n=== STEP 4: Token Fertility & Cost Multiplier (cl100k_base, 100k vocab) ===")
+    print("\n=== STEP 4: Verified Token Fertility (cl100k_base vs o200k_base) ===")
     en_ratio = len(CL100K_SPLITS["The server responded in 12ms."]) / len("The server responded in 12ms.")
     for text, toks in CL100K_SPLITS.items():
         chars = len(text)
         ntoks = len(toks)
         ratio = ntoks / max(chars, 1)
         mult = ratio / en_ratio
-        print(f"  {text!r:32} -> {chars:2d} chars | {ntoks:2d} tokens | {ratio:.2f} tok/char ({mult:.1f}x vs EN)")
-    print("  Note: Doubling vocab from 100k (cl100k) -> 200k (o200k) cuts Hindi tokens roughly in half (~6 tokens)!")
+        o2_toks = O200K_COUNTS[text]
+        print(
+            f"  {text!r:32} -> {chars:2d} chars | cl100k: {ntoks:2d} tok ({ratio:.2f}/ch, {mult:4.1f}x EN) | o200k: {o2_toks} tok"
+        )
+    print("  Takeaway: Upgrading cl100k -> o200k slashes Hindi from 13 -> 5 tokens (-61.5%) and Emojis from 9 -> 5 (-44.4%)!")
 
 
 if __name__ == "__main__":

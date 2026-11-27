@@ -54,7 +54,7 @@ Imagine the true answer is `NO`, so the scoreboard gives `NO` `75%` and `YES` `2
 
 Now `YES` is glued onto the slip of paper! On token 2, the model reads `Answer: YES. Explanation:` and asks: *what tokens statistically follow an answer that already declared YES?* Because the conveyor belt has **no backspace key**, it is trapped into rationalizing a wrong verdict.
 
-**The pro fix (Reason-Before-Verdict):** Always put your structured scratchpad or ``reasoning` JSON field *before* the final `verdict` field. By the time the die rolls for `YES` or `NO`, the evidence is already sitting on the prompt slip — and that exact insight is why modern reasoning models (o3, DeepSeek-R1, Claude extended thinking) spend tokens thinking *before* emitting the final answer.
+**The pro fix (Reason-Before-Verdict):** Always put your structured scratchpad or `reasoning` JSON field *before* the final `verdict` field. By the time the die rolls for `YES` or `NO`, the evidence is already sitting on the prompt slip — and that exact insight is why modern reasoning models (o3, DeepSeek-R1, Claude extended thinking) spend tokens thinking *before* emitting the final answer.
 
 ## Jargon Decoder
 

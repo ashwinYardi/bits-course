@@ -1,6 +1,6 @@
 # BitsByBlocks Pedagogy & Lesson Design Playbook
 
-This document is the permanent teaching standard for every lesson, interactive playground, Python lab, and checkpoint in **BitsByBlocks AI University**. Every module generated or revised must pass all 6 pillars below.
+This document is the permanent teaching standard for every lesson, interactive playground, Python lab, and checkpoint in **BitsByBlocks AI University**. Every module generated or revised must pass all **7 pillars** below.
 
 ---
 
@@ -35,3 +35,10 @@ After each mechanism clicks, immediately ask *"Why does this break in production
 - **3-Question Checkpoint Gate:** Tests applied reasoning and real lab numbers—never rote trivia.
 - **Post-Clear Revision Mode:** Once passed, revisiting a checkpoint respects mastery and switches into Revision Mode (re-read essay, inspect code walkthrough, grab optional agent assignments, or practice the quiz again).
 - **Fun Is Non-Negotiable:** Surprise interrupts, narrative continuity, and tactile interactive widgets turn study into play.
+
+## 7. Mandatory Cross-Reference & Technical Fact-Check Gate (Zero Hallucinated Numbers)
+Every new or revised chapter MUST pass this 4-step verification gate **before** committing or publishing:
+1. **Cross-Reference Against Gold-Standard Sources:** Check the chapter's scope, terminology, equations, and current 2025/2026 frontier conventions against at least two primary references (e.g., Stanford CS336, Chip Huyen *AI Engineering*, Karpathy *Zero to Hero* / *LLM101n*, Raschka *Build an LLM from Scratch*, Hugging Face courses/playbooks, Anthropic engineering posts, or the original arXiv paper). Never teach outdated practices without flagging how modern models evolved.
+2. **Execute Real Libraries for Every Real-World Claim:** Never estimate or hand-invent real-world token IDs, benchmark scores, memory sizes, or math outputs. If a chapter cites `cl100k_base` / `o200k_base` token IDs, run `tiktoken` / `js-tiktoken` live; if it cites an equation or VRAM count, compute it live in Python.
+3. **Label Toy vs. Production Clearly:** Whenever a lab uses a simplified toy model (e.g., hand-crafted 4D analogy vectors, an analytical U-curve reproducing a paper's shape, or a 400-token prompt cache demo below real API minimums), explicitly disclose the toy assumption and state the real production behavior in an `expert_note`.
+4. **Cross-Surface Consistency Audit:** Run an automated check verifying that `lab_main.py` exits 0, `lesson.json["lab"]["real_output"]` matches live stdout verbatim, and every number across the essay prose, figures, memes, `code_walkthrough`, `shareable` threads, interactive JS playgrounds, NPC dialogues, and `GATE_CHALLENGES` quiz options agrees to the exact digit.

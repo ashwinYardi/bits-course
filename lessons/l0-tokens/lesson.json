@@ -10,10 +10,10 @@
   "one_line": "An AI never sees letters or words; a chopper at the front door slices your text into common puzzle pieces and swaps each piece for a barcode number before the brain ever wakes up.",
   "story_spine": {
     "surprise": "When you type 'strawberry' into an AI, it never sees the 10 letters s-t-r-a-w-b-e-r-r-y. It receives three barcode numbers — [496, 675, 15717] — standing for 'str', 'aw', and 'berry'. Two of the three 'r' letters are locked inside barcode 15717.",
-    "broken": "Thinking 1 word = 1 token, or assuming the AI can see individual letters inside a word. When a model fails at counting letters, reverses strings badly, or charges 3.3x more money for Hindi than English, people blame the AI's intelligence instead of the barcode scanner at the front door.",
+    "broken": "Thinking 1 word = 1 token, or assuming the AI can see individual letters inside a word. When a model fails at counting letters, reverses strings badly, or charges 3.6x more tokens for Hindi than English (and 10.9x for emojis!) in `cl100k_base`, people blame the AI's intelligence instead of the barcode scanner at the front door.",
     "question": "Why can't we just feed raw letters or whole words into the AI, and how does the computer decide where to chop a word?",
     "turn": "Writing a 30-line Byte Pair Encoding (BPE) chopper from scratch made it obvious: tokenization is just zip-file compression for text. The algorithm glues together whatever letter pairs show up most often in its training books — which means any language that wasn't in those books gets shattered into tiny, expensive byte crumbs.",
-    "payoff": "You can predict exact API cost multipliers across languages, understand why a space in front of a word changes its barcode (`' server'` vs `'server'`), and fix letter-counting bugs instantly by putting spaces between letters.",
+    "payoff": "You can predict exact API cost multipliers across languages (and see how upgrading `cl100k_base` to `o200k_base` cuts Hindi tokens by 61.5%), understand why a leading space changes a word's barcode (`'strawberry'` = 3 tokens vs `' strawberry'` = 1 single token `73700`!), and fix letter-counting bugs instantly by putting spaces between letters.",
     "honest_limit": "Barcode numbers like 15717 ('berry') are still just random ID tags — number 15717 is not mathematically closer to 'apple' than number 15718 is. In the next stop on campus (The CampusCafeteria · Embeddings), we turn dead barcodes into GPS coordinates of meaning."
   },
   "figures": [
@@ -74,44 +74,44 @@
     },
     {
       "id": "fig-02",
-      "title": "Why Hindi and Emojis cost more tickets than English",
+      "title": "Why Hindi and Emojis cost more tickets than English (verified tiktoken)",
       "layout": "grid",
-      "caption": "Real measurements from our lab: Hindi takes 3.3x more tokens per character than English.",
+      "caption": "Verified cl100k_base (GPT-4) vs o200k_base (GPT-4o): Hindi takes 3.6x more tokens/char than English in cl100k — and drops 61.5% in o200k!",
       "cells": [
         [
           "Input Text",
-          "Letters",
-          "Tokens",
-          "Tokens / Letter",
-          "Cost Multiplier"
+          "Chars",
+          "cl100k Tokens",
+          "cl100k / Char",
+          "vs EN (o200k)"
         ],
         [
           "The server responded...",
           "29",
           "8",
           "0.28",
-          "1.0x"
+          "1.0x (8 tok)"
         ],
         [
           "strawberry",
           "10",
           "3",
           "0.30",
-          "1.1x"
+          "1.1x (3 tok)"
         ],
         [
           "नमस्ते दुनिया (Hindi)",
           "13",
-          "*12",
-          "*0.92",
-          "*3.3x"
+          "*13",
+          "*1.00",
+          "*3.6x (5 tok!)"
         ],
         [
           "🚀🔥🤖 (Emojis)",
           "3",
-          "*6",
-          "*2.00",
-          "*7.2x"
+          "*9",
+          "*3.00",
+          "*10.9x (5 tok!)"
         ]
       ]
     },
@@ -170,7 +170,7 @@
       "heading": "Explain it like I'm 12: Why you can't count bricks behind a painted wall",
       "badge": "Chapter 1 · The Strawberry Mystery",
       "figure_id": "fig-01",
-      "body_md": "Here is a riddle that stumped the whole tech world: a frontier AI can write a working compiler in ten seconds, yet when you ask `'How many R's are in strawberry?'`, it often replies `'Two!'` with total confidence.\n\nHow can a super-genius fail a second-grade spelling check?\n\nBecause neural networks are giant matrix calculators — they **cannot read letters**. Before your message ever reaches Layer 1 of the model, a separate deterministic front-door program called a **tokenizer** slices your text into common puzzle pieces (**tokens**) and replaces each piece with an integer barcode (**token ID**).\n\nLook at `Figure 1`: under a GPT-4 class tokenizer (`cl100k_base`), `'strawberry'` enters the brain as just three sealed integers:\n- `'str'` → barcode `496`\n- `'aw'` → barcode `675`\n- `'berry'` → barcode `15717`\n\nThe model never receives the 10 characters `s-t-r-a-w-b-e-r-r-y`. Two of the `'r'`s are sealed inside integer `15717`. Unless the model memorized spelling facts during training, asking it to count letters inside a single atomic ID is like asking you how many bricks sit behind painted drywall.",
+      "body_md": "Here is a riddle that stumped the whole tech world: a frontier AI can write a working compiler in ten seconds, yet when you ask `'How many R's are in strawberry?'`, it often replies `'Two!'` with total confidence.\n\nHow can a super-genius fail a second-grade spelling check?\n\nBecause neural networks are giant matrix calculators — they **cannot read letters**. Before your message ever reaches Layer 1 of the model, a separate deterministic front-door program called a **tokenizer** slices your text into common puzzle pieces (**tokens**) and replaces each piece with an integer barcode (**token ID**).\n\nLook at `Figure 1`: under a GPT-4 class tokenizer (`cl100k_base`), standalone `'strawberry'` enters the brain as just three sealed integers:\n- `'str'` → barcode `496`\n- `'aw'` → barcode `675`\n- `'berry'` → barcode `15717`\n\nEven wilder: put a single leading space in front of it (`' strawberry'`, the way it actually appears inside a sentence like `'Count the r's in strawberry'`) and `cl100k_base` merges all 11 characters into **one single barcode (`73700`)**! The model never receives the 10 characters `s-t-r-a-w-b-e-r-r-y`. Asking it to count letters inside a single atomic integer ID is like asking you how many bricks sit behind painted drywall.",
       "expert_note": "Modern reasoning models (like o3 or Claude with extended thinking) solve 'strawberry' reliably NOT because they switched to character-level input, but because they spend scratchpad tokens spelling out `s-t-r-a-w-b-e-r-r-y` one letter per token first — turning an invisible sub-token property into visible separate tokens."
     },
     {
@@ -181,10 +181,10 @@
       "expert_note": "Production vocabulary sizes have doubled specifically to fix multilingual fairness: GPT-4's `cl100k_base` had ~100k tokens, Llama 3 jumped to 128k, and GPT-4o's `o200k_base` jumped to ~200k tokens. Bigger vocabularies shrink sequence lengths (faster inference!) at the cost of a slightly larger input embedding + output unembedding matrix (`vocab_size × d_model`)."
     },
     {
-      "heading": "The 3.3x Hindi Tax: Token Fertility & Real API Economics",
+      "heading": "The 3.6x Hindi Tax: Token Fertility & Real API Economics",
       "badge": "Chapter 3 · Real Lab Benchmarks",
       "figure_id": "fig-02",
-      "body_md": "Because BPE learns merges strictly by frequency in its training data, whatever languages dominate that corpus get long, cheap single-token chunks. Underrepresented scripts get shattered into tiny UTF-8 byte crumbs.\n\nLook at `Figure 2` from our lab output (`cl100k_base`):\n- **English (`'The server responded in 12ms.'`):** 29 chars → **8 tokens** (`0.28` tok/char · **`1.0×`** baseline).\n- **Hindi (`'नमस्ते दुनिया'`):** 13 chars → **12 tokens** (`0.92` tok/char · **`3.3×` cost & latency tax!**).\n- **Emojis (`'🚀🔥🤖'`):** 3 chars → **6 tokens** (`2.00` tok/char · **`7.2×`** multiplier via UTF-8 byte fallback!).\n\nEngineers call this **token fertility**. Remember Lesson 1: the model generates **one token per forward pass**. A `3.3×` fertility penalty doesn't just triple a Hindi user's API bill — it also makes streaming **3.3× slower** AND shrinks their effective memory window by **3.3×**! Switching from a 100k vocab (`cl100k`) to a 200k multilingual vocab (`o200k`) cuts Hindi fertility nearly in half.",
+      "body_md": "Because BPE learns merges strictly by frequency in its training data, whatever languages dominate that corpus get long, cheap single-token chunks. Underrepresented scripts get shattered into tiny UTF-8 byte crumbs — sometimes even splitting a single Devanagari letter mid-UTF-8 byte sequence!\n\nLook at `Figure 2` from our verified `cl100k_base` (GPT-4) lab measurements:\n- **English (`'The server responded in 12ms.'`):** 29 chars → **8 tokens** (`0.28` tok/char · **`1.0×`** baseline).\n- **Hindi (`'नमस्ते दुनिया'`):** 13 chars → **13 tokens** (`1.00` tok/char · **`3.6×` cost & latency tax!**).\n- **Emojis (`'🚀🔥🤖'`):** 3 chars (12 UTF-8 bytes) → **9 tokens** — 3 raw UTF-8 byte tokens *per emoji* (`3.00` tok/char · **`10.9×`** multiplier!).\n\nEngineers call this **token fertility**. Remember Lesson 1: the model generates **one token per forward pass**. A `3.6×` fertility penalty doesn't just multiply a Hindi user's API bill by 3.6× — it also makes streaming **3.6× slower** AND shrinks their effective memory window by **3.6×**! Upgrading from a 100k vocab (`cl100k_base`) to a 200k multilingual vocab (`o200k_base`) collapses `'नमस्ते दुनिया'` from **13 tokens down to 5 tokens (`-61.5%`)**, turning the entire word `' दुनिया'` into a single token (`#64593`).",
       "expert_note": "Rule of thumb for English prose: ~1 token ≈ 0.75 words (or ~4 characters). For dense JSON/code with heavy indentation, or Indic/CJK scripts on older tokenizers, always measure with the exact model tokenizer (`tiktoken` or provider `count_tokens` endpoint) instead of guessing by word count."
     },
     {
@@ -243,11 +243,11 @@
   ],
   "lab": {
     "title": "Build Regex Pre-Tokenization + Byte-Level BPE & Measure Multilingual Fertility",
-    "goal": "Implement regex pre-tokenization + byte-level BPE from raw UTF-8 bytes, inspect every single merge step (#1–#8), and measure exact token fertility multipliers across English (1.0x), Hindi (3.3x), and Emojis (7.2x).",
+    "goal": "Implement regex pre-tokenization + byte-level BPE from raw UTF-8 bytes, inspect every merge step (#1–#8), and measure verified cl100k_base vs o200k_base token fertility across English (1.0x), Hindi (3.6x -> -61.5% in o200k), and Emojis (10.9x -> -44.4% in o200k).",
     "steps": [
       "Run `python3 lessons/l0-tokens/lab_main.py` (pure Python 3 stdlib).",
-      "Check Step 1: verify that 8 greedy BPE merges compress 39 raw UTF-8 bytes down to 11 subword tokens (`'straw' | 'berry' | ...`).",
-      "Check Step 2 & 3: inspect the integer split for `'strawberry'` (`[496, 675, 15717]`) and compare tokens/char across English (`0.28`), Hindi (`0.92` -> 3.3x), and Emoji (`2.00` -> 7.1x)."
+      "Check Steps 1–2: verify regex pre-tokenization isolates `,`, `!`, `.` and 8 BPE merges compress 42 raw UTF-8 bytes down to 14 subword tokens (33.3% of original).",
+      "Check Steps 3–4: inspect `'strawberry'` (`[496, 675, 15717]`) vs `' strawberry'` (`[73700]`) and compare verified `cl100k_base` fertility across English (`0.28`, `1.0x`), Hindi (`1.00`, `3.6x` -> 5 tokens in `o200k`), and Emojis (`3.00`, `10.9x` -> 5 tokens in `o200k`)."
     ],
     "acceptance": [
       {
@@ -261,27 +261,27 @@
         "evidence": "Merge #1: 'b'+'e' -> 'be' (id=256) ... Merge #8: 'stra'+'w' -> 'straw' (id=263) | 42 -> 14 tokens (33.3%)"
       },
       {
-        "criterion": "Measures exact token fertility multipliers across English (1.0x), Hindi (3.3x), and Emojis (7.2x).",
+        "criterion": "Measures verified cl100k_base vs o200k_base token fertility across English (1.0x), Hindi (3.6x), and Emojis (10.9x).",
         "met": true,
-        "evidence": "EN: 0.28 tok/char (1.0x) | Hindi: 0.92 tok/char (3.3x) | Emoji: 2.00 tok/char (7.2x)"
+        "evidence": "EN: 0.28/ch (1.0x) | Hindi: 1.00/ch (3.6x; o200k: 5 tok, -61.5%) | Emoji: 3.00/ch (10.9x; o200k: 5 tok)"
       }
     ],
     "code_file": "lab_main.py",
-    "walkthrough_md": "### `get_pair_counts(token_seq)` & `merge_pair(token_seq, pair, new_id)`\n- **What it does:** Scans the integer list with `Counter(zip(token_seq, token_seq[1:]))` to find the highest-frequency adjacent pair, then replaces every non-overlapping occurrence with a newly minted token ID (`256`, `257`, ...).\n- **Why it exists:** This 20-line loop is the entirety of Byte Pair Encoding. By starting from `list(corpus.encode('utf-8'))`, any string on Earth can be tokenized without ever failing on an unknown character.\n\n### `CL100K_SPLITS` Fertility Comparison\n- **What it does:** Compares character length vs token count across English, Hindi (`नमस्ते दुनिया`), and multi-byte emojis.\n- **Why it exists:** Makes the economic and latency impact visible: 13 characters of Hindi produce 12 tokens (`0.92` tokens/char), whereas 29 characters of English produce only 8 tokens (`0.28` tokens/char).",
-    "real_output": "=== STEP 1: Regex Pre-Tokenization (Isolates Punctuation Before BPE) ===\nPre-tokens: ['strawberry', ',', ' berry', '!', ' straw', ' berry', ' strawberry', '.']\n\n=== STEP 2: Byte-Level BPE Training (8 Merges) ===\n  Merge #1: 'b' + 'e' -> 'be' (id=256, freq=4)\n  Merge #2: 'be' + 'r' -> 'ber' (id=257, freq=4)\n  Merge #3: 'ber' + 'r' -> 'berr' (id=258, freq=4)\n  Merge #4: 'berr' + 'y' -> 'berry' (id=259, freq=4)\n  Merge #5: 's' + 't' -> 'st' (id=260, freq=3)\n  Merge #6: 'st' + 'r' -> 'str' (id=261, freq=3)\n  Merge #7: 'str' + 'a' -> 'stra' (id=262, freq=3)\n  Merge #8: 'stra' + 'w' -> 'straw' (id=263, freq=3)\nRaw UTF-8 byte length: 42 tokens\nAfter 8 BPE merges:    14 tokens (33.3% of original)\nFinal pieces: 'straw' | 'berry' | ',' | ' ' | 'berry' | '!' | ' ' | 'straw' | ' ' | 'berry' | ' ' | 'straw' | 'berry' | '.'\n\n=== STEP 3: Why 'strawberry' Hides Two 'r's Inside Barcode #15717 ===\nModel input for 'strawberry': ['str (id=496)', 'aw (id=675)', 'berry (id=15717)']\nNotice: Leading spaces also get glued! 'server' != ' server' in the vocabulary.\n\n=== STEP 4: Token Fertility & Cost Multiplier (cl100k_base, 100k vocab) ===\n  'strawberry'                     -> 10 chars |  3 tokens | 0.30 tok/char (1.1x vs EN)\n  'The server responded in 12ms.'  -> 29 chars |  8 tokens | 0.28 tok/char (1.0x vs EN)\n  'नमस्ते दुनिया'                  -> 13 chars | 12 tokens | 0.92 tok/char (3.3x vs EN)\n  '🚀🔥🤖'                            ->  3 chars |  6 tokens | 2.00 tok/char (7.2x vs EN)\n  Note: Doubling vocab from 100k (cl100k) -> 200k (o200k) cuts Hindi tokens roughly in half (~6 tokens)!"
+    "walkthrough_md": "### `get_pair_counts(chunks)` & `merge_pair(seq, pair, new_id)`\n- **What it does:** Scans each pre-tokenized chunk with `Counter(zip(seq, seq[1:]))` to find the highest-frequency adjacent pair, then replaces every non-overlapping occurrence with a newly minted token ID (`256`, `257`, ...).\n- **Why it exists:** This 20-line loop is the entirety of Byte Pair Encoding. By starting from `list(w.encode('utf-8'))`, any string on Earth can be tokenized without ever failing on an unknown character.\n\n### Verified `CL100K_SPLITS` vs `O200K_COUNTS` Fertility Comparison\n- **What it does:** Uses exact `tiktoken` token IDs to compare character length vs token count across English, Hindi (`नमस्ते दुनिया`), and 4-byte emojis (`🚀🔥🤖`).\n- **Why it exists:** Makes the economic and latency impact concrete: 13 characters of Hindi produce 13 tokens in `cl100k_base` (`1.00` tok/char = `3.6x` English) and drop to 5 tokens in `o200k_base` (`-61.5%`), while 3 emojis expand to 9 UTF-8 byte tokens (`10.9x` English).",
+    "real_output": "=== STEP 1: Regex Pre-Tokenization (Isolates Punctuation Before BPE) ===\nPre-tokens: ['strawberry', ',', ' berry', '!', ' straw', ' berry', ' strawberry', '.']\n\n=== STEP 2: Byte-Level BPE Training (8 Merges) ===\n  Merge #1: 'b' + 'e' -> 'be' (id=256, freq=4)\n  Merge #2: 'be' + 'r' -> 'ber' (id=257, freq=4)\n  Merge #3: 'ber' + 'r' -> 'berr' (id=258, freq=4)\n  Merge #4: 'berr' + 'y' -> 'berry' (id=259, freq=4)\n  Merge #5: 's' + 't' -> 'st' (id=260, freq=3)\n  Merge #6: 'st' + 'r' -> 'str' (id=261, freq=3)\n  Merge #7: 'str' + 'a' -> 'stra' (id=262, freq=3)\n  Merge #8: 'stra' + 'w' -> 'straw' (id=263, freq=3)\nRaw UTF-8 byte length: 42 tokens\nAfter 8 BPE merges:    14 tokens (33.3% of original)\nFinal pieces: 'straw' | 'berry' | ',' | ' ' | 'berry' | '!' | ' ' | 'straw' | ' ' | 'berry' | ' ' | 'straw' | 'berry' | '.'\n\n=== STEP 3: Why 'strawberry' Hides Two 'r's Inside Barcode #15717 ===\nModel input for 'strawberry': ['str (id=496)', 'aw (id=675)', 'berry (id=15717)']\nLeading-space twist: ' strawberry' (inside a sentence) collapses to 1 token: [' strawberry (id=73700)']!\n\n=== STEP 4: Verified Token Fertility (cl100k_base vs o200k_base) ===\n  'strawberry'                     -> 10 chars | cl100k:  3 tok (0.30/ch,  1.1x EN) | o200k: 3 tok\n  'The server responded in 12ms.'  -> 29 chars | cl100k:  8 tok (0.28/ch,  1.0x EN) | o200k: 8 tok\n  'नमस्ते दुनिया'                  -> 13 chars | cl100k: 13 tok (1.00/ch,  3.6x EN) | o200k: 5 tok\n  '🚀🔥🤖'                            ->  3 chars | cl100k:  9 tok (3.00/ch, 10.9x EN) | o200k: 5 tok\n  Takeaway: Upgrading cl100k -> o200k slashes Hindi from 13 -> 5 tokens (-61.5%) and Emojis from 9 -> 5 (-44.4%)!"
   },
   "shareable": {
     "notebook_shelf": "Parking Lot · Checkpoint #02",
     "the_turn": "When I wrote the 30-line BPE chopper from raw UTF-8 bytes, I stopped thinking of 'strawberry' as a reasoning failure — you cannot count letters that were compressed into a single barcode before you even opened your eyes.",
     "x_thread": [
-      "1/ Why can an AI write a working compiler in seconds, yet fail to count the three 'r's in 'strawberry'? Because it never sees the word 'strawberry'. It gets handed three barcode numbers: [496, 675, 15717].",
-      "2/ For Checkpoint 02 of my AI Engineering University, I coded a Byte Pair Encoding (BPE) tokenizer from scratch in 30 lines of Python to watch how text gets sliced at the front door.",
-      "3/ Every string starts as raw UTF-8 bytes (0-255). BPE scans the books, finds the two neighbors sitting next to each other most often, glues them into barcode 256, and repeats 100,000 times.",
-      "4/ On my test string, just 8 BPE glue rounds compressed 39 raw bytes down to 11 puzzle pieces (28.2% of original length): 'straw' | 'berry' | ...",
-      "5/ Under a GPT-4 class tokenizer, 'strawberry' becomes:\n- 'str' -> 496\n- 'aw' -> 675\n- 'berry' -> 15717\nTwo of the three 'r' letters are locked inside barcode 15717. Asking the model to count them without spelling the word out is like asking you to count bricks behind a painted wall.",
-      "6/ Even wilder is the hidden tax on non-English languages (token fertility). Look at the tokens-per-character ratio from the lab output:",
-      "7/ • English ('The server responded in 12ms.'): 29 chars -> 8 tokens (0.28 tok/char)\n• Hindi ('नमस्ते दुनिया'): 13 chars -> 12 tokens (0.92 tok/char — 3.3x cost & latency!)\n• Emojis ('🚀🔥🤖'): 3 chars -> 6 tokens (2.00 tok/char — 7.1x!)",
-      "8/ Because the AI generates one token per loop, 3.3x more tokens means a Hindi user pays 3.3x more and waits 3.3x longer. Next campus stop: the Cafeteria — how barcode numbers turn into GPS coordinates of meaning (Embeddings)."
+      "1/ Why can an AI write a working compiler in seconds, yet fail to count the three 'r's in 'strawberry'? Because it never sees the 10 letters. Under GPT-4's tokenizer (`cl100k_base`), standalone 'strawberry' is 3 barcodes `[496, 675, 15717]` — and inside a sentence (`' strawberry'`), all 11 chars collapse into ONE barcode: `[73700]`.",
+      "2/ For Checkpoint 02 of my AI Engineering University, I coded regex pre-tokenization + Byte Pair Encoding (BPE) from scratch in Python to watch how text gets sliced at the front door.",
+      "3/ Every string starts as raw UTF-8 bytes (0-255). First a regex isolates words, numbers, and punctuation; then BPE repeatedly glues the most common adjacent byte pair into barcode 256, 257, ... up to 100,000+.",
+      "4/ On my test string, just 8 BPE glue rounds compressed 42 raw UTF-8 bytes down to 14 puzzle pieces (33.3% of original length) while keeping commas, bangs, and periods cleanly isolated.",
+      "5/ Under `cl100k_base`, `'strawberry'` becomes:\n- 'str' -> 496\n- 'aw' -> 675\n- 'berry' -> 15717\nTwo 'r's are sealed inside barcode 15717 (and with a leading space, all three hide inside `73700`!). Asking the model to count them without spelling it out is like counting bricks behind painted drywall.",
+      "6/ Even wilder is the hidden tax on non-English languages (token fertility). Look at the verified `tiktoken` ratios from our lab:",
+      "7/ • English ('The server responded in 12ms.'): 29 chars -> 8 tokens (0.28 tok/char · 1.0x)\n• Hindi ('नमस्ते दुनिया'): 13 chars -> 13 tokens (1.00 tok/char · 3.6x!)\n• Emojis ('🚀🔥🤖'): 3 chars -> 9 tokens (3.00 tok/char · 10.9x!)",
+      "8/ Because an LLM generates one token per forward pass, 3.6x more tokens means a Hindi user pays 3.6x more and waits 3.6x longer (upgrading `cl100k` -> `o200k` cuts Hindi 61.5% to 5 tokens!). Next stop: the Cafeteria — turning dead barcodes into GPS coordinates of meaning (Embeddings)."
     ],
     "instagram_carousel": [
       {
@@ -297,12 +297,12 @@
       {
         "slide": 3,
         "headline": "The Lego Glue Game (BPE)",
-        "body": "Start with 256 single bytes. Repeatedly glue the most common neighbors together. In our lab, 8 merges shrank 39 bytes to 11 tokens (28.2%)."
+        "body": "Start with 256 single bytes. Repeatedly glue the most common neighbors together inside regex boundaries. In our lab, 8 merges shrank 42 bytes down to 14 tokens (33.3%)."
       },
       {
         "slide": 4,
-        "headline": "The 3.3x Hindi Tax",
-        "body": "• English: 0.28 tokens/char (1.0x)\n• Hindi ('नमस्ते दुनिया'): 0.92 tokens/char (3.3x cost & wait time)\n• Emojis ('🚀🔥🤖'): 2.00 tokens/char (7.1x)"
+        "headline": "The 3.6x Hindi Tax (cl100k_base)",
+        "body": "• English: 0.28 tokens/char (1.0x)\n• Hindi ('नमस्ते दुनिया'): 1.00 tok/char (3.6x cost & wait! Drops -61.5% to 5 tok in o200k)\n• Emojis ('🚀🔥🤖'): 3.00 tok/char (10.9x — 3 UTF-8 byte tokens per emoji!)"
       },
       {
         "slide": 5,
@@ -339,13 +339,13 @@
         },
         {
           "head": "Hindi (Devanagari)",
-          "sub": "0.92 tokens / char (3.3x)",
-          "body": "3.3x slower decode, 3.3x higher API bill, and 3.3x less effective context window in `cl100k`."
+          "sub": "1.00 tokens / char (3.6x)",
+          "body": "3.6x slower decode, 3.6x higher bill, and 3.6x less context in `cl100k` (drops 61.5% to 5 tok in `o200k`!)."
         },
         {
           "head": "Emojis (🚀🔥🤖)",
-          "sub": "2.00 tokens / char (7.2x)",
-          "body": "Split into multi-byte UTF-8 fallback crumbs (`<0xF0>`, `<0x9F>`). Tiny icons, giant token tax."
+          "sub": "3.00 tokens / char (10.9x)",
+          "body": "Each 4-byte emoji shatters into 3 UTF-8 byte tokens (`#9468` `<0xF0 0x9F>` + 2 bytes). Tiny icons, giant token tax."
         }
       ],
       "punchline": "Always measure token fertility on YOUR users' real languages and JSON payloads before estimating API costs."

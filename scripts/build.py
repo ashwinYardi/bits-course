@@ -144,10 +144,10 @@ GATE_CHALLENGES: dict[str, list[dict]] = {
             "options": [
                 "Hindi used half as many tokens as English.",
                 "Hindi and English had the exact same 0.28 tokens/char ratio.",
-                "Hindi needed 0.92 tokens/char vs English 0.28 tokens/char — a 3.3x price and speed penalty!"
+                "Hindi needed 1.00 tokens/char (13 tokens) vs English 0.28 tokens/char (8 tokens) — a 3.6x price and speed penalty in cl100k_base!"
             ],
             "correct": 2,
-            "explain": "Because the BPE Lego-gluing game practiced mostly on English text, Hindi words get chopped into tiny byte crumbs."
+            "explain": "Because cl100k_base trained mostly on English text, Hindi ('नमस्ते दुनिया') shatters into 13 tokens (even splitting mid-UTF-8 bytes!). Upgrading to o200k_base cuts it 61.5% down to 5 tokens."
         },
         {
             "q": "3. How does the Byte-Pair Encoding (BPE) Lego game invent its 100,000-piece vocabulary?",
@@ -204,9 +204,9 @@ GATE_CHALLENGES: dict[str, list[dict]] = {
             "explain": "An LLM is an Amnesia Chef: it has zero memory between turns unless the app re-sends the whole transcript on the lunch tray."
         },
         {
-            "q": "2. In our 24-word Lunch Tray lab, why did the AI forget the secret locker code `7492` by Turn 4?",
+            "q": "2. In our 24-word Lunch Tray lab, why did the AI fail when Turn 5 asked for the secret locker code `7492`?",
             "options": [
-                "Because the tray only holds 24 words: when the conversation hit 34 words, the oldest 10 words at the left edge slid off into the trash.",
+                "Because the 5-turn chat reached 50 words on a 24-word tray: FIFO truncation silently evicted Turns 1–3 (28 words), leaving only Turns 4–5 (22/24 words).",
                 "Because 7492 is an even number.",
                 "Because the user asked nicely to delete it."
             ],
@@ -214,7 +214,7 @@ GATE_CHALLENGES: dict[str, list[dict]] = {
             "explain": "Once old words exceed the context window limit and fall off the left edge of the tray, the model literally never receives them."
         },
         {
-            "q": "3. According to the 'Lost in the Middle' U-curve we proved in the lab, where should you place your most important rules and facts on a giant prompt tray?",
+            "q": "3. According to the 'Lost in the Middle' U-curve modeled in our lab (from Liu et al., 2023), where should you place your most important rules and facts on a giant prompt tray?",
             "options": [
                 "Buried right in the middle (Chunk 5 or 6 out of 10), where recall was 38.7%.",
                 "At the very beginning (Chunk 1) or the very end (Chunk 10), where attention recall was 93.0%!",
@@ -1869,7 +1869,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         </span>
         <span class="thin-pill">
           <span>⭐</span>
-          <strong id="hud-cleared-count">0 / 52</strong>
+          <strong id="hud-cleared-count">0 / 53</strong>
         </span>
       </div>
       <div class="hud-right-cluster">
@@ -1877,7 +1877,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         <button class="thin-btn" id="btn-sound-toggle" onclick="toggleSoundMute()">🔊 SFX</button>
         <button class="thin-btn" onclick="triggerKarpathyCall('manual')">📞 Call Karpathy</button>
         <button class="thin-btn thin-btn-meadow" onclick="walkToCurrentQuest()">🚶 Next Mission →</button>
-        <button class="thin-btn" onclick="toggleTeleportDrawer(true)">🗺️ Map (52)</button>
+        <button class="thin-btn" onclick="toggleTeleportDrawer(true)">🗺️ Map (53)</button>
       </div>
     </div>
 
@@ -2244,7 +2244,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         portrait: "player",
         headline: "Now be honest for ten seconds, {{PLAYER}}.",
         submeta: "THE APPLICATION LAYER VS. FIRST PRINCIPLES",
-        body: "How deeply do you actually know what runs under the hood? When a model counts two r's in 'strawberry', when Hindi costs 3.3x more tokens, when cosine search returns an antonym, or when an agent silently forgets Turn 1 — do you guess, or do you see the machinery?",
+        body: "How deeply do you actually know what runs under the hood? When a model counts two r's in 'strawberry', when Hindi costs 3.6x more tokens, when cosine search returns an antonym, or when an agent silently forgets Turn 1 — do you guess, or do you see the machinery?",
         mode: "story",
         buttons: [
           {{ label: "← Back", action: "prev", primary: false }},
@@ -2575,7 +2575,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       }},
       "after_l0-tokens": {{
         status: "📲 INCOMING CALL · BARCODES MASTERED",
-        preview: "“3.3x more tokens for Hindi than English — wild, right, {{PLAYER}}? Every frontier lab is fighting tokenizer efficiency right now. Next stop: grab a cup of chai with Chef Kabir on the Terrace and see how raw barcode IDs turn into 4D Meaning GPS!”",
+        preview: "“3.6x more tokens for Hindi than English — wild, right, {{PLAYER}}? Every frontier lab is fighting tokenizer efficiency right now. Next stop: grab a cup of chai with Chef Kabir on the Terrace and see how raw barcode IDs turn into 4D Meaning GPS!”",
         btnLabel: "☕ Walk to Kabir's Chai Terrace →",
         onAccept: "walkNext"
       }},
@@ -2587,7 +2587,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       }},
       "after_l0-context-window": {{
         status: "📲 INCOMING CALL · QUAD CLEARED!",
-        preview: "“You survived the 24-word Lunch Tray and the Lost-in-the-Middle U-curve, {{PLAYER}}! The cranes on the East Lawn just finished all 6 Academic Halls (52 modules — updated for Multimodal, Context Engineering & RLVR/GRPO!). Step inside Hall 0 whenever you're ready!”",
+        preview: "“You survived the 24-word Lunch Tray and the Lost-in-the-Middle U-curve, {{PLAYER}}! The cranes on the East Lawn just finished all 6 Academic Halls (53 modules — updated for Multimodal, Context Engineering, RLVR/GRPO & Training Stability!). Step inside Hall 0 whenever you're ready!”",
         btnLabel: "🏛️ Enter Academic Hall 0 →",
         onAccept: "walkNext"
       }},
@@ -2733,7 +2733,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
             text: "“Hey {{PLAYER}}! You got Officer Rajan to lift the boom gate! Look at these 3 parked cars in my lot: [str #496], [aw #675], and [berry #15717]. Ever wondered why a billion-dollar AI embarrassed itself counting the letter 'r' in 'strawberry'?”",
             choices: [
               {{ label: "🍓 Wait — why CAN'T it count the three r's in strawberry?", next: 1 }},
-              {{ label: "🇮🇳 And why does Hindi cost 3.3x more tokens than English?", next: 1 }},
+              {{ label: "🇮🇳 And why does Hindi cost 3.6x more tokens than English?", next: 1 }},
               {{ label: "⚡ Take me straight to the Parking Lot Barcode Test!", action: "openGateQuiz" }}
             ]
           }},
@@ -2746,7 +2746,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
           }}
         ],
         clearedDialogue: {{
-          text: "“Hey {{PLAYER}}! Your Parking Lot Barcode pass is already stamped ✓. Swing by anytime you want to test custom words in my live BPE Chopper, review regex pre-tokenization & the 3.3x Hindi tax, or walk over to your next stop!”",
+          text: "“Hey {{PLAYER}}! Your Parking Lot Barcode pass is already stamped ✓. Swing by anytime you want to test custom words in my live BPE Chopper, review regex pre-tokenization & the 3.6x Hindi tax, or walk over to your next stop!”",
           choices: [
             {{ label: "📖 Revise Chapter 2 & Live Barcode Chopper", action: "openStory" }},
             {{ label: "🧪 Re-open BPE Python Lab (42 → 14 tokens)", action: "openLab" }},
@@ -4368,11 +4368,12 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
             </p>
             <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.7rem;">
               <input id="sim-tok-input" class="sim-input" type="text" value="strawberry" oninput="inspectCustomTokenText(this.value)" placeholder="Type any word, Hindi text, code, or emoji..." />
-              <button class="btn btn-primary" onclick="inspectTokenPreset('strawberry')">🍓 strawberry</button>
+              <button class="btn btn-primary" onclick="inspectTokenPreset('strawberry')">🍓 strawberry (3 tok)</button>
+              <button class="btn" onclick="inspectTokenPreset(' strawberry')">␣ ' strawberry' (1 tok!)</button>
               <button class="btn" onclick="inspectTokenPreset('s t r a w b e r r y')">✨ Spaced Fix</button>
               <button class="btn" onclick="inspectTokenPreset('The server responded in 12ms.')">🇬🇧 English</button>
-              <button class="btn" onclick="inspectTokenPreset('नमस्ते दुनिया')">🇮🇳 Hindi (3.3x)</button>
-              <button class="btn" onclick="inspectTokenPreset('🚀🔥🤖')">🚀 Emojis (7.2x)</button>
+              <button class="btn" onclick="inspectTokenPreset('नमस्ते दुनिया')">🇮🇳 Hindi (3.6x)</button>
+              <button class="btn" onclick="inspectTokenPreset('🚀🔥🤖')">🚀 Emojis (10.9x)</button>
             </div>
             <div id="sim-tok-chips" style="display:flex;gap:0.45rem;flex-wrap:wrap;margin-bottom:0.75rem;"></div>
             <div id="sim-tok-note" style="background:#ffffff;padding:0.75rem 1rem;border-radius:10px;border:1.5px solid var(--line-strong);font-family:var(--mono);font-size:0.84rem;"></div>
@@ -4405,13 +4406,13 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
             <div class="chapter-kicker">⛲ PROF. MEERA'S LUNCH TRAY · SLIDING WINDOW, KV CACHE & U-CURVE</div>
             <h3 style="margin:0.2rem 0 0.45rem;font-family:var(--serif);font-size:1.35rem;line-height:1.35;">Watch Code 7492 Slide Off the 24-Word Tray & Compare KV Caching</h3>
             <p style="margin:0 0 0.8rem;font-size:0.94rem;color:var(--ink-soft);">
-              Step through Turns 1 → 4 on the 24-word tray, inspect the <strong>81.0% KV Prefix Cache</strong> billing discount, or plot the 10-chunk U-curve!
+              Step through our exact Python lab turns on the 24-word tray, inspect the <strong>81.0% KV Prefix Cache</strong> billing discount, or plot the 10-chunk U-curve!
             </p>
             <div style="display:flex;gap:0.45rem;flex-wrap:wrap;margin-bottom:0.85rem;">
               <button class="btn btn-primary" onclick="inspectTrayStep(1)">Turn 1 (8/24)</button>
-              <button class="btn" onclick="inspectTrayStep(2)">Turn 2 (16/24)</button>
-              <button class="btn" onclick="inspectTrayStep(3)">Turn 3 (24/24 FULL)</button>
-              <button class="btn" onclick="inspectTrayStep(4)">Turn 4 (7492 Dropped!)</button>
+              <button class="btn" onclick="inspectTrayStep(2)">Turn 2 (18/24)</button>
+              <button class="btn" onclick="inspectTrayStep(3)">Turn 3 (7492 Dropped!)</button>
+              <button class="btn" onclick="inspectTrayStep(4)">Turn 5 (22/24 · 3 Evicted)</button>
               <button class="btn btn-meadow" onclick="inspectTrayStep(5)">⚡ KV Cache (-81%)</button>
               <button class="btn" onclick="inspectTrayStep(6)">📉 U-Curve Recall</button>
             </div>
@@ -4837,23 +4838,27 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     const TOKEN_PRESETS = {{
       "strawberry": {{
         pieces: [["str", 496], ["aw", 675], ["berry", 15717]],
-        note: "10 chars → 3 barcodes (0.30 tok/char). Barcode #15717 ('berry') seals TWO 'r' letters inside one integer!"
+        note: "Verified cl100k_base: 10 chars → 3 barcodes (0.30 tok/char). Barcode #15717 ('berry') seals TWO 'r' letters inside one integer!"
+      }},
+      " strawberry": {{
+        pieces: [[" strawberry", 73700]],
+        note: "Leading-space twist (verified cl100k_base): Inside a sentence, ' strawberry' collapses into ONE single integer (#73700) — hiding all 3 'r's!"
       }},
       "s t r a w b e r r y": {{
         pieces: [["s", 82], [" t", 259], [" r", 436], [" a", 264], [" w", 289], [" b", 293], [" e", 384], [" r", 436], [" r", 436], [" y", 379]],
-        note: "Spaced Fix: Every letter gets its own barcode! Barcode #436 (' r') appears 3 distinct times, so the model counts 3 'r's cleanly."
+        note: "Spaced Fix (verified cl100k_base): Every letter gets its own barcode! Barcode #436 (' r') appears 3 distinct times, so the model counts 3 'r's cleanly."
       }},
       "The server responded in 12ms.": {{
-        pieces: [["The", 791], [" server", 3585], [" responded", 31574], [" in", 304], [" ", 220], ["12", 717], ["ms", 1294], [".", 13]],
-        note: "29 chars → 8 barcodes (0.28 tok/char · 1.0x baseline). Notice how regex pre-tokenization isolates '12' and '.' BEFORE BPE!"
+        pieces: [["The", 791], [" server", 3622], [" responded", 16846], [" in", 304], [" ", 220], ["12", 717], ["ms", 1026], [".", 13]],
+        note: "Verified cl100k_base: 29 chars → 8 barcodes (0.28 tok/char · 1.0x baseline). Notice how regex pre-tokenization isolates '12' and '.' BEFORE BPE!"
       }},
       "नमस्ते दुनिया": {{
-        pieces: [["न", 28001], ["म", 44102], ["स", 31902], ["्", 11904], ["त", 29501], ["े", 19822], [" द", 85120], ["ु", 22911], ["न", 28001], ["ि", 18312], ["य", 34112], ["ा", 15209]],
-        note: "13 chars → 12 barcodes (0.92 tok/char · 3.3x cost & latency tax vs English in cl100k!)."
+        pieces: [["न", 61196], ["म", 88344], ["स", 79468], ["्+0xE0A4", 31584], ["<0xA4>", 97], ["े", 35470], [" +0xE0A4", 15272], ["<0xA6>", 99], ["ु", 73753], ["न", 61196], ["ि+0xE0A4", 43411], ["<0xAF>", 107], ["ा", 24810]],
+        note: "Verified cl100k_base: 13 chars → 13 barcodes (1.00 tok/char · 3.6x cost & latency vs EN — even splits mid-UTF-8 bytes!). Upgrading to o200k_base cuts this 61.5% down to 5 tokens!"
       }},
       "🚀🔥🤖": {{
-        pieces: [["🚀", 9468], ["<0xF0>", 242], ["🔥", 9469], ["<0x9F>", 161], ["🤖", 99812], ["<0x96>", 152]],
-        note: "3 emojis → 6 byte-fallback barcodes (2.00 tok/char · 7.2x fertility multiplier!)."
+        pieces: [["<0xF0 0x9F>", 9468], ["<0x9A>", 248], ["<0x80>", 222], ["<0xF0 0x9F>", 9468], ["<0x94>", 242], ["<0xA5>", 98], ["<0xF0 0x9F>", 9468], ["<0xA4>", 97], ["<0x96>", 244]],
+        note: "Verified cl100k_base: 3 emojis (12 UTF-8 bytes) → 9 byte-fallback barcodes (3 tokens per emoji! 3.00 tok/char · 10.9x vs EN; drops to 5 tokens in o200k_base)."
       }}
     }};
 
@@ -5011,23 +5016,23 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       const items = {{
         "filter_coffee": {{
           label: "filter_coffee", deg: 9.7, cos: 0.9858, color: "#2c6b4f",
-          text: "masala_chai [0.95, 0.90, 0.85, 0.02] vs filter_coffee [0.95, 0.92, 0.55, 0.02]\\n→ Cosine = +0.9858 (9.7° apart) · L2-normalized dot product = +0.985850!\\n→ Sitting at the exact same Cafeteria Hot-Drinks table."
+          text: "masala_chai [0.95, 0.90, 0.72, 0.02] vs filter_coffee [0.94, 0.88, 0.45, 0.05]\\n→ Cosine = +0.9858 (9.7° apart) · L2-normalized dot product = +0.985850!\\n→ Sitting at the exact same Cafeteria Hot-Drinks table."
         }},
         "iced_chai": {{
           label: "iced_chai", deg: 34.6, cos: 0.8234, color: "#a9492f",
-          text: "masala_chai [0.95, 0.90, 0.85, 0.02] vs iced_chai [0.95, 0.05, 0.85, 0.02]\\n→ Cosine = +0.8234 (34.6°) — THE ANTONYM TRAP!\\n→ Hot & Cold are opposites, yet they still score 0.8234 because they share the drink & spice axes!"
+          text: "masala_chai [0.95, 0.90, 0.72, 0.02] vs iced_chai [0.92, 0.05, 0.70, 0.02]\\n→ Cosine = +0.8234 (34.6°) — THE ANTONYM TRAP!\\n→ Hot & Cold are opposites, yet they still score 0.8234 because they share the drink & spice axes!"
         }},
         "samosa": {{
           label: "samosa", deg: 34.8, cos: 0.8216, color: "#8b6842",
-          text: "masala_chai [0.95, 0.90, 0.85, 0.02] vs samosa [0.15, 0.80, 0.85, 0.02]\\n→ Cosine = +0.8216 (34.8°) · Same warm Indian snack table, lower on the drink axis."
+          text: "masala_chai [0.95, 0.90, 0.72, 0.02] vs samosa [0.10, 0.80, 0.78, 0.02]\\n→ Cosine = +0.8216 (34.8°) · Same warm Indian snack table, lower on the drink axis."
         }},
         "kubernetes": {{
           label: "kubernetes", deg: 88.2, cos: 0.0322, color: "#355f73",
-          text: "masala_chai [0.95, 0.90, 0.85, 0.02] vs kubernetes [0.01, 0.01, 0.01, 0.99]\\n→ Cosine = +0.0322 (88.2° — nearly perpendicular!). Completely unrelated cloud-infra table."
+          text: "masala_chai [0.95, 0.90, 0.72, 0.02] vs kubernetes [0.01, 0.02, 0.00, 0.98]\\n→ Cosine = +0.0322 (88.2° — nearly perpendicular!). Completely unrelated cloud-infra table."
         }},
         "king_math": {{
           label: "queen", deg: 0.0, cos: 1.0000, color: "#655670",
-          text: "Vector Walk: king [0.95, 0.95, 0.05, 0.05] - man [0.05, 0.95, 0.05, 0.05] + woman [0.05, 0.05, 0.95, 0.05]\\n→ Target = [0.95, 0.05, 0.95, 0.05] == queen! Cosine = +1.0000 (0.0° exact direction match!)"
+          text: "4D Toy Walk: king [0.95, 0.90, 0.05, 0.02] - man [0.05, 0.90, 0.05, 0.02] + woman [0.05, 0.90, 0.95, 0.02]\\n→ Target = [0.95, 0.90, 0.95, 0.02] == queen! Cosine = +1.0000 (in real trained Word2Vec/GloVe: ~0.73–0.78 top neighbor after excluding inputs)."
         }}
       }};
       const item = items[key] || items.filter_coffee;
@@ -5038,10 +5043,11 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     function inspectTrayStep(step) {{
       const el = document.getElementById("sim-ctx-output");
       if (!el) return;
-      const t1 = ["User:", "Remember", "secret", "locker", "code", "7492", "for", "tomorrow."];
-      const t2 = ["AI:", "Got", "it,", "I", "saved", "your", "locker", "code."];
-      const t3 = ["User:", "Also", "pack", "two", "masala", "dosa", "boxes", "please."];
-      const t4 = ["AI:", "Packed", "two", "masala", "dosa", "boxes", "for", "lunch", "today!", "Enjoy!"];
+      const t1 = "Turn 1: My secret locker code is 7492.".split(" ");
+      const t2 = "Turn 2: Let us discuss the cafeteria menu for Monday.".split(" ");
+      const t3 = "Turn 3: The cafeteria serves masala dosa and filter coffee.".split(" ");
+      const t4 = "Turn 4: On Tuesday the library hosts a robotics club demo.".split(" ");
+      const t5 = "Turn 5: What was my secret locker code from Turn 1?".split(" ");
 
       const renderTray = (kept, dropped, title, statusHtml) => {{
         const dropHtml = dropped.length ? `
@@ -5050,7 +5056,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         ` : "";
         const keepHtml = `
           <div style="margin-top:0.55rem;font-size:0.78rem;color:var(--meadow);font-weight:700;">🍱 ACTIVE ON 24-WORD LUNCH TRAY (${{kept.length}} / 24):</div>
-          <div class="tray-slot-grid">${{kept.map(w => `<span class="tray-word ${{w === '7492' ? 'secret' : ''}}">${{w}}</span>`).join("")}}</div>
+          <div class="tray-slot-grid">${{kept.map(w => `<span class="tray-word ${{w.includes('7492') ? 'secret' : ''}}">${{w}}</span>`).join("")}}</div>
         `;
         el.innerHTML = `<div style="font-weight:800;margin-bottom:0.35rem;">${{title}}</div>${{statusHtml}}${{dropHtml}}${{keepHtml}}`;
       }};
@@ -5058,15 +5064,14 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       if (step === 1) {{
         renderTray(t1, [], "TURN 1 · 8 / 24 words used", `<div style="color:var(--meadow);font-weight:700;">Locker code 7492 on tray? YES ✅</div>`);
       }} else if (step === 2) {{
-        renderTray([...t1, ...t2], [], "TURN 2 · 16 / 24 words used (entire Turn 1 re-sent!)", `<div style="color:var(--meadow);font-weight:700;">Locker code 7492 on tray? YES ✅</div>`);
+        renderTray([...t1, ...t2], [], "TURN 2 · 18 / 24 words used (entire Turn 1 re-sent!)", `<div style="color:#b45309;font-weight:700;">Locker code 7492 on tray? YES ⚠️ (Only 6 words of room left!)</div>`);
       }} else if (step === 3) {{
-        renderTray([...t1, ...t2, ...t3], [], "TURN 3 · 24 / 24 words (TRAY 100% FULL!)", `<div style="color:#b45309;font-weight:700;">Locker code 7492 on tray? YES ⚠️ (Sitting right on the left cliff!)</div>`);
+        renderTray([...t2, ...t3], t1, "TURN 3 · 28 total words → Turn 1 (8w) evicted! Kept T2+T3 (20/24)", `<div style="color:#991b1b;font-weight:700;">Locker code 7492 on tray? NO ❌ (Turn 1 slid off the left edge!)</div>`);
       }} else if (step === 4) {{
-        const all = [...t1, ...t2, ...t3, ...t4];
-        renderTray(all.slice(-24), all.slice(0, all.length - 24), "TURN 4 · 34 total words → 10 oldest words evicted!", `<div style="color:#991b1b;font-weight:700;">Locker code 7492 on tray? NO ❌ (Model literally never receives it!)</div>`);
+        renderTray([...t4, ...t5], [...t1, ...t2, ...t3], "TURN 5 · 50 total words → Turns 1–3 (28w) evicted! Kept T4+T5 (22/24)", `<div style="color:#991b1b;font-weight:700;">Locker code 7492 on tray? NO ❌ (Exact match to Python lab Step 1!)</div>`);
       }} else if (step === 5) {{
         el.innerHTML = `
-          <div style="font-weight:800;margin-bottom:0.55rem;">⚡ 10-TURN CHAT BILLING · UNCACHED vs KV PREFIX CACHING (1,000-tok system prompt)</div>
+          <div style="font-weight:800;margin-bottom:0.55rem;">⚡ 10-TURN CHAT BILLING · UNCACHED vs KV PREFIX CACHING (400-tok system + 150-tok turns)</div>
           <div style="margin-bottom:0.55rem;">
             <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:0.2rem;"><span>Without KV Prefix Cache (re-billed every turn)</span><strong>19,000 tokens (100%)</strong></div>
             <div style="background:#f1f5f9;height:16px;border-radius:6px;overflow:hidden;border:1px solid var(--line-strong);"><div style="width:100%;height:100%;background:#a9492f;"></div></div>
@@ -5078,7 +5083,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
           <div style="font-size:0.8rem;color:var(--ink-soft);">⚠️ Cache-Invalidation Trap: Putting <code>Current time: 14:32:09</code> on Line 1 breaks the prefix hash on EVERY turn and destroys the 81% discount!</div>
         `;
       }} else if (step === 6) {{
-        const pts = [[1,93.0],[2,66.2],[3,51.0],[4,42.7],[5,38.7],[6,38.7],[7,42.7],[8,51.0],[9,66.2],[10,93.0]];
+        const pts = [[1,93.0],[2,71.3],[3,55.0],[4,44.1],[5,38.7],[6,38.7],[7,44.1],[8,55.0],[9,71.3],[10,93.0]];
         el.innerHTML = `
           <div style="font-weight:800;margin-bottom:0.35rem;">📉 LOST-IN-THE-MIDDLE U-CURVE (Analytical Model of Liu et al., 2023)</div>
           <div style="display:grid;grid-template-columns:repeat(10, 1fr);gap:0.3rem;align-items:end;height:108px;padding:0.5rem 0.25rem 0.25rem;border-bottom:1.5px solid var(--line-strong);">

@@ -360,7 +360,7 @@
       "level": 1,
       "title": "Attention: how a token looks at other tokens",
       "question": "How does the model know which earlier word a pronoun refers to?",
-      "can": "Explain queries, keys, and values without hand waving.",
+      "can": "Explain queries, keys, values, and modern KV-efficient variants (GQA, MLA, sliding window, and hybrid linear attention) without hand waving.",
       "jargon": [
         "attention",
         "query",
@@ -368,7 +368,12 @@
         "value",
         "self-attention",
         "attention head",
-        "causal mask"
+        "causal mask",
+        "GQA (grouped-query attention)",
+        "MQA (multi-query attention)",
+        "MLA (multi-head latent attention)",
+        "sliding window attention",
+        "linear & hybrid attention (Mamba / DeltaNet)"
       ],
       "sources": [
         {
@@ -388,7 +393,9 @@
         "CS336 lecture 3",
         "Raschka ch.3",
         "Karpathy makemore GPT",
-        "HF course ch.1"
+        "HF course ch.1",
+        "CS336 2026 lecture 4",
+        "Raschka bonus GQA/MLA"
       ],
       "exercise": "Hand compute attention for three tokens with two dimensional vectors. No framework.",
       "figures": [
@@ -404,13 +411,16 @@
       "level": 1,
       "title": "The transformer block, one layer at a time",
       "question": "What is stacked 80 times inside a large model?",
-      "can": "Name every part of a block and say what breaks without it.",
+      "can": "Name every part of a modern Transformer block (Pre-Norm, RMSNorm, SwiGLU, residuals) and say what breaks without it.",
       "jargon": [
         "residual connection",
         "layer normalisation",
         "feed forward network",
         "activation",
-        "depth"
+        "depth",
+        "Pre-Norm",
+        "RMSNorm",
+        "SwiGLU"
       ],
       "sources": [
         {
@@ -426,7 +436,8 @@
         "CS336 lecture 3",
         "Raschka ch.4",
         "Karpathy zero to hero",
-        "Labonne scientist track"
+        "Labonne scientist track",
+        "CS336 2026 lecture 3"
       ],
       "exercise": "Delete the residual connection in a tiny nanoGPT and watch the loss curve change.",
       "figures": [
@@ -517,16 +528,19 @@
     {
       "id": "l1-training-stages",
       "level": 1,
-      "title": "Pretraining, fine-tuning, alignment: three different things",
+      "title": "Pretraining, mid-training, fine-tuning, alignment: four distinct stages",
       "question": "Which stage made the model helpful, and which one made it fluent?",
-      "can": "Place any model behaviour in the stage that produced it.",
+      "can": "Place any model behaviour in the stage that produced it — pretraining, mid-training (annealing & long-context), SFT, or preference/RL post-training.",
       "jargon": [
         "pretraining",
         "base model",
         "supervised fine-tuning",
         "post-training",
         "instruct model",
-        "alignment"
+        "alignment",
+        "mid-training",
+        "long-context extension",
+        "annealing"
       ],
       "sources": [
         {
@@ -542,7 +556,8 @@
         "CS336 lectures 15 to 17",
         "Huyen ch.2",
         "Labonne scientist track",
-        "HF course ch.11"
+        "HF course ch.11",
+        "CS336 2026 lecture 15"
       ],
       "exercise": "Prompt a base model and its instruct sibling with the same question and diff the behaviour.",
       "figures": [
@@ -671,13 +686,15 @@
       "level": 1,
       "title": "Vision & audio tokens: how models see and hear",
       "question": "How does a text transformer process a screenshot or a spoken sentence natively?",
-      "can": "Explain patch embeddings (ViT/SigLIP), audio codecs, and multimodal token budgets.",
+      "can": "Explain patch embeddings (ViT/SigLIP), audio codecs, multimodal token budgets, and how Diffusion Transformers / flow matching generate images and video.",
       "jargon": [
         "vision encoder",
         "image patch",
         "SigLIP",
         "audio tokenizer",
-        "native multimodal"
+        "native multimodal",
+        "Diffusion Transformers (DiT)",
+        "flow matching"
       ],
       "sources": [
         {
@@ -691,7 +708,8 @@
       ],
       "proof": [
         "Frontier multimodal architecture",
-        "CS336 systems"
+        "CS336 systems",
+        "Karpathy LLM101n ch.17"
       ],
       "exercise": "Slice a 1024x1024 image into 16x16 patches, compute the exact token cost, and compare against a text description.",
       "figures": [
@@ -748,14 +766,17 @@
       "level": 2,
       "title": "How to evaluate something with no right answer",
       "question": "The output is a paragraph, so what exactly do you measure?",
-      "can": "Pick a metric that moves when quality moves, and know its blind spots.",
+      "can": "Pick a metric that moves when quality moves — from LLM-as-a-judge rubrics to agentic pass@k and trajectory evals — and know each blind spot.",
       "jargon": [
         "benchmark",
         "LLM as a judge",
         "pairwise comparison",
         "rubric",
         "inter-annotator agreement",
-        "contamination"
+        "contamination",
+        "agentic benchmarks (SWE-bench / TerminalBench)",
+        "pass@k",
+        "trajectory evals"
       ],
       "sources": [
         {
@@ -774,7 +795,9 @@
       "proof": [
         "CS336 lecture 12",
         "Huyen ch.3",
-        "Labonne scientist track"
+        "Labonne scientist track",
+        "CS336 2026 lecture 12",
+        "Hamel Husain evals"
       ],
       "exercise": "Score 30 outputs yourself, then with an LLM judge, and measure how often they disagree.",
       "figures": [
@@ -1139,16 +1162,17 @@
     {
       "id": "l3-lora",
       "level": 3,
-      "title": "LoRA and QLoRA: fine-tuning on one GPU",
+      "title": "LoRA, QLoRA & model merging: adapting weights on one GPU",
       "question": "How do people fine-tune a 7B model on a laptop-class GPU?",
-      "can": "Explain low rank updates and pick rank, alpha, and target modules.",
+      "can": "Explain low-rank updates (LoRA/QLoRA), pick rank/alpha/target modules, and merge adapted checkpoints with SLERP, TIES, or DARE.",
       "jargon": [
         "LoRA",
         "rank",
         "adapter",
         "QLoRA",
         "frozen weights",
-        "parameter efficient fine-tuning"
+        "parameter efficient fine-tuning",
+        "model merging (SLERP / TIES / DARE)"
       ],
       "sources": [
         {
@@ -1167,7 +1191,9 @@
       "proof": [
         "Raschka appendix E",
         "HF course ch.11",
-        "Labonne scientist track 4"
+        "Labonne scientist track 4",
+        "Huyen ch.7",
+        "Labonne scientist track 7"
       ],
       "exercise": "Fine-tune the same task at rank 8 and rank 64. Compare quality, VRAM, and wall clock.",
       "figures": [
@@ -1407,14 +1433,15 @@
       "level": 4,
       "title": "What a serving stack does with your request",
       "question": "What happens between your HTTP call and the first token?",
-      "can": "Read an inference server's metrics and say where the time went.",
+      "can": "Read an inference server's metrics, explain disaggregated prefill/decode serving, and pinpoint where latency went.",
       "jargon": [
         "prefill",
         "decode",
         "scheduler",
         "queueing",
         "throughput",
-        "tail latency"
+        "tail latency",
+        "disaggregated prefill & decode"
       ],
       "sources": [
         {
@@ -1429,7 +1456,8 @@
       "proof": [
         "CS336 lecture 10",
         "Huyen ch.9",
-        "Labonne engineer track 6"
+        "Labonne engineer track 6",
+        "vLLM / SGLang 2025-2026 serving"
       ],
       "exercise": "Run vLLM locally, send 50 concurrent requests, and read the throughput and latency it reports.",
       "figures": [
@@ -1989,14 +2017,15 @@
       "level": 5,
       "title": "Test time compute and reasoning models",
       "question": "What changed when models started thinking before answering?",
-      "can": "Explain reasoning training and decide when the extra tokens are worth it.",
+      "can": "Explain test-time compute, RLVR reasoning training, and how mechanistic interpretability (sparse autoencoders & circuits) peeks inside model reasoning.",
       "jargon": [
         "test time compute",
         "chain of thought",
         "reasoning tokens",
         "verifier",
         "RL with verifiable rewards",
-        "budget forcing"
+        "budget forcing",
+        "mechanistic interpretability (SAEs & circuit tracing)"
       ],
       "sources": [
         {
@@ -2012,7 +2041,8 @@
         "CS336 lectures 16 and 17",
         "CS336 assignment 5",
         "Huyen ch.2",
-        "Labonne scientist track 8"
+        "Labonne scientist track 8",
+        "Anthropic circuit tracing"
       ],
       "exercise": "Run one hard task with and without reasoning mode. Compare accuracy, latency, and cost per solve.",
       "figures": [
@@ -2022,6 +2052,51 @@
       "prereqs": [
         "l3-rlhf",
         "l3-reward-hacking"
+      ]
+    },
+    {
+      "id": "l5-training-stability",
+      "level": 5,
+      "title": "Mixed precision, optimizers & training stability",
+      "question": "Why does a training run explode into NaN loss at step 4,000, and where does all the GPU VRAM actually go?",
+      "can": "Budget exact GPU memory (weights, gradients, optimizer states, activations), configure BF16/FP8 mixed precision, and stabilize training with AdamW/Muon, LR schedules, clipping, and uP.",
+      "jargon": [
+        "BF16 & FP8 mixed precision",
+        "activation memory accounting",
+        "AdamW vs. Muon",
+        "weight initialization",
+        "warmup / cosine / WSD schedule",
+        "gradient clipping",
+        "maximal update parameterization (uP)"
+      ],
+      "sources": [
+        {
+          "name": "Stanford CS336, Lecture 2 (PyTorch & Resource Accounting) & Lecture 11 (Stability)",
+          "url": "https://stanford-cs336.github.io/spring2025/"
+        },
+        {
+          "name": "Karpathy, Zero to Hero Parts 3–4 (Activations, Gradients & Init)",
+          "url": "https://karpathy.ai/zero-to-hero.html"
+        },
+        {
+          "name": "Raschka, Build an LLM from Scratch, Appendix D (Training Loop Bells & Whistles)",
+          "url": "https://sebastianraschka.com/llms-from-scratch/"
+        }
+      ],
+      "proof": [
+        "CS336 lectures 2 and 11",
+        "Karpathy zero to hero 3 and 4",
+        "Karpathy LLM101n ch.7 and ch.9",
+        "Raschka appendix D"
+      ],
+      "exercise": "Compute exact VRAM bytes for a 7B model in FP32 vs BF16 + AdamW, then intentionally trigger and fix a gradient-explosion spike on a tiny Transformer.",
+      "figures": [
+        "stack: VRAM breakdown (weights, gradients, AdamW states, activations)",
+        "flow: loss spike diagnosis (init, LR warmup, grad clip, precision)"
+      ],
+      "prereqs": [
+        "l5-gpu",
+        "l1-training-loop"
       ]
     },
     {
@@ -2049,6 +2124,10 @@
         {
           "name": "Raschka, LLMs from scratch repo",
           "url": "https://github.com/rasbt/LLMs-from-scratch"
+        },
+        {
+          "name": "Karpathy, nanochat",
+          "url": "https://github.com/karpathy/nanochat"
         }
       ],
       "proof": [
@@ -2064,7 +2143,8 @@
       "prereqs": [
         "l1-transformer-block",
         "l1-training-loop",
-        "l5-scaling-laws"
+        "l5-scaling-laws",
+        "l5-training-stability"
       ]
     }
   ]
