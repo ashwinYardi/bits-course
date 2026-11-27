@@ -871,63 +871,90 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       }}
     }}
 
-    /* CINEMATIC FIRST-VISIT PROLOGUE ("MOVIE" OVERLAY) */
+    /* CINEMATIC FIRST-VISIT PROLOGUE (INTERACTIVE GAME CUTSCENE + INCOMING CALL) */
     .cinema-backdrop {{
       position: fixed;
       inset: 0;
       z-index: 300;
-      background: radial-gradient(circle at 50% 35%, rgba(30, 35, 32, 0.94), rgba(14, 16, 15, 0.985));
-      color: #f4f1ea;
+      background: radial-gradient(circle at 50% 35%, rgba(22, 28, 25, 0.94), rgba(11, 14, 13, 0.985));
+      color: #f4f6f8;
       display: none;
       align-items: center;
       justify-content: center;
       padding: 1.5rem;
+      overscroll-behavior: contain;
     }}
     .cinema-backdrop.open {{
       display: flex;
     }}
     .cinema-frame {{
       width: 100%;
-      max-width: 720px;
-      background: rgba(24, 26, 25, 0.92);
-      border: 1px solid rgba(244, 241, 234, 0.14);
-      border-radius: 20px;
-      padding: 2.25rem 2.5rem 2rem;
-      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.55);
+      max-width: 680px;
+      background: rgba(20, 24, 22, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 22px;
+      padding: 2rem 2.25rem 1.85rem;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 12px 32px rgba(0, 0, 0, 0.45), 0 32px 84px rgba(0, 0, 0, 0.6);
       position: relative;
-      animation: stageEnter 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation: cinemaEnter 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }}
+    @keyframes cinemaEnter {{
+      from {{ opacity: 0; transform: translateY(10px); filter: blur(4px); }}
+      to {{ opacity: 1; transform: translateY(0); filter: blur(0); }}
     }}
     .cinema-frame.ringing {{
-      border-color: rgba(158, 60, 34, 0.72);
-      box-shadow: 0 0 0 1px rgba(158, 60, 34, 0.45), 0 32px 80px rgba(0, 0, 0, 0.65);
+      max-width: 480px;
+      border-color: rgba(45, 168, 108, 0.55);
+      box-shadow: 0 0 0 1px rgba(45, 168, 108, 0.35), 0 24px 72px rgba(0, 0, 0, 0.72);
+    }}
+    .cinema-frame.answered {{
+      max-width: 640px;
+      border-color: rgba(45, 168, 108, 0.45);
     }}
     .cinema-top-row {{
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
+      gap: 0.75rem;
+      margin-bottom: 1.4rem;
     }}
     .cinema-step-tag {{
       font-family: var(--mono);
       font-size: 0.76rem;
-      letter-spacing: 0.09em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #d99b82;
+      color: #e2a28b;
       font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-variant-numeric: tabular-nums;
+    }}
+    .cinema-live-dot {{
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #34d399;
     }}
     .cinema-skip {{
       background: transparent;
-      border: 1px solid rgba(244, 241, 234, 0.2);
-      color: rgba(244, 241, 234, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: rgba(244, 246, 248, 0.8);
       font-family: var(--mono);
       font-size: 0.76rem;
-      padding: 0.35rem 0.72rem;
+      padding: 0.35rem 0.75rem;
       border-radius: 999px;
       cursor: pointer;
+      transition: border-color 140ms ease, color 140ms ease, transform 100ms ease;
     }}
-    .cinema-skip:hover {{
-      color: #ffffff;
-      border-color: rgba(244, 241, 234, 0.45);
+    @media (hover: hover) {{
+      .cinema-skip:hover {{
+        color: #ffffff;
+        border-color: rgba(255, 255, 255, 0.45);
+      }}
+    }}
+    .cinema-skip:active {{
+      transform: scale(0.98);
     }}
     .cinema-visual-row {{
       display: flex;
@@ -935,120 +962,370 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       gap: 1.25rem;
       margin-bottom: 1.25rem;
     }}
+    .cinema-portrait-shell {{
+      position: relative;
+      width: 96px;
+      height: 96px;
+      flex-shrink: 0;
+    }}
     #cinema-portrait-canvas {{
       width: 96px;
       height: 96px;
       border-radius: 16px;
-      border: 1px solid rgba(244, 241, 234, 0.22);
-      background: #1d2220;
-      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: #1a211e;
+      display: block;
+      position: relative;
+      z-index: 2;
     }}
     .cinema-headline {{
       font-family: var(--serif);
-      font-size: 2rem;
+      font-size: 1.95rem;
       font-weight: 600;
-      line-height: 1.22;
-      margin: 0 0 0.75rem;
-      color: #faf8f4;
+      line-height: 1.2;
+      margin: 0 0 0.45rem;
+      color: #ffffff;
       letter-spacing: -0.015em;
+      text-wrap: balance;
+    }}
+    .cinema-submeta {{
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      color: rgba(244, 246, 248, 0.65);
+      letter-spacing: 0.04em;
     }}
     .cinema-body {{
       font-family: var(--serif);
-      font-size: 1.18rem;
+      font-size: 1.16rem;
       line-height: 1.65;
-      color: rgba(244, 241, 234, 0.86);
-      margin: 0 0 1.65rem;
+      color: rgba(244, 246, 248, 0.88);
+      margin: 0 0 1.4rem;
+      text-wrap: pretty;
+      max-width: 62ch;
     }}
-    .cinema-volume-bar {{
+    /* IDENTITY INPUT ON SCENE 1 */
+    .cinema-identity-box {{
+      display: none;
+      margin: 0 0 1.4rem;
+      padding: 1rem 1.15rem;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }}
+    .cinema-identity-box.active {{
+      display: block;
+    }}
+    .cinema-identity-label {{
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: #e2a28b;
+      margin-bottom: 0.55rem;
+    }}
+    .cinema-identity-input {{
+      width: 100%;
+      box-sizing: border-box;
+      background: rgba(11, 14, 13, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 10px;
+      padding: 0.72rem 0.95rem;
+      color: #ffffff;
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 500;
+      outline: none;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }}
+    .cinema-identity-input::placeholder {{
+      color: rgba(244, 246, 248, 0.66);
+    }}
+    .cinema-identity-input:focus {{
+      border-color: #d97757;
+      box-shadow: 0 0 0 3px rgba(217, 119, 87, 0.22);
+    }}
+    .cinema-identity-hint {{
+      margin: 0.48rem 0 0;
+      font-size: 0.8rem;
+      color: rgba(244, 246, 248, 0.64);
+    }}
+    .cinema-identity-hint.error {{
+      color: #f59e8b;
+    }}
+
+    /* INCOMING CALL PHONE MODE */
+    .cinema-call-banner {{
       display: none;
       align-items: center;
+      justify-content: space-between;
       gap: 0.75rem;
       padding: 0.65rem 0.95rem;
-      border-radius: 10px;
-      background: rgba(158, 60, 34, 0.18);
-      border: 1px solid rgba(217, 155, 130, 0.4);
-      margin-bottom: 1.1rem;
+      border-radius: 12px;
+      background: rgba(180, 67, 37, 0.2);
+      border: 1px solid rgba(226, 162, 139, 0.42);
+      margin-bottom: 1.25rem;
       font-family: var(--mono);
-      font-size: 0.78rem;
-      color: #f4d6c8;
+      font-size: 0.76rem;
+      color: #f9ddd2;
     }}
-    .cinema-volume-bar.active {{
+    .cinema-call-banner.active {{
       display: flex;
+    }}
+    .cinema-call-banner.connected {{
+      background: rgba(25, 118, 74, 0.22);
+      border-color: rgba(52, 211, 153, 0.42);
+      color: #d1fae5;
     }}
     .cinema-eq {{
       display: inline-flex;
       align-items: flex-end;
       gap: 3px;
       height: 16px;
+      flex-shrink: 0;
     }}
     .cinema-eq span {{
       width: 3px;
-      background: #e07a5f;
+      background: #34d399;
       border-radius: 2px;
-      animation: eqPulse 620ms ease-in-out infinite alternate;
+      animation: eqPulse 560ms ease-in-out infinite alternate;
     }}
-    .cinema-eq span:nth-child(2) {{ animation-delay: 140ms; }}
-    .cinema-eq span:nth-child(3) {{ animation-delay: 280ms; }}
-    .cinema-eq span:nth-child(4) {{ animation-delay: 90ms; }}
+    .cinema-eq span:nth-child(2) {{ animation-delay: 120ms; }}
+    .cinema-eq span:nth-child(3) {{ animation-delay: 260ms; }}
+    .cinema-eq span:nth-child(4) {{ animation-delay: 80ms; }}
+    .cinema-eq span:nth-child(5) {{ animation-delay: 200ms; }}
     @keyframes eqPulse {{
       from {{ height: 4px; }}
       to {{ height: 16px; }}
     }}
+    .cinema-call-ring-stage {{
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0.75rem 0 1.2rem;
+    }}
+    .cinema-call-ring-stage.active {{
+      display: flex;
+    }}
+    .call-avatar-halo {{
+      position: relative;
+      width: 136px;
+      height: 136px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.15rem;
+    }}
+    .call-ring-wave {{
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      border: 2px solid rgba(52, 211, 153, 0.55);
+      animation: callRingExpand 1.9s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+    }}
+    .call-ring-wave.w2 {{
+      animation-delay: 0.65s;
+    }}
+    @keyframes callRingExpand {{
+      0% {{ transform: scale(0.84); opacity: 0.85; }}
+      100% {{ transform: scale(1.42); opacity: 0; }}
+    }}
+    #cinema-call-avatar {{
+      width: 112px;
+      height: 112px;
+      border-radius: 999px;
+      border: 2px solid rgba(52, 211, 153, 0.75);
+      background: #17211d;
+      position: relative;
+      z-index: 2;
+      animation: phoneVibrate 2.2s ease-in-out infinite;
+    }}
+    @keyframes phoneVibrate {{
+      0%, 72%, 100% {{ transform: rotate(0deg); }}
+      76% {{ transform: rotate(-3deg); }}
+      80% {{ transform: rotate(3deg); }}
+      84% {{ transform: rotate(-2.5deg); }}
+      88% {{ transform: rotate(2.5deg); }}
+      92% {{ transform: rotate(0deg); }}
+    }}
+    .call-caller-name {{
+      font-family: var(--serif);
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin: 0 0 0.25rem;
+    }}
+    .call-caller-sub {{
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: rgba(244, 246, 248, 0.68);
+      margin-bottom: 1.35rem;
+    }}
+    .call-ring-controls {{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      width: 100%;
+    }}
+    .call-btn-answer {{
+      background: #146c43;
+      color: #ffffff;
+      border: 1px solid #2ea36b;
+      padding: 0.82rem 1.7rem;
+      border-radius: 999px;
+      font-family: var(--sans);
+      font-size: 0.96rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
+      transition: background-color 140ms ease, transform 100ms ease;
+    }}
+    @media (hover: hover) {{
+      .call-btn-answer:hover {{
+        background: #115c39;
+        transform: translateY(-1px);
+      }}
+    }}
+    .call-btn-answer:active {{
+      transform: scale(0.98);
+    }}
+    .call-btn-decline {{
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(244, 246, 248, 0.84);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 0.82rem 1.25rem;
+      border-radius: 999px;
+      font-family: var(--sans);
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 140ms ease, transform 100ms ease;
+    }}
+    @media (hover: hover) {{
+      .call-btn-decline:hover {{
+        background: rgba(185, 56, 44, 0.28);
+        border-color: rgba(248, 113, 113, 0.55);
+        color: #ffffff;
+      }}
+    }}
+    .call-btn-decline:active {{
+      transform: scale(0.98);
+    }}
+    .call-decline-tease {{
+      margin-top: 0.85rem;
+      min-height: 1.2rem;
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      color: #f3b39c;
+    }}
+
+    /* LIVE STREAMING TRANSCRIPT BOX */
+    .cinema-stream-box {{
+      display: none;
+      margin: 0 0 1.4rem;
+      padding: 1.15rem 1.25rem;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(52, 211, 153, 0.26);
+    }}
+    .cinema-stream-box.active {{
+      display: block;
+    }}
+    .cinema-stream-meta {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      margin-bottom: 0.7rem;
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      color: #9ae6c5;
+      font-variant-numeric: tabular-nums;
+    }}
+    .cinema-stream-text {{
+      font-family: var(--serif);
+      font-size: 1.14rem;
+      line-height: 1.68;
+      color: #f4f6f8;
+      margin: 0;
+      min-height: 5.5rem;
+      text-wrap: pretty;
+    }}
+    .stream-caret {{
+      display: inline-block;
+      width: 0.52ch;
+      height: 1.08em;
+      background: #34d399;
+      margin-left: 3px;
+      vertical-align: -2px;
+      animation: caretBlink 680ms steps(2) infinite;
+    }}
+    @keyframes caretBlink {{
+      0%, 100% {{ opacity: 1; }}
+      50% {{ opacity: 0; }}
+    }}
+
     .cinema-actions {{
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
-      gap: 0.85rem;
+      gap: 0.7rem;
       flex-wrap: wrap;
       padding-top: 1rem;
-      border-top: 1px solid rgba(244, 241, 234, 0.12);
-    }}
-    .cinema-dots {{
-      display: flex;
-      gap: 0.45rem;
-      align-items: center;
-    }}
-    .cinema-dot {{
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: rgba(244, 241, 234, 0.24);
-      transition: width 180ms ease, background-color 180ms ease;
-    }}
-    .cinema-dot.active {{
-      width: 24px;
-      background: #d97757;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
     }}
     .cinema-btn-primary {{
       background: #c85a3a;
       color: #ffffff;
       border: 1px solid #d97757;
-      padding: 0.62rem 1.3rem;
+      padding: 0.65rem 1.25rem 0.65rem 1.35rem;
       border-radius: 10px;
       font-family: var(--sans);
       font-size: 0.92rem;
       font-weight: 600;
       cursor: pointer;
-      transition: background-color 140ms ease, transform 120ms ease;
+      transition: background-color 140ms ease, transform 100ms ease;
     }}
-    .cinema-btn-primary:hover {{
-      background: #b14a2c;
-      transform: translateY(-1px);
+    @media (hover: hover) {{
+      .cinema-btn-primary:hover {{
+        background: #b14a2c;
+        transform: translateY(-1px);
+      }}
+    }}
+    .cinema-btn-primary:active {{
+      transform: scale(0.98);
     }}
     .cinema-btn-ghost {{
       background: transparent;
-      color: rgba(244, 241, 234, 0.78);
-      border: 1px solid rgba(244, 241, 234, 0.22);
-      padding: 0.58rem 1rem;
+      color: rgba(244, 246, 248, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      padding: 0.6rem 1.05rem;
       border-radius: 10px;
       font-family: var(--sans);
-      font-size: 0.85rem;
+      font-size: 0.86rem;
       font-weight: 500;
       cursor: pointer;
+      transition: border-color 140ms ease, color 140ms ease, transform 100ms ease;
     }}
-    .cinema-btn-ghost:hover {{
-      color: #ffffff;
-      border-color: rgba(244, 241, 234, 0.45);
+    @media (hover: hover) {{
+      .cinema-btn-ghost:hover {{
+        color: #ffffff;
+        border-color: rgba(255, 255, 255, 0.45);
+      }}
+    }}
+    .cinema-btn-ghost:active {{
+      transform: scale(0.98);
+    }}
+    @media (prefers-reduced-motion: reduce) {{
+      .cinema-frame, .call-ring-wave, #cinema-call-avatar, .cinema-eq span, .cinema-live-dot {{
+        animation: none !important;
+      }}
     }}
 
     /* SURPRISE DISCOVERY TOAST (BOTTOM-RIGHT) */
@@ -1625,7 +1902,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
           </div>
         </div>
         <p id="karpathy-call-preview" style="margin:0.35rem 0 0.45rem;font-size:0.8rem;color:var(--ink-soft);line-height:1.4;text-wrap:pretty;">
-          “Yo Ashwin! I dropped you a pin outside our secret self-expanding AI campus. Walk right up the South Road and head inside!”
+          “Incoming encrypted line from Andrej Karpathy — answer to hear your next mission.”
         </p>
         <div style="display:flex;gap:0.45rem;">
           <button class="thin-btn thin-btn-primary" style="flex:1;justify-content:center;" id="karpathy-call-action-btn" onclick="acceptKarpathyCall()">
@@ -1665,24 +1942,75 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
   <div class="cinema-backdrop" id="cinema-backdrop">
     <div class="cinema-frame" id="cinema-frame">
       <div class="cinema-top-row">
-        <span class="cinema-step-tag" id="cinema-step-tag">PROLOGUE · SCENE 01 / 04</span>
+        <span class="cinema-step-tag" id="cinema-step-tag">SOUTH APPROACH ROAD · 2032</span>
         <button class="cinema-skip" onclick="finishIntroCinema(false)">Skip intro</button>
       </div>
-      <div class="cinema-volume-bar" id="cinema-volume-bar">
-        <div class="cinema-eq"><span></span><span></span><span></span><span></span></div>
-        <span>OOPS — WHAT'S THAT VOLUME?! INCOMING ENCRYPTED CALL ON YOUR POCKET COMMUNICATOR...</span>
+
+      <!-- Surprise call alert / live timer banner -->
+      <div class="cinema-call-banner" id="cinema-call-banner">
+        <div style="display:flex;align-items:center;gap:0.65rem;">
+          <div class="cinema-eq" id="cinema-eq"><span></span><span></span><span></span><span></span><span></span></div>
+          <span id="cinema-call-banner-text">OOPS — WHAT'S THAT VOLUME?! INCOMING ENCRYPTED CALL…</span>
+        </div>
+        <span id="cinema-call-timer" style="font-variant-numeric:tabular-nums;font-weight:700;">RINGING</span>
       </div>
-      <div class="cinema-visual-row">
-        <canvas id="cinema-portrait-canvas" width="192" height="192"></canvas>
-        <div>
-          <h1 class="cinema-headline" id="cinema-headline">Meet your alter ego.</h1>
-          <div style="font-family:var(--mono);font-size:0.78rem;color:rgba(244,241,234,0.62);" id="cinema-submeta">SOUTH APPROACH ROAD · BITSBYBLOCKS AI UNIVERSITY</div>
+
+      <!-- Standard narrative scene block -->
+      <div id="cinema-story-stage">
+        <div class="cinema-visual-row">
+          <div class="cinema-portrait-shell">
+            <canvas id="cinema-portrait-canvas" width="192" height="192"></canvas>
+          </div>
+          <div>
+            <h1 class="cinema-headline" id="cinema-headline">Meet your alter ego.</h1>
+            <div class="cinema-submeta" id="cinema-submeta">SOUTH APPROACH ROAD · BITSBYBLOCKS AI UNIVERSITY</div>
+          </div>
+        </div>
+        <p class="cinema-body" id="cinema-body"></p>
+
+        <!-- Ask user identity once & persist to localStorage -->
+        <div class="cinema-identity-box" id="cinema-identity-box">
+          <label class="cinema-identity-label" for="cinema-name-input">Who are you on this campus?</label>
+          <input
+            type="text"
+            id="cinema-name-input"
+            class="cinema-identity-input"
+            maxlength="28"
+            autocomplete="given-name"
+            placeholder="Type your name or handle…"
+            onkeydown="if(event.key==='Enter'){{event.preventDefault();handleCinemaAction('next');}}"
+          />
+          <p class="cinema-identity-hint" id="cinema-identity-hint">Saved locally in your browser. Karpathy &amp; campus mentors will address you directly.</p>
+        </div>
+
+        <!-- Live token-streamed Karpathy call transcript (shown after clicking Answer Call) -->
+        <div class="cinema-stream-box" id="cinema-stream-box">
+          <div class="cinema-stream-meta">
+            <span id="cinema-stream-status">● LIVE VOICE STREAM</span>
+            <span id="cinema-stream-tokens">0 tokens</span>
+          </div>
+          <p class="cinema-stream-text" id="cinema-stream-text"></p>
         </div>
       </div>
-      <p class="cinema-body" id="cinema-body"></p>
-      <div class="cinema-actions">
-        <div class="cinema-dots" id="cinema-dots"></div>
-        <div style="display:flex;gap:0.6rem;align-items:center;" id="cinema-btn-row"></div>
+
+      <!-- Authentic Incoming Phone Call Screen (before clicking Answer Call) -->
+      <div class="cinema-call-ring-stage" id="cinema-call-ring-stage">
+        <div class="call-avatar-halo">
+          <span class="call-ring-wave"></span>
+          <span class="call-ring-wave w2"></span>
+          <canvas id="cinema-call-avatar" width="224" height="224"></canvas>
+        </div>
+        <h2 class="call-caller-name">Andrej Karpathy</h2>
+        <div class="call-caller-sub">Founder · Encrypted Pocket Communicator</div>
+        <div class="call-ring-controls">
+          <button class="call-btn-decline" type="button" onclick="teaseDeclineKarpathy()">✕ Ignore</button>
+          <button class="call-btn-answer" type="button" id="cinema-answer-btn" onclick="answerKarpathyIntroCall()">📞 Answer Call</button>
+        </div>
+        <div class="call-decline-tease" id="call-decline-tease"></div>
+      </div>
+
+      <div class="cinema-actions" id="cinema-actions">
+        <div style="display:flex;gap:0.65rem;align-items:center;flex-wrap:wrap;justify-content:flex-end;width:100%;" id="cinema-btn-row"></div>
       </div>
     </div>
   </div>
@@ -1743,8 +2071,15 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       <p style="margin:0;font-size:0.84rem;color:var(--ink-soft);">
         This university constructs new rooms and labs automatically as frontier AI papers drop. Click any unlocked stop to walk there.
       </p>
+      <div style="padding:0.7rem 0.85rem;border-radius:12px;background:var(--surface-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
+        <div>
+          <div style="font-family:var(--mono);font-size:0.76rem;color:var(--muted);text-transform:uppercase;">Campus ID</div>
+          <div style="font-weight:700;font-size:0.95rem;color:var(--ink);" id="drawer-player-name">Explorer</div>
+        </div>
+        <button class="thin-btn" onclick="toggleTeleportDrawer(false);openIntroCinema(0);">▶ Replay Intro</button>
+      </div>
       <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-        <button class="btn" style="flex:1;justify-content:center;" onclick="toggleTeleportDrawer(false);openIntroCinema(0);">▶ Replay Intro Story</button>
+        <button class="btn" id="btn-reset-scratch" style="flex:1;justify-content:center;color:var(--terracotta);border-color:rgba(158,60,34,0.32);" onclick="handleResetFromScratch(this)">↺ Reset &amp; Start from Scratch</button>
       </div>
       <div id="teleport-list" style="display:flex;flex-direction:column;gap:0.55rem;"></div>
     </aside>
@@ -1756,8 +2091,42 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
 
     const STORAGE_KEY = "bits_uni_cleared_v5";
     const INTRO_SEEN_KEY = "bits_uni_intro_seen_v6";
+    const PLAYER_NAME_KEY = "bits_uni_player_name_v6";
     let soundMuted = false;
     let audioCtx = null;
+    let ringtoneInterval = null;
+    let karpathyStreamTimer = null;
+    let karpathyCallClock = null;
+    let toastStreamTimer = null;
+
+    function getPlayerName() {{
+      const saved = (localStorage.getItem(PLAYER_NAME_KEY) || "").trim();
+      return saved || "Explorer";
+    }}
+
+    function hasPlayerName() {{
+      return !!(localStorage.getItem(PLAYER_NAME_KEY) || "").trim();
+    }}
+
+    function setPlayerName(raw) {{
+      const clean = (raw || "").trim().slice(0, 28);
+      if (clean) {{
+        localStorage.setItem(PLAYER_NAME_KEY, clean);
+      }}
+      syncPlayerIdentityUI();
+    }}
+
+    function personalize(text) {{
+      const name = getPlayerName();
+      return String(text || "")
+        .replaceAll("{{PLAYER_UPPER}}", name.toUpperCase())
+        .replaceAll("{{PLAYER}}", name);
+    }}
+
+    function syncPlayerIdentityUI() {{
+      const el = document.getElementById("drawer-player-name");
+      if (el) el.innerText = getPlayerName();
+    }}
 
     function getAudioCtx() {{
       if (soundMuted) return null;
@@ -1777,7 +2146,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       osc.type = type;
       osc.frequency.setValueAtTime(freq, now);
       g.gain.setValueAtTime(0.0001, now);
-      g.gain.exponentialRampToValueAtTime(gainVal, now + 0.02);
+      g.gain.exponentialRampToValueAtTime(gainVal, now + 0.018);
       g.gain.exponentialRampToValueAtTime(0.0001, now + dur);
       osc.connect(g);
       g.connect(ac.destination);
@@ -1785,13 +2154,45 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       osc.stop(now + dur + 0.02);
     }}
 
+    function playPhoneRingBurst() {{
+      if (soundMuted) return;
+      // Dual-chime modern phone ringtone burst (harmonic pair)
+      const hits = [
+        [784.0, 0.13, 0.00],
+        [987.77, 0.13, 0.00],
+        [784.0, 0.13, 0.16],
+        [1046.5, 0.15, 0.16],
+        [784.0, 0.13, 0.44],
+        [987.77, 0.13, 0.44],
+        [1174.66, 0.22, 0.60]
+      ];
+      hits.forEach(([f, d, o]) => playTone(f, d, o, 0.065, "triangle"));
+    }}
+
+    function startRingtoneLoop() {{
+      stopRingtoneLoop();
+      playPhoneRingBurst();
+      ringtoneInterval = setInterval(() => {{
+        if (!soundMuted) playPhoneRingBurst();
+      }}, 2150);
+    }}
+
+    function stopRingtoneLoop() {{
+      if (ringtoneInterval) {{
+        clearInterval(ringtoneInterval);
+        ringtoneInterval = null;
+      }}
+    }}
+
     function playSfx(kind) {{
       if (soundMuted) return;
       if (kind === "ring") {{
-        playTone(660, 0.16, 0.00, 0.09, "triangle");
-        playTone(880, 0.16, 0.18, 0.09, "triangle");
-        playTone(660, 0.16, 0.42, 0.09, "triangle");
-        playTone(990, 0.22, 0.60, 0.10, "triangle");
+        playPhoneRingBurst();
+      }} else if (kind === "pickup") {{
+        playTone(587.33, 0.09, 0.00, 0.07, "sine");
+        playTone(880.00, 0.14, 0.07, 0.075, "sine");
+      }} else if (kind === "tok") {{
+        playTone(620 + Math.random() * 140, 0.025, 0.0, 0.015, "sine");
       }} else if (kind === "whistle") {{
         playTone(1350, 0.18, 0.0, 0.06, "sine");
         playTone(1520, 0.24, 0.16, 0.06, "sine");
@@ -1807,6 +2208,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
 
     function toggleSoundMute() {{
       soundMuted = !soundMuted;
+      if (soundMuted) stopRingtoneLoop();
       const btn = document.getElementById("btn-sound-toggle");
       if (btn) btn.innerText = soundMuted ? "🔇 Muted" : "🔊 SFX";
     }}
@@ -1814,7 +2216,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     function showSurpriseToast(kicker, body) {{
       playSfx("surprise");
       document.getElementById("surprise-kicker").innerText = kicker;
-      document.getElementById("surprise-body").innerText = body;
+      document.getElementById("surprise-body").innerText = personalize(body);
       const el = document.getElementById("surprise-toast");
       el.classList.add("open");
       clearTimeout(window._surpriseTimer);
@@ -1822,89 +2224,271 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     }}
 
     // =========================================================================
-    // CINEMATIC FIRST-VISIT STORY PROLOGUE ("MEET YOUR ALTER EGO" + KARPATHY INTERRUPT)
+    // INTERACTIVE GAME PROLOGUE (IDENTITY + CHOICE + REAL INCOMING KARPATHY CALL)
     // =========================================================================
     const CINEMA_SCENES = [
       {{
-        tag: "PROLOGUE · SCENE 01 / 04",
+        kicker: "SOUTH APPROACH ROAD · 2032",
         portrait: "player",
         headline: "Meet your alter ego.",
-        submeta: "ASHWIN · SOUTH APPROACH ROAD · BITSBYBLOCKS AI UNIVERSITY",
+        submeta: "BITSBYBLOCKS AI UNIVERSITY",
         body: "This is you. You use AI every day — maybe you prompt it, wire up APIs, or ship agents with it. From the outside, it feels like pure magic.",
-        ringing: false,
+        askIdentity: true,
+        mode: "story",
         buttons: [
-          {{ label: "Continue →", action: "next", primary: true }}
+          {{ label: "Step forward →", action: "next", primary: true }}
         ]
       }},
       {{
-        tag: "PROLOGUE · SCENE 02 / 04",
+        kicker: "UNDER THE HOOD",
         portrait: "player",
-        headline: "Now be honest for ten seconds.",
+        headline: "Now be honest for ten seconds, {{PLAYER}}.",
         submeta: "THE APPLICATION LAYER VS. FIRST PRINCIPLES",
         body: "How deeply do you actually know what runs under the hood? When a model counts two r's in 'strawberry', when Hindi costs 3.3x more tokens, when cosine search returns an antonym, or when an agent silently forgets Turn 1 — do you guess, or do you see the machinery?",
-        ringing: false,
+        mode: "story",
         buttons: [
           {{ label: "← Back", action: "prev", primary: false }},
           {{ label: "Keep going →", action: "next", primary: true }}
         ]
       }},
       {{
-        tag: "PROLOGUE · SCENE 03 / 04",
+        kicker: "THE CROSSROADS",
         portrait: "player",
         headline: "Normie at the UI, or builder at the core?",
-        submeta: "CHOOSE YOUR TRACK",
+        submeta: "YOUR CALL, {{PLAYER_UPPER}}",
         body: "If you're happy staying a normie clicking buttons at the application layer, honestly — don't bother. Close the tab and keep prompting. No hard feelings. But if you really, really want to make it in AI — to understand, debug, and build from first principles — step onto the South Road.",
-        ringing: false,
+        mode: "story",
         buttons: [
           {{ label: "I'm happy being a normie (just peek around)", action: "skip", primary: false }},
           {{ label: "I'm in — take me under the hood →", action: "next", primary: true }}
         ]
       }},
       {{
-        tag: "SURPRISE INTERRUPT · SCENE 04 / 04",
+        kicker: "INCOMING ENCRYPTED CALL",
         portrait: "karpathy",
-        headline: "“Yo Ashwin — sorry to hijack your speakers!”",
-        submeta: "ANDREJ KARPATHY · FOUNDER · POCKET COMMUNICATOR",
-        body: "“Oops, caught you mid-scroll! Look: we designed Bits University for one reason. Passive threads and shallow tutorials don't make AI experts — touching the real logits, BPE merges, vector angles, and KV caches yourself does. Finish every checkpoint, steal the copyable Agent Prompts inside each lab to push even further, and remember rule #1 of this campus: having fun is non-negotiable. Now walk up the South Road — Officer Rajan is waiting at the boom gate!”",
-        ringing: true,
-        buttons: [
-          {{ label: "Answer & Walk to Officer Rajan →", action: "start_game", primary: true }}
-        ]
+        headline: "Andrej Karpathy",
+        submeta: "FOUNDER · POCKET COMMUNICATOR",
+        mode: "incoming_call",
+        streamScript: "“Yo {{PLAYER}} — sorry to hijack your speakers! Look: we built Bits University for one reason. Passive threads and shallow tutorials don't make AI experts — touching the real logits, BPE merges, vector angles, and KV caches yourself does. Finish every checkpoint, steal the copyable Agent Prompts inside each lab to push even further, and remember rule #1 of this campus: having fun is non-negotiable. Now walk up the South Road — Officer Rajan is waiting at the boom gate!”",
+        buttons: []
       }}
     ];
 
     let cinemaIdx = 0;
+    let cinemaCallState = "idle"; // idle | ringing | streaming | done
+
+    function stopCinemaCallEffects() {{
+      stopRingtoneLoop();
+      if (karpathyStreamTimer) {{
+        clearTimeout(karpathyStreamTimer);
+        karpathyStreamTimer = null;
+      }}
+      if (karpathyCallClock) {{
+        clearInterval(karpathyCallClock);
+        karpathyCallClock = null;
+      }}
+    }}
+
+    function tokenizeForStream(text) {{
+      // Split into realistic LLM-like word/punctuation token chunks
+      return text.match(/\S+\s*/g) || [text];
+    }}
 
     function openIntroCinema(idx = 0) {{
+      stopCinemaCallEffects();
       cinemaIdx = idx;
+      cinemaCallState = "idle";
+
       const sc = CINEMA_SCENES[cinemaIdx] || CINEMA_SCENES[0];
-      document.getElementById("cinema-step-tag").innerText = sc.tag;
-      document.getElementById("cinema-headline").innerText = sc.headline;
-      document.getElementById("cinema-submeta").innerText = sc.submeta;
-      document.getElementById("cinema-body").innerText = sc.body;
-      document.getElementById("cinema-volume-bar").classList.toggle("active", !!sc.ringing);
-      document.getElementById("cinema-frame").classList.toggle("ringing", !!sc.ringing);
+      const frame = document.getElementById("cinema-frame");
+      const tagEl = document.getElementById("cinema-step-tag");
+      const banner = document.getElementById("cinema-call-banner");
+      const bannerText = document.getElementById("cinema-call-banner-text");
+      const timerEl = document.getElementById("cinema-call-timer");
+      const storyStage = document.getElementById("cinema-story-stage");
+      const ringStage = document.getElementById("cinema-call-ring-stage");
+      const idBox = document.getElementById("cinema-identity-box");
+      const streamBox = document.getElementById("cinema-stream-box");
+      const actionsRow = document.getElementById("cinema-actions");
+      const btnRow = document.getElementById("cinema-btn-row");
+      const teaseEl = document.getElementById("call-decline-tease");
 
-      document.getElementById("cinema-dots").innerHTML = CINEMA_SCENES.map((_, i) =>
-        `<span class="cinema-dot ${{i === cinemaIdx ? 'active' : ''}}"></span>`
-      ).join("");
+      frame.classList.remove("ringing", "answered");
+      banner.classList.remove("active", "connected");
+      ringStage.classList.remove("active");
+      streamBox.classList.remove("active");
+      idBox.classList.remove("active");
+      storyStage.style.display = "block";
+      actionsRow.style.display = "flex";
+      if (teaseEl) teaseEl.innerText = "";
 
-      document.getElementById("cinema-btn-row").innerHTML = sc.buttons.map(b =>
+      if (sc.mode === "incoming_call") {{
+        cinemaCallState = "ringing";
+        frame.classList.add("ringing");
+        tagEl.innerHTML = `<span class="cinema-live-dot"></span><span>${{sc.kicker}}</span>`;
+        banner.classList.add("active");
+        bannerText.innerText = "OOPS — WHAT'S THAT VOLUME?! POCKET COMMUNICATOR RINGING…";
+        timerEl.innerText = "RINGING";
+        storyStage.style.display = "none";
+        ringStage.classList.add("active");
+        actionsRow.style.display = "none";
+        document.getElementById("cinema-backdrop").classList.add("open");
+        startRingtoneLoop();
+        return;
+      }}
+
+      tagEl.innerText = sc.kicker;
+      document.getElementById("cinema-headline").innerText = personalize(sc.headline);
+      document.getElementById("cinema-submeta").innerText = personalize(sc.submeta);
+      document.getElementById("cinema-body").innerText = personalize(sc.body);
+      document.getElementById("cinema-body").style.display = "block";
+
+      if (sc.askIdentity) {{
+        idBox.classList.add("active");
+        const input = document.getElementById("cinema-name-input");
+        const hint = document.getElementById("cinema-identity-hint");
+        input.value = hasPlayerName() ? getPlayerName() : "";
+        hint.classList.remove("error");
+        hint.innerText = "Saved locally in your browser. Karpathy & campus mentors will address you directly.";
+        setTimeout(() => input.focus(), 80);
+      }}
+
+      btnRow.innerHTML = sc.buttons.map(b =>
         `<button class="${{b.primary ? 'cinema-btn-primary' : 'cinema-btn-ghost'}}" onclick="handleCinemaAction('${{b.action}}')">${{b.label}}</button>`
       ).join("");
 
       document.getElementById("cinema-backdrop").classList.add("open");
-      if (sc.ringing) {{
-        playSfx("ring");
+    }}
+
+    function teaseDeclineKarpathy() {{
+      playSfx("whistle");
+      const teaseEl = document.getElementById("call-decline-tease");
+      if (teaseEl) {{
+        teaseEl.innerText = `Nice try, ${{getPlayerName()}} — Andrej won't stop ringing until you pick up.`;
       }}
+    }}
+
+    function finishKarpathyStreamInstant() {{
+      const sc = CINEMA_SCENES[cinemaIdx];
+      if (!sc || !sc.streamScript) return;
+      if (karpathyStreamTimer) {{
+        clearTimeout(karpathyStreamTimer);
+        karpathyStreamTimer = null;
+      }}
+      const fullText = personalize(sc.streamScript);
+      const tokens = tokenizeForStream(fullText);
+      document.getElementById("cinema-stream-text").textContent = fullText;
+      document.getElementById("cinema-stream-status").innerText = "● CALL READY · STREAM COMPLETE";
+      document.getElementById("cinema-stream-tokens").innerText = `${{tokens.length}} tokens`;
+      cinemaCallState = "done";
+      document.getElementById("cinema-btn-row").innerHTML =
+        `<button class="cinema-btn-primary" onclick="handleCinemaAction('start_game')">Walk Up South Road to Officer Rajan →</button>`;
+    }}
+
+    function answerKarpathyIntroCall() {{
+      stopRingtoneLoop();
+      playSfx("pickup");
+      cinemaCallState = "streaming";
+
+      const sc = CINEMA_SCENES[cinemaIdx];
+      const frame = document.getElementById("cinema-frame");
+      const tagEl = document.getElementById("cinema-step-tag");
+      const banner = document.getElementById("cinema-call-banner");
+      const bannerText = document.getElementById("cinema-call-banner-text");
+      const timerEl = document.getElementById("cinema-call-timer");
+      const storyStage = document.getElementById("cinema-story-stage");
+      const ringStage = document.getElementById("cinema-call-ring-stage");
+      const streamBox = document.getElementById("cinema-stream-box");
+      const streamTextEl = document.getElementById("cinema-stream-text");
+      const streamStatusEl = document.getElementById("cinema-stream-status");
+      const streamTokensEl = document.getElementById("cinema-stream-tokens");
+      const actionsRow = document.getElementById("cinema-actions");
+      const btnRow = document.getElementById("cinema-btn-row");
+
+      frame.classList.remove("ringing");
+      frame.classList.add("answered");
+      ringStage.classList.remove("active");
+      storyStage.style.display = "block";
+      document.getElementById("cinema-headline").innerText = "Andrej Karpathy";
+      document.getElementById("cinema-submeta").innerText = "FOUNDER · ENCRYPTED POCKET COMMUNICATOR";
+      document.getElementById("cinema-body").style.display = "none";
+
+      tagEl.innerHTML = `<span class="cinema-live-dot"></span><span>LIVE CALL · CONNECTED</span>`;
+      banner.classList.add("active", "connected");
+      bannerText.innerText = "AUDIO STREAMING LIVE · TOKEN TRANSCRIPT";
+      timerEl.innerText = "00:00";
+
+      let elapsedSec = 0;
+      karpathyCallClock = setInterval(() => {{
+        elapsedSec += 1;
+        const mm = String(Math.floor(elapsedSec / 60)).padStart(2, "0");
+        const ss = String(elapsedSec % 60).padStart(2, "0");
+        timerEl.innerText = `${{mm}}:${{ss}}`;
+      }}, 1000);
+
+      streamBox.classList.add("active");
+      streamStatusEl.innerText = "● STREAMING TOKENS…";
+      streamTokensEl.innerText = "0 tokens";
+      streamTextEl.innerHTML = `<span class="stream-caret"></span>`;
+
+      actionsRow.style.display = "flex";
+      btnRow.innerHTML = `
+        <button class="cinema-btn-ghost" onclick="finishKarpathyStreamInstant()">Finish stream</button>
+        <button class="cinema-btn-primary" onclick="handleCinemaAction('start_game')">Walk Up South Road to Officer Rajan →</button>
+      `;
+
+      const fullText = personalize(sc.streamScript);
+      const tokens = tokenizeForStream(fullText);
+      const startTs = performance.now();
+      let idx = 0;
+      let acc = "";
+
+      function stepToken() {{
+        if (cinemaCallState !== "streaming") return;
+        if (idx >= tokens.length) {{
+          finishKarpathyStreamInstant();
+          return;
+        }}
+        const tok = tokens[idx++];
+        acc += tok;
+        streamTextEl.innerHTML = `${{acc.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}}<span class="stream-caret"></span>`;
+        const secs = Math.max(0.15, (performance.now() - startTs) / 1000);
+        const tps = Math.round(idx / secs);
+        streamTokensEl.innerText = `${{idx}} tokens · ${{tps}} tok/s`;
+        if (idx % 4 === 1) playSfx("tok");
+
+        const trimmed = tok.trim();
+        let delay = 48 + Math.random() * 34;
+        if (/[.!?]$/.test(trimmed)) delay = 220;
+        else if (/[,:;—]$/.test(trimmed)) delay = 135;
+        karpathyStreamTimer = setTimeout(stepToken, delay);
+      }}
+      karpathyStreamTimer = setTimeout(stepToken, 120);
     }}
 
     function handleCinemaAction(action) {{
       if (action === "next") {{
+        const sc = CINEMA_SCENES[cinemaIdx];
+        if (sc && sc.askIdentity) {{
+          const input = document.getElementById("cinema-name-input");
+          const hint = document.getElementById("cinema-identity-hint");
+          const val = (input ? input.value : "").trim();
+          if (!val) {{
+            if (hint) {{
+              hint.classList.add("error");
+              hint.innerText = "Drop your name or handle first so Karpathy & Officer Rajan know who's arriving.";
+            }}
+            if (input) input.focus();
+            return;
+          }}
+          setPlayerName(val);
+        }}
         openIntroCinema(Math.min(CINEMA_SCENES.length - 1, cinemaIdx + 1));
       }} else if (action === "prev") {{
         openIntroCinema(Math.max(0, cinemaIdx - 1));
       }} else if (action === "skip") {{
+        const input = document.getElementById("cinema-name-input");
+        if (input && input.value.trim()) setPlayerName(input.value.trim());
         finishIntroCinema(false);
       }} else if (action === "start_game") {{
         finishIntroCinema(true);
@@ -1912,12 +2496,56 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     }}
 
     function finishIntroCinema(walkToGate) {{
+      stopCinemaCallEffects();
       localStorage.setItem(INTRO_SEEN_KEY, "1");
       document.getElementById("cinema-backdrop").classList.remove("open");
+      syncPlayerIdentityUI();
       if (walkToGate && !isGateOpen()) {{
         startWalkToGateAmbush();
       }}
     }}
+
+    let resetConfirmTimer = null;
+    function handleResetFromScratch(btnEl) {{
+      if (!btnEl.dataset.armed) {{
+        btnEl.dataset.armed = "1";
+        btnEl.innerText = "⚠ Tap again to wipe progress & restart";
+        clearTimeout(resetConfirmTimer);
+        resetConfirmTimer = setTimeout(() => {{
+          delete btnEl.dataset.armed;
+          btnEl.innerText = "↺ Reset & Start from Scratch";
+        }}, 4500);
+        return;
+      }}
+      delete btnEl.dataset.armed;
+      clearTimeout(resetConfirmTimer);
+      btnEl.innerText = "↺ Reset & Start from Scratch";
+
+      // Wipe all saved game & identity keys
+      [STORAGE_KEY, INTRO_SEEN_KEY, PLAYER_NAME_KEY, "bits_uni_intro_seen_v5", "bits_university_cleared_v2"].forEach(k => {{
+        try {{ localStorage.removeItem(k); }} catch (e) {{}}
+      }});
+      clearedIds = new Set();
+      stopCinemaCallEffects();
+      dismissKarpathyToast();
+      closeBookModal();
+      closeRpgDialogue();
+      toggleTeleportDrawer(false);
+
+      // Reset player back to the South Approach Road
+      state.scene = "campus";
+      state.activeHallLevel = 0;
+      state.activeStopId = "l0-what-is-an-llm";
+      state.player.x = 610;
+      state.player.y = 708;
+      state.player.targetX = null;
+      state.player.targetY = null;
+      state.player.pendingCallback = null;
+      syncPlayerIdentityUI();
+      refreshHudAndPins();
+      openIntroCinema(0);
+    }}
+
     let clearedIds = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"));
 
     function saveProgress() {{
@@ -1930,68 +2558,104 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
     }}
 
     // =========================================================================
-    // 3D KARPATHY PERIODIC CALLS & WALK-UP-TO-GATE STORY FLOW
+    // 3D KARPATHY PERIODIC CALLS (RINGING + LIVE TOKEN STREAMING ON ANSWER)
     // =========================================================================
-    // Periodic calls from Andrej Karpathy at key moments in the journey!
     const KARPATHY_CALL_SCRIPTS = {{
       "arrival": {{
-        status: "📲 INCOMING 3D CALL",
-        preview: "“Yo Ashwin! I dropped you the secret pin to our self-expanding AI campus. Walk up the South Road and head inside!”",
+        status: "📲 INCOMING CALL · ANDREJ KARPATHY",
+        preview: "“Yo {{PLAYER}}! I dropped you the secret pin to our self-expanding AI campus. Walk up the South Road and head inside!”",
         btnLabel: "🚶 Walk Up Road to Campus Gate →",
         onAccept: "walkUpToGateAndGetStopped"
       }},
       "after_l0-what-is-an-llm": {{
-        status: "📲 KARPATHY CHECK-IN · GATE CLEARED!",
-        preview: "“Haha, I knew Officer Rajan would ambush you at the boom barrier! Now you know the secret: an LLM is just a 1-word relay runner rolling a Temperature-weighted die. Head west to Maya's Parking Lot — she'll show you why AI can't count the r's in strawberry!”",
+        status: "📲 INCOMING CALL · GATE CLEARED!",
+        preview: "“Haha, I knew Officer Rajan would ambush you at the boom barrier, {{PLAYER}}! Now you know the secret: an LLM is just a 1-word relay runner rolling a Temperature-weighted die. Head west to Maya's Parking Lot — she'll show you why AI can't count the r's in strawberry!”",
         btnLabel: "🅿️ Walk to Maya's Parking Lot →",
         onAccept: "walkNext"
       }},
       "after_l0-tokens": {{
-        status: "📲 KARPATHY CHECK-IN · BARCODES MASTERED",
-        preview: "“3.3x more tokens for Hindi than English — wild, right? Every frontier lab is fighting tokenizer efficiency right now. Next stop: grab a cup of chai with Chef Kabir on the Terrace and see how raw barcode IDs turn into 4D Meaning GPS!”",
+        status: "📲 INCOMING CALL · BARCODES MASTERED",
+        preview: "“3.3x more tokens for Hindi than English — wild, right, {{PLAYER}}? Every frontier lab is fighting tokenizer efficiency right now. Next stop: grab a cup of chai with Chef Kabir on the Terrace and see how raw barcode IDs turn into 4D Meaning GPS!”",
         btnLabel: "☕ Walk to Kabir's Chai Terrace →",
         onAccept: "walkNext"
       }},
       "after_l0-embeddings": {{
-        status: "📲 KARPATHY CHECK-IN · VECTORS UNLOCKED",
-        preview: "“king - man + woman = queen! Once words become coordinates in meaning space, you can search all of human knowledge by flashlight angle. Walk over to Prof. Meera at the Central Quad Fountain — she's running the Amnesia Chef lunch tray experiment!”",
+        status: "📲 INCOMING CALL · VECTORS UNLOCKED",
+        preview: "“king - man + woman = queen! Once words become coordinates in meaning space, {{PLAYER}}, you can search all of human knowledge by flashlight angle. Walk over to Prof. Meera at the Central Quad Fountain — she's running the Amnesia Chef lunch tray experiment!”",
         btnLabel: "⛲ Walk to Meera at Quad Fountain →",
         onAccept: "walkNext"
       }},
       "after_l0-context-window": {{
-        status: "📲 KARPATHY CHECK-IN · QUAD CLEARED!",
-        preview: "“You survived the 24-word Lunch Tray and the Lost-in-the-Middle U-curve! The cranes on the East Lawn just finished all 6 Academic Halls (52 modules — updated for Multimodal, Context Engineering & RLVR/GRPO!). Step inside Hall 0 whenever you're ready!”",
+        status: "📲 INCOMING CALL · QUAD CLEARED!",
+        preview: "“You survived the 24-word Lunch Tray and the Lost-in-the-Middle U-curve, {{PLAYER}}! The cranes on the East Lawn just finished all 6 Academic Halls (52 modules — updated for Multimodal, Context Engineering & RLVR/GRPO!). Step inside Hall 0 whenever you're ready!”",
         btnLabel: "🏛️ Enter Academic Hall 0 →",
         onAccept: "walkNext"
       }},
       "manual": {{
-        status: "📡 LIVE 3D HOLO-CALL · ANDREJ KARPATHY",
-        preview: "“Hey Ashwin! Remember: every time a new paper or model architecture drops, our campus cranes construct a new room automatically. Never memorize jargon — test the toy mechanism in pure Python first!”",
+        status: "📲 INCOMING CALL · ANDREJ KARPATHY",
+        preview: "“Hey {{PLAYER}}! Remember: every time a new paper or model architecture drops, our campus cranes construct a new room automatically. Never memorize jargon — test the toy mechanism in pure Python first!”",
         btnLabel: "🚶 Continue Active Mission →",
         onAccept: "walkNext"
       }}
     }};
 
     let currentKarpathyCallKey = "arrival";
+    let karpathyToastAnswered = false;
 
     function triggerKarpathyCall(callKey) {{
       const script = KARPATHY_CALL_SCRIPTS[callKey] || KARPATHY_CALL_SCRIPTS["manual"];
       currentKarpathyCallKey = callKey;
+      karpathyToastAnswered = false;
+      if (toastStreamTimer) {{
+        clearTimeout(toastStreamTimer);
+        toastStreamTimer = null;
+      }}
       document.getElementById("karpathy-call-status").innerText = script.status;
-      document.getElementById("karpathy-call-preview").innerText = script.preview;
-      document.getElementById("karpathy-call-action-btn").innerText = script.btnLabel;
+      document.getElementById("karpathy-call-preview").innerText = "Ringing on encrypted pocket line…";
+      document.getElementById("karpathy-call-action-btn").innerText = "📞 Answer Call";
       document.getElementById("karpathy-call-toast").classList.add("open");
       state.holoRinging = true;
-      playSfx("ring");
+      startRingtoneLoop();
     }}
 
     function dismissKarpathyToast() {{
+      stopRingtoneLoop();
+      if (toastStreamTimer) {{
+        clearTimeout(toastStreamTimer);
+        toastStreamTimer = null;
+      }}
       document.getElementById("karpathy-call-toast").classList.remove("open");
       state.holoRinging = false;
+      karpathyToastAnswered = false;
     }}
 
     function acceptKarpathyCall() {{
       const script = KARPATHY_CALL_SCRIPTS[currentKarpathyCallKey] || KARPATHY_CALL_SCRIPTS["manual"];
+      if (!karpathyToastAnswered) {{
+        karpathyToastAnswered = true;
+        stopRingtoneLoop();
+        playSfx("pickup");
+        document.getElementById("karpathy-call-status").innerText = "● LIVE STREAM · ANDREJ KARPATHY";
+        document.getElementById("karpathy-call-action-btn").innerText = script.btnLabel;
+        const previewEl = document.getElementById("karpathy-call-preview");
+        const fullText = personalize(script.preview);
+        const tokens = tokenizeForStream(fullText);
+        let i = 0;
+        let acc = "";
+        previewEl.innerHTML = `<span class="stream-caret"></span>`;
+        function pumpToastToken() {{
+          if (!karpathyToastAnswered) return;
+          if (i >= tokens.length) {{
+            previewEl.textContent = fullText;
+            return;
+          }}
+          acc += tokens[i++];
+          previewEl.innerHTML = `${{acc.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}}<span class="stream-caret"></span>`;
+          toastStreamTimer = setTimeout(pumpToastToken, 42 + Math.random() * 28);
+        }}
+        toastStreamTimer = setTimeout(pumpToastToken, 60);
+        return;
+      }}
       dismissKarpathyToast();
       if (script.onAccept === "walkUpToGateAndGetStopped") {{
         startWalkToGateAmbush();
@@ -2029,7 +2693,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         x: 610, y: 610, interactRadius: 95,
         dialogue: [
           {{
-            text: "“🚨 PEEEEEP! WHOA THERE, ASHWIN! Did Karpathy call you and tell you that you could just stroll right through my South Gate?! Not on my watch! Last week I turned away three AI VPs who thought ChatGPT has a tiny philosopher inside. Tell me: what is an LLM actually doing when it replies?”",
+            text: "“🚨 PEEEEEP! WHOA THERE, {{PLAYER_UPPER}}! Did Karpathy call you and tell you that you could just stroll right through my South Gate?! Not on my watch! Last week I turned away three AI VPs who thought ChatGPT has a tiny philosopher inside. Tell me: what is an LLM actually doing when it replies?”",
             choices: [
               {{ label: "🤔 Karpathy didn't warn me! Break it down for me like I'm 12.", next: 1 }},
               {{ label: "😎 It's playing a one-word relay game with a weighted die — show me your trick!", next: 1 }},
@@ -2045,7 +2709,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
           }}
         ],
         clearedDialogue: {{
-          text: "“🫡 Welcome back through the South Gate, Ashwin! You already passed my Security Boom Check — the barrier stays wide open for you. Want to revise Chapter 1 (Temperature, Top-P & Post-Training), re-run the Python lab, or head straight to your next campus mission?”",
+          text: "“🫡 Welcome back through the South Gate, {{PLAYER}}! You already passed my Security Boom Check — the barrier stays wide open for you. Want to revise Chapter 1 (Temperature, Top-P & Post-Training), re-run the Python lab, or head straight to your next campus mission?”",
           choices: [
             {{ label: "📖 Revise Chapter 1 & Temperature/Top-P Playground", action: "openStory" }},
             {{ label: "🧪 Re-open Chapter 1 Runnable Python Lab", action: "openLab" }},
@@ -2066,7 +2730,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         x: 225, y: 445, interactRadius: 95,
         dialogue: [
           {{
-            text: "“Hey Ashwin! You got Officer Rajan to lift the boom gate! Look at these 3 parked cars in my lot: [str #496], [aw #675], and [berry #15717]. Ever wondered why a billion-dollar AI embarrassed itself counting the letter 'r' in 'strawberry'?”",
+            text: "“Hey {{PLAYER}}! You got Officer Rajan to lift the boom gate! Look at these 3 parked cars in my lot: [str #496], [aw #675], and [berry #15717]. Ever wondered why a billion-dollar AI embarrassed itself counting the letter 'r' in 'strawberry'?”",
             choices: [
               {{ label: "🍓 Wait — why CAN'T it count the three r's in strawberry?", next: 1 }},
               {{ label: "🇮🇳 And why does Hindi cost 3.3x more tokens than English?", next: 1 }},
@@ -2082,7 +2746,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
           }}
         ],
         clearedDialogue: {{
-          text: "“Hey Ashwin! Your Parking Lot Barcode pass is already stamped ✓. Swing by anytime you want to test custom words in my live BPE Chopper, review regex pre-tokenization & the 3.3x Hindi tax, or walk over to your next stop!”",
+          text: "“Hey {{PLAYER}}! Your Parking Lot Barcode pass is already stamped ✓. Swing by anytime you want to test custom words in my live BPE Chopper, review regex pre-tokenization & the 3.3x Hindi tax, or walk over to your next stop!”",
           choices: [
             {{ label: "📖 Revise Chapter 2 & Live Barcode Chopper", action: "openStory" }},
             {{ label: "🧪 Re-open BPE Python Lab (42 → 14 tokens)", action: "openLab" }},
@@ -2103,7 +2767,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         x: 355, y: 295, interactRadius: 95,
         dialogue: [
           {{
-            text: "“Pull up a chair under the umbrella, Ashwin! In Maya's dictionary, barcode #40,000 ('coffee') sits right next to #40,001 ('coffin'). Why doesn't the AI accidentally serve you a coffin when you order filter coffee?”",
+            text: "“Pull up a chair under the umbrella, {{PLAYER}}! In Maya's dictionary, barcode #40,000 ('coffee') sits right next to #40,001 ('coffin'). Why doesn't the AI accidentally serve you a coffin when you order filter coffee?”",
             choices: [
               {{ label: "☕ Because you trade the barcode for GPS coordinates in the Cafeteria?", next: 1 }},
               {{ label: "👑 Show me how `king - man + woman = queen` actually works in math!", next: 1 }},
@@ -2119,7 +2783,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
           }}
         ],
         clearedDialogue: {{
-          text: "“Fresh cutting chai on the house, Ashwin! You already cleared the Cafeteria Meaning Map ✓. Want to spin the 2D Vector Angle Compass, revisit the Antonym Trap (+0.8234) & Hybrid Search, or head to your next mission?”",
+          text: "“Fresh cutting chai on the house, {{PLAYER}}! You already cleared the Cafeteria Meaning Map ✓. Want to spin the 2D Vector Angle Compass, revisit the Antonym Trap (+0.8234) & Hybrid Search, or head to your next mission?”",
           choices: [
             {{ label: "📖 Revise Chapter 3 & Vector Angle Compass", action: "openStory" }},
             {{ label: "🧪 Re-open 4D Embeddings Python Lab", action: "openLab" }},
@@ -2140,7 +2804,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         x: 610, y: 358, interactRadius: 95,
         dialogue: [
           {{
-            text: "“Listen to the fountain, Ashwin. People think when they chat with an AI for an hour, the AI is 'getting to know them.' False! The AI is an Amnesia Chef whose brain resets to zero after every single reply. All it ever sees is what fits on a fixed-size lunch tray right now!”",
+            text: "“Listen to the fountain, {{PLAYER}}. People think when they chat with an AI for an hour, the AI is 'getting to know them.' False! The AI is an Amnesia Chef whose brain resets to zero after every single reply. All it ever sees is what fits on a fixed-size lunch tray right now!”",
             choices: [
               {{ label: "🍱 What happens when the lunch tray fills up on Turn 4?", next: 1 }},
               {{ label: "📉 Why do facts buried in the middle of a huge prompt get ignored?", next: 1 }},
@@ -2156,7 +2820,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
           }}
         ],
         clearedDialogue: {{
-          text: "“Great to see you back by the Quad Fountain, Ashwin! You've mastered Context Windows & KV Prefix Caching ✓. Want to revise Chapter 4, inspect the O(N²) lab output, or walk into the Academic Halls?”",
+          text: "“Great to see you back by the Quad Fountain, {{PLAYER}}! You've mastered Context Windows & KV Prefix Caching ✓. Want to revise Chapter 4, inspect the O(N²) lab output, or walk into the Academic Halls?”",
           choices: [
             {{ label: "📖 Revise Chapter 4 & Lunch Tray + KV Cache Simulator", action: "openStory" }},
             {{ label: "🧪 Re-open Context Window & KV Cache Python Lab", action: "openLab" }},
@@ -2440,7 +3104,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       const roleEl = document.getElementById("rpg-speaker-role");
       roleEl.innerText = isCleared ? `✓ CLEARED · REVISION MODE · ${{stop.npcRole}}` : stop.npcRole;
       roleEl.style.color = isCleared ? "var(--meadow)" : "";
-      playTypewriterText("rpg-speech-text", node.text);
+      playTypewriterText("rpg-speech-text", personalize(node.text));
 
       const choicesEl = document.getElementById("rpg-choices");
       choicesEl.innerHTML = node.choices.map((c, i) => `
@@ -3489,10 +4153,14 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
         draw3DCaricaturePortrait(rpgPortraitCtx, 192, 192, state.activePortraitStyle, state.tick);
       }}
       if (document.getElementById("cinema-backdrop").classList.contains("open")) {{
+        const sc = CINEMA_SCENES[cinemaIdx] || CINEMA_SCENES[0];
         const cCanv = document.getElementById("cinema-portrait-canvas");
-        if (cCanv) {{
-          const sc = CINEMA_SCENES[cinemaIdx] || CINEMA_SCENES[0];
+        if (cCanv && document.getElementById("cinema-story-stage").style.display !== "none") {{
           draw3DCaricaturePortrait(cCanv.getContext("2d"), 192, 192, sc.portrait, state.tick);
+        }}
+        const ringCanv = document.getElementById("cinema-call-avatar");
+        if (ringCanv && document.getElementById("cinema-call-ring-stage").classList.contains("active")) {{
+          draw3DCaricaturePortrait(ringCanv.getContext("2d"), 224, 224, "karpathy", state.tick);
         }}
       }}
 
@@ -4485,6 +5153,7 @@ def _render_university_index(curriculum: dict, lessons: dict[str, dict], code_by
       }}
     }}
 
+    syncPlayerIdentityUI();
     refreshHudAndPins();
     requestAnimationFrame(loop);
 
